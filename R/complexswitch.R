@@ -21,9 +21,9 @@
 #'   \item{mrt_pure}{Mean reaction time for non-mixed blocks.}
 #'   \item{mrt_repeat}{Mean reaction time for repeat trials.}
 #'   \item{mrt_switch}{Mean reaction time for switch trials.}
-#'   \item{switch_cost_gen_rt}{General switch cost (based on mean reation
+#'   \item{switch_cost_gen_rt}{General switch cost (based on mean reaction
 #'     times).}
-#'   \item{switch_cost_spe_rt}{Specific switch cost (based on mean reation
+#'   \item{switch_cost_spe_rt}{Specific switch cost (based on mean reaction
 #'     times).}
 #'   \item{nc}{Count of correct responses.}
 #'   \item{is_normal}{Checking result whether the data is normal.}
