@@ -36,5 +36,6 @@ times).}
 \item{is_normal}{Checking result whether the data is normal.}
 }
 \description{
-This is just to find out the count of correct responses.
+Complex switch game, just as the name implied, switch cost will be of
+interest. For its complexity, congruency effect will be calculated, too.
 }

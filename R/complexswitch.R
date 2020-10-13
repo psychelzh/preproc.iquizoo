@@ -1,6 +1,7 @@
 #' Calculates index scores for complex switch games
 #'
-#' This is just to find out the count of correct responses.
+#' Complex switch game, just as the name implied, switch cost will be of
+#' interest. For its complexity, congruency effect will be calculated, too.
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
