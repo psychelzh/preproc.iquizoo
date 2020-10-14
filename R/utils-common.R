@@ -102,16 +102,18 @@ calc_switch_cost <- function(data,
 #'
 #' Input data require several variables to be existed, and some variables can
 #' have alternatives. Here we check if all the variables exist, and if only one
-#' of the alternatives exist. If the check is passed, the matched result will be
-#' returned, or a `FALSE` value will be returned.
+#' of the alternatives exists for each variable. If the check is passed, the
+#' matched result (a character vector) will be returned, or else a `NULL` value
+#' will be returned.
 #'
 #' @param data Required. Raw data, a `data.frame`.
 #' @param vars_required Required. A `data.frame` containing the configuration of
-#'   required variables. At least contains `name` variable, which lists all of
-#'   the required variable names, each element of which is a character vector
-#'   containing all the possible names.
+#'   required variables. At least contains
+#'   * `field`: Name references of all data variable names.
+#'   * `name`: Data variable names, in which lists all the possible names for
+#'     current data variable.
 match_data_vars <- function(data, vars_required) {
-  var_chk_result <- vars_required %>%
+  vars_chk_result <- vars_required %>%
     dplyr::mutate(
       purrr::map_df(
         .data$name,
@@ -131,13 +133,17 @@ match_data_vars <- function(data, vars_required) {
         }
       )
     )
-  if (!all(var_chk_result$is_found)) {
+  if (!all(vars_chk_result$is_found)) {
     warning("At least one of the required variables are missing.")
-    return(FALSE)
+    return(NULL)
   }
-  if (any(var_chk_result$is_confused)) {
+  if (any(vars_chk_result$is_confused)) {
     warning("At least one of the variables have more than one match.")
-    return(FALSE)
+    return(NULL)
   }
-  return(var_chk_result)
+  return(
+    vars_chk_result %>%
+      dplyr::select(.data$field, .data$matched) %>%
+      tibble::deframe()
+  )
 }

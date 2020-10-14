@@ -25,8 +25,8 @@ stopsignal <- function(data, ...) {
     "name_acc", "ACC",
     "name_rt", "RT"
   )
-  vars_chk_result <- match_data_vars(data, vars_required)
-  if (isFALSE(vars_chk_result)) {
+  vars_matched <- match_data_vars(data, vars_required)
+  if (is.null(vars_matched)) {
     return(
       rlang::set_names(
         rep(NA, length(vars_output)),

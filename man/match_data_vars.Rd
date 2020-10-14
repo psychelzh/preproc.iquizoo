@@ -10,13 +10,17 @@ match_data_vars(data, vars_required)
 \item{data}{Required. Raw data, a \code{data.frame}.}
 
 \item{vars_required}{Required. A \code{data.frame} containing the configuration of
-required variables. At least contains \code{name} variable, which lists all of
-the required variable names, each element of which is a character vector
-containing all the possible names.}
+required variables. At least contains
+\itemize{
+\item \code{field}: Name references of all data variable names.
+\item \code{name}: Data variable names, in which lists all the possible names for
+current data variable.
+}}
 }
 \description{
 Input data require several variables to be existed, and some variables can
 have alternatives. Here we check if all the variables exist, and if only one
-of the alternatives exist. If the check is passed, the matched result will be
-returned, or a \code{FALSE} value will be returned.
+of the alternatives exists for each variable. If the check is passed, the
+matched result (a character vector) will be returned, or else a \code{NULL} value
+will be returned.
 }

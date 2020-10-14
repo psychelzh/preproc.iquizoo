@@ -46,8 +46,8 @@ complexswitch <- function(data, ...) {
     "name_acc", c("Acc", "ACC"),
     "name_rt", "RT"
   )
-  vars_chk_result <- match_data_vars(data, vars_required)
-  if (isFALSE(vars_chk_result)) {
+  vars_matched <- match_data_vars(data, vars_required)
+  if (is.null(vars_matched)) {
     return(
       rlang::set_names(
         rep(NA, length(vars_output)),
@@ -57,9 +57,6 @@ complexswitch <- function(data, ...) {
         tibble::add_column(is_normal = FALSE)
     )
   }
-  vars_matched <- vars_chk_result %>%
-    dplyr::select(.data$field, .data$matched) %>%
-    tibble::deframe()
   data <- data %>%
     dplyr::mutate(
       acc_adj = dplyr::if_else(
