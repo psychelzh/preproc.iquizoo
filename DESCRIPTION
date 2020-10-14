@@ -17,6 +17,7 @@ Imports:
     dplyr,
     jsonlite,
     magrittr,
+    pracma,
     purrr,
     rlang (>= 0.1.2),
     stringr,
