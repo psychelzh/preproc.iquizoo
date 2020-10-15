@@ -21,7 +21,6 @@
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
 dualtask <- function(data, ...) {
-  . <- NULL
   if (!all(utils::hasName(data, c("Side", "StimType", "ACC", "RT")))) {
     warning("`Side`, `StimType`, `ACC` and `RT` variables are required.")
     return(
