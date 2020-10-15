@@ -18,19 +18,25 @@
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
 congeff <- function(data, ...) {
-  if (!all(utils::hasName(data, c("Type", "ACC", "RT")))) {
-    warning("`Type`, `ACC` and `RT` variables are required.")
+  vars_output <- c(
+    "mrt_inc", "mrt_con", "cong_eff_rt",
+    "pc_inc", "pc_con", "cong_eff_pc", "nc"
+  )
+  vars_required <- tibble::tribble(
+    ~ field, ~ name,
+    "name_cong", "Type",
+    "name_acc", "ACC",
+    "name_rt", "RT"
+  )
+  vars_matched <- match_data_vars(data, vars_required)
+  if (is.null(vars_matched)) {
     return(
-      data.frame(
-        mrt_inc = NA,
-        mrt_con = NA,
-        cong_eff_rt = NA,
-        pc_inc = NA,
-        pc_con = NA,
-        cong_eff_pc = NA,
-        nc = NA,
-        is_normal = FALSE
-      )
+      rlang::set_names(
+        rep(NA, length(vars_output)),
+        nm = vars_output
+      ) %>%
+        tibble::as_tibble_row() %>%
+        tibble::add_column(is_normal = FALSE)
     )
   }
   data_adj <- data %>%

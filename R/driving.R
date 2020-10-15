@@ -9,13 +9,22 @@
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
 driving <- function(data, ...) {
-  if (!all(utils::hasName(data, c("YellowDur", "StillDur", "StillLight")))) {
-    warning("`YellowDur`, `StillDur` and `StillLight` variables are required.")
+  vars_output <- "still_ratio"
+  vars_required <- tibble::tribble(
+    ~ field, ~ name,
+    "name_yellow_dur", "YellowDur",
+    "name_still_dur", "StillDur",
+    "name_still_light", "StillLight"
+  )
+  vars_matched <- match_data_vars(data, vars_required)
+  if (is.null(vars_matched)) {
     return(
-      data.frame(
-        still_ratio = NA_real_,
-        is_normal = FALSE
-      )
+      rlang::set_names(
+        rep(NA, length(vars_output)),
+        nm = vars_output
+      ) %>%
+        tibble::as_tibble_row() %>%
+        tibble::add_column(is_normal = FALSE)
     )
   }
   data.frame(

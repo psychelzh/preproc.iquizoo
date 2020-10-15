@@ -12,28 +12,33 @@
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
 wxpred <- function(data, ...) {
-  if (!all(utils::hasName(data, c("Block", "ACC", "RT")))) {
-    warning("`Block`, `ACC` and `RT` variables are required.")
+  vars_output <- c("pc_b1", "pc_b2", "pc_b3", "pc_b4")
+  vars_required <- tibble::tribble(
+    ~ field, ~ name,
+    "name_block", "Block",
+    "name_acc", "ACC",
+    "name_rt", "RT"
+  )
+  vars_matched <- match_data_vars(data, vars_required)
+  if (is.null(vars_matched)) {
     return(
-      data.frame(
-        pc_b1 = NA_real_,
-        pc_b2 = NA_real_,
-        pc_b3 = NA_real_,
-        pc_b4 = NA_real_,
-        is_normal = FALSE
-      )
+      rlang::set_names(
+        rep(NA, length(vars_output)),
+        nm = vars_output
+      ) %>%
+        tibble::as_tibble_row() %>%
+        tibble::add_column(is_normal = FALSE)
     )
   }
   if (max(data$Block) != 4) {
     warning("Number of blocks is not 4, will return NA values.")
     return(
-      data.frame(
-        pc_b1 = NA_real_,
-        pc_b2 = NA_real_,
-        pc_b3 = NA_real_,
-        pc_b4 = NA_real_,
-        is_normal = FALSE
-      )
+      rlang::set_names(
+        rep(NA, length(vars_output)),
+        nm = vars_output
+      ) %>%
+        tibble::as_tibble_row() %>%
+        tibble::add_column(is_normal = FALSE)
     )
   }
   data_adj <- data %>%

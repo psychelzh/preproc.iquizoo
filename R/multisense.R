@@ -12,16 +12,21 @@
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
 multisense <- function(data, ...) {
-  if (!all(utils::hasName(data, c("Type", "RT")))) {
-    warning("`Type` and `RT` variables are required.")
+  vars_output <- c("mrt_image", "mrt_sound", "mrt_mixed", "mrt_mixadv")
+  vars_required <- tibble::tribble(
+    ~ field, ~ name,
+    "name_type", "Type",
+    "name_rt", "RT"
+  )
+  vars_matched <- match_data_vars(data, vars_required)
+  if (is.null(vars_matched)) {
     return(
-      data.frame(
-        mrt_image = NA_real_,
-        mrt_sound = NA_real_,
-        mrt_mixed = NA_real_,
-        mrt_mixadv = NA_real_,
-        is_normal = FALSE
-      )
+      rlang::set_names(
+        rep(NA, length(vars_output)),
+        nm = vars_output
+      ) %>%
+        tibble::as_tibble_row() %>%
+        tibble::add_column(is_normal = FALSE)
     )
   }
   data %>%

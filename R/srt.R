@@ -9,13 +9,20 @@
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
 srt <- function(data, ...) {
-  if (!all(utils::hasName(data, "RT"))) {
-    warning("`RT` variable is required.")
+  vars_output <- "mrt"
+  vars_required <- tibble::tribble(
+    ~ field, ~ name,
+    "name_rt", "RT"
+  )
+  vars_matched <- match_data_vars(data, vars_required)
+  if (is.null(vars_matched)) {
     return(
-      data.frame(
-        mrt = NA_real_,
-        is_normal = FALSE
-      )
+      rlang::set_names(
+        rep(NA, length(vars_output)),
+        nm = vars_output
+      ) %>%
+        tibble::as_tibble_row() %>%
+        tibble::add_column(is_normal = FALSE)
     )
   }
   data_valid <- data %>%

@@ -10,14 +10,20 @@
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
 locmem <- function(data, ...) {
-  if (!all(utils::hasName(data, "RespLocDist"))) {
-    warning("`RespLocDist` variable is required.")
+  vars_output <- c("mean_dist", "pc")
+  vars_required <- tibble::tribble(
+    ~ field, ~ name,
+    "name_dist_loc", "RespLocDist"
+  )
+  vars_matched <- match_data_vars(data, vars_required)
+  if (is.null(vars_matched)) {
     return(
-      data.frame(
-        mean_dist = NA_real_,
-        pc = NA_real_,
-        is_normal = FALSE
-      )
+      rlang::set_names(
+        rep(NA, length(vars_output)),
+        nm = vars_output
+      ) %>%
+        tibble::as_tibble_row() %>%
+        tibble::add_column(is_normal = FALSE)
     )
   }
   delim <- "-"

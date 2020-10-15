@@ -21,21 +21,29 @@
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
 switchcost <- function(data, ...) {
-  if (!all(utils::hasName(data, c("Block", "Task", "Type", "ACC", "RT")))) {
-    warning("`Block`, `Task`, `Type`, `ACC` and `RT` variables are required.")
+  vars_output <- c(
+    "rc_mixed", "rc_pure", "switch_cost_rc_gen",
+    "mrt_pure", "mrt_repeat", "mrt_switch",
+    "switch_cost_rt_gen", "switch_cost_rt_spe",
+    "nc"
+  )
+  vars_required <- tibble::tribble(
+    ~ field, ~ name,
+    "name_block", "Block",
+    "name_task", "Task",
+    "name_switch", "Type",
+    "name_acc", "ACC",
+    "name_rt", "RT"
+  )
+  vars_matched <- match_data_vars(data, vars_required)
+  if (is.null(vars_matched)) {
     return(
-      data.frame(
-        rc_pure = NA,
-        rc_mixed = NA,
-        switch_cost_rc_gen = NA,
-        mrt_pure = NA,
-        mrt_repeat = NA,
-        mrt_switch = NA,
-        switch_cost_rt_gen = NA,
-        switch_cost_rt_spe = NA,
-        nc = NA,
-        is_normal = FALSE
-      )
+      rlang::set_names(
+        rep(NA, length(vars_output)),
+        nm = vars_output
+      ) %>%
+        tibble::as_tibble_row() %>%
+        tibble::add_column(is_normal = FALSE)
     )
   }
   # summarize information of each block

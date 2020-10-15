@@ -12,16 +12,22 @@
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
 jlo <- function(data, ...) {
-  if (!all(utils::hasName(data, c("Angle", "Resp", "ACC")))) {
-    warning("`Angle`, `Resp` and `ACC` variables are required.")
+  vars_output <- c("nc", "ne", "ne_ln", "ne_sqrt")
+  vars_required <- tibble::tribble(
+    ~ field, ~ name,
+    "name_angle", "Angle",
+    "name_resp", "Resp",
+    "name_acc", "ACC"
+  )
+  vars_matched <- match_data_vars(data, vars_required)
+  if (is.null(vars_matched)) {
     return(
-      data.frame(
-        nc = NA_real_,
-        ne = NA_real_,
-        ne_ln = NA_real_,
-        ne_sqrt = NA_real_,
-        is_normal = FALSE
-      )
+      rlang::set_names(
+        rep(NA, length(vars_output)),
+        nm = vars_output
+      ) %>%
+        tibble::as_tibble_row() %>%
+        tibble::add_column(is_normal = FALSE)
     )
   }
   nc <- data %>%

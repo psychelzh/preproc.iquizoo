@@ -22,21 +22,27 @@
 #' @export
 dualtask <- function(data, ...) {
   . <- NULL
-  if (!all(utils::hasName(data, c("Side", "StimType", "ACC", "RT")))) {
-    warning("`Side`, `StimType`, `ACC` and `RT` variables are required.")
+  vars_output <- c(
+    "mrt_all", "mrt_left", "mrt_right",
+    "nc_all", "nc_left", "nc_right",
+    "dprime_all", "dprime_left", "dprime_right"
+  )
+  vars_required <- tibble::tribble(
+    ~ field, ~ name,
+    "name_side", "Side",
+    "name_type", "StimType",
+    "name_acc", "ACC",
+    "name_rt", "RT"
+  )
+  vars_matched <- match_data_vars(data, vars_required)
+  if (is.null(vars_matched)) {
     return(
-      data.frame(
-        mrt_all = NA,
-        mrt_left = NA,
-        mrt_right = NA,
-        nc_all = NA,
-        nc_left = NA,
-        nc_right = NA,
-        dprime_all = NA,
-        dprime_left = NA,
-        dprime_right = NA,
-        is_normal = FALSE
-      )
+      rlang::set_names(
+        rep(NA, length(vars_output)),
+        nm = vars_output
+      ) %>%
+        tibble::as_tibble_row() %>%
+        tibble::add_column(is_normal = FALSE)
     )
   }
   data_adj <- data %>%

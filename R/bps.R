@@ -13,17 +13,24 @@
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
 bps <- function(data, ...) {
-  if (!all(utils::hasName(data, c("Phase", "Resp", "Type", "RT", "ACC")))) {
-    warning("`Phase`, `Resp`, `Type`, `RT` and `ACC` variables are required.")
+  vars_output <- c("pc", "p_sim_lure", "p_sim_foil", "p_sim_old", "bps_score")
+  vars_required <- tibble::tribble(
+    ~ field, ~ name,
+    "name_phase", "Phase",
+    "name_type", "Type",
+    "name_resp", "Resp",
+    "name_acc", "ACC",
+    "name_rt", "RT"
+  )
+  vars_matched <- match_data_vars(data, vars_required)
+  if (is.null(vars_matched)) {
     return(
-      data.frame(
-        pc = NA_real_,
-        p_sim_lure = NA_real_,
-        p_sim_foil = NA_real_,
-        p_sim_old = NA_real_,
-        bps_score = NA_real_,
-        is_normal = FALSE
-      )
+      rlang::set_names(
+        rep(NA, length(vars_output)),
+        nm = vars_output
+      ) %>%
+        tibble::as_tibble_row() %>%
+        tibble::add_column(is_normal = FALSE)
     )
   }
   pc_all <- data %>%
