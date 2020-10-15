@@ -1,7 +1,8 @@
 #' Calculates index scores for complex switch games
 #'
 #' Complex switch game, just as the name implied, switch cost will be of
-#' interest. For its complexity, congruency effect will be calculated, too.
+#' interest. For its complexity, congruency effect will be calculated, too. In
+#' fact it is just a combination of [congeff()] and [switchcost()].
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
@@ -14,6 +15,7 @@
 #'   \item{pc_inc}{Percent of correct for incogruent trials.}
 #'   \item{cong_eff_pc}{Congruency effect of percent of correct (PC), i.e., PC
 #'     congruency - PC incongruency.}
+#'   \item{rc_all}{Count of correct responses per minute for all blocks.}
 #'   \item{rc_mixed}{Count of correct responses per minute for mixed blocks.}
 #'   \item{rc_pure}{Count of correct responses per minute for pure blocks.}
 #'   \item{switch_cost_rc_gen}{General switch cost (based on count of correct
@@ -25,17 +27,15 @@
 #'     times).}
 #'   \item{switch_cost_spe_rt}{Specific switch cost (based on mean reaction
 #'     times).}
-#'   \item{nc}{Count of correct responses.}
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
 complexswitch <- function(data, ...) {
   vars_output <- c(
     "mrt_con", "mrt_inc", "cong_eff_rt",
     "pc_con", "pc_inc", "cong_eff_pc",
-    "rc_mixed", "rc_pure", "switch_cost_rc_gen",
+    "rc_all", "rc_mixed", "rc_pure", "switch_cost_rc_gen",
     "mrt_pure", "mrt_repeat", "mrt_switch",
-    "switch_cost_rt_gen", "switch_cost_rt_spe",
-    "nc"
+    "switch_cost_rt_gen", "switch_cost_rt_spe"
   )
   vars_required <- tibble::tribble(
     ~field, ~name,
@@ -91,12 +91,11 @@ complexswitch <- function(data, ...) {
     name_switch = vars_matched[["name_switch"]],
     name_acc = vars_matched[["name_acc"]]
   )
-  nc_and_validation <- data %>%
+  validation <- data %>%
     dplyr::summarise(nt = dplyr::n(), nc = sum(.data$acc_adj == 1)) %>%
     dplyr::transmute(
-      .data$nc,
-      is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 0.5) ||
-        any(block_info$has_no_response)
+      is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 0.5) &&
+        !any(block_info$has_no_response)
     )
-  tibble(cong_eff, switch_cost, nc_and_validation)
+  tibble(cong_eff, switch_cost, validation)
 }
