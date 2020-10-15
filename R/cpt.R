@@ -5,7 +5,7 @@
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A `data.frame` contains following values:
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{dprime}{Sensitivity (d').}
 #'   \item{c}{Bias index.}
 #'   \item{hits}{Number of hits.}
@@ -17,20 +17,26 @@
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
 cpt <- function(data, ...) {
-  if (!all(utils::hasName(data, c("Type", "RT", "ACC")))) {
-    warning("`Type`, `RT` and `ACC` variables are required.")
+  vars_output <- c(
+    "dprime", "c",
+    "hits", "commissions", "omissions", "count_error",
+    "mrt", "rtsd"
+  )
+  vars_required <- tibble::tribble(
+    ~field, ~name,
+    "name_type", "Type",
+    "name_acc", "ACC",
+    "name_rt", "RT"
+  )
+  vars_matched <- match_data_vars(data, vars_required)
+  if (is.null(vars_matched)) {
     return(
-      data.frame(
-        dprime = NA_real_,
-        c = NA_real_,
-        hits = NA_real_,
-        commissions = NA_real_,
-        omissions = NA_real_,
-        count_error = NA_real_,
-        mrt = NA_real_,
-        rtsd = NA_real_,
-        is_normal = FALSE
-      )
+      rlang::set_names(
+        rep(NA, length(vars_output)),
+        nm = vars_output
+      ) %>%
+        tibble::as_tibble_row() %>%
+        tibble::add_column(is_normal = FALSE)
     )
   }
   data_adj <- data %>%
@@ -79,5 +85,5 @@ cpt <- function(data, ...) {
   is_normal <- data_adj %>%
     dplyr::summarise(nt = dplyr::n(), nc = sum(.data$acc_adj == 1)) %>%
     dplyr::transmute(is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 0.5))
-  cbind(sdt, counts, rt, is_normal)
+  tibble(sdt, counts, rt, is_normal)
 }

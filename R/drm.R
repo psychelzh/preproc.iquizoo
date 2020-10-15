@@ -6,7 +6,7 @@
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A `data.frame` contains following values:
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{pc}{Percent of correct responses.}
 #'   \item{p_old_lure}{Percent of old response for "lure" stimuli.}
 #'   \item{p_old_foil}{Percent of old response for "foil" stimuli.}
@@ -15,17 +15,25 @@
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
 drm <- function(data, ...) {
-  if (!all(utils::hasName(data, c("Type", "RT", "ACC")))) {
-    warning("`Type`, `RT` and `ACC` variables are required.")
+  vars_output <- c(
+    "pc", "p_old_lure", "p_old_foil",
+    "fm_ratio", "fm_dprime"
+  )
+  vars_required <- tibble::tribble(
+    ~field, ~name,
+    "name_type", "Type",
+    "name_acc", "ACC",
+    "name_rt", "RT"
+  )
+  vars_matched <- match_data_vars(data, vars_required)
+  if (is.null(vars_matched)) {
     return(
-      data.frame(
-        pc = NA_real_,
-        p_old_lure = NA_real_,
-        p_old_foil = NA_real_,
-        fm_ratio = NA_real_,
-        fm_dprime = NA_real_,
-        is_normal = FALSE
-      )
+      rlang::set_names(
+        rep(NA, length(vars_output)),
+        nm = vars_output
+      ) %>%
+        tibble::as_tibble_row() %>%
+        tibble::add_column(is_normal = FALSE)
     )
   }
   pc_all <- data %>%
@@ -44,5 +52,5 @@ drm <- function(data, ...) {
     dplyr::mutate(acc_adj = dplyr::if_else(.data$RT >= 100, .data$ACC, 0L)) %>%
     dplyr::summarise(nt = dplyr::n(), nc = sum(.data$acc_adj == 1)) %>%
     dplyr::transmute(is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 0.5))
-  cbind(pc_all, fm, is_normal)
+  tibble(pc_all, fm, is_normal)
 }

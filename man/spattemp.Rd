@@ -12,7 +12,7 @@ spattemp(data, ...)
 \item{...}{Other input argument for future expansion.}
 }
 \value{
-A \code{data.frame} contains following values:
+A \link[tibble:tibble-package]{tibble} contains following values:
 \item{pc_order}{Percent of correct in temporal order judgment.}
 \item{pc_loc}{Percent of correct (distance equals to 0) in location
 judgment.}

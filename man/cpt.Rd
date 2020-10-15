@@ -12,7 +12,7 @@ cpt(data, ...)
 \item{...}{Other input argument for future expansion.}
 }
 \value{
-A \code{data.frame} contains following values:
+A \link[tibble:tibble-package]{tibble} contains following values:
 \item{dprime}{Sensitivity (d').}
 \item{c}{Bias index.}
 \item{hits}{Number of hits.}

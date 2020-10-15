@@ -4,17 +4,20 @@
 \alias{match_data_vars}
 \title{Get the matched variables for input data}
 \usage{
-match_data_vars(data, vars_required)
+match_data_vars(data, vars_config)
 }
 \arguments{
 \item{data}{Required. Raw data, a \code{data.frame}.}
 
-\item{vars_required}{Required. A \code{data.frame} containing the configuration of
-required variables. At least contains
+\item{vars_config}{Required. A \code{data.frame} containing the configuration of
+required variables. Possible variables are:
 \itemize{
-\item \code{field}: Name references of all data variable names.
-\item \code{name}: Data variable names, in which lists all the possible names for
-current data variable.
+\item \code{field}: Required. Name references of all data variable names.
+\item \code{name}: Required. Data variable names, in which lists all the possible
+names for current data variable.
+\item \code{type}: Optional. Can be "required" (must exist) or "optional" (try to
+match, if not find, \code{NA} is returned and it must be handled in another
+place). If this variable is not specified, it will default to "required".
 }}
 }
 \description{

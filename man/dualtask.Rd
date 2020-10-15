@@ -12,7 +12,7 @@ dualtask(data, ...)
 \item{...}{Other input argument for future expansion.}
 }
 \value{
-A \code{data.frame} contains following values:
+A \link[tibble:tibble-package]{tibble} contains following values:
 \item{mrt_all}{Mean reaction time for all correct trials.}
 \item{mrt_left}{Mean reaction time for correct trials of left side.}
 \item{mrt_right}{Mean reaction time for correct trials of right side.}

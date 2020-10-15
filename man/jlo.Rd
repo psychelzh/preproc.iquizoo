@@ -12,7 +12,7 @@ jlo(data, ...)
 \item{...}{Other input argument for future expansion.}
 }
 \value{
-A \code{data.frame} contains following values:
+A \link[tibble:tibble-package]{tibble} contains following values:
 \item{nc}{Count of correct responses.}
 \item{ne}{Sum of the angle deviations.}
 \item{ne_ln}{Sum of the log of angle deviations.}

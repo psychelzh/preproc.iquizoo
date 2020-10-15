@@ -38,7 +38,7 @@ complexswitch <- function(data, ...) {
     "nc"
   )
   vars_required <- tibble::tribble(
-    ~ field, ~ name,
+    ~field, ~name,
     "name_block", "Block",
     "name_cong", "StimType",
     "name_task", c("Task", "Sex"),

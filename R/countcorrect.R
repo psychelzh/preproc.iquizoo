@@ -4,29 +4,39 @@
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A `data.frame` contains following values:
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{nc}{Count of correct responses.}
 #'   \item{pc}{Percent of correct responses.}
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
 countcorrect <- function(data, ...) {
-  acc_vars <- c("ACC", "Repetition", "Correctness")
-  acc_var_idx <- utils::hasName(data, acc_vars)
-  if (sum(acc_var_idx) != 1) {
-    warning("One and only one accuracy related variable, i.e., `ACC`, `Repetition` or `Correctness`, is required.")
+  vars_output <- c("nc", "pc")
+  vars_required <- tibble::tribble(
+    ~field, ~name,
+    "name_acc", c("ACC", "Repetition", "Correctness")
+  )
+  vars_matched <- match_data_vars(data, vars_required)
+  if (is.null(vars_matched)) {
     return(
-      data.frame(nc = NA, pc = NA, is_normal = FALSE)
+      rlang::set_names(
+        rep(NA, length(vars_output)),
+        nm = vars_output
+      ) %>%
+        tibble::as_tibble_row() %>%
+        tibble::add_column(is_normal = FALSE)
     )
   }
-  acc_var <- acc_vars[acc_var_idx]
   if (utils::hasName(data, "RT")) {
     data_adj <- data %>%
       dplyr::mutate(
-        acc_adj = dplyr::if_else(.data$RT >= 100, .data[[acc_var]], 0L)
+        acc_adj = dplyr::if_else(
+          .data$RT >= 100,
+          .data[[vars_matched[["name_acc"]]]], 0L
+        )
       )
   } else {
     data_adj <- data %>%
-      dplyr::mutate(acc_adj = .data[[acc_var]])
+      dplyr::mutate(acc_adj = .data[[vars_matched[["name_acc"]]]])
   }
   if (is.character(data_adj$acc_adj)) {
     data_adj <- data_adj %>%
@@ -40,7 +50,7 @@ countcorrect <- function(data, ...) {
       ) %>%
       tidyr::unnest(.data$acc_adj)
   }
-  data_adj %>%
+  tibble(data_adj) %>%
     dplyr::summarise(
       nc = sum(.data$acc_adj == 1),
       pc = mean(.data$acc_adj == 1),

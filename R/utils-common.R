@@ -107,13 +107,20 @@ calc_switch_cost <- function(data,
 #' will be returned.
 #'
 #' @param data Required. Raw data, a `data.frame`.
-#' @param vars_required Required. A `data.frame` containing the configuration of
-#'   required variables. At least contains
-#'   * `field`: Name references of all data variable names.
-#'   * `name`: Data variable names, in which lists all the possible names for
-#'     current data variable.
-match_data_vars <- function(data, vars_required) {
-  vars_chk_result <- vars_required %>%
+#' @param vars_config Required. A `data.frame` containing the configuration of
+#'   required variables. Possible variables are:
+#'   * `field`: Required. Name references of all data variable names.
+#'   * `name`: Required. Data variable names, in which lists all the possible
+#'   names for current data variable.
+#'   * `type`: Optional. Can be "required" (must exist) or "optional" (try to
+#'     match, if not find, `NA` is returned and it must be handled in another
+#'     place). If this variable is not specified, it will default to "required".
+match_data_vars <- function(data, vars_config) {
+  # set default type to "required"
+  if (!utils::hasName(vars_config, "type")) {
+    vars_config$type <- "required"
+  }
+  vars_chk_result <- vars_config %>%
     dplyr::mutate(
       purrr::map_df(
         .data$name,
@@ -122,18 +129,13 @@ match_data_vars <- function(data, vars_required) {
           tibble(
             is_found = any(match_result),
             is_confused = sum(match_result) > 1,
-            matched =
-              # the match can be of length 0, so use `if` instead of `if_else`
-              if (.data$is_confused | (!.data$is_found)) {
-                NA
-              } else {
-                .x[match_result]
-              }
+            # the match can be of length 0, so use `if` instead of `if_else`
+            matched = if (sum(match_result) == 1) .x[match_result] else NA
           )
         }
       )
     )
-  if (!all(vars_chk_result$is_found)) {
+  if (!all(vars_chk_result$is_found[vars_chk_result$type == "required"])) {
     warning("At least one of the required variables are missing.")
     return(NULL)
   }

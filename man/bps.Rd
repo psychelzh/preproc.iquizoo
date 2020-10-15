@@ -12,7 +12,7 @@ bps(data, ...)
 \item{...}{Other input argument for future expansion.}
 }
 \value{
-A \code{data.frame} contains following values:
+A \link[tibble:tibble-package]{tibble} contains following values:
 \item{pc}{Percent of correct responses.}
 \item{p_sim_lure}{Percent of similar responses for "lure" stimuli.}
 \item{p_sim_foil}{Percent of similar responses for "foil" stimuli.}

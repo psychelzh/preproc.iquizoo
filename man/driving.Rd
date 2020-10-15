@@ -12,7 +12,7 @@ driving(data, ...)
 \item{...}{Other input argument for future expansion.}
 }
 \value{
-A \code{data.frame} contains following values:
+A \link[tibble:tibble-package]{tibble} contains following values:
 \item{still_ratio}{The ratio of still duration in yellow light state.}
 \item{is_normal}{Checking result whether the data is normal.}
 }

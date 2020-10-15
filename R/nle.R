@@ -5,25 +5,31 @@
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A `data.frame` contains following values:
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mean_err}{Mean absolute error.}
 #'   \item{mean_logerr}{Mean log absolute error.}
 #'   \item{mean_sqrterr}{Mean square root of absolute error.}
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
 nle <- function(data, ...) {
-  if (!all(utils::hasName(data, c("Number", "Resp")))) {
-    warning("`Number` and `Resp` variables are required.")
+  vars_output <- c("mean_err", "mean_logerr", "mean_sqrterr")
+  vars_required <- tibble::tribble(
+    ~field, ~name,
+    "name_number", "Number",
+    "name_resp", "Resp"
+  )
+  vars_matched <- match_data_vars(data, vars_required)
+  if (is.null(vars_matched)) {
     return(
-      data.frame(
-        mean_err = NA_real_,
-        mean_logerr = NA_real_,
-        mean_sqrterr = NA_real_,
-        is_normal = FALSE
-      )
+      rlang::set_names(
+        rep(NA, length(vars_output)),
+        nm = vars_output
+      ) %>%
+        tibble::as_tibble_row() %>%
+        tibble::add_column(is_normal = FALSE)
     )
   }
-  data %>%
+  tibble(data) %>%
     dplyr::mutate(err = abs(.data$Number - .data$Resp)) %>%
     dplyr::summarise(
       mean_err = mean(.data$err),

@@ -5,7 +5,7 @@
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A `data.frame` contains following values:
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{rc_pure}{Count of correct responses per minute for pure blocks.}
 #'   \item{rc_mixed}{Count of correct responses per minute for mixed blocks.}
 #'   \item{switch_cost_rc_gen}{General switch cost (based on count of correct
@@ -21,21 +21,29 @@
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
 switchcost <- function(data, ...) {
-  if (!all(utils::hasName(data, c("Block", "Task", "Type", "ACC", "RT")))) {
-    warning("`Block`, `Task`, `Type`, `ACC` and `RT` variables are required.")
+  vars_output <- c(
+    "rc_mixed", "rc_pure", "switch_cost_rc_gen",
+    "mrt_pure", "mrt_repeat", "mrt_switch",
+    "switch_cost_rt_gen", "switch_cost_rt_spe",
+    "nc"
+  )
+  vars_required <- tibble::tribble(
+    ~field, ~name,
+    "name_block", "Block",
+    "name_task", "Task",
+    "name_switch", "Type",
+    "name_acc", "ACC",
+    "name_rt", "RT"
+  )
+  vars_matched <- match_data_vars(data, vars_required)
+  if (is.null(vars_matched)) {
     return(
-      data.frame(
-        rc_pure = NA,
-        rc_mixed = NA,
-        switch_cost_rc_gen = NA,
-        mrt_pure = NA,
-        mrt_repeat = NA,
-        mrt_switch = NA,
-        switch_cost_rt_gen = NA,
-        switch_cost_rt_spe = NA,
-        nc = NA,
-        is_normal = FALSE
-      )
+      rlang::set_names(
+        rep(NA, length(vars_output)),
+        nm = vars_output
+      ) %>%
+        tibble::as_tibble_row() %>%
+        tibble::add_column(is_normal = FALSE)
     )
   }
   # summarize information of each block
@@ -47,7 +55,7 @@ switchcost <- function(data, ...) {
       type_block = ifelse(
         all(
           is.na(.data$Type) |
-          .data$Type %in% c("preswitch", "postswitch", "Pure", "")
+            .data$Type %in% c("preswitch", "postswitch", "Pure", "")
         ),
         "pure", "mixed"
       ),
@@ -75,5 +83,5 @@ switchcost <- function(data, ...) {
       is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 0.5) ||
         any(block_info$has_no_response)
     )
-  cbind(switch_cost, nc_and_validation)
+  tibble(switch_cost, nc_and_validation)
 }
