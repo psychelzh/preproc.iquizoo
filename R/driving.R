@@ -4,7 +4,7 @@
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A `data.frame` contains following values:
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{still_ratio}{The ratio of still duration in yellow light state.}
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
@@ -27,7 +27,7 @@ driving <- function(data, ...) {
         tibble::add_column(is_normal = FALSE)
     )
   }
-  data.frame(
+  tibble(
     still_dur = data$StillDur %>%
       paste(collapse = "-") %>%
       strsplit("-") %>%

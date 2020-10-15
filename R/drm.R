@@ -6,7 +6,7 @@
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A `data.frame` contains following values:
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{pc}{Percent of correct responses.}
 #'   \item{p_old_lure}{Percent of old response for "lure" stimuli.}
 #'   \item{p_old_foil}{Percent of old response for "foil" stimuli.}
@@ -52,5 +52,5 @@ drm <- function(data, ...) {
     dplyr::mutate(acc_adj = dplyr::if_else(.data$RT >= 100, .data$ACC, 0L)) %>%
     dplyr::summarise(nt = dplyr::n(), nc = sum(.data$acc_adj == 1)) %>%
     dplyr::transmute(is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 0.5))
-  cbind(pc_all, fm, is_normal)
+  tibble(pc_all, fm, is_normal)
 }

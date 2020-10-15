@@ -4,7 +4,7 @@
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A `data.frame` contains following values:
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mean_dist}{Mean distance.}
 #'   \item{pc}{Percentage of correct responses.}
 #'   \item{is_normal}{Checking result whether the data is normal.}
@@ -33,7 +33,7 @@ locmem <- function(data, ...) {
     strsplit(delim) %>%
     unlist() %>%
     as.numeric()
-  data.frame(
+  tibble(
     mean_dist = mean(all_dists),
     pc = mean(all_dists == 0),
     is_normal = TRUE

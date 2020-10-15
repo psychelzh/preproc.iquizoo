@@ -12,7 +12,7 @@ multisense(data, ...)
 \item{...}{Other input argument for future expansion.}
 }
 \value{
-A \code{data.frame} contains following values:
+A \link[tibble:tibble-package]{tibble} contains following values:
 \item{mrt_image}{Mean reaction time of Image stimuli.}
 \item{mrt_sound}{Mean reaction time of Sound stimuli.}
 \item{mrt_mixed}{Mean reaction time of Mixed stimuli.}

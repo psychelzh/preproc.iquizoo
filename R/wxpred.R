@@ -4,7 +4,7 @@
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A `data.frame` contains following values:
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{pc_b1}{Percent of correct responses for block 1.}
 #'   \item{pc_b2}{Percent of correct responses for block 2.}
 #'   \item{pc_b3}{Percent of correct responses for block 3.}
@@ -50,5 +50,5 @@ wxpred <- function(data, ...) {
   is_normal <- data_adj %>%
     dplyr::summarise(nt = dplyr::n(), nc = sum(.data$acc_adj == 1)) %>%
     dplyr::transmute(is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 0.5))
-  cbind(pc, is_normal)
+  tibble(pc, is_normal)
 }

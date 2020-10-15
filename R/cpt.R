@@ -5,7 +5,7 @@
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A `data.frame` contains following values:
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{dprime}{Sensitivity (d').}
 #'   \item{c}{Bias index.}
 #'   \item{hits}{Number of hits.}
@@ -85,5 +85,5 @@ cpt <- function(data, ...) {
   is_normal <- data_adj %>%
     dplyr::summarise(nt = dplyr::n(), nc = sum(.data$acc_adj == 1)) %>%
     dplyr::transmute(is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 0.5))
-  cbind(sdt, counts, rt, is_normal)
+  tibble(sdt, counts, rt, is_normal)
 }

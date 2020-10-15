@@ -4,7 +4,7 @@
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A `data.frame` contains following values:
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{nc}{Count of correct responses.}
 #'   \item{pc}{Percent of correct responses.}
 #'   \item{is_normal}{Checking result whether the data is normal.}
@@ -50,7 +50,7 @@ countcorrect <- function(data, ...) {
       ) %>%
       tidyr::unnest(.data$acc_adj)
   }
-  data_adj %>%
+  tibble(data_adj) %>%
     dplyr::summarise(
       nc = sum(.data$acc_adj == 1),
       pc = mean(.data$acc_adj == 1),

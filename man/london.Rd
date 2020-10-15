@@ -12,7 +12,7 @@ london(data, ...)
 \item{...}{Other input argument for future expansion.}
 }
 \value{
-A \code{data.frame} contains following values:
+A \link[tibble:tibble-package]{tibble} contains following values:
 \item{tscore}{Total score defined by the game itself.}
 \item{ratio_score}{Mean of the ratio between best steps and actual steps.}
 \item{mean_level}{Mean level reached.}

@@ -12,7 +12,7 @@ schulte(data, ...)
 \item{...}{Other input argument for future expansion.}
 }
 \value{
-A \code{data.frame} contains following values:
+A \link[tibble:tibble-package]{tibble} contains following values:
 \item{net_cor}{Net correct count.}
 \item{is_normal}{Checking result whether the data is normal.}
 }

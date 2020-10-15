@@ -6,7 +6,7 @@
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A `data.frame` contains following values:
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{pc}{Percentage of correct responses.}
 #'   \item{mrt}{Mean reaction time.}
 #'   \item{dist_eff}{Distance effect.}
@@ -54,5 +54,5 @@ symncmp <- function(data, ...) {
   is_normal <- data_adj %>%
     dplyr::summarise(nt = dplyr::n(), nc = sum(.data$acc_adj == 1)) %>%
     dplyr::transmute(is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 0.5))
-  cbind(basic, dist_eff, is_normal)
+  tibble(basic, dist_eff, is_normal)
 }

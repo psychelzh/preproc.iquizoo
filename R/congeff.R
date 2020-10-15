@@ -5,7 +5,7 @@
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A `data.frame` contains following values:
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mrt_inc}{Mean reaction time for incogruent trials.}
 #'   \item{mrt_con}{Mean reaction time for congruent trials.}
 #'   \item{cong_eff_rt}{Congruency effect of reaction time (RT), i.e., RT
@@ -48,5 +48,5 @@ congeff <- function(data, ...) {
       .data$nc,
       is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 0.5)
     )
-  cbind(cong_eff, nc_and_validation)
+  tibble(cong_eff, nc_and_validation)
 }

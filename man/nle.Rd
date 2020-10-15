@@ -12,7 +12,7 @@ nle(data, ...)
 \item{...}{Other input argument for future expansion.}
 }
 \value{
-A \code{data.frame} contains following values:
+A \link[tibble:tibble-package]{tibble} contains following values:
 \item{mean_err}{Mean absolute error.}
 \item{mean_logerr}{Mean log absolute error.}
 \item{mean_sqrterr}{Mean square root of absolute error.}

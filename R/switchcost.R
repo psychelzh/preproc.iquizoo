@@ -5,7 +5,7 @@
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A `data.frame` contains following values:
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{rc_pure}{Count of correct responses per minute for pure blocks.}
 #'   \item{rc_mixed}{Count of correct responses per minute for mixed blocks.}
 #'   \item{switch_cost_rc_gen}{General switch cost (based on count of correct
@@ -83,5 +83,5 @@ switchcost <- function(data, ...) {
       is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 0.5) ||
         any(block_info$has_no_response)
     )
-  cbind(switch_cost, nc_and_validation)
+  tibble(switch_cost, nc_and_validation)
 }

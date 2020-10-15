@@ -4,7 +4,7 @@
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A `data.frame` contains following values:
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mean_hits}{Mean of hits for balloons not exploded.}
 #'   \item{mean_hits_raw}{Mean of hits for all balloons.}
 #'   \item{is_normal}{Checking result whether the data is normal.}
@@ -27,7 +27,7 @@ bart <- function(data, ...) {
         tibble::add_column(is_normal = FALSE)
     )
   }
-  data %>%
+  tibble(data) %>%
     dplyr::summarise(
       mean_hits = mean(.data$NHit[.data$Feedback == 1]),
       mean_hits_raw = mean(.data$NHit),

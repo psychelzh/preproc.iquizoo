@@ -12,7 +12,7 @@ countcorrect(data, ...)
 \item{...}{Other input argument for future expansion.}
 }
 \value{
-A \code{data.frame} contains following values:
+A \link[tibble:tibble-package]{tibble} contains following values:
 \item{nc}{Count of correct responses.}
 \item{pc}{Percent of correct responses.}
 \item{is_normal}{Checking result whether the data is normal.}

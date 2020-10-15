@@ -4,7 +4,7 @@
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A `data.frame` contains following values:
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{nc}{Count of correct responses.}
 #'   \item{ne}{Sum of the angle deviations.}
 #'   \item{ne_ln}{Sum of the log of angle deviations.}
@@ -54,5 +54,5 @@ jlo <- function(data, ...) {
       ne_ln = sum(log(abs(.data$Angle - .data$resp_angle) + 1)),
       ne_sqrt = sum(sqrt(abs(.data$Angle - .data$resp_angle)))
     )
-  cbind(nc, ne, is_normal = TRUE)
+  tibble(nc, ne, is_normal = TRUE)
 }

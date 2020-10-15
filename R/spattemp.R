@@ -6,7 +6,7 @@
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A `data.frame` contains following values:
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{pc_order}{Percent of correct in temporal order judgment.}
 #'   \item{pc_loc}{Percent of correct (distance equals to 0) in location
 #'     judgment.}

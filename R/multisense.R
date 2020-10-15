@@ -4,7 +4,7 @@
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A `data.frame` contains following values:
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mrt_image}{Mean reaction time of Image stimuli.}
 #'   \item{mrt_sound}{Mean reaction time of Sound stimuli.}
 #'   \item{mrt_mixed}{Mean reaction time of Mixed stimuli.}

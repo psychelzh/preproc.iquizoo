@@ -5,7 +5,7 @@
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A `data.frame` contains following values:
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{net_cor}{Net correct count.}
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
@@ -27,7 +27,7 @@ schulte <- function(data, ...) {
         tibble::add_column(is_normal = FALSE)
     )
   }
-  data %>%
+  tibble(data) %>%
     dplyr::summarise(
       net_cor = sum(.data$NCorrect) - sum(.data$NError),
       is_normal = TRUE

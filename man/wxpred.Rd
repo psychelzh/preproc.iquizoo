@@ -12,7 +12,7 @@ wxpred(data, ...)
 \item{...}{Other input argument for future expansion.}
 }
 \value{
-A \code{data.frame} contains following values:
+A \link[tibble:tibble-package]{tibble} contains following values:
 \item{pc_b1}{Percent of correct responses for block 1.}
 \item{pc_b2}{Percent of correct responses for block 2.}
 \item{pc_b3}{Percent of correct responses for block 3.}

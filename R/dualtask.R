@@ -8,7 +8,7 @@
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A `data.frame` contains following values:
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mrt_all}{Mean reaction time for all correct trials.}
 #'   \item{mrt_left}{Mean reaction time for correct trials of left side.}
 #'   \item{mrt_right}{Mean reaction time for correct trials of right side.}

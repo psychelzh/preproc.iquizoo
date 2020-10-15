@@ -5,7 +5,7 @@
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A `data.frame` contains following values:
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mrt}{Mean reaction time}
 #'   \item{nc}{Count of correct responses}
 #'   \item{is_normal}{Checking result whether the data is normal.}
@@ -28,7 +28,7 @@ crt <- function(data, ...) {
         tibble::add_column(is_normal = FALSE)
     )
   }
-  data %>%
+  tibble(data) %>%
     dplyr::summarise(
       mrt = mean(.data$RT[.data$ACC == 1]),
       nc = sum(.data$ACC == 1),

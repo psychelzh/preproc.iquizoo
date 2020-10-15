@@ -12,7 +12,7 @@ switchcost(data, ...)
 \item{...}{Other input argument for future expansion.}
 }
 \value{
-A \code{data.frame} contains following values:
+A \link[tibble:tibble-package]{tibble} contains following values:
 \item{rc_pure}{Count of correct responses per minute for pure blocks.}
 \item{rc_mixed}{Count of correct responses per minute for mixed blocks.}
 \item{switch_cost_rc_gen}{General switch cost (based on count of correct

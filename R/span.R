@@ -5,7 +5,7 @@
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A `data.frame` contains following values:
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{max_span}{Maximal span.}
 #'   \item{mean_span}{Mean span.}
 #'   \item{nc}{Count of correct responses.}
@@ -69,5 +69,5 @@ span <- function(data, ...) {
     unlist() %>%
     as.numeric() %>%
     sum()
-  cbind(span_indices, nc, is_normal = TRUE)
+  tibble(span_indices, nc, is_normal = TRUE)
 }

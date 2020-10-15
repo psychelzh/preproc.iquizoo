@@ -12,7 +12,7 @@ congeff(data, ...)
 \item{...}{Other input argument for future expansion.}
 }
 \value{
-A \code{data.frame} contains following values:
+A \link[tibble:tibble-package]{tibble} contains following values:
 \item{mrt_inc}{Mean reaction time for incogruent trials.}
 \item{mrt_con}{Mean reaction time for congruent trials.}
 \item{cong_eff_rt}{Congruency effect of reaction time (RT), i.e., RT

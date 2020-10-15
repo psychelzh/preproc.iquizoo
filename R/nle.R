@@ -5,7 +5,7 @@
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A `data.frame` contains following values:
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mean_err}{Mean absolute error.}
 #'   \item{mean_logerr}{Mean log absolute error.}
 #'   \item{mean_sqrterr}{Mean square root of absolute error.}
@@ -29,7 +29,7 @@ nle <- function(data, ...) {
         tibble::add_column(is_normal = FALSE)
     )
   }
-  data %>%
+  tibble(data) %>%
     dplyr::mutate(err = abs(.data$Number - .data$Resp)) %>%
     dplyr::summarise(
       mean_err = mean(.data$err),
