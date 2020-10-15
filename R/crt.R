@@ -13,7 +13,7 @@
 crt <- function(data, ...) {
   vars_output <- c("mrt", "nc")
   vars_required <- tibble::tribble(
-    ~ field, ~ name,
+    ~field, ~name,
     "name_acc", "ACC",
     "name_rt", "RT"
   )

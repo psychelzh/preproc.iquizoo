@@ -14,7 +14,7 @@
 multisense <- function(data, ...) {
   vars_output <- c("mrt_image", "mrt_sound", "mrt_mixed", "mrt_mixadv")
   vars_required <- tibble::tribble(
-    ~ field, ~ name,
+    ~field, ~name,
     "name_type", "Type",
     "name_rt", "RT"
   )

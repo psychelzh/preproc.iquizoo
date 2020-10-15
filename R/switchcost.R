@@ -28,7 +28,7 @@ switchcost <- function(data, ...) {
     "nc"
   )
   vars_required <- tibble::tribble(
-    ~ field, ~ name,
+    ~field, ~name,
     "name_block", "Block",
     "name_task", "Task",
     "name_switch", "Type",
@@ -55,7 +55,7 @@ switchcost <- function(data, ...) {
       type_block = ifelse(
         all(
           is.na(.data$Type) |
-          .data$Type %in% c("preswitch", "postswitch", "Pure", "")
+            .data$Type %in% c("preswitch", "postswitch", "Pure", "")
         ),
         "pure", "mixed"
       ),

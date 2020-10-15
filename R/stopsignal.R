@@ -19,7 +19,7 @@ stopsignal <- function(data, ...) {
     "medrt_go", "mean_ssd", "ssrt"
   )
   vars_required <- tibble::tribble(
-    ~ field, ~ name,
+    ~field, ~name,
     "name_type", "Type",
     "name_ssd", "SSD",
     "name_acc", "ACC",

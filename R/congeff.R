@@ -23,7 +23,7 @@ congeff <- function(data, ...) {
     "pc_inc", "pc_con", "cong_eff_pc", "nc"
   )
   vars_required <- tibble::tribble(
-    ~ field, ~ name,
+    ~field, ~name,
     "name_cong", "Type",
     "name_acc", "ACC",
     "name_rt", "RT"

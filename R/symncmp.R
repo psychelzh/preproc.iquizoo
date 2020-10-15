@@ -16,7 +16,7 @@
 symncmp <- function(data, ...) {
   vars_output <- c("pc", "mrt", "dist_eff", "dist_eff_adj")
   vars_required <- tibble::tribble(
-    ~ field, ~ name,
+    ~field, ~name,
     "name_big_digit", "Big",
     "name_small_digit", "Small",
     "name_acc", "ACC",

@@ -12,7 +12,7 @@
 countcorrect <- function(data, ...) {
   vars_output <- c("nc", "pc")
   vars_required <- tibble::tribble(
-    ~ field, ~ name,
+    ~field, ~name,
     "name_acc", c("ACC", "Repetition", "Correctness")
   )
   vars_matched <- match_data_vars(data, vars_required)

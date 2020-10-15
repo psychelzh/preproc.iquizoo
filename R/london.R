@@ -15,7 +15,7 @@
 london <- function(data, ...) {
   vars_output <- c("tscore", "ratio_score", "mean_level")
   vars_required <- tibble::tribble(
-    ~ field, ~ name,
+    ~field, ~name,
     "name_level", c("LeveL", "Level"),
     "name_score", "Score",
     "name_outcome", "Outcome"

@@ -14,7 +14,7 @@
 nle <- function(data, ...) {
   vars_output <- c("mean_err", "mean_logerr", "mean_sqrterr")
   vars_required <- tibble::tribble(
-    ~ field, ~ name,
+    ~field, ~name,
     "name_number", "Number",
     "name_resp", "Resp"
   )

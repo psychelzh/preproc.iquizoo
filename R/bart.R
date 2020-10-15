@@ -12,7 +12,7 @@
 bart <- function(data, ...) {
   vars_output <- c("mean_hits", "mean_hits_raw")
   vars_required <- tibble::tribble(
-    ~ field, ~ name,
+    ~field, ~name,
     "name_nhit", "NHit",
     "name_feedback", "Feedback"
   )

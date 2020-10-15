@@ -23,7 +23,7 @@ cpt <- function(data, ...) {
     "mrt", "rtsd"
   )
   vars_required <- tibble::tribble(
-    ~ field, ~ name,
+    ~field, ~name,
     "name_type", "Type",
     "name_acc", "ACC",
     "name_rt", "RT"

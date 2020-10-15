@@ -118,7 +118,7 @@ calc_switch_cost <- function(data,
 match_data_vars <- function(data, vars_config) {
   # set default type to "required"
   if (!utils::hasName(vars_config, "type")) {
-    vars_config$type = "required"
+    vars_config$type <- "required"
   }
   vars_chk_result <- vars_config %>%
     dplyr::mutate(
@@ -129,13 +129,8 @@ match_data_vars <- function(data, vars_config) {
           tibble(
             is_found = any(match_result),
             is_confused = sum(match_result) > 1,
-            matched =
-              # the match can be of length 0, so use `if` instead of `if_else`
-              if (.data$is_confused | (!.data$is_found)) {
-                NA
-              } else {
-                .x[match_result]
-              }
+            # the match can be of length 0, so use `if` instead of `if_else`
+            matched = if (sum(match_result) == 1) .x[match_result] else NA
           )
         }
       )

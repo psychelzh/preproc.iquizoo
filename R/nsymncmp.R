@@ -14,7 +14,7 @@
 nsymncmp <- function(data, ...) {
   vars_output <- c("pc", "mrt", "w")
   vars_required <- tibble::tribble(
-    ~ field, ~ name,
+    ~field, ~name,
     "name_big_count", "BigSetCount",
     "name_small_count", "SmallSetCount",
     "name_acc", "ACC",
@@ -41,8 +41,9 @@ nsymncmp <- function(data, ...) {
     )
   fit_errproof <- purrr::possibly(
     ~ stats::nls(
-      acc_adj ~ 1 - pnorm(0, b - s, w * sqrt(b ^ 2 + s ^ 2)),
-      ., start = list(w = 0.5)
+      acc_adj ~ 1 - pnorm(0, b - s, w * sqrt(b^2 + s^2)),
+      .,
+      start = list(w = 0.5)
     ) %>%
       stats::coef(),
     otherwise = NA_real_

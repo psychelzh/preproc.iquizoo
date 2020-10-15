@@ -12,7 +12,7 @@
 locmem <- function(data, ...) {
   vars_output <- c("mean_dist", "pc")
   vars_required <- tibble::tribble(
-    ~ field, ~ name,
+    ~field, ~name,
     "name_dist_loc", "RespLocDist"
   )
   vars_matched <- match_data_vars(data, vars_required)

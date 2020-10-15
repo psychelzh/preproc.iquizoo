@@ -14,7 +14,7 @@
 span <- function(data, ...) {
   vars_output <- c("max_span", "mean_span", "nc")
   vars_config <- tibble::tribble(
-    ~ type, ~ field, ~ name,
+    ~type, ~field, ~name,
     "required", "name_slen", c("NumTarget", "SLen"),
     "optional", "name_correct", c("Correctness", "AccLoc"),
     "required", "name_outcome", "Outcome"

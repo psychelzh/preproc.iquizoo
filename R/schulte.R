@@ -12,7 +12,7 @@
 schulte <- function(data, ...) {
   vars_output <- "net_cor"
   vars_required <- tibble::tribble(
-    ~ field, ~ name,
+    ~field, ~name,
     "name_ncorrect", "NCorrect",
     "name_nerror", "NError"
   )

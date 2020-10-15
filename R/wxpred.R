@@ -14,7 +14,7 @@
 wxpred <- function(data, ...) {
   vars_output <- c("pc_b1", "pc_b2", "pc_b3", "pc_b4")
   vars_required <- tibble::tribble(
-    ~ field, ~ name,
+    ~field, ~name,
     "name_block", "Block",
     "name_acc", "ACC",
     "name_rt", "RT"

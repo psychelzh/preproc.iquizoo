@@ -11,7 +11,7 @@
 srt <- function(data, ...) {
   vars_output <- c("percent_valid", "mrt")
   vars_required <- tibble::tribble(
-    ~ field, ~ name,
+    ~field, ~name,
     "name_rt", "RT"
   )
   vars_matched <- match_data_vars(data, vars_required)

@@ -28,7 +28,7 @@ dualtask <- function(data, ...) {
     "dprime_all", "dprime_left", "dprime_right"
   )
   vars_required <- tibble::tribble(
-    ~ field, ~ name,
+    ~field, ~name,
     "name_side", "Side",
     "name_type", "StimType",
     "name_acc", "ACC",

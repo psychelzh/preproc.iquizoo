@@ -11,7 +11,7 @@
 driving <- function(data, ...) {
   vars_output <- "still_ratio"
   vars_required <- tibble::tribble(
-    ~ field, ~ name,
+    ~field, ~name,
     "name_yellow_dur", "YellowDur",
     "name_still_dur", "StillDur",
     "name_still_light", "StillLight"

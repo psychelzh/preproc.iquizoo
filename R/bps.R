@@ -15,7 +15,7 @@
 bps <- function(data, ...) {
   vars_output <- c("pc", "p_sim_lure", "p_sim_foil", "p_sim_old", "bps_score")
   vars_required <- tibble::tribble(
-    ~ field, ~ name,
+    ~field, ~name,
     "name_phase", "Phase",
     "name_type", "Type",
     "name_resp", "Resp",

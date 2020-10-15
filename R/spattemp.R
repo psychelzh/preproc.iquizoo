@@ -16,7 +16,7 @@
 spattemp <- function(data, ...) {
   vars_output <- c("pc_order", "pc_loc", "mean_dist")
   vars_required <- tibble::tribble(
-    ~ field, ~ name,
+    ~field, ~name,
     "name_obj_ori", "ObjectID",
     "name_loc_ori", "LocOrigin",
     "name_obj_resp", "RespObjectID",
@@ -45,8 +45,10 @@ spattemp <- function(data, ...) {
     dplyr::select(
       dplyr::all_of(
         vars_matched[
-          c("name_obj_ori", "name_loc_ori",
-            "name_obj_resp", "name_loc_resp")
+          c(
+            "name_obj_ori", "name_loc_ori",
+            "name_obj_resp", "name_loc_resp"
+          )
         ]
       )
     ) %>%
@@ -72,7 +74,7 @@ spattemp <- function(data, ...) {
     tidyr::pivot_wider(
       names_from = "type",
       values_from = "loc",
-      values_fn = function (x) {
+      values_fn = function(x) {
         if (length(x) != 1) list(x) else x
       }
     ) %>%

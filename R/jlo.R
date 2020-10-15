@@ -14,7 +14,7 @@
 jlo <- function(data, ...) {
   vars_output <- c("nc", "ne", "ne_ln", "ne_sqrt")
   vars_required <- tibble::tribble(
-    ~ field, ~ name,
+    ~field, ~name,
     "name_angle", "Angle",
     "name_resp", "Resp",
     "name_acc", "ACC"
