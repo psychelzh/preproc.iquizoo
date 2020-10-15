@@ -1,7 +1,9 @@
 #' Calculates index scores for games related to congruency effect
 #'
 #' Count of correct responses and congruency effect of correct response and
-#' reaction time are all included.
+#' reaction time are all included. The congruency effect here is just the mean
+#' difference between congruenct and incongruent trials. See Stroop effect as an
+#' example.
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
