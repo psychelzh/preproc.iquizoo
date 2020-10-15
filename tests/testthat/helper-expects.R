@@ -53,16 +53,20 @@ test_abnormal <- function(test_fun, result_file, warn_msg, ...) {
 #'
 #' Regularly, a test on the sample data files and a test with empty `data.frame`
 #' input will be performed. This function does all this in a batch.
-test_batch <- function(test_fun, ...,
-                       warn_msg = "At least one of the required variables are missing.") {
-  test_fun_str <- as_name(enquo(test_fun))
-  test_that(
-    stringr::str_glue("`{test_fun_str}` should work on all the sample data"), {
-      sample_files <- list.files(
-        file.path("data", test_fun_str),
-        "sample", full.names = TRUE
-      )
-      for (sample_file in sample_files) {
+test_batch <- function(
+  test_fun_str, ...,
+  warn_msg = "At least one of the required variables are missing."
+) {
+  test_fun <- utils::getFromNamespace(test_fun_str, ns = "dataprocr2")
+  sample_files <- list.files(
+    file.path("data", test_fun_str),
+    "sample", full.names = TRUE
+  )
+  for (sample_file in sample_files) {
+    test_that(
+      stringr::str_glue(
+        "`{test_fun_str}` should work on this sample data: '{sample_file}'"
+      ), {
         sample_label <- stringr::str_extract(sample_file, r"((?<=_)\w+(?=\.))")
         result_file <- file.path(
           dirname(sample_file),
@@ -75,8 +79,8 @@ test_batch <- function(test_fun, ...,
           ...
         )
       }
-    }
-  )
+    )
+  }
   test_that(
     stringr::str_glue(
       "`{test_fun_str}` ",
