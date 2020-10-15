@@ -13,8 +13,10 @@ spattemp(data, ...)
 }
 \value{
 A \code{data.frame} contains following values:
-\item{mean_dist}{Mean distance.}
-\item{pc}{Percentage of correct responses.}
+\item{pc_order}{Percent of correct in temporal order judgment.}
+\item{pc_loc}{Percent of correct (distance equals to 0) in location
+judgment.}
+\item{mean_dist}{Mean distance in location judgment.}
 \item{is_normal}{Checking result whether the data is normal.}
 }
 \description{
