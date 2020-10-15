@@ -27,3 +27,4 @@ of the alternatives exists for each variable. If the check is passed, the
 matched result (a character vector) will be returned, or else a \code{NULL} value
 will be returned.
 }
+\keyword{internal}

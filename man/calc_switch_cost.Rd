@@ -45,3 +45,4 @@ blocks, in which the first is about 'repeat', and the second about
 \description{
 Utility function to calculate indices related to switch cost.
 }
+\keyword{internal}

@@ -9,6 +9,7 @@
 #' @param name_acc The name of the variable in `data` storing accuracy data.
 #' @param values_cong The values of the congruency info variable, in which the
 #'   first is about 'congruent', and the second about 'incongruent'.
+#' @keywords internal
 calc_cong_eff <- function(data,
                           name_cong = "Type",
                           name_rt = "RT",
@@ -53,6 +54,7 @@ calc_cong_eff <- function(data,
 #' @param values_mixed The values of the variable `name_switch` in mixed
 #'   blocks, in which the first is about 'repeat', and the second about
 #'   'switch'.
+#' @keywords internal
 calc_switch_cost <- function(data,
                              config_block,
                              name_block = "Block",
@@ -115,6 +117,7 @@ calc_switch_cost <- function(data,
 #'   * `type`: Optional. Can be "required" (must exist) or "optional" (try to
 #'     match, if not find, `NA` is returned and it must be handled in another
 #'     place). If this variable is not specified, it will default to "required".
+#' @keywords internal
 match_data_vars <- function(data, vars_config) {
   # set default type to "required"
   if (!utils::hasName(vars_config, "type")) {
