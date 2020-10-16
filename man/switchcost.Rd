@@ -13,6 +13,7 @@ switchcost(data, ...)
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
+\item{rc_all}{Count of correct responses per minute for all blocks.}
 \item{rc_pure}{Count of correct responses per minute for pure blocks.}
 \item{rc_mixed}{Count of correct responses per minute for mixed blocks.}
 \item{switch_cost_rc_gen}{General switch cost (based on count of correct
@@ -24,10 +25,12 @@ responses).}
 times).}
 \item{switch_cost_spe_rt}{Specific switch cost (based on mean reaction
 times).}
-\item{nc}{Count of correct responses.}
 \item{is_normal}{Checking result whether the data is normal.}
 }
 \description{
-Count of correct responses and congruency effect of correct response and
-reaction time are all included.
+Count of correct responses per minute and switch cost of correct response and
+reaction time are all included. The switch cost is the mean difference
+between repeat trials and switch trials. There is also one so-called general
+switch cost, which is the mean difference between repeat trials and pure
+blocks.
 }

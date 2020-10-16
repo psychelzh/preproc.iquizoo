@@ -28,3 +28,4 @@ first is about 'congruent', and the second about 'incongruent'.}
 \description{
 Utility function to calculate indices related to congruency effect.
 }
+\keyword{internal}

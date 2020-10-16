@@ -9,6 +9,7 @@
 #' @param name_acc The name of the variable in `data` storing accuracy data.
 #' @param values_cong The values of the congruency info variable, in which the
 #'   first is about 'congruent', and the second about 'incongruent'.
+#' @keywords internal
 calc_cong_eff <- function(data,
                           name_cong = "Type",
                           name_rt = "RT",
@@ -41,9 +42,7 @@ calc_cong_eff <- function(data,
 #' @param config_block Required. A `data.frame` contains the configurations of
 #'   each block. At least contains these variables:
 #'   * Same name as `name_block` argument: The block identifier.
-#'   * `has_no_response`: Logical value indicating whether this block has no
-#'     valid responses or not.
-#'   * `type_block`: The type of each block: "pure" or "mixed".
+#'   * `type_block`: The type of each block: must contain "pure" and "mixed".
 #'   * `dur`: The duration in minutes for each block.
 #' @param name_block The name of the variable in `data` storing block number.
 #' @param name_task The name of variable in `data` storing task info.
@@ -53,6 +52,7 @@ calc_cong_eff <- function(data,
 #' @param values_mixed The values of the variable `name_switch` in mixed
 #'   blocks, in which the first is about 'repeat', and the second about
 #'   'switch'.
+#' @keywords internal
 calc_switch_cost <- function(data,
                              config_block,
                              name_block = "Block",
@@ -62,14 +62,22 @@ calc_switch_cost <- function(data,
                              name_acc = "ACC",
                              values_mixed = c("Repeat", "Switch")) {
   switch_cost_count <- data %>%
+    dplyr::group_by(.data[[name_block]]) %>%
+    dplyr::summarise(nc = sum(.data[[name_acc]] == 1)) %>%
     dplyr::left_join(config_block, by = name_block) %>%
-    dplyr::group_by(.data$type_block, .data[[name_block]]) %>%
-    dplyr::filter(!.data$has_no_response) %>%
-    dplyr::summarise(rc = sum((.data[[name_acc]] == 1) / .data$dur)) %>%
-    dplyr::summarise(rc = mean(.data$rc)) %>%
+    dplyr::group_by(.data$type_block) %>%
+    dplyr::summarise(
+      nc = sum(.data$nc),
+      dur = sum(.data$dur)
+    ) %>%
+    dplyr::transmute(
+      .data$type_block,
+      rc_all = sum(.data$nc) / sum(.data$dur),
+      rc_each = .data$nc / .data$dur
+    ) %>%
     tidyr::pivot_wider(
       names_from = "type_block",
-      values_from = "rc",
+      values_from = "rc_each",
       names_prefix = "rc_"
     ) %>%
     dplyr::mutate(
@@ -115,6 +123,7 @@ calc_switch_cost <- function(data,
 #'   * `type`: Optional. Can be "required" (must exist) or "optional" (try to
 #'     match, if not find, `NA` is returned and it must be handled in another
 #'     place). If this variable is not specified, it will default to "required".
+#' @keywords internal
 match_data_vars <- function(data, vars_config) {
   # set default type to "required"
   if (!utils::hasName(vars_config, "type")) {

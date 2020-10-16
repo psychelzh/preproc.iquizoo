@@ -26,5 +26,7 @@ congruency - PC incongruency.}
 }
 \description{
 Count of correct responses and congruency effect of correct response and
-reaction time are all included.
+reaction time are all included. The congruency effect here is just the mean
+difference between congruenct and incongruent trials. See Stroop effect as an
+example.
 }

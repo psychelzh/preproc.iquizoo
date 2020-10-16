@@ -22,9 +22,7 @@ calc_switch_cost(
 each block. At least contains these variables:
 \itemize{
 \item Same name as \code{name_block} argument: The block identifier.
-\item \code{has_no_response}: Logical value indicating whether this block has no
-valid responses or not.
-\item \code{type_block}: The type of each block: "pure" or "mixed".
+\item \code{type_block}: The type of each block: must contain "pure" and "mixed".
 \item \code{dur}: The duration in minutes for each block.
 }}
 
@@ -45,3 +43,4 @@ blocks, in which the first is about 'repeat', and the second about
 \description{
 Utility function to calculate indices related to switch cost.
 }
+\keyword{internal}

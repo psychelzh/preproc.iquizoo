@@ -21,6 +21,7 @@ incongruency - RT congruency.}
 \item{pc_inc}{Percent of correct for incogruent trials.}
 \item{cong_eff_pc}{Congruency effect of percent of correct (PC), i.e., PC
 congruency - PC incongruency.}
+\item{rc_all}{Count of correct responses per minute for all blocks.}
 \item{rc_mixed}{Count of correct responses per minute for mixed blocks.}
 \item{rc_pure}{Count of correct responses per minute for pure blocks.}
 \item{switch_cost_rc_gen}{General switch cost (based on count of correct
@@ -32,10 +33,10 @@ responses).}
 times).}
 \item{switch_cost_spe_rt}{Specific switch cost (based on mean reaction
 times).}
-\item{nc}{Count of correct responses.}
 \item{is_normal}{Checking result whether the data is normal.}
 }
 \description{
 Complex switch game, just as the name implied, switch cost will be of
-interest. For its complexity, congruency effect will be calculated, too.
+interest. For its complexity, congruency effect will be calculated, too. In
+fact it is just a combination of \code{\link[=congeff]{congeff()}} and \code{\link[=switchcost]{switchcost()}}.
 }

@@ -1,7 +1,7 @@
 Type: Package
 Package: dataprocr2
 Title: Utility Functions for Data Processing of Iquizoo Games
-Version: 0.0.3.9004
+Version: 0.1.0
 Authors@R: 
     person(given = "Liang",
            family = "Zhang",
