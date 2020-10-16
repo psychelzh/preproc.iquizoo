@@ -12,13 +12,11 @@ span(data, ...)
 \item{...}{Other input argument for future expansion.}
 }
 \value{
-A \code{data.frame} contains following values:
-\describe{
-  \item{max_span}{Maximal span.}
-  \item{mean_span}{Mean span.}
-  \item{count_correct}{Count of correct responses.}
-  \item{is_normal}{Checking result whether the data is normal.}
-}
+A \link[tibble:tibble-package]{tibble} contains following values:
+\item{max_span}{Maximal span.}
+\item{mean_span}{Mean span.}
+\item{nc}{Count of correct responses.}
+\item{is_normal}{Checking result whether the data is normal.}
 }
 \description{
 Three indices are returned: maximal span, mean span and count of correct

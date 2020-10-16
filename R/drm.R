@@ -4,39 +4,53 @@
 #' p(old|lure) - p(old|foil)) and fm_dprime (false memory d', i.e.,
 #' z(p(old|lure)) - z(p(old|foil)))
 #'
-#' @param data Raw data of class \code{data.frame}.
+#' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A \code{data.frame} contains following values:
-#' \describe{
+#' @return A [tibble][tibble::tibble-package] contains following values:
+#'   \item{pc}{Percent of correct responses.}
+#'   \item{p_old_lure}{Percent of old response for "lure" stimuli.}
+#'   \item{p_old_foil}{Percent of old response for "foil" stimuli.}
 #'   \item{fm_ratio}{False memory ratio.}
 #'   \item{fm_dprime}{False memory d'.}
 #'   \item{is_normal}{Checking result whether the data is normal.}
-#' }
-#' @importFrom magrittr %>%
-#' @importFrom rlang .data
 #' @export
 drm <- function(data, ...) {
-  if (!all(utils::hasName(data, c("Type", "RT", "ACC")))) {
-    warning("`Type`, `RT` and `ACC` variables are required.")
+  vars_output <- c(
+    "pc", "p_old_lure", "p_old_foil",
+    "fm_ratio", "fm_dprime"
+  )
+  vars_required <- tibble::tribble(
+    ~field, ~name,
+    "name_type", "Type",
+    "name_acc", "ACC",
+    "name_rt", "RT"
+  )
+  vars_matched <- match_data_vars(data, vars_required)
+  if (is.null(vars_matched)) {
     return(
-      data.frame(
-        fm_ratio = NA_real_,
-        fm_dprime = NA_real_,
-        is_normal = FALSE
-      )
+      rlang::set_names(
+        rep(NA, length(vars_output)),
+        nm = vars_output
+      ) %>%
+        tibble::as_tibble_row() %>%
+        tibble::add_column(is_normal = FALSE)
     )
   }
+  pc_all <- data %>%
+    dplyr::summarise(pc = mean(.data$ACC == 1))
   fm <- data %>%
     dplyr::group_by(.data$Type) %>%
     dplyr::summarise(p_old = sum(.data$Resp == "Old") / dplyr::n()) %>%
     tidyr::pivot_wider(names_from = "Type", values_from = "p_old") %>%
     dplyr::transmute(
+      p_old_lure = .data$Lure,
+      p_old_foil = .data$Foil,
       fm_ratio = .data$Lure - .data$Foil,
       fm_dprime = stats::qnorm(.data$Lure) - stats::qnorm(.data$Foil)
     )
   is_normal <- data %>%
     dplyr::mutate(acc_adj = dplyr::if_else(.data$RT >= 100, .data$ACC, 0L)) %>%
-    dplyr::summarise(n = dplyr::n(), count_correct = sum(.data$acc_adj == 1)) %>%
-    dplyr::transmute(is_normal = .data$n > stats::qbinom(0.95, .data$n, 0.5))
-  cbind(fm, is_normal)
+    dplyr::summarise(nt = dplyr::n(), nc = sum(.data$acc_adj == 1)) %>%
+    dplyr::transmute(is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 0.5))
+  tibble(pc_all, fm, is_normal)
 }

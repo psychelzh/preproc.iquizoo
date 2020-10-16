@@ -12,11 +12,9 @@ srt(data, ...)
 \item{...}{Other input argument for future expansion.}
 }
 \value{
-A \code{data.frame} contains following values:
-\describe{
-  \item{mrt}{Mean reaction time}
-  \item{is_normal}{Checking result whether the data is normal.}
-}
+A \link[tibble:tibble-package]{tibble} contains following values:
+\item{mrt}{Mean reaction time}
+\item{is_normal}{Checking result whether the data is normal.}
 }
 \description{
 Mean reaction time is returned.

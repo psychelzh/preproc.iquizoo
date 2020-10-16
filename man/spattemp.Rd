@@ -12,12 +12,12 @@ spattemp(data, ...)
 \item{...}{Other input argument for future expansion.}
 }
 \value{
-A \code{data.frame} contains following values:
-\describe{
-  \item{mean_dist}{Mean distance.}
-  \item{pc}{Percentage of correct responses.}
-  \item{is_normal}{Checking result whether the data is normal.}
-}
+A \link[tibble:tibble-package]{tibble} contains following values:
+\item{pc_order}{Percent of correct in temporal order judgment.}
+\item{pc_loc}{Percent of correct (distance equals to 0) in location
+judgment.}
+\item{mean_dist}{Mean distance in location judgment.}
+\item{is_normal}{Checking result whether the data is normal.}
 }
 \description{
 Mean distance and percentage of correct responses are returned. The only

@@ -12,12 +12,13 @@ drm(data, ...)
 \item{...}{Other input argument for future expansion.}
 }
 \value{
-A \code{data.frame} contains following values:
-\describe{
-  \item{fm_ratio}{False memory ratio.}
-  \item{fm_dprime}{False memory d'.}
-  \item{is_normal}{Checking result whether the data is normal.}
-}
+A \link[tibble:tibble-package]{tibble} contains following values:
+\item{pc}{Percent of correct responses.}
+\item{p_old_lure}{Percent of old response for "lure" stimuli.}
+\item{p_old_foil}{Percent of old response for "foil" stimuli.}
+\item{fm_ratio}{False memory ratio.}
+\item{fm_dprime}{False memory d'.}
+\item{is_normal}{Checking result whether the data is normal.}
 }
 \description{
 Two major indices are included: fm_ratio (false memory ratio, i.e.,

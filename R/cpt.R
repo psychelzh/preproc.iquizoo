@@ -3,36 +3,40 @@
 #' Many indices are returned: d', c (i.e., bias), hits, commissions, ommissions,
 #' mean reaction time (mrt), standard deviation of reaction times (rtsd).
 #'
-#' @param data Raw data of class \code{data.frame}.
+#' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A \code{data.frame} contains following values:
-#' \describe{
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{dprime}{Sensitivity (d').}
 #'   \item{c}{Bias index.}
 #'   \item{hits}{Number of hits.}
 #'   \item{commissions}{Number of errors caused by action.}
 #'   \item{omissions}{Number of errors caused by inaction.}
+#'   \item{count_error}{Count of incorrect responses.}
 #'   \item{mrt}{Mean reaction time of hits.}
 #'   \item{rtsd}{Standard deviation of reaction times of hits.}
 #'   \item{is_normal}{Checking result whether the data is normal.}
-#' }
-#' @importFrom magrittr %>%
-#' @importFrom rlang .data
 #' @export
 cpt <- function(data, ...) {
-  if (!all(utils::hasName(data, c("Type", "RT", "ACC")))) {
-    warning("`Type`, `RT` and `ACC` variables are required.")
+  vars_output <- c(
+    "dprime", "c",
+    "hits", "commissions", "omissions", "count_error",
+    "mrt", "rtsd"
+  )
+  vars_required <- tibble::tribble(
+    ~field, ~name,
+    "name_type", "Type",
+    "name_acc", "ACC",
+    "name_rt", "RT"
+  )
+  vars_matched <- match_data_vars(data, vars_required)
+  if (is.null(vars_matched)) {
     return(
-      data.frame(
-        dprime = NA_real_,
-        c = NA_real_,
-        hits = NA_real_,
-        commissions = NA_real_,
-        omissions = NA_real_,
-        mrt = NA_real_,
-        rtsd = NA_real_,
-        is_normal = FALSE
-      )
+      rlang::set_names(
+        rep(NA, length(vars_output)),
+        nm = vars_output
+      ) %>%
+        tibble::as_tibble_row() %>%
+        tibble::add_column(is_normal = FALSE)
     )
   }
   data_adj <- data %>%
@@ -66,10 +70,11 @@ cpt <- function(data, ...) {
       ne = sum(.data$acc_adj == 0)
     ) %>%
     tidyr::pivot_wider(names_from = "type_adj", values_from = c("nc", "ne")) %>%
-    dplyr::select(
+    dplyr::transmute(
       hits = .data$nc_s,
       commissions = .data$ne_n,
-      omissions = .data$ne_s
+      omissions = .data$ne_s,
+      count_error = .data$ne_n + .data$ne_s
     )
   rt <- data_adj %>%
     dplyr::filter(.data$acc_adj == 1 & .data$type_adj == "s") %>%
@@ -78,7 +83,7 @@ cpt <- function(data, ...) {
       rtsd = stats::sd(.data$RT)
     )
   is_normal <- data_adj %>%
-    dplyr::summarise(n = dplyr::n(), count_correct = sum(.data$acc_adj == 1)) %>%
-    dplyr::transmute(is_normal = .data$n > stats::qbinom(0.95, .data$n, 0.5))
-  cbind(sdt, counts, rt, is_normal)
+    dplyr::summarise(nt = dplyr::n(), nc = sum(.data$acc_adj == 1)) %>%
+    dplyr::transmute(is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 0.5))
+  tibble(sdt, counts, rt, is_normal)
 }

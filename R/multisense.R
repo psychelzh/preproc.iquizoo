@@ -2,28 +2,31 @@
 #'
 #' Three mean reaction times as to Image, Sound and Mixed stimuli are returned.
 #'
-#' @param data Raw data of class \code{data.frame}.
+#' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A \code{data.frame} contains following values:
-#' \describe{
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mrt_image}{Mean reaction time of Image stimuli.}
 #'   \item{mrt_sound}{Mean reaction time of Sound stimuli.}
 #'   \item{mrt_mixed}{Mean reaction time of Mixed stimuli.}
+#'   \item{mrt_mixadv}{Mean reaction decrease of Mixed stimuli compared to other two types of stimuli.}
 #'   \item{is_normal}{Checking result whether the data is normal.}
-#' }
-#' @importFrom magrittr %>%
-#' @importFrom rlang .data
 #' @export
 multisense <- function(data, ...) {
-  if (!all(utils::hasName(data, c("Type", "RT")))) {
-    warning("`Type` and `RT` variables are required.")
+  vars_output <- c("mrt_image", "mrt_sound", "mrt_mixed", "mrt_mixadv")
+  vars_required <- tibble::tribble(
+    ~field, ~name,
+    "name_type", "Type",
+    "name_rt", "RT"
+  )
+  vars_matched <- match_data_vars(data, vars_required)
+  if (is.null(vars_matched)) {
     return(
-      data.frame(
-        mrt_image = NA_real_,
-        mrt_sound = NA_real_,
-        mrt_mixed = NA_real_,
-        is_normal = FALSE
-      )
+      rlang::set_names(
+        rep(NA, length(vars_output)),
+        nm = vars_output
+      ) %>%
+        tibble::as_tibble_row() %>%
+        tibble::add_column(is_normal = FALSE)
     )
   }
   data %>%
@@ -35,6 +38,7 @@ multisense <- function(data, ...) {
       mrt_image = .data$Image,
       mrt_sound = .data$Sound,
       mrt_mixed = .data$Mixed,
+      mrt_mixadv = (.data$Image + .data$Sound) / 2 - .data$Mixed,
       is_normal = TRUE
     )
 }

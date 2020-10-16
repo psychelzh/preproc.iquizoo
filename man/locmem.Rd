@@ -12,12 +12,10 @@ locmem(data, ...)
 \item{...}{Other input argument for future expansion.}
 }
 \value{
-A \code{data.frame} contains following values:
-\describe{
-  \item{mean_dist}{Mean distance.}
-  \item{pc}{Percentage of correct responses.}
-  \item{is_normal}{Checking result whether the data is normal.}
-}
+A \link[tibble:tibble-package]{tibble} contains following values:
+\item{mean_dist}{Mean distance.}
+\item{pc}{Percentage of correct responses.}
+\item{is_normal}{Checking result whether the data is normal.}
 }
 \description{
 Mean distance and percentage of correct responses are returned.

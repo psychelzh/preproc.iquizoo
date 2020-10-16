@@ -12,14 +12,25 @@ switchcost(data, ...)
 \item{...}{Other input argument for future expansion.}
 }
 \value{
-A \code{data.frame} contains following values:
-\describe{
-  \item{count_correct}{Count of correct responses.}
-  \item{switch_cost_gen}{General switch cost (based on mean reation times).}
-  \item{switch_cost_spe}{Specific switch cost (based on mean reation times).}
-  \item{is_normal}{Checking result whether the data is normal.} }
+A \link[tibble:tibble-package]{tibble} contains following values:
+\item{rc_all}{Count of correct responses per minute for all blocks.}
+\item{rc_pure}{Count of correct responses per minute for pure blocks.}
+\item{rc_mixed}{Count of correct responses per minute for mixed blocks.}
+\item{switch_cost_rc_gen}{General switch cost (based on count of correct
+responses).}
+\item{mrt_pure}{Mean reaction time for non-mixed blocks.}
+\item{mrt_repeat}{Mean reaction time for repeat trials.}
+\item{mrt_switch}{Mean reaction time for switch trials.}
+\item{switch_cost_gen_rt}{General switch cost (based on mean reaction
+times).}
+\item{switch_cost_spe_rt}{Specific switch cost (based on mean reaction
+times).}
+\item{is_normal}{Checking result whether the data is normal.}
 }
 \description{
-Count of correct responses and congruency effect of correct response and
-reaction time are all included.
+Count of correct responses per minute and switch cost of correct response and
+reaction time are all included. The switch cost is the mean difference
+between repeat trials and switch trials. There is also one so-called general
+switch cost, which is the mean difference between repeat trials and pure
+blocks.
 }

@@ -12,12 +12,10 @@ bart(data, ...)
 \item{...}{Other input argument for future expansion.}
 }
 \value{
-A \code{data.frame} contains following values:
-\describe{
-  \item{mean_hits}{Mean of hits for balloons not exploded.}
-  \item{mean_hits_raw}{Mean of hits for all balloons.}
-  \item{is_normal}{Checking result whether the data is normal.}
-}
+A \link[tibble:tibble-package]{tibble} contains following values:
+\item{mean_hits}{Mean of hits for balloons not exploded.}
+\item{mean_hits_raw}{Mean of hits for all balloons.}
+\item{is_normal}{Checking result whether the data is normal.}
 }
 \description{
 The adjusted and unadjusted BART scores are both returned.

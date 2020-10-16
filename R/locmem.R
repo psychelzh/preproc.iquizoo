@@ -2,26 +2,28 @@
 #'
 #' Mean distance and percentage of correct responses are returned.
 #'
-#' @param data Raw data of class \code{data.frame}.
+#' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A \code{data.frame} contains following values:
-#' \describe{
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mean_dist}{Mean distance.}
 #'   \item{pc}{Percentage of correct responses.}
 #'   \item{is_normal}{Checking result whether the data is normal.}
-#' }
-#' @importFrom magrittr %>%
-#' @importFrom rlang .data
 #' @export
 locmem <- function(data, ...) {
-  if (!all(utils::hasName(data, "RespLocDist"))) {
-    warning("`RespLocDist` variable is required.")
+  vars_output <- c("mean_dist", "pc")
+  vars_required <- tibble::tribble(
+    ~field, ~name,
+    "name_dist_loc", "RespLocDist"
+  )
+  vars_matched <- match_data_vars(data, vars_required)
+  if (is.null(vars_matched)) {
     return(
-      data.frame(
-        mean_dist = NA_real_,
-        pc = NA_real_,
-        is_normal = FALSE
-      )
+      rlang::set_names(
+        rep(NA, length(vars_output)),
+        nm = vars_output
+      ) %>%
+        tibble::as_tibble_row() %>%
+        tibble::add_column(is_normal = FALSE)
     )
   }
   delim <- "-"
@@ -31,7 +33,7 @@ locmem <- function(data, ...) {
     strsplit(delim) %>%
     unlist() %>%
     as.numeric()
-  data.frame(
+  tibble(
     mean_dist = mean(all_dists),
     pc = mean(all_dists == 0),
     is_normal = TRUE

@@ -3,28 +3,32 @@
 #' Several values including percentage of correct responses (pc), mean reaction
 #' time (mrt), weber fraction (w).
 #'
-#' @param data Raw data of class \code{data.frame}.
+#' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A \code{data.frame} contains following values:
-#' \describe{
+#' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{pc}{Percentage of correct responses.}
 #'   \item{mrt}{Mean reaction time.}
 #'   \item{w}{Weber fraction.}
 #'   \item{is_normal}{Checking result whether the data is normal.}
-#' }
-#' @importFrom magrittr %>%
-#' @importFrom rlang .data
 #' @export
 nsymncmp <- function(data, ...) {
-  if (!all(utils::hasName(data, c("BigSetCount", "SmallSetCount", "RT", "ACC")))) {
-    warning("`BigSetCount`, `SmallSetCount`, `RT` and `ACC` variables are required.")
+  vars_output <- c("pc", "mrt", "w")
+  vars_required <- tibble::tribble(
+    ~field, ~name,
+    "name_big_count", "BigSetCount",
+    "name_small_count", "SmallSetCount",
+    "name_acc", "ACC",
+    "name_rt", "RT"
+  )
+  vars_matched <- match_data_vars(data, vars_required)
+  if (is.null(vars_matched)) {
     return(
-      data.frame(
-        pc = NA_real_,
-        mrt = NA_real_,
-        w = NA_real_,
-        is_normal = FALSE
-      )
+      rlang::set_names(
+        rep(NA, length(vars_output)),
+        nm = vars_output
+      ) %>%
+        tibble::as_tibble_row() %>%
+        tibble::add_column(is_normal = FALSE)
     )
   }
   data_adj <- data %>%
@@ -37,15 +41,16 @@ nsymncmp <- function(data, ...) {
     )
   fit_errproof <- purrr::possibly(
     ~ stats::nls(
-      acc_adj ~ 1 - pnorm(0, b - s, w * sqrt(b ^ 2 + s ^ 2)),
-      ., start = list(w = 0.5)
+      acc_adj ~ 1 - pnorm(0, b - s, w * sqrt(b^2 + s^2)),
+      .,
+      start = list(w = 0.5)
     ) %>%
       stats::coef(),
     otherwise = NA_real_
   )
   weber_fraction <- data.frame(w = fit_errproof(data_adj))
   is_normal <- data_adj %>%
-    dplyr::summarise(n = dplyr::n(), count_correct = sum(.data$acc_adj == 1)) %>%
-    dplyr::transmute(is_normal = .data$n > stats::qbinom(0.95, .data$n, 0.5))
-  cbind(basic, weber_fraction, is_normal)
+    dplyr::summarise(nt = dplyr::n(), nc = sum(.data$acc_adj == 1)) %>%
+    dplyr::transmute(is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 0.5))
+  tibble(basic, weber_fraction, is_normal)
 }

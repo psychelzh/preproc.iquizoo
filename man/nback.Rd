@@ -12,14 +12,12 @@ nback(data, ...)
 \item{...}{Other input argument for future expansion.}
 }
 \value{
-A \code{data.frame} contains following values:
-\describe{
-  \item{pc}{Percentage of correct responses.}
-  \item{mrt}{Mean reaction time.}
-  \item{dprime}{Sensitivity index.}
-  \item{c}{Bias.}
-  \item{is_normal}{Checking result whether the data is normal.}
-}
+A \link[tibble:tibble-package]{tibble} contains following values:
+\item{pc}{Percentage of correct responses.}
+\item{mrt}{Mean reaction time.}
+\item{dprime}{Sensitivity index.}
+\item{c}{Bias.}
+\item{is_normal}{Checking result whether the data is normal.}
 }
 \description{
 Several values including percentage of correct responses (pc), mean reaction

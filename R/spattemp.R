@@ -4,44 +4,94 @@
 #' difference with \code{\link{locmem}} is that this function takes order
 #' accuracy (thus temporal) into consideration.
 #'
-#' @param data Raw data of class \code{data.frame}.
+#' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
-#' @return A \code{data.frame} contains following values:
-#' \describe{
-#'   \item{mean_dist}{Mean distance.}
-#'   \item{pc}{Percentage of correct responses.}
+#' @return A [tibble][tibble::tibble-package] contains following values:
+#'   \item{pc_order}{Percent of correct in temporal order judgment.}
+#'   \item{pc_loc}{Percent of correct (distance equals to 0) in location
+#'     judgment.}
+#'   \item{mean_dist}{Mean distance in location judgment.}
 #'   \item{is_normal}{Checking result whether the data is normal.}
-#' }
-#' @importFrom magrittr %>%
-#' @importFrom rlang .data
 #' @export
 spattemp <- function(data, ...) {
-  if (!all(utils::hasName(data, c("RespAccOrder", "RespLocDist")))) {
-    warning("`RespAccOrder` and `RespLocDist` variables are required.")
+  vars_output <- c("pc_order", "pc_loc", "mean_dist")
+  vars_required <- tibble::tribble(
+    ~field, ~name,
+    "name_obj_ori", "ObjectID",
+    "name_loc_ori", "LocOrigin",
+    "name_obj_resp", "RespObjectID",
+    "name_loc_resp", "RespObjectLoc",
+    "name_acc_order", "RespAccOrder",
+    "name_dist_loc", "RespLocDist"
+  )
+  vars_matched <- match_data_vars(data, vars_required)
+  if (is.null(vars_matched)) {
     return(
-      data.frame(
-        mean_dist = NA_real_,
-        pc = NA_real_,
-        is_normal = FALSE
-      )
+      rlang::set_names(
+        rep(NA, length(vars_output)),
+        nm = vars_output
+      ) %>%
+        tibble::as_tibble_row() %>%
+        tibble::add_column(is_normal = FALSE)
     )
   }
-  delim <- "-"
-  all_ordacc <- data %>%
-    dplyr::pull("RespAccOrder") %>%
-    paste(collapse = delim) %>%
-    strsplit(delim) %>%
+  pc_order <- data %>%
+    dplyr::pull(vars_matched[["name_acc_order"]]) %>%
+    stringr::str_split("-") %>%
     unlist() %>%
-    as.numeric()
-  all_dists <- data %>%
-    dplyr::pull("RespLocDist") %>%
-    paste(collapse = delim) %>%
-    strsplit(delim) %>%
-    unlist() %>%
-    as.numeric()
-  data.frame(
-    mean_dist = mean(all_dists * all_ordacc),
-    pc = mean(all_dists == 0 & all_ordacc == 1),
-    is_normal = TRUE
-  )
+    as.numeric() %>%
+    mean()
+  loc_result <- data %>%
+    dplyr::select(
+      dplyr::all_of(
+        vars_matched[
+          c(
+            "name_obj_ori", "name_loc_ori",
+            "name_obj_resp", "name_loc_resp"
+          )
+        ]
+      )
+    ) %>%
+    dplyr::mutate(trial = seq_len(dplyr::n())) %>%
+    tidyr::pivot_longer(
+      -.data$trial,
+      names_to = c(".value", "type"),
+      names_pattern = "name_(.+)_(.+)"
+    ) %>%
+    dplyr::transmute(
+      .data$trial, .data$type,
+      data = purrr::map2(
+        .data$obj, .data$loc,
+        ~ tibble(
+          id = unlist(stringr::str_split(.x, "-")),
+          loc = unlist(stringr::str_split(.y, "-")) %>%
+            stringr::str_split("_") %>%
+            purrr::map(as.numeric)
+        )
+      )
+    ) %>%
+    tidyr::unnest(.data$data) %>%
+    tidyr::pivot_wider(
+      names_from = "type",
+      values_from = "loc",
+      values_fn = function(x) {
+        if (length(x) != 1) list(x) else x
+      }
+    ) %>%
+    dplyr::mutate(
+      dist = purrr::map2_dbl(
+        .data$ori, .data$resp,
+        ~ if (!rlang::is_atomic(.x) || !rlang::is_atomic(.y)) {
+          NA_real_
+        } else {
+          matrix(c(.x, .y), ncol = 2, byrow = TRUE) %>%
+            stats::dist()
+        }
+      )
+    ) %>%
+    dplyr::summarise(
+      pc_loc = mean(.data$dist %in% 0),
+      mean_dist = mean(.data$dist, na.rm = TRUE)
+    )
+  tibble(pc_order, loc_result, is_normal = TRUE)
 }
