@@ -7,13 +7,13 @@
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
 #' @return A [tibble][tibble::tibble-package] contains following values:
-#'   \item{tscore}{Total score defined by the game itself.}
+#'   \item{total_score}{Total score defined by the game itself.}
 #'   \item{ratio_score}{Mean of the ratio between best steps and actual steps.}
 #'   \item{mean_level}{Mean level reached.}
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
 london <- function(data, ...) {
-  vars_output <- c("tscore", "ratio_score", "mean_level")
+  vars_output <- c("total_score", "ratio_score", "mean_level")
   vars_required <- tibble::tribble(
     ~field, ~name,
     "name_level", c("LeveL", "Level"),
@@ -31,19 +31,22 @@ london <- function(data, ...) {
         tibble::add_column(is_normal = FALSE)
     )
   }
-  tscore <- data %>%
-    dplyr::summarise(tscore = sum(.data$Score))
+  total_score <- data %>%
+    dplyr::summarise(total_score = sum(.data$Score))
   ratio_score <- data %>%
     dplyr::mutate(
       ratio = dplyr::if_else(
         .data$Finished == 0,
-        0, .data$LeveL / .data$StepsUsed
+        0, .data[[vars_matched[["name_level"]]]] / .data$StepsUsed
       )
     ) %>%
     dplyr::summarise(ratio_score = mean(.data$ratio))
   mean_level <- data %>%
     dplyr::group_by(.data[[vars_matched[["name_level"]]]]) %>%
     dplyr::summarise(pc = mean(.data$Outcome == 1)) %>%
-    dplyr::summarise(mean_level = min(.data$LeveL) - 0.5 + sum(.data$pc))
-  tibble(tscore, ratio_score, mean_level, is_normal = TRUE)
+    dplyr::summarise(
+      mean_level = min(.data[[vars_matched[["name_level"]]]]) - 0.5 +
+        sum(.data$pc)
+    )
+  tibble(total_score, ratio_score, mean_level, is_normal = TRUE)
 }
