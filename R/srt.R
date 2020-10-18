@@ -27,7 +27,7 @@ srt <- function(data, ...) {
   }
   tibble(data) %>%
     dplyr::summarise(
-      percent_valid = sum(.data$RT > 100) / dplyr::n(),
+      percent_valid = mean(.data$RT > 100),
       mrt = mean(.data$RT[.data$RT > 100]),
       is_normal = .data$percent_valid >= 0.8
     )
