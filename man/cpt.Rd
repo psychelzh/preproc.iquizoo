@@ -13,6 +13,7 @@ cpt(data, ...)
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
+\item{pc}{Percentage of correct responses.}
 \item{dprime}{Sensitivity (d').}
 \item{c}{Bias index.}
 \item{hits}{Number of hits.}

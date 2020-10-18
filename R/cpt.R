@@ -6,6 +6,7 @@
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
 #' @return A [tibble][tibble::tibble-package] contains following values:
+#'   \item{pc}{Percentage of correct responses.}
 #'   \item{dprime}{Sensitivity (d').}
 #'   \item{c}{Bias index.}
 #'   \item{hits}{Number of hits.}
@@ -18,7 +19,7 @@
 #' @export
 cpt <- function(data, ...) {
   vars_output <- c(
-    "dprime", "c",
+    "pc", "dprime", "c",
     "hits", "commissions", "omissions", "count_error",
     "mrt", "rtsd"
   )
@@ -44,6 +45,8 @@ cpt <- function(data, ...) {
       type_adj = dplyr::if_else(.data$Type == "Target", "s", "n"),
       acc_adj = dplyr::if_else(.data$RT < 100 & .data$type_adj == "s", 0L, .data$ACC)
     )
+  pc <- data_adj %>%
+    dplyr::summarise(pc = mean(.data$acc_adj))
   sdt <- data_adj %>%
     dplyr::group_by(.data$type_adj) %>%
     dplyr::summarise(
@@ -85,5 +88,5 @@ cpt <- function(data, ...) {
   is_normal <- data_adj %>%
     dplyr::summarise(nt = dplyr::n(), nc = sum(.data$acc_adj == 1)) %>%
     dplyr::transmute(is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 0.5))
-  tibble(sdt, counts, rt, is_normal)
+  tibble(pc, sdt, counts, rt, is_normal)
 }
