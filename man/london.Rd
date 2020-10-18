@@ -13,7 +13,7 @@ london(data, ...)
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
-\item{tscore}{Total score defined by the game itself.}
+\item{total_score}{Total score defined by the game itself.}
 \item{ratio_score}{Mean of the ratio between best steps and actual steps.}
 \item{mean_level}{Mean level reached.}
 \item{is_normal}{Checking result whether the data is normal.}
