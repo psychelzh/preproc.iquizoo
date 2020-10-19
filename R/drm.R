@@ -8,15 +8,17 @@
 #' @param ... Other input argument for future expansion.
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{pc}{Percent of correct responses.}
-#'   \item{p_old_lure}{Percent of old response for "lure" stimuli.}
-#'   \item{p_old_foil}{Percent of old response for "foil" stimuli.}
+#'   \item{hit_rate}{Hit rate, i.e., percent of "old" responses for "old"
+#'     stimuli.}
+#'   \item{p_old_lure}{Percent of "old" responses for "lure" stimuli.}
+#'   \item{p_old_foil}{Percent of "old" responses for "foil" stimuli.}
 #'   \item{fm_ratio}{False memory ratio.}
 #'   \item{fm_dprime}{False memory d'.}
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
 drm <- function(data, ...) {
   vars_output <- c(
-    "pc", "p_old_lure", "p_old_foil",
+    "pc", "hit_rate", "p_old_lure", "p_old_foil",
     "fm_ratio", "fm_dprime"
   )
   vars_required <- tibble::tribble(
@@ -43,6 +45,7 @@ drm <- function(data, ...) {
     dplyr::summarise(p_old = sum(.data$Resp == "Old") / dplyr::n()) %>%
     tidyr::pivot_wider(names_from = "Type", values_from = "p_old") %>%
     dplyr::transmute(
+      hit_rate = .data$Old,
       p_old_lure = .data$Lure,
       p_old_foil = .data$Foil,
       fm_ratio = .data$Lure - .data$Foil,
