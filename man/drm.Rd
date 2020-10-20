@@ -14,8 +14,10 @@ drm(data, ...)
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
 \item{pc}{Percent of correct responses.}
-\item{p_old_lure}{Percent of old response for "lure" stimuli.}
-\item{p_old_foil}{Percent of old response for "foil" stimuli.}
+\item{hit_rate}{Hit rate, i.e., percent of "old" responses for "old"
+stimuli.}
+\item{p_old_lure}{Percent of "old" responses for "lure" stimuli.}
+\item{p_old_foil}{Percent of "old" responses for "foil" stimuli.}
 \item{fm_ratio}{False memory ratio.}
 \item{fm_dprime}{False memory d'.}
 \item{is_normal}{Checking result whether the data is normal.}
