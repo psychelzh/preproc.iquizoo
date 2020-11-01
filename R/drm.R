@@ -38,18 +38,34 @@ drm <- function(data, ...) {
         tibble::add_column(is_normal = FALSE)
     )
   }
+  data <- data %>%
+    dplyr::filter(.data$Type != "Filler")
   pc_all <- data %>%
     dplyr::summarise(pc = mean(.data$ACC == 1))
   fm <- data %>%
     dplyr::group_by(.data$Type) %>%
-    dplyr::summarise(p_old = sum(.data$Resp == "Old") / dplyr::n()) %>%
-    tidyr::pivot_wider(names_from = "Type", values_from = "p_old") %>%
+    dplyr::summarise(
+      n = dplyr::n(),
+      p_old = sum(.data$Resp == "Old") / .data$n
+    ) %>%
+    dplyr::mutate(
+      p_old_adj = dplyr::case_when(
+        .data$p_old == 0 ~ 1 / (2 * .data$n),
+        .data$p_old == 1 ~ 1 - 1 / (2 * .data$n),
+        TRUE ~ .data$p_old
+      )
+    ) %>%
+    tidyr::pivot_wider(
+      names_from = "Type",
+      values_from = c("n", "p_old", "p_old_adj")
+    ) %>%
     dplyr::transmute(
-      hit_rate = .data$Old,
-      p_old_lure = .data$Lure,
-      p_old_foil = .data$Foil,
-      fm_ratio = .data$Lure - .data$Foil,
-      fm_dprime = stats::qnorm(.data$Lure) - stats::qnorm(.data$Foil)
+      hit_rate = .data$p_old_Old,
+      p_old_lure = .data$p_old_Lure,
+      p_old_foil = .data$p_old_Foil,
+      fm_ratio = .data$p_old_Lure - .data$p_old_Foil,
+      fm_dprime = stats::qnorm(.data$p_old_adj_Lure) -
+        stats::qnorm(.data$p_old_adj_Foil)
     )
   is_normal <- data %>%
     dplyr::mutate(acc_adj = dplyr::if_else(.data$RT >= 100, .data$ACC, 0L)) %>%
