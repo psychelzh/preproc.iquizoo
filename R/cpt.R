@@ -47,25 +47,11 @@ cpt <- function(data, ...) {
     )
   pc <- data_adj %>%
     dplyr::summarise(pc = mean(.data$acc_adj))
-  sdt <- data_adj %>%
-    dplyr::group_by(.data$type_adj) %>%
-    dplyr::summarise(
-      n = dplyr::n(),
-      pc = mean(.data$acc_adj == 1)
-    ) %>%
-    dplyr::mutate(
-      pc_adj = dplyr::case_when(
-        .data$pc == 0 ~ 1 / (2 * .data$n),
-        .data$pc == 1 ~ 1 - 1 / (2 * .data$n),
-        TRUE ~ .data$pc
-      )
-    ) %>%
-    dplyr::select(.data$type_adj, .data$pc_adj) %>%
-    tidyr::pivot_wider(names_from = "type_adj", values_from = "pc_adj") %>%
-    dplyr::transmute(
-      dprime = stats::qnorm(.data$s) + stats::qnorm(.data$n),
-      c = -(stats::qnorm(.data$s) - stats::qnorm(.data$n)) / 2
-    )
+  sdt <- calc_sdt(
+    data_adj,
+    name_type = "type_adj",
+    name_acc = "acc_adj"
+  )
   counts <- data_adj %>%
     dplyr::group_by(.data$type_adj) %>%
     dplyr::summarise(
