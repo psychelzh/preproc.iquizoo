@@ -38,6 +38,8 @@ drm <- function(data, ...) {
         tibble::add_column(is_normal = FALSE)
     )
   }
+  data <- data %>%
+    dplyr::filter(.data$Type != "Filler")
   pc_all <- data %>%
     dplyr::summarise(pc = mean(.data$ACC == 1))
   fm <- data %>%
