@@ -1,4 +1,4 @@
-library(dataprocr2)
+library(dataproc.iquizoo)
 test_funs_reg <- c(
   "bart", "bps", "complexswitch", "congeff", "countcorrect", "cpt", "crt",
   "driving", "drm", "dualtask", "jlo", "locmem", "london", "multisense",

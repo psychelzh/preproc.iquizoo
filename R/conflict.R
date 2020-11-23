@@ -1,7 +1,7 @@
 #' Calculates index scores for games related to conflict effect
 #'
 #' Count of correct responses and congruency effect of correct response and
-#' reaction time are all included. After `dataprocr2` version 0.0.4 (included),
+#' reaction time are all included. After `dataproc.iquizoo` version 0.0.4 (included),
 #' this function will not work and [congeff()] works instead.
 #'
 #' @param data Raw data of class `data.frame`.

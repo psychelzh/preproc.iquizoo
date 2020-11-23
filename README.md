@@ -1,6 +1,6 @@
-# R package `dataprocr2`
+# R package `dataproc.iquizoo`
 
-This package is for personal use in analyzing the data from www.iquizoo.com. It is different from `dataprocr` package in the way of returning each function. This package will return a `data.frame` (or more accuractely, a `tibble`).
+This package is for personal use in analyzing the data from www.iquizoo.com.
 
 ## Key notes
 

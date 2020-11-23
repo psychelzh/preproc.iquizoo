@@ -55,7 +55,7 @@ test_abnormal <- function(test_fun, result_file, warn_msg, ...) {
 #' input will be performed. This function does all this in a batch.
 test_batch <- function(test_fun_str, ...,
                        warn_msg = "At least one of the required variables are missing.") {
-  test_fun <- utils::getFromNamespace(test_fun_str, ns = "dataprocr2")
+  test_fun <- utils::getFromNamespace(test_fun_str, ns = "dataproc.iquizoo")
   sample_files <- list.files(
     file.path("data", test_fun_str),
     "sample",

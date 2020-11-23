@@ -1,4 +1,4 @@
 library(testthat)
-library(dataprocr2)
+library(dataproc.iquizoo)
 
-test_check("dataprocr2")
+test_check("dataproc.iquizoo")
