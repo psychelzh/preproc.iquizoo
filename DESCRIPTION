@@ -1,8 +1,8 @@
 Type: Package
-Package: dataprocr2
+Package: dataproc.iquizoo
 Title: Utility Functions for Data Processing of Iquizoo Games
 Version: 0.1.4
-Authors@R: 
+Authors@R:
     person(given = "Liang",
            family = "Zhang",
            role = c("aut", "cre"),
@@ -11,8 +11,8 @@ Description: Several couples of games are developed by
     IQUIZOO.COM. Here are the functions used to do data processing for all
     of those games.
 License: MIT + file LICENSE
-URL: https://github.com/psychelzh/dataprocr2
-BugReports: https://github.com/psychelzh/dataprocr2/issues
+URL: https://github.com/psychelzh/dataproc.iquizoo
+BugReports: https://github.com/psychelzh/dataproc.iquizoo/issues
 Imports:
     dplyr,
     jsonlite,
