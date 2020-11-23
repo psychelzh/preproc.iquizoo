@@ -1,3 +1,5 @@
+# dataproc.iquizoo (development version)
+
 # dataproc.iquizoo 0.1.4
 
 * Added a utility function `calc_sdt()` to calculate signal detection theory related indices.
