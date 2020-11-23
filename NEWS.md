@@ -1,4 +1,4 @@
-# dataproc.iquizoo (development version)
+# dataproc.iquizoo 0.2.0
 
 * Rename package from "dataprocr2" to "dataproc.iquizoo". This is recommended because all the work is related to www.iquizoo.com.
 
