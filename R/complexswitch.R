@@ -85,6 +85,17 @@ complexswitch <- function(data, ...) {
       .groups = "drop"
     ) %>%
     dplyr::mutate(dur = dplyr::if_else(.data$type_block == "pure", 0.5, 1))
+  if (any(block_info$has_no_response)) {
+    warning("At least one block has no response.")
+    return(
+      rlang::set_names(
+        rep(NA, length(vars_output)),
+        nm = vars_output
+      ) %>%
+        tibble::as_tibble_row() %>%
+        tibble::add_column(is_normal = FALSE)
+    )
+  }
   switch_cost <- calc_switch_cost(
     data, block_info,
     name_task = vars_matched[["name_task"]],

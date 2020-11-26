@@ -1,3 +1,7 @@
+# dataproc.iquizoo 0.2.1
+
+* Now `complexswitch()` will return abnormal result (all `NA`s) if at least one block has no responses.
+
 # dataproc.iquizoo 0.2.0
 
 * Rename package from "dataprocr2" to "dataproc.iquizoo". This is recommended because all the work is related to www.iquizoo.com.

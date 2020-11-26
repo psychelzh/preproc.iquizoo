@@ -1,17 +1,28 @@
-#' Test on normal data input
+#' Test on sample data file
 #'
-#' The normal data sample from a given file will be imported and then passed
-#' onto the function being tested. The result will be compared with the expected
-#' result which is imported from a given result file. This comparison does take
-#' attributes into consideration, and the tolerance is also based on the
-#' precision of each value from the file.
-test_normal <- function(test_fun, data_file, result_file, ...) {
-  expect_silent(
-    result <- test_fun(
-      jsonlite::read_json(data_file, simplifyVector = TRUE),
-      ...
+#' The sample data file will be imported and then passed onto the function being
+#' tested. The result will be compared with the expected result which is
+#' imported from a given result file. This comparison does take attributes into
+#' consideration, and the tolerance is also based on the precision of each value
+#' from the file.
+test_sample <- function(test_fun, sample_file, result_file, ...,
+                        warn_msg = NULL) {
+  if (is.null(warn_msg)) {
+    expect_silent(
+      result <- test_fun(
+        jsonlite::read_json(sample_file, simplifyVector = TRUE),
+        ...
+      )
     )
-  )
+  } else {
+    expect_warning(
+      result <- test_fun(
+        jsonlite::read_json(sample_file, simplifyVector = TRUE),
+        ...
+      ),
+      warn_msg
+    )
+  }
   expect_result <- jsonlite::read_json(result_file, simplifyVector = TRUE)
   expect_named(result, names(expect_result), ignore.order = TRUE)
   for (index in names(expect_result)) {
@@ -32,12 +43,11 @@ test_normal <- function(test_fun, data_file, result_file, ...) {
     expect_equal(cur_val, cur_exp, tolerance = 10^(-tol_digit))
   }
 }
-#' Test on abnormal data input
+#' Test on empty input
 #'
-#' The abnormal data input used here is just an empty `data.frame`. The expected
-#' result of call will have all `NA` values but one `is_normal` variable with
-#' value of `FALSE`.
-test_abnormal <- function(test_fun, result_file, warn_msg, ...) {
+#' Run a test taking an empty `data.frame` as input. The expected result of call
+#' will have all `NA` values but one `is_normal` variable with value of `FALSE`.
+test_empty <- function(test_fun, result_file, warn_msg, ...) {
   expect_warning(result <- test_fun(data.frame(), ...), warn_msg)
   expect_result <- jsonlite::read_json(result_file, simplifyVector = TRUE)
   expect_named(result, names(expect_result), ignore.order = TRUE)
@@ -62,6 +72,8 @@ test_batch <- function(test_fun_str, ...,
     full.names = TRUE
   )
   for (sample_file in sample_files) {
+    # skip issued sample files, which are dealt in special test context
+    if (stringr::str_detect(sample_file, "issue")) next
     test_that(
       stringr::str_glue(
         "`{test_fun_str}` should work on this sample data: '{sample_file}'"
@@ -72,9 +84,9 @@ test_batch <- function(test_fun_str, ...,
           dirname(sample_file),
           stringr::str_c("result_", sample_label, ".json")
         )
-        test_normal(
+        test_sample(
           test_fun,
-          data_file = sample_file,
+          sample_file = sample_file,
           result_file = result_file,
           ...
         )
@@ -86,7 +98,7 @@ test_batch <- function(test_fun_str, ...,
       "`{test_fun_str}` ",
       "should output result with 'missing' values if input data is corrupted"
     ),
-    test_abnormal(
+    test_empty(
       test_fun,
       result_file = list.files(
         file.path("data", test_fun_str),
