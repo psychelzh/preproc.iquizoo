@@ -1,3 +1,7 @@
+# dataproc.iquizoo 0.2.4
+
+* Just as `complexswitch()`, now `switchcost()` will also return abnormal result (all `NA`s) if at least one block has no responses.
+
 # dataproc.iquizoo 0.2.3
 
 * Fix a bug occured in function `multisense()` when users did not respond to sound trials.
