@@ -1,3 +1,7 @@
+# dataproc.iquizoo 0.2.3
+
+* Fix a bug occured in function `multisense()` when users did not respond to sound trials.
+
 # dataproc.iquizoo 0.2.2
 
 * Fix a bug occured in function `wxpred()` after filling `NA` values to `name_block` (mostly is just `Block`) column.
