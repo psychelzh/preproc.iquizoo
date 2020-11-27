@@ -27,20 +27,28 @@ driving <- function(data, ...) {
         tibble::add_column(is_normal = FALSE)
     )
   }
-  tibble(
-    still_dur = data$StillDur %>%
-      paste(collapse = "-") %>%
-      strsplit("-") %>%
-      unlist() %>%
-      as.numeric(),
-    still_light = data$StillLight %>%
-      paste(collapse = "-") %>%
-      strsplit("-") %>%
-      unlist()
-  ) %>%
+  data %>%
+    dplyr::mutate(
+      still_dur = purrr::map(
+        .data[[vars_matched["name_still_dur"]]],
+        ~ stringr::str_split(.x, "-", simplify = TRUE) %>%
+          as.numeric()
+      ),
+      still_light = purrr::map(
+        .data[[vars_matched["name_still_light"]]],
+        ~ stringr::str_split(.x, "-", simplify = TRUE)
+      )
+    ) %>%
+    # remove those trials with minus signs logged into data
+    dplyr::filter(lengths(.data$still_dur) == lengths(.data$still_light)) %>%
+    dplyr::mutate(
+      still_dur_yellow = purrr::map2_dbl(
+        .data$still_dur, .data$still_light,
+        ~ sum(.x[.y == "Yellow"])
+      )
+    ) %>%
     dplyr::summarise(
-      still_ratio = sum(.data$still_dur[.data$still_light == "Yellow"]) /
-        sum(data$YellowDur),
+      still_ratio = sum(.data$still_dur_yellow) / sum(data$YellowDur),
       is_normal = TRUE
     )
 }

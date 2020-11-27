@@ -1,3 +1,8 @@
+# dataproc.iquizoo 0.2.2
+
+* Fix a bug occured in function `wxpred()` after filling `NA` values to `name_block` (mostly is just `Block`) column.
+* Fix a bug occured in function `driving()` when minus signs, which are confused with hyphens, are logged into data.
+
 # dataproc.iquizoo 0.2.1
 
 * Now `complexswitch()` will return abnormal result (all `NA`s) if at least one block has no responses.
