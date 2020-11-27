@@ -74,6 +74,17 @@ switchcost <- function(data, ...) {
   data_adj <- data %>%
     # set as wrong for responses that are too quick
     dplyr::mutate(acc_adj = ifelse(.data$RT >= 100, .data$ACC, 0))
+  if (any(block_info$has_no_response)) {
+    warning("At least one block has no response.")
+    return(
+      rlang::set_names(
+        rep(NA, length(vars_output)),
+        nm = vars_output
+      ) %>%
+        tibble::as_tibble_row() %>%
+        tibble::add_column(is_normal = FALSE)
+    )
+  }
   switch_cost <- calc_switch_cost(
     data_adj, block_info,
     name_acc = "acc_adj"
