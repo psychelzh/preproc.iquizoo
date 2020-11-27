@@ -30,9 +30,8 @@ multisense <- function(data, ...) {
     )
   }
   data %>%
-    dplyr::filter(.data$RT > 100) %>%
     dplyr::group_by(.data$Type) %>%
-    dplyr::summarise(mrt = mean(.data$RT)) %>%
+    dplyr::summarise(mrt = mean(.data$RT[.data$RT > 100])) %>%
     tidyr::pivot_wider(names_from = "Type", values_from = "mrt") %>%
     dplyr::transmute(
       mrt_image = .data$Image,
