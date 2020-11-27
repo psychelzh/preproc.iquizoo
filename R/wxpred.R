@@ -43,8 +43,9 @@ wxpred <- function(data, ...) {
         )
     }
   }
-  if (max(data$Block) != 4) {
-    warning("Number of blocks is not 4, will return NA values.")
+  if (all(is.na(data[[vars_matched["name_block"]]])) ||
+      max(data[[vars_matched["name_block"]]]) != 4) {
+    warning("Number of blocks is not equal to 4.")
     return(
       rlang::set_names(
         rep(NA, length(vars_output)),
