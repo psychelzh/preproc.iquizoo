@@ -36,7 +36,7 @@ london <- function(data, ...) {
   ratio_score <- data %>%
     dplyr::mutate(
       ratio = dplyr::if_else(
-        .data$Finished == 0,
+        .data$Finished == 0 | .data$StepsUsed == 0,
         0, .data[[vars_matched[["name_level"]]]] / .data$StepsUsed
       )
     ) %>%
