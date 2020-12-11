@@ -1,3 +1,8 @@
+# dataproc.iquizoo 0.2.5
+
+* Fixed a bug occured in function `london()` when user did not respond and the data still scored the user as correct.
+* Added a response rate check for `london()`. Now the score is normal only when the response rate is no less than 80%.
+
 # dataproc.iquizoo 0.2.4
 
 * Just as `complexswitch()`, now `switchcost()` will also return abnormal result (all `NA`s) if at least one block has no responses.

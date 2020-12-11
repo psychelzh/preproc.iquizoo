@@ -36,7 +36,7 @@ london <- function(data, ...) {
   ratio_score <- data %>%
     dplyr::mutate(
       ratio = dplyr::if_else(
-        .data$Finished == 0,
+        .data$Finished == 0 | .data$StepsUsed == 0,
         0, .data[[vars_matched[["name_level"]]]] / .data$StepsUsed
       )
     ) %>%
@@ -48,5 +48,7 @@ london <- function(data, ...) {
       mean_level = min(.data[[vars_matched[["name_level"]]]]) - 0.5 +
         sum(.data$pc)
     )
-  tibble(total_score, ratio_score, mean_level, is_normal = TRUE)
+  # the response is not normal when user responded to no more than 80% in total
+  is_normal <- mean(data$StepsUsed == 0) < 0.2
+  tibble(total_score, ratio_score, mean_level, is_normal)
 }
