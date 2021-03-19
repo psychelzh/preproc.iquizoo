@@ -1,5 +1,7 @@
 # dataproc.iquizoo (development version)
 
+* Add external data `game_info`, which stores games information of preprocessing functions. Run `?game_info` in R to read more details.
+
 # dataproc.iquizoo 0.2.5
 
 * Fixed a bug occured in function `london()` when user did not respond and the data still scored the user as correct.
