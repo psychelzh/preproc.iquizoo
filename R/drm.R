@@ -50,7 +50,7 @@ drm <- function(data, ...) {
       p_old = sum(.data[[vars_matched["name_resp"]]] == "Old") / .data[["n"]]
     ) %>%
     dplyr::mutate(
-      p_old_adj = dplyr::case_when(
+      p_old_cor = dplyr::case_when(
         .data[["p_old"]] == 0 ~ 1 / (2 * .data[["n"]]),
         .data[["p_old"]] == 1 ~ 1 - 1 / (2 * .data[["n"]]),
         TRUE ~ .data[["p_old"]]
@@ -58,24 +58,19 @@ drm <- function(data, ...) {
     ) %>%
     tidyr::pivot_wider(
       names_from = "Type",
-      values_from = c("n", "p_old", "p_old_adj")
+      values_from = c("n", "p_old", "p_old_cor")
     ) %>%
     dplyr::transmute(
       hit_rate = .data[["p_old_Old"]],
       p_old_lure = .data[["p_old_Lure"]],
       p_old_foil = .data[["p_old_Foil"]],
       fm_ratio = .data[["p_old_Lure"]] - .data[["p_old_Foil"]],
-      fm_dprime = stats::qnorm(.data[["p_old_adj_Lure"]]) -
-        stats::qnorm(.data[["p_old_adj_Foil"]])
+      fm_dprime = stats::qnorm(.data[["p_old_cor_Lure"]]) -
+        stats::qnorm(.data[["p_old_cor_Foil"]])
     )
   is_normal <- data %>%
-    dplyr::mutate(
-      acc_adj = dplyr::if_else(
-        .data[[vars_matched["name_rt"]]] >= 100,
-        .data[[vars_matched["name_acc"]]], 0L
-      )
-    ) %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data[["acc_adj"]] == 1)) %>%
+    correct_rt_acc() %>%
+    dplyr::summarise(nt = dplyr::n(), nc = sum(.data[["acc_cor"]] == 1)) %>%
     dplyr::transmute(
       is_normal = .data[["nc"]] > stats::qbinom(0.95, .data[["nt"]], 0.5)
     )

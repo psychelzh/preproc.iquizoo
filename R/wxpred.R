@@ -55,23 +55,18 @@ wxpred <- function(data, ...) {
         tibble::add_column(is_normal = FALSE)
     )
   }
-  data_adj <- data %>%
-    dplyr::mutate(
-      acc_adj = dplyr::if_else(
-        .data[[vars_matched["name_rt"]]] >= 100,
-        .data[[vars_matched["name_acc"]]], 0L)
-      )
-  pc <- data_adj %>%
-    dplyr::mutate(pc_all = mean(.data[["acc_adj"]] == 1)) %>%
+  data_cor <- correct_rt_acc(data)
+  pc <- data_cor %>%
+    dplyr::mutate(pc_all = mean(.data[["acc_cor"]] == 1)) %>%
     dplyr::group_by(.data[["pc_all"]], .data[[vars_matched["name_block"]]]) %>%
-    dplyr::summarise(pc = mean(.data[["acc_adj"]] == 1), .groups = "drop") %>%
+    dplyr::summarise(pc = mean(.data[["acc_cor"]] == 1), .groups = "drop") %>%
     tidyr::pivot_wider(
       names_from = "Block",
       names_prefix = "pc_b",
       values_from = "pc"
     )
-  is_normal <- data_adj %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data[["acc_adj"]] == 1)) %>%
+  is_normal <- data_cor %>%
+    dplyr::summarise(nt = dplyr::n(), nc = sum(.data[["acc_cor"]] == 1)) %>%
     dplyr::transmute(
       is_normal = .data[["nc"]] > stats::qbinom(0.95, .data[["nt"]], 0.5)
     )

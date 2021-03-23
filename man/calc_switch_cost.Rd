@@ -10,8 +10,8 @@ calc_switch_cost(
   name_block = "Block",
   name_task = "Task",
   name_switch = "Type",
-  name_rt = "RT",
-  name_acc = "ACC",
+  name_rt = "rt_cor",
+  name_acc = "acc_cor",
   values_mixed = c("Repeat", "Switch")
 )
 }

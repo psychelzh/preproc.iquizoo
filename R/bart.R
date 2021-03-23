@@ -30,13 +30,13 @@ bart <- function(data, ...) {
   }
   tibble(data) %>%
     dplyr::mutate(
-      pumps_adjusted = dplyr::if_else(
+      pumps_cor = dplyr::if_else(
         .data[[vars_matched["name_feedback"]]] == 1,
         .data[[vars_matched["name_nhit"]]], NA_integer_
       )
     ) %>%
     dplyr::summarise(
-      mean_pumps = mean(.data[[vars_matched["name_nhit"]]], na.rm = TRUE),
+      mean_pumps = mean(.data[["pumps_cor"]], na.rm = TRUE),
       mean_pumps_raw = mean(.data[[vars_matched["name_nhit"]]]),
       num_explosion = sum(.data[[vars_matched["name_feedback"]]] == 0),
       is_normal = !is.na(.data[["mean_pumps"]])

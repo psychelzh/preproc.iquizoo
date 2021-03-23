@@ -75,13 +75,7 @@ switchcost <- function(data, ...) {
         TRUE ~ NA_real_
       )
     )
-  data_adj <- data %>%
-    # set as wrong for responses that are too quick
-    dplyr::mutate(
-      acc_adj = ifelse(
-        .data[[vars_matched["name_rt"]]] >= 100,
-        .data[[vars_matched["name_acc"]]], 0)
-    )
+  data_cor <- correct_rt_acc(data)
   if (any(block_info$has_no_response)) {
     warning("At least one block has no response.")
     return(
@@ -94,16 +88,17 @@ switchcost <- function(data, ...) {
     )
   }
   switch_cost <- calc_switch_cost(
-    data_adj, block_info,
-    name_acc = "acc_adj"
+    data_cor, block_info,
+    name_acc = "acc_cor",
+    name_rt = "rt_cor"
   )
-  validation <- data_adj %>%
+  validation <- data_cor %>%
     dplyr::summarise(
       nt = dplyr::n(),
-      nc = sum(.data[["acc_adj"]] == 1)
+      nc = sum(.data[["acc_cor"]] == 1)
     ) %>%
     dplyr::transmute(
-      is_normal = .data[["nc"]] > stats::qbinom(0.95, .data$nt, 0.5) &&
+      is_normal = .data[["nc"]] > stats::qbinom(0.95, .data[["nt"]], 0.5) &&
         !any(block_info$has_no_response)
     )
   tibble(switch_cost, validation)

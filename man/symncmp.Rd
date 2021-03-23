@@ -22,5 +22,5 @@ A \link[tibble:tibble-package]{tibble} contains following values:
 \description{
 Several values including percentage of correct responses (pc), mean reaction
 time (mrt), distance effect (dist_effect) and adjusted distance effect
-(dist_effect_adj).
+(dist_effect_cor).
 }

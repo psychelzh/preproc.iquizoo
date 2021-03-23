@@ -52,13 +52,8 @@ bps <- function(data, ...) {
     )
   is_normal <- data %>%
     dplyr::filter(.data[[vars_matched["name_phase"]]] == "test") %>%
-    dplyr::mutate(
-      acc_adj = dplyr::if_else(
-        .data[[vars_matched["name_rt"]]] >= 100,
-        .data[[vars_matched["name_acc"]]], 0L
-      )
-    ) %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data[["acc_adj"]] == 1)) %>%
+    correct_rt_acc() %>%
+    dplyr::summarise(nt = dplyr::n(), nc = sum(.data[["acc_cor"]] == 1)) %>%
     dplyr::transmute(
       is_normal = .data[["nc"]] > stats::qbinom(0.95, .data[["nt"]], 1 / 3)
     )

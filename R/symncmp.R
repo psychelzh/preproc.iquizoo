@@ -2,7 +2,7 @@
 #'
 #' Several values including percentage of correct responses (pc), mean reaction
 #' time (mrt), distance effect (dist_effect) and adjusted distance effect
-#' (dist_effect_adj).
+#' (dist_effect_cor).
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param ... Other input argument for future expansion.
@@ -34,19 +34,14 @@ symncmp <- function(data, ...) {
     )
   }
   # set as wrong for trials responding too quickly
-  data_adj <- data %>%
-    dplyr::mutate(
-      acc_adj = dplyr::if_else(
-        .data[[vars_matched["name_rt"]]] <= 100,
-        0L, .data[[vars_matched["name_acc"]]])
-    )
-  basic <- data_adj %>%
+  data_cor <- correct_rt_acc(data)
+  basic <- data_cor %>%
     dplyr::summarise(
-      pc = mean(.data[["acc_adj"]] == 1),
-      mrt = mean(.data[[vars_matched["name_rt"]]][.data[["acc_adj"]] == 1])
+      pc = mean(.data[["acc_cor"]] == 1),
+      mrt = mean(.data[["rt_cor"]], na.rm = TRUE)
     )
-  data_dist_eff <- data_adj %>%
-    dplyr::filter(.data[["acc_adj"]] == 1) %>%
+  data_dist_eff <- data_cor %>%
+    dplyr::filter(.data[["acc_cor"]] == 1) %>%
     dplyr::mutate(
       dist = .data[[vars_matched["name_big_digit"]]] -
         .data[[vars_matched["name_small_digit"]]]
@@ -58,8 +53,8 @@ symncmp <- function(data, ...) {
     dist_eff = dist_eff_orig,
     dist_eff_adj = dist_eff_orig / basic$mrt
   )
-  is_normal <- data_adj %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data[["acc_adj"]] == 1)) %>%
+  is_normal <- data_cor %>%
+    dplyr::summarise(nt = dplyr::n(), nc = sum(.data[["acc_cor"]] == 1)) %>%
     dplyr::transmute(
       is_normal = .data[["nc"]] > stats::qbinom(0.95, .data[["nt"]], 0.5)
     )

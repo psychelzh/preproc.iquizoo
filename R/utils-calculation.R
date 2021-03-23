@@ -12,13 +12,13 @@
 #' @keywords internal
 calc_cong_eff <- function(data,
                           name_cong = "Type",
-                          name_rt = "RT",
-                          name_acc = "ACC",
+                          name_rt = "rt_cor",
+                          name_acc = "acc_cor",
                           values_cong = c("Congruent", "Incongruent")) {
   data %>%
     dplyr::group_by(.data[[name_cong]]) %>%
     dplyr::summarise(
-      mrt = mean(.data[[name_rt]][.data[[name_acc]] == 1]),
+      mrt = mean(.data[[name_rt]], na.rm = TRUE),
       pc = mean(.data[[name_acc]] == 1)
     ) %>%
     tidyr::pivot_wider(
@@ -58,8 +58,8 @@ calc_switch_cost <- function(data,
                              name_block = "Block",
                              name_task = "Task",
                              name_switch = "Type",
-                             name_rt = "RT",
-                             name_acc = "ACC",
+                             name_rt = "rt_cor",
+                             name_acc = "acc_cor",
                              values_mixed = c("Repeat", "Switch")) {
   switch_cost_count <- data %>%
     dplyr::group_by(.data[[name_block]]) %>%
@@ -94,7 +94,7 @@ calc_switch_cost <- function(data,
     ) %>%
     dplyr::group_by(.data$type_block, .data$type_rt) %>%
     dplyr::summarise(
-      mrt = mean(.data[[name_rt]][.data[[name_acc]] == 1]),
+      mrt = mean(.data[[name_rt]], na.rm = TRUE),
       .groups = "drop"
     ) %>%
     dplyr::summarise(
@@ -122,21 +122,21 @@ calc_sdt <- function(data,
                      name_type = "Type",
                      name_acc = "ACC",
                      values_type = c("s", "n")) {
-  sdt <- data %>%
+  data %>%
     dplyr::group_by(.data[[name_type]]) %>%
     dplyr::summarise(
       n = dplyr::n(),
       pc = mean(.data[[name_acc]] == 1)
     ) %>%
     dplyr::mutate(
-      pc_adj = dplyr::case_when(
+      pc_cor = dplyr::case_when(
         .data$pc == 0 ~ 1 / (2 * .data$n),
         .data$pc == 1 ~ 1 - 1 / (2 * .data$n),
         TRUE ~ .data$pc
       )
     ) %>%
-    dplyr::select(.data[[name_type]], .data$pc_adj) %>%
-    tidyr::pivot_wider(names_from = "type_adj", values_from = "pc_adj") %>%
+    dplyr::select(.data[[name_type]], .data$pc_cor) %>%
+    tidyr::pivot_wider(names_from = name_type, values_from = "pc_cor") %>%
     dplyr::transmute(
       dprime = stats::qnorm(.data[[values_type[[1]]]]) +
         stats::qnorm(.data[[values_type[[2]]]]),

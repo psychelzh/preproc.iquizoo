@@ -57,21 +57,16 @@ complexswitch <- function(data, ...) {
         tibble::add_column(is_normal = FALSE)
     )
   }
-  data <- data %>%
-    dplyr::mutate(
-      acc_adj = dplyr::if_else(
-        !!sym(vars_matched["name_rt"]) >= 100,
-        !!sym(vars_matched["name_acc"]), 0L
-      )
-    )
+  data_cor <- correct_rt_acc(data, name_acc = vars_matched["name_acc"])
   # calculate congruency effect
   cong_eff <- calc_cong_eff(
-    data,
+    data_cor,
     name_cong = vars_matched["name_cong"],
-    name_acc = "acc_adj"
+    name_acc = "acc_cor",
+    name_rt = "rt_cor"
   )
   # calculate switch cost
-  block_info <- data %>%
+  block_info <- data_cor %>%
     dplyr::mutate(
       n_blocks = dplyr::n_distinct(!!sym(vars_matched["name_block"]))
     ) %>%
@@ -80,7 +75,7 @@ complexswitch <- function(data, ...) {
       .data[[vars_matched["name_block"]]]
     ) %>%
     dplyr::summarise(
-      has_no_response = all(.data[[vars_matched["name_acc"]]] == -1),
+      has_no_response = all(.data[["acc_cor"]] == -1),
       type_block = ifelse(
         all(.data[[vars_matched["name_switch"]]] %in% c("Pure", "")),
         "pure", "mixed"
@@ -100,13 +95,12 @@ complexswitch <- function(data, ...) {
     )
   }
   switch_cost <- calc_switch_cost(
-    data, block_info,
+    data_cor, block_info,
     name_task = vars_matched["name_task"],
-    name_switch = vars_matched["name_switch"],
-    name_acc = vars_matched["name_acc"]
+    name_switch = vars_matched["name_switch"]
   )
-  validation <- data %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data[["acc_adj"]] == 1)) %>%
+  validation <- data_cor %>%
+    dplyr::summarise(nt = dplyr::n(), nc = sum(.data[["acc_cor"]] == 1)) %>%
     dplyr::transmute(
       is_normal = .data[["nc"]] > stats::qbinom(0.95, .data[["nt"]], 0.5) &&
         !any(block_info[["has_no_response"]])

@@ -34,7 +34,7 @@ jlo <- function(data, ...) {
     dplyr::summarise(nc = sum(.data[[vars_matched["name_acc"]]] == 1))
   ne <- data %>%
     dplyr::mutate(
-      resp_adj = purrr::map_dbl(
+      resp_cor = purrr::map_dbl(
         .data[[vars_matched["name_resp"]]],
         ~ strsplit(.x, "-") %>%
           unlist() %>%
@@ -44,9 +44,9 @@ jlo <- function(data, ...) {
       ),
       resp_angle = dplyr::case_when(
         # when rotating larger than a right angle, adjusting it
-        .data[["resp_adj"]] > 15 ~ .data[["resp_adj"]] * 6 - 180,
-        .data[["resp_adj"]] < -15 ~ .data[["resp_adj"]] * 6 + 180,
-        TRUE ~ .data[["resp_adj"]] * 6
+        .data[["resp_cor"]] > 15 ~ .data[["resp_cor"]] * 6 - 180,
+        .data[["resp_cor"]] < -15 ~ .data[["resp_cor"]] * 6 + 180,
+        TRUE ~ .data[["resp_cor"]] * 6
       )
     ) %>%
     dplyr::mutate(

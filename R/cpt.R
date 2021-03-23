@@ -40,47 +40,47 @@ cpt <- function(data, ...) {
         tibble::add_column(is_normal = FALSE)
     )
   }
-  data_adj <- data %>%
+  data_cor <- data %>%
     dplyr::mutate(
-      type_adj = dplyr::if_else(
+      type_cor = dplyr::if_else(
         .data[[vars_matched["name_type"]]] == "Target",
         "s", "n"
       ),
-      acc_adj = dplyr::if_else(
-        .data[[vars_matched["name_rt"]]] < 100 & .data[["type_adj"]] == "s",
-        0L, .data[[vars_matched["name_acc"]]]
+      correct_type = dplyr::if_else(
+        .data[["type_cor"]] == "s",
+        "both", "rt"
       )
-    )
-  pc <- data_adj %>%
-    dplyr::summarise(pc = mean(.data[["acc_adj"]]))
-  sdt <- calc_sdt(
-    data_adj,
-    name_type = "type_adj",
-    name_acc = "acc_adj"
-  )
-  counts <- data_adj %>%
-    dplyr::group_by(.data[["type_adj"]]) %>%
-    dplyr::summarise(
-      nc = sum(.data[["acc_adj"]] == 1),
-      ne = sum(.data[["acc_adj"]] == 0)
     ) %>%
-    tidyr::pivot_wider(names_from = "type_adj", values_from = c("nc", "ne")) %>%
+    dplyr::group_by(.data[["correct_type"]]) %>%
+    dplyr::group_modify(
+      ~ correct_rt_acc(data = .x, correct_type = .y[["correct_type"]])
+    ) %>%
+    dplyr::ungroup()
+  pc <- data_cor %>%
+    dplyr::summarise(pc = mean(.data[["acc_cor"]]))
+  sdt <- calc_sdt(
+    data_cor,
+    name_type = "type_cor",
+    name_acc = "acc_cor"
+  )
+  counts <- data_cor %>%
+    dplyr::group_by(.data[["type_cor"]]) %>%
+    dplyr::summarise(
+      nc = sum(.data[["acc_cor"]] == 1),
+      ne = sum(.data[["acc_cor"]] == 0)
+    ) %>%
+    tidyr::pivot_wider(names_from = "type_cor", values_from = c("nc", "ne")) %>%
     dplyr::transmute(
       hits = .data[["nc_s"]],
       commissions = .data[["ne_n"]],
       omissions = .data[["ne_s"]],
       count_error = .data[["ne_n"]] + .data[["ne_s"]]
     )
-  rt <- data_adj %>%
-    dplyr::filter(.data[["acc_adj"]] == 1 & .data[["type_adj"]] == "s") %>%
+  rt <- data_cor %>%
+    dplyr::filter(.data[["acc_cor"]] == 1 & .data[["type_cor"]] == "s") %>%
     dplyr::summarise(
-      mrt = mean(.data[[vars_matched["name_rt"]]]),
-      rtsd = stats::sd(.data[[vars_matched["name_rt"]]])
+      mrt = mean(.data[["rt_cor"]]),
+      rtsd = stats::sd(.data[["rt_cor"]])
     )
-  is_normal <- data_adj %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data[["acc_adj"]] == 1)) %>%
-    dplyr::transmute(
-      is_normal = .data[["nc"]] > stats::qbinom(0.95, .data[["nt"]], 0.5)
-    )
-  tibble(pc, sdt, counts, rt, is_normal)
+  tibble(pc, sdt, counts, rt, is_normal = TRUE)
 }

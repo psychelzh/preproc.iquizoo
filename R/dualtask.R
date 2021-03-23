@@ -44,18 +44,22 @@ dualtask <- function(data, ...) {
         tibble::add_column(is_normal = FALSE)
     )
   }
-  data_adj <- data %>%
+  data_cor <- data %>%
     dplyr::mutate(
-      acc_adj = dplyr::if_else(
-        .data[[vars_matched["name_rt"]]] >= 100 |
-          .data[[vars_matched["name_type"]]] == "NonTarget",
-        .data[[vars_matched["name_acc"]]], 0L
+      correct_type = dplyr::if_else(
+        .data[[vars_matched["name_type"]]] == "Target",
+        "both", "rt"
       )
-    )
+    ) %>%
+    dplyr::group_by(.data[["correct_type"]]) %>%
+    dplyr::group_modify(
+      ~ correct_rt_acc(data = .x, correct_type = .y[["correct_type"]])
+    ) %>%
+    dplyr::ungroup()
   # dummy combination of side-wise data and full data
   data_dummy_cmb <- list(
-    sidewise = data_adj,
-    both = data_adj
+    sidewise = data_cor,
+    both = data_cor
   ) %>%
     dplyr::bind_rows(.id = "ind_type") %>%
     dplyr::mutate(
@@ -73,7 +77,7 @@ dualtask <- function(data, ...) {
     ) %>%
     dplyr::summarise(
       nt = dplyr::n(),
-      nc = sum(.data[["acc_adj"]]),
+      nc = sum(.data[["acc_cor"]] == 1),
       pc = .data[["nc"]] / .data[["nt"]]
     ) %>%
     # correct perfect responses
@@ -91,7 +95,7 @@ dualtask <- function(data, ...) {
   # indices calculated based on reaction times
   ind_from_rt <- data_dummy_cmb %>%
     dplyr::filter(
-      .data[["acc_adj"]] == 1,
+      .data[["acc_cor"]] == 1,
       .data[[vars_matched["name_type"]]] == "Target"
     ) %>%
     dplyr::group_by(.data[["side"]]) %>%
@@ -108,5 +112,5 @@ dualtask <- function(data, ...) {
     ) %>%
     dplyr::rename_with(tolower) %>%
     # no proper way to validate user's responses
-    dplyr::mutate(is_normal = TRUE)
+    tibble::add_column(is_normal = TRUE)
 }

@@ -7,8 +7,8 @@
 calc_cong_eff(
   data,
   name_cong = "Type",
-  name_rt = "RT",
-  name_acc = "ACC",
+  name_rt = "rt_cor",
+  name_acc = "acc_cor",
   values_cong = c("Congruent", "Incongruent")
 )
 }

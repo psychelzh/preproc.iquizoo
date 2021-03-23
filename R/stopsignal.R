@@ -36,23 +36,28 @@ stopsignal <- function(data, ...) {
         tibble::add_column(is_normal = FALSE)
     )
   }
-  data <- data %>%
+  data_cor <- data %>%
     dplyr::mutate(
-      acc_adj = dplyr::if_else(
-        .data[[vars_matched["name_rt"]]] >= 100,
-        .data[[vars_matched["name_acc"]]], 0L
+      correct_type = dplyr::if_else(
+        .data[[vars_matched["name_type"]]] == "Go",
+        "both", "none"
       )
-    )
-  indices_from_acc <- data %>%
-    dplyr::mutate(pc_all = mean(.data$acc_adj)) %>%
+    ) %>%
+    dplyr::group_by(.data[["correct_type"]]) %>%
+    dplyr::group_modify(
+      ~ correct_rt_acc(data = .x, correct_type = .y[["correct_type"]])
+    ) %>%
+    dplyr::ungroup()
+  indices_from_acc <- data_cor %>%
+    dplyr::mutate(pc_all = mean(.data[["acc_cor"]])) %>%
     dplyr::filter(.data[[vars_matched["name_type"]]] == "Go") %>%
     dplyr::group_by(.data[["pc_all"]]) %>% # to keep `pc_all` variable
-    dplyr::summarise(pc_go = mean(.data[["acc_adj"]]), .groups = "drop")
-  indices_from_rt <- data %>%
+    dplyr::summarise(pc_go = mean(.data[["acc_cor"]]), .groups = "drop")
+  indices_from_rt <- data_cor %>%
     dplyr::mutate(
       rt_go = dplyr::if_else(
-        .data[[vars_matched["name_type"]]] == "Go" & .data[["acc_adj"]] == 1,
-        .data[[vars_matched["name_rt"]]], NA_integer_
+        .data[[vars_matched["name_type"]]] == "Go",
+        .data[["rt_cor"]], NA_integer_
       ),
       medrt_go = stats::median(.data[["rt_go"]], na.rm = TRUE)
     ) %>%
@@ -77,12 +82,12 @@ stopsignal <- function(data, ...) {
     dplyr::group_by(.data[["medrt_go"]]) %>% # to keep `medrt_go` variable
     dplyr::summarise(mean_ssd = mean(.data[["ssd"]])) %>%
     dplyr::mutate(ssrt = .data[["medrt_go"]] - .data[["mean_ssd"]])
-  validation <- data %>%
+  validation <- data_cor %>%
     dplyr::filter(.data[[vars_matched["name_type"]]] == "Go") %>%
     dplyr::summarise(
       nt = dplyr::n(),
-      nr = sum(.data[[vars_matched["name_acc"]]] != -1),
-      nc = sum(.data[["acc_adj"]] == 1)
+      nr = sum(.data[["acc_cor"]] != -1),
+      nc = sum(.data[["acc_cor"]] == 1)
     ) %>%
     dplyr::transmute(
       is_normal = (.data[["nr"]] / .data[["nt"]]) > 0.8 && # response rate > 80%

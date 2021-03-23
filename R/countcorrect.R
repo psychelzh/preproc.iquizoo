@@ -27,36 +27,34 @@ countcorrect <- function(data, ...) {
     )
   }
   if (utils::hasName(data, "RT")) {
-    data_adj <- data %>%
-      dplyr::mutate(
-        acc_adj = dplyr::if_else(
-          .data[["RT"]] >= 100,
-          .data[[vars_matched["name_acc"]]], 0L
-        )
-      )
+    data_cor <- correct_rt_acc(
+      data,
+      correct_type = "acc",
+      name_acc = vars_matched["name_acc"]
+    )
   } else {
-    data_adj <- data %>%
-      dplyr::mutate(acc_adj = .data[[vars_matched["name_acc"]]])
+    data_cor <- data %>%
+      dplyr::mutate(acc_cor = .data[[vars_matched["name_acc"]]])
   }
-  if (is.character(data_adj[["acc_adj"]])) {
-    data_adj <- data_adj %>%
+  if (is.character(data_cor[["acc_cor"]])) {
+    data_cor <- data_cor %>%
       dplyr::filter(
-        !is.na(.data[["acc_adj"]]),
-        .data[["acc_adj"]] != "NULL"
+        !is.na(.data[["acc_cor"]]),
+        .data[["acc_cor"]] != "NULL"
       ) %>%
       dplyr::summarise(
-        acc_adj = .data[["acc_adj"]] %>%
+        acc_cor = .data[["acc_cor"]] %>%
           stringr::str_c(collapse = "-") %>%
           stringr::str_split("-", simplify = TRUE) %>%
           as.numeric() %>%
           list()
       ) %>%
-      tidyr::unnest(.data[["acc_adj"]])
+      tidyr::unnest(.data[["acc_cor"]])
   }
-  tibble(data_adj) %>%
+  tibble(data_cor) %>%
     dplyr::summarise(
-      nc = sum(.data[["acc_adj"]] == 1),
-      pc = mean(.data[["acc_adj"]] == 1),
+      nc = sum(.data[["acc_cor"]] == 1),
+      pc = mean(.data[["acc_cor"]] == 1),
       is_normal = TRUE
     )
 }

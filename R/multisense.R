@@ -31,14 +31,9 @@ multisense <- function(data, ...) {
     )
   }
   data %>%
+    correct_rt_acc(correct_type = "rt") %>%
     dplyr::group_by(.data[[vars_matched["name_type"]]]) %>%
-    dplyr::mutate(
-      rt_adj = dplyr::if_else(
-        .data[[vars_matched["name_rt"]]] > 100,
-        .data[[vars_matched["name_rt"]]], NA_integer_
-      )
-    ) %>%
-    dplyr::summarise(mrt = mean(.data[["rt_adj"]], na.rm = TRUE)) %>%
+    dplyr::summarise(mrt = mean(.data[["rt_cor"]], na.rm = TRUE)) %>%
     tidyr::pivot_wider(
       names_from = vars_matched["name_type"], values_from = "mrt"
     ) %>%
