@@ -29,9 +29,15 @@ crt <- function(data, ...) {
     )
   }
   tibble(data) %>%
+    dplyr::mutate(
+      rt_adj = dplyr::if_else(
+        .data[[vars_matched["name_acc"]]] == 1,
+        .data[[vars_matched[["name_rt"]]]], NA_integer_
+      )
+    ) %>%
     dplyr::summarise(
-      mrt = mean(.data$RT[.data$ACC == 1]),
-      nc = sum(.data$ACC == 1),
+      mrt = mean(.data[["rt_adj"]], na.rm = TRUE),
+      nc = sum(.data[[vars_matched["name_acc"]]] == 1),
       is_normal = TRUE
     )
 }

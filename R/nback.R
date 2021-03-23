@@ -33,13 +33,19 @@ nback <- function(data, ...) {
   }
   data_adj <- data %>%
     dplyr::mutate(
-      type_adj = dplyr::if_else(.data$Type == "Change", "s", "n"),
-      acc_adj = dplyr::if_else(.data$RT <= 100, 0L, .data$ACC)
+      type_adj = dplyr::if_else(
+        .data[[vars_matched["name_type"]]] == "Change",
+        "s", "n"
+      ),
+      acc_adj = dplyr::if_else(
+        .data[[vars_matched["name_rt"]]] <= 100,
+        0L, .data[[vars_matched["name_acc"]]]
+      )
     )
   basic <- data_adj %>%
     dplyr::summarise(
-      pc = mean(.data$acc_adj == 1),
-      mrt = mean(.data$RT[.data$acc_adj == 1])
+      pc = mean(.data[["acc_adj"]] == 1),
+      mrt = mean(.data[[vars_matched["name_rt"]]][.data[["acc_adj"]] == 1])
     )
   sdt <- calc_sdt(
     data_adj,
@@ -47,7 +53,9 @@ nback <- function(data, ...) {
     name_acc = "acc_adj"
   )
   is_normal <- data_adj %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data$acc_adj == 1)) %>%
-    dplyr::transmute(is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 0.5))
+    dplyr::summarise(nt = dplyr::n(), nc = sum(.data[["acc_adj"]] == 1)) %>%
+    dplyr::transmute(
+      is_normal = .data[["nc"]] > stats::qbinom(0.95, .data[["nt"]], 0.5)
+    )
   tibble(basic, sdt, is_normal)
 }

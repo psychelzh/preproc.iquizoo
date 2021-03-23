@@ -31,11 +31,11 @@ jlo <- function(data, ...) {
     )
   }
   nc <- data %>%
-    dplyr::summarise(nc = sum(.data$ACC == 1))
+    dplyr::summarise(nc = sum(.data[[vars_matched["name_acc"]]] == 1))
   ne <- data %>%
     dplyr::mutate(
       resp_adj = purrr::map_dbl(
-        .data$Resp,
+        .data[[vars_matched["name_resp"]]],
         ~ strsplit(.x, "-") %>%
           unlist() %>%
           stringr::str_replace_all(c("Left" = "1", "Right" = "-1")) %>%
@@ -44,15 +44,18 @@ jlo <- function(data, ...) {
       ),
       resp_angle = dplyr::case_when(
         # when rotating larger than a right angle, adjusting it
-        .data$resp_adj > 15 ~ .data$resp_adj * 6 - 180,
-        .data$resp_adj < -15 ~ .data$resp_adj * 6 + 180,
-        TRUE ~ .data$resp_adj * 6
+        .data[["resp_adj"]] > 15 ~ .data[["resp_adj"]] * 6 - 180,
+        .data[["resp_adj"]] < -15 ~ .data[["resp_adj"]] * 6 + 180,
+        TRUE ~ .data[["resp_adj"]] * 6
       )
     ) %>%
+    dplyr::mutate(
+      err = abs(.data[[vars_matched["name_angle"]]] - .data[["resp_angle"]])
+    ) %>%
     dplyr::summarise(
-      ne = sum(abs(.data$Angle - .data$resp_angle)),
-      ne_ln = sum(log(abs(.data$Angle - .data$resp_angle) + 1)),
-      ne_sqrt = sum(sqrt(abs(.data$Angle - .data$resp_angle)))
+      ne = sum(.data[["err"]]),
+      ne_ln = sum(log(.data[["err"]] + 1)),
+      ne_sqrt = sum(sqrt(abs(.data[["err"]])))
     )
   tibble(nc, ne, is_normal = TRUE)
 }

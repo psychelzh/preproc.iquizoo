@@ -47,8 +47,9 @@ dualtask <- function(data, ...) {
   data_adj <- data %>%
     dplyr::mutate(
       acc_adj = dplyr::if_else(
-        .data$RT >= 100 | .data$StimType == "NonTarget",
-        .data$ACC, 0L
+        .data[[vars_matched["name_rt"]]] >= 100 |
+          .data[[vars_matched["name_type"]]] == "NonTarget",
+        .data[[vars_matched["name_acc"]]], 0L
       )
     )
   # dummy combination of side-wise data and full data
@@ -58,44 +59,51 @@ dualtask <- function(data, ...) {
   ) %>%
     dplyr::bind_rows(.id = "ind_type") %>%
     dplyr::mutate(
-      Side = dplyr::if_else(
-        .data$ind_type == "sidewise",
-        .data$Side, "all"
-      )
+      side = dplyr::if_else(
+        .data[["ind_type"]] == "sidewise",
+        .data[[vars_matched["name_side"]]], "all"
+      ),
+      .keep = "unused"
     )
   # indices calculated based on accuracy
   ind_from_acc <- data_dummy_cmb %>%
-    dplyr::group_by(.data$Side, .data$StimType) %>%
+    dplyr::group_by(
+      .data[["side"]],
+      .data[[vars_matched["name_type"]]]
+    ) %>%
     dplyr::summarise(
       nt = dplyr::n(),
-      nc = sum(.data$acc_adj),
-      pc = .data$nc / .data$nt
+      nc = sum(.data[["acc_adj"]]),
+      pc = .data[["nc"]] / .data[["nt"]]
     ) %>%
     # correct perfect responses
     dplyr::mutate(
       pc = dplyr::case_when(
-        .data$pc == 0 ~ 1 / (2 * .data$nt),
-        .data$pc == 1 ~ 1 - 1 / (2 * .data$nt),
-        TRUE ~ .data$pc
+        .data[["pc"]] == 0 ~ 1 / (2 * .data[["nt"]]),
+        .data[["pc"]] == 1 ~ 1 - 1 / (2 * .data[["nt"]]),
+        TRUE ~ .data[["pc"]]
       )
     ) %>%
     dplyr::summarise(
-      nc = sum(.data$nc),
-      dprime = sum(stats::qnorm(.data$pc))
+      nc = sum(.data[["nc"]]),
+      dprime = sum(stats::qnorm(.data[["pc"]]))
     )
   # indices calculated based on reaction times
   ind_from_rt <- data_dummy_cmb %>%
-    dplyr::filter(.data$acc_adj == 1, .data$StimType == "Target") %>%
-    dplyr::group_by(.data$Side) %>%
+    dplyr::filter(
+      .data[["acc_adj"]] == 1,
+      .data[[vars_matched["name_type"]]] == "Target"
+    ) %>%
+    dplyr::group_by(.data[["side"]]) %>%
     dplyr::summarise(
-      mrt = mean(.data$RT),
+      mrt = mean(.data[[vars_matched["name_rt"]]]),
       .groups = "drop"
     )
   ind_from_rt %>%
-    dplyr::inner_join(ind_from_acc, by = "Side") %>%
+    dplyr::inner_join(ind_from_acc, by = "side") %>%
     # put indices in one row and rename to lowercase ones
     tidyr::pivot_wider(
-      names_from = "Side",
+      names_from = "side",
       values_from = c("mrt", "nc", "dprime")
     ) %>%
     dplyr::rename_with(tolower) %>%

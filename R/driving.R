@@ -40,15 +40,18 @@ driving <- function(data, ...) {
       )
     ) %>%
     # remove those trials with minus signs logged into data
-    dplyr::filter(lengths(.data$still_dur) == lengths(.data$still_light)) %>%
+    dplyr::filter(
+      lengths(.data[["still_dur"]]) == lengths(.data[["still_light"]])
+    ) %>%
     dplyr::mutate(
       still_dur_yellow = purrr::map2_dbl(
-        .data$still_dur, .data$still_light,
+        .data[["still_dur"]], .data[["still_light"]],
         ~ sum(.x[.y == "Yellow"])
       )
     ) %>%
     dplyr::summarise(
-      still_ratio = sum(.data$still_dur_yellow) / sum(data$YellowDur),
+      still_ratio = sum(.data[["still_dur_yellow"]]) /
+        sum(.data[[vars_matched["name_yellow_dur"]]]),
       is_normal = TRUE
     )
 }

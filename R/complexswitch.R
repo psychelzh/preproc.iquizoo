@@ -60,32 +60,35 @@ complexswitch <- function(data, ...) {
   data <- data %>%
     dplyr::mutate(
       acc_adj = dplyr::if_else(
-        !!sym(vars_matched[["name_rt"]]) >= 100,
-        !!sym(vars_matched[["name_acc"]]), 0L
+        !!sym(vars_matched["name_rt"]) >= 100,
+        !!sym(vars_matched["name_acc"]), 0L
       )
     )
   # calculate congruency effect
   cong_eff <- calc_cong_eff(
     data,
-    name_cong = vars_matched[["name_cong"]],
+    name_cong = vars_matched["name_cong"],
     name_acc = "acc_adj"
   )
   # calculate switch cost
   block_info <- data %>%
     dplyr::mutate(
-      n_blocks = dplyr::n_distinct(!!sym(vars_matched[["name_block"]]))
+      n_blocks = dplyr::n_distinct(!!sym(vars_matched["name_block"]))
     ) %>%
-    dplyr::group_by(.data$n_blocks, !!sym(vars_matched[["name_block"]])) %>%
+    dplyr::group_by(
+      .data[["n_blocks"]],
+      .data[[vars_matched["name_block"]]]
+    ) %>%
     dplyr::summarise(
-      has_no_response = all(!!sym(vars_matched[["name_acc"]]) == -1),
+      has_no_response = all(.data[[vars_matched["name_acc"]]] == -1),
       type_block = ifelse(
-        all(!!sym(vars_matched[["name_switch"]]) %in% c("Pure", "")),
+        all(.data[[vars_matched["name_switch"]]] %in% c("Pure", "")),
         "pure", "mixed"
       ),
       .groups = "drop"
     ) %>%
-    dplyr::mutate(dur = dplyr::if_else(.data$type_block == "pure", 0.5, 1))
-  if (any(block_info$has_no_response)) {
+    dplyr::mutate(dur = dplyr::if_else(.data[["type_block"]] == "pure", 0.5, 1))
+  if (any(block_info[["has_no_response"]])) {
     warning("At least one block has no response.")
     return(
       rlang::set_names(
@@ -98,15 +101,15 @@ complexswitch <- function(data, ...) {
   }
   switch_cost <- calc_switch_cost(
     data, block_info,
-    name_task = vars_matched[["name_task"]],
-    name_switch = vars_matched[["name_switch"]],
-    name_acc = vars_matched[["name_acc"]]
+    name_task = vars_matched["name_task"],
+    name_switch = vars_matched["name_switch"],
+    name_acc = vars_matched["name_acc"]
   )
   validation <- data %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data$acc_adj == 1)) %>%
+    dplyr::summarise(nt = dplyr::n(), nc = sum(.data[["acc_adj"]] == 1)) %>%
     dplyr::transmute(
-      is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 0.5) &&
-        !any(block_info$has_no_response)
+      is_normal = .data[["nc"]] > stats::qbinom(0.95, .data[["nt"]], 0.5) &&
+        !any(block_info[["has_no_response"]])
     )
   tibble(cong_eff, switch_cost, validation)
 }

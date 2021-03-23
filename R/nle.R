@@ -30,11 +30,14 @@ nle <- function(data, ...) {
     )
   }
   tibble(data) %>%
-    dplyr::mutate(err = abs(.data$Number - .data$Resp)) %>%
+    dplyr::mutate(
+      err = abs(.data[[vars_matched["name_number"]]] -
+                  .data[[vars_matched["name_resp"]]])
+    ) %>%
     dplyr::summarise(
-      mean_err = mean(.data$err),
-      mean_logerr = mean(log(.data$err + 1)),
-      mean_sqrterr = mean(sqrt(.data$err)),
+      mean_err = mean(.data[["err"]]),
+      mean_logerr = mean(log(.data[["err"]] + 1)),
+      mean_sqrterr = mean(sqrt(.data[["err"]])),
       is_normal = TRUE
     )
 }

@@ -32,25 +32,34 @@ nsymncmp <- function(data, ...) {
     )
   }
   data_adj <- data %>%
-    dplyr::mutate(acc_adj = dplyr::if_else(.data$RT <= 100, 0L, .data$ACC)) %>%
-    dplyr::rename(b = .data$BigSetCount, s = .data$SmallSetCount)
+    dplyr::mutate(
+      acc_adj = dplyr::if_else(
+        .data[[vars_matched["name_rt"]]] <= 100,
+        0L, .data[[vars_matched["name_acc"]]]
+      )
+    ) %>%
+    dplyr::rename(
+      b = .data[[vars_matched["name_big_count"]]],
+      s = .data[[vars_matched["name_small_count"]]]
+    )
   basic <- data_adj %>%
     dplyr::summarise(
-      pc = mean(.data$acc_adj == 1),
-      mrt = mean(.data$RT[.data$acc_adj == 1])
+      pc = mean(.data[["acc_adj"]] == 1),
+      mrt = mean(.data[[vars_matched["name_rt"]]][.data[["acc_adj"]] == 1])
     )
   fit_errproof <- purrr::possibly(
     ~ stats::nls(
       acc_adj ~ 1 - pnorm(0, b - s, w * sqrt(b ^ 2 + s ^ 2)),
-      .,
-      start = list(w = 0.5)
+      .x, start = list(w = 0.5)
     ) %>%
       stats::coef(),
     otherwise = NA_real_
   )
   weber_fraction <- data.frame(w = fit_errproof(data_adj))
   is_normal <- data_adj %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data$acc_adj == 1)) %>%
-    dplyr::transmute(is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 0.5))
+    dplyr::summarise(nt = dplyr::n(), nc = sum(.data[["acc_adj"]] == 1)) %>%
+    dplyr::transmute(
+      is_normal = .data[["nc"]] > stats::qbinom(0.95, .data[["nt"]], 0.5)
+    )
   tibble(basic, weber_fraction, is_normal)
 }

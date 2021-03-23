@@ -26,9 +26,15 @@ srt <- function(data, ...) {
     )
   }
   tibble(data) %>%
+    dplyr::mutate(
+      rt_adj = dplyr::if_else(
+        .data[[vars_matched["name_rt"]]] > 100,
+        .data[[vars_matched["name_rt"]]], NA_integer_
+      )
+    ) %>%
     dplyr::summarise(
-      percent_valid = mean(.data$RT > 100),
-      mrt = mean(.data$RT[.data$RT > 100]),
+      percent_valid = mean(.data[[vars_matched["name_rt"]]] > 100),
+      mrt = mean(.data[["rt_adj"]], na.rm = TRUE),
       is_normal = .data$percent_valid >= 0.8
     )
 }

@@ -36,7 +36,7 @@ spattemp <- function(data, ...) {
     )
   }
   pc_order <- data %>%
-    dplyr::pull(vars_matched[["name_acc_order"]]) %>%
+    dplyr::pull(vars_matched["name_acc_order"]) %>%
     stringr::str_split("-") %>%
     unlist() %>%
     as.numeric() %>%
@@ -54,14 +54,14 @@ spattemp <- function(data, ...) {
     ) %>%
     dplyr::mutate(trial = seq_len(dplyr::n())) %>%
     tidyr::pivot_longer(
-      -.data$trial,
+      -.data[["trial"]],
       names_to = c(".value", "type"),
       names_pattern = "name_(.+)_(.+)"
     ) %>%
     dplyr::transmute(
-      .data$trial, .data$type,
+      .data[["trial"]], .data[["type"]],
       data = purrr::map2(
-        .data$obj, .data$loc,
+        .data[["obj"]], .data[["loc"]],
         ~ tibble(
           id = unlist(stringr::str_split(.x, "-")),
           loc = unlist(stringr::str_split(.y, "-")) %>%
@@ -80,7 +80,7 @@ spattemp <- function(data, ...) {
     ) %>%
     dplyr::mutate(
       dist = purrr::map2_dbl(
-        .data$ori, .data$resp,
+        .data[["ori"]], .data[["resp"]],
         ~ if (!rlang::is_atomic(.x) || !rlang::is_atomic(.y)) {
           NA_real_
         } else {
@@ -90,8 +90,8 @@ spattemp <- function(data, ...) {
       )
     ) %>%
     dplyr::summarise(
-      pc_loc = mean(.data$dist %in% 0),
-      mean_dist = mean(.data$dist, na.rm = TRUE)
+      pc_loc = mean(.data[["dist"]] %in% 0),
+      mean_dist = mean(.data[["dist"]], na.rm = TRUE)
     )
   tibble(pc_order, loc_result, is_normal = TRUE)
 }

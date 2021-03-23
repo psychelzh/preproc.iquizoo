@@ -30,30 +30,33 @@ countcorrect <- function(data, ...) {
     data_adj <- data %>%
       dplyr::mutate(
         acc_adj = dplyr::if_else(
-          .data$RT >= 100,
-          .data[[vars_matched[["name_acc"]]]], 0L
+          .data[["RT"]] >= 100,
+          .data[[vars_matched["name_acc"]]], 0L
         )
       )
   } else {
     data_adj <- data %>%
-      dplyr::mutate(acc_adj = .data[[vars_matched[["name_acc"]]]])
+      dplyr::mutate(acc_adj = .data[[vars_matched["name_acc"]]])
   }
-  if (is.character(data_adj$acc_adj)) {
+  if (is.character(data_adj[["acc_adj"]])) {
     data_adj <- data_adj %>%
-      dplyr::filter(!is.na(.data$acc_adj) & .data$acc_adj != "NULL") %>%
+      dplyr::filter(
+        !is.na(.data[["acc_adj"]]),
+        .data[["acc_adj"]] != "NULL"
+      ) %>%
       dplyr::summarise(
-        acc_adj = .data$acc_adj %>%
+        acc_adj = .data[["acc_adj"]] %>%
           stringr::str_c(collapse = "-") %>%
           stringr::str_split("-", simplify = TRUE) %>%
           as.numeric() %>%
           list()
       ) %>%
-      tidyr::unnest(.data$acc_adj)
+      tidyr::unnest(.data[["acc_adj"]])
   }
   tibble(data_adj) %>%
     dplyr::summarise(
-      nc = sum(.data$acc_adj == 1),
-      pc = mean(.data$acc_adj == 1),
+      nc = sum(.data[["acc_adj"]] == 1),
+      pc = mean(.data[["acc_adj"]] == 1),
       is_normal = TRUE
     )
 }

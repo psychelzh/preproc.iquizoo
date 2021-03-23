@@ -42,13 +42,18 @@ congeff <- function(data, ...) {
     )
   }
   data_adj <- data %>%
-    dplyr::mutate(acc_adj = dplyr::if_else(.data$RT >= 100, .data$ACC, 0L))
+    dplyr::mutate(
+      acc_adj = dplyr::if_else(
+        .data[[vars_matched["name_rt"]]] >= 100,
+        .data[[vars_matched["name_acc"]]], 0L
+      )
+    )
   cong_eff <- calc_cong_eff(data_adj, name_acc = "acc_adj")
   nc_and_validation <- data_adj %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data$acc_adj == 1)) %>%
+    dplyr::summarise(nt = dplyr::n(), nc = sum(.data[["acc_adj"]] == 1)) %>%
     dplyr::transmute(
-      .data$nc,
-      is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 0.5)
+      .data[["nc"]],
+      is_normal = .data$nc > stats::qbinom(0.95, .data[["nt"]], 0.5)
     )
   tibble(cong_eff, nc_and_validation)
 }

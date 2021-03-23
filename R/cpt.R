@@ -42,37 +42,45 @@ cpt <- function(data, ...) {
   }
   data_adj <- data %>%
     dplyr::mutate(
-      type_adj = dplyr::if_else(.data$Type == "Target", "s", "n"),
-      acc_adj = dplyr::if_else(.data$RT < 100 & .data$type_adj == "s", 0L, .data$ACC)
+      type_adj = dplyr::if_else(
+        .data[[vars_matched["name_type"]]] == "Target",
+        "s", "n"
+      ),
+      acc_adj = dplyr::if_else(
+        .data[[vars_matched["name_rt"]]] < 100 & .data[["type_adj"]] == "s",
+        0L, .data[[vars_matched["name_acc"]]]
+      )
     )
   pc <- data_adj %>%
-    dplyr::summarise(pc = mean(.data$acc_adj))
+    dplyr::summarise(pc = mean(.data[["acc_adj"]]))
   sdt <- calc_sdt(
     data_adj,
     name_type = "type_adj",
     name_acc = "acc_adj"
   )
   counts <- data_adj %>%
-    dplyr::group_by(.data$type_adj) %>%
+    dplyr::group_by(.data[["type_adj"]]) %>%
     dplyr::summarise(
-      nc = sum(.data$acc_adj == 1),
-      ne = sum(.data$acc_adj == 0)
+      nc = sum(.data[["acc_adj"]] == 1),
+      ne = sum(.data[["acc_adj"]] == 0)
     ) %>%
     tidyr::pivot_wider(names_from = "type_adj", values_from = c("nc", "ne")) %>%
     dplyr::transmute(
-      hits = .data$nc_s,
-      commissions = .data$ne_n,
-      omissions = .data$ne_s,
-      count_error = .data$ne_n + .data$ne_s
+      hits = .data[["nc_s"]],
+      commissions = .data[["ne_n"]],
+      omissions = .data[["ne_s"]],
+      count_error = .data[["ne_n"]] + .data[["ne_s"]]
     )
   rt <- data_adj %>%
-    dplyr::filter(.data$acc_adj == 1 & .data$type_adj == "s") %>%
+    dplyr::filter(.data[["acc_adj"]] == 1 & .data[["type_adj"]] == "s") %>%
     dplyr::summarise(
-      mrt = mean(.data$RT),
-      rtsd = stats::sd(.data$RT)
+      mrt = mean(.data[[vars_matched["name_rt"]]]),
+      rtsd = stats::sd(.data[[vars_matched["name_rt"]]])
     )
   is_normal <- data_adj %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data$acc_adj == 1)) %>%
-    dplyr::transmute(is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 0.5))
+    dplyr::summarise(nt = dplyr::n(), nc = sum(.data[["acc_adj"]] == 1)) %>%
+    dplyr::transmute(
+      is_normal = .data[["nc"]] > stats::qbinom(0.95, .data[["nt"]], 0.5)
+    )
   tibble(pc, sdt, counts, rt, is_normal)
 }

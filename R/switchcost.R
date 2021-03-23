@@ -32,7 +32,6 @@ switchcost <- function(data, ...) {
   vars_required <- tibble::tribble(
     ~field, ~name,
     "name_block", "Block",
-    "name_task", "Task",
     "name_switch", "Type",
     "name_acc", "ACC",
     "name_rt", "RT"
@@ -50,14 +49,19 @@ switchcost <- function(data, ...) {
   }
   # summarize information of each block
   block_info <- data %>%
-    dplyr::mutate(n_blocks = dplyr::n_distinct(.data$Block)) %>%
-    dplyr::group_by(.data$n_blocks, .data$Block) %>%
+    dplyr::mutate(
+      n_blocks = dplyr::n_distinct(.data[[vars_matched["name_block"]]])
+    ) %>%
+    dplyr::group_by(
+      .data[["n_blocks"]], .data[[vars_matched["name_block"]]]
+    ) %>%
     dplyr::summarise(
-      has_no_response = all(.data$ACC == -1),
+      has_no_response = all(.data[[vars_matched["name_acc"]]] == -1),
       type_block = ifelse(
         all(
-          is.na(.data$Type) |
-            .data$Type %in% c("preswitch", "postswitch", "Pure", "")
+          is.na(.data[[vars_matched["name_switch"]]]) |
+            .data[[vars_matched["name_switch"]]] %in%
+            c("preswitch", "postswitch", "Pure", "")
         ),
         "pure", "mixed"
       ),
@@ -65,7 +69,7 @@ switchcost <- function(data, ...) {
     ) %>%
     dplyr::mutate(
       dur = dplyr::case_when(
-        .data$n_blocks == 5 ~ 1,
+        .data[["n_blocks"]] == 5 ~ 1,
         .data$n_blocks >= 6 & .data$type_block == "pure" ~ 0.5,
         .data$n_blocks >= 6 & .data$type_block == "mixed" ~ 1,
         TRUE ~ NA_real_
@@ -73,7 +77,11 @@ switchcost <- function(data, ...) {
     )
   data_adj <- data %>%
     # set as wrong for responses that are too quick
-    dplyr::mutate(acc_adj = ifelse(.data$RT >= 100, .data$ACC, 0))
+    dplyr::mutate(
+      acc_adj = ifelse(
+        .data[[vars_matched["name_rt"]]] >= 100,
+        .data[[vars_matched["name_acc"]]], 0)
+    )
   if (any(block_info$has_no_response)) {
     warning("At least one block has no response.")
     return(
@@ -90,9 +98,12 @@ switchcost <- function(data, ...) {
     name_acc = "acc_adj"
   )
   validation <- data_adj %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data$acc_adj == 1)) %>%
+    dplyr::summarise(
+      nt = dplyr::n(),
+      nc = sum(.data[["acc_adj"]] == 1)
+    ) %>%
     dplyr::transmute(
-      is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 0.5) &&
+      is_normal = .data[["nc"]] > stats::qbinom(0.95, .data$nt, 0.5) &&
         !any(block_info$has_no_response)
     )
   tibble(switch_cost, validation)

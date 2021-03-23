@@ -29,7 +29,8 @@ schulte <- function(data, ...) {
   }
   tibble(data) %>%
     dplyr::summarise(
-      net_cor = sum(.data$NCorrect) - sum(.data$NError),
+      net_cor = sum(.data[[vars_matched["name_ncorrect"]]]) -
+        sum(.data[[vars_matched["name_nerror"]]]),
       is_normal = TRUE
     )
 }
