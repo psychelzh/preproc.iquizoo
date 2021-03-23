@@ -41,7 +41,7 @@ nsymncmp <- function(data, ...) {
     )
   fit_errproof <- purrr::possibly(
     ~ stats::nls(
-      acc_adj ~ 1 - pnorm(0, b - s, w * sqrt(b^2 + s^2)),
+      acc_adj ~ 1 - pnorm(0, b - s, w * sqrt(b ^ 2 + s ^ 2)),
       .,
       start = list(w = 0.5)
     ) %>%

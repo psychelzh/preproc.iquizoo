@@ -40,7 +40,7 @@ test_sample <- function(test_fun, sample_file, result_file, ...,
         stringr::str_extract(r"((?<=\.)\d+)") %>%
         nchar()
     }
-    expect_equal(cur_val, cur_exp, tolerance = 10^(-tol_digit))
+    expect_equal(cur_val, cur_exp, tolerance = 10 ^ (-tol_digit))
   }
 }
 #' Test on empty input
@@ -77,8 +77,7 @@ test_batch <- function(test_fun_str, ...,
     test_that(
       stringr::str_glue(
         "`{test_fun_str}` should work on this sample data: '{sample_file}'"
-      ),
-      {
+      ), {
         sample_label <- stringr::str_extract(sample_file, r"((?<=_)\w+(?=\.))")
         result_file <- file.path(
           dirname(sample_file),
