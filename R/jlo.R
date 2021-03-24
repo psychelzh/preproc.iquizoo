@@ -21,14 +21,7 @@ jlo <- function(data, ...) {
   )
   vars_matched <- match_data_vars(data, vars_required)
   if (is.null(vars_matched)) {
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
   nc <- data %>%
     dplyr::summarise(nc = sum(.data[[vars_matched["name_acc"]]] == 1))

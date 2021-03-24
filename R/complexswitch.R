@@ -48,14 +48,7 @@ complexswitch <- function(data, ...) {
   )
   vars_matched <- match_data_vars(data, vars_required)
   if (is.null(vars_matched)) {
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
   data_cor <- correct_rt_acc(data, name_acc = vars_matched["name_acc"])
   # calculate congruency effect
@@ -85,14 +78,7 @@ complexswitch <- function(data, ...) {
     dplyr::mutate(dur = dplyr::if_else(.data[["type_block"]] == "pure", 0.5, 1))
   if (any(block_info[["has_no_response"]])) {
     warning("At least one block has no response.")
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
   switch_cost <- calc_switch_cost(
     data_cor, block_info,

@@ -38,14 +38,7 @@ switchcost <- function(data, ...) {
   )
   vars_matched <- match_data_vars(data, vars_required)
   if (is.null(vars_matched)) {
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
   # summarize information of each block
   block_info <- data %>%
@@ -78,14 +71,7 @@ switchcost <- function(data, ...) {
   data_cor <- correct_rt_acc(data)
   if (any(block_info$has_no_response)) {
     warning("At least one block has no response.")
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
   switch_cost <- calc_switch_cost(
     data_cor, block_info,

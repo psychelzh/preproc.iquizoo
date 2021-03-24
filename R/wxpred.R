@@ -22,14 +22,7 @@ wxpred <- function(data, ...) {
   )
   vars_matched <- match_data_vars(data, vars_required)
   if (is.null(vars_matched)) {
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
   if (is.na(vars_matched["name_block"])) {
     vars_matched["name_block"] <- "Block"
@@ -46,14 +39,7 @@ wxpred <- function(data, ...) {
   if (all(is.na(data[[vars_matched["name_block"]]])) ||
     max(data[[vars_matched["name_block"]]]) != 4) {
     warning("Number of blocks is not equal to 4.")
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
   data_cor <- correct_rt_acc(data)
   pc <- data_cor %>%
