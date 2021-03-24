@@ -136,7 +136,10 @@ calc_sdt <- function(data,
       )
     ) %>%
     dplyr::select(.data[[name_type]], .data$pc_cor) %>%
-    tidyr::pivot_wider(names_from = name_type, values_from = "pc_cor") %>%
+    tidyr::pivot_wider(
+      names_from = .data[[name_type]],
+      values_from = .data[["pc_cor"]]
+    ) %>%
     dplyr::transmute(
       dprime = stats::qnorm(.data[[values_type[[1]]]]) +
         stats::qnorm(.data[[values_type[[2]]]]),
