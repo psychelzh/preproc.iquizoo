@@ -56,7 +56,7 @@ match_data_vars <- function(data, vars_config) {
 #' Generally speaking, a response time that is no more than 100 milliseconds is
 #' impossible for human beings, which is possibly accompanied by an error
 #' operation. This function tried to correct that by setting reaction time to
-#' `NA` and accuracy to `0` (can be opted out) for those trials.
+#' `NA` and accuracy to `-1` (can be opted out) for those trials.
 #'
 #' @param data Required. Raw data, a `data.frame`.
 #' @param crit_rt Minimal reaction time in milliseconds. Reaction times that are
