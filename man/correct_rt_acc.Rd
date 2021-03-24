@@ -37,6 +37,6 @@ corresponding variable exists in the original \code{data}.
 Generally speaking, a response time that is no more than 100 milliseconds is
 impossible for human beings, which is possibly accompanied by an error
 operation. This function tried to correct that by setting reaction time to
-\code{NA} and accuracy to \code{0} (can be opted out) for those trials.
+\code{NA} and accuracy to \code{-1} (can be opted out) for those trials.
 }
 \keyword{internal}
