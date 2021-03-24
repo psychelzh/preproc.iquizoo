@@ -61,7 +61,7 @@ switchcost <- function(data, ...) {
         all(
           is.na(.data[[vars_matched["name_switch"]]]) |
             .data[[vars_matched["name_switch"]]] %in%
-            c("preswitch", "postswitch", "Pure", "")
+              c("preswitch", "postswitch", "Pure", "")
         ),
         "pure", "mixed"
       ),

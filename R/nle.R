@@ -32,7 +32,7 @@ nle <- function(data, ...) {
   tibble(data) %>%
     dplyr::mutate(
       err = abs(.data[[vars_matched["name_number"]]] -
-                  .data[[vars_matched["name_resp"]]])
+        .data[[vars_matched["name_resp"]]])
     ) %>%
     dplyr::summarise(
       mean_err = mean(.data[["err"]]),

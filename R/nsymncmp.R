@@ -44,8 +44,9 @@ nsymncmp <- function(data, ...) {
     )
   fit_errproof <- purrr::possibly(
     ~ stats::nls(
-      acc_cor ~ 1 - pnorm(0, b - s, w * sqrt(b ^ 2 + s ^ 2)),
-      .x, start = list(w = 0.5)
+      acc_cor ~ 1 - pnorm(0, b - s, w * sqrt(b^2 + s^2)),
+      .x,
+      start = list(w = 0.5)
     ) %>%
       stats::coef(),
     otherwise = NA_real_
