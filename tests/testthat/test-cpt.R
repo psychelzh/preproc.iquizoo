@@ -1,4 +1,15 @@
-test_that("`cpt()` should work on sample data", {
-  sample_data <- jsonlite::stream_in(file("data/cpt/sample_cpt.json"))
-  expect_snapshot(cpt(sample_data))
+test_that("Test `cpt()`: Continuous Performance Test", {
+  expect_snapshot(
+    cpt(
+      jsonlite::read_json(
+        "data/cpt/sample_cpt.json",
+        simplifyVector = TRUE
+      )
+    )
+  )
+})
+
+test_that("Test `cpt()`: corrupted data", {
+  expect_snapshot(cpt(data.frame()))
+  expect_snapshot(cpt(1))
 })
