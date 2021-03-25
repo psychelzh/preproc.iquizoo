@@ -105,8 +105,9 @@ correct_rt_acc <- function(data, ...,
     data_out <- data_out %>%
       dplyr::mutate(acc_cor = .data[[name_acc]])
   }
-  return(data_out)
+  data_out
 }
+
 #' Compose output containing `NA`s with names required
 #'
 #' @param vars_output Variable names in the output
