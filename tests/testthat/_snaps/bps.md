@@ -16,9 +16,9 @@
       At least one of the required variables are missing.
     Output
       # A tibble: 1 x 6
-        pc    p_sim_lure p_sim_foil p_sim_old bps_score is_normal
-        <lgl> <lgl>      <lgl>      <lgl>     <lgl>     <lgl>    
-      1 NA    NA         NA         NA        NA        FALSE    
+           pc p_sim_lure p_sim_foil p_sim_old bps_score is_normal
+        <dbl>      <dbl>      <dbl>     <dbl>     <dbl> <lgl>    
+      1    NA         NA         NA        NA        NA FALSE    
 
 ---
 
@@ -28,7 +28,7 @@
       At least one of the required variables are missing.
     Output
       # A tibble: 1 x 6
-        pc    p_sim_lure p_sim_foil p_sim_old bps_score is_normal
-        <lgl> <lgl>      <lgl>      <lgl>     <lgl>     <lgl>    
-      1 NA    NA         NA         NA        NA        FALSE    
+           pc p_sim_lure p_sim_foil p_sim_old bps_score is_normal
+        <dbl>      <dbl>      <dbl>     <dbl>     <dbl> <lgl>    
+      1    NA         NA         NA        NA        NA FALSE    
 

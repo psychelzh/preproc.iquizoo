@@ -31,14 +31,7 @@ cpt <- function(data, ...) {
   )
   vars_matched <- match_data_vars(data, vars_required)
   if (is.null(vars_matched)) {
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
   data_cor <- data %>%
     dplyr::mutate(
@@ -82,5 +75,6 @@ cpt <- function(data, ...) {
       mrt = mean(.data[["rt_cor"]]),
       rtsd = stats::sd(.data[["rt_cor"]])
     )
-  tibble(pc, sdt, counts, rt, is_normal = TRUE)
+  is_normal <- check_resp_metric(data_cor, check_type = "accuracy")
+  tibble(pc, sdt, counts, rt, is_normal)
 }

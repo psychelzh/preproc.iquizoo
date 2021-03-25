@@ -48,14 +48,7 @@ complexswitch <- function(data, ...) {
   )
   vars_matched <- match_data_vars(data, vars_required)
   if (is.null(vars_matched)) {
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
   data_cor <- correct_rt_acc(data, name_acc = vars_matched["name_acc"])
   # calculate congruency effect
@@ -85,25 +78,13 @@ complexswitch <- function(data, ...) {
     dplyr::mutate(dur = dplyr::if_else(.data[["type_block"]] == "pure", 0.5, 1))
   if (any(block_info[["has_no_response"]])) {
     warning("At least one block has no response.")
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
   switch_cost <- calc_switch_cost(
     data_cor, block_info,
     name_task = vars_matched["name_task"],
     name_switch = vars_matched["name_switch"]
   )
-  validation <- data_cor %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data[["acc_cor"]] == 1)) %>%
-    dplyr::transmute(
-      is_normal = .data[["nc"]] > stats::qbinom(0.95, .data[["nt"]], 0.5) &&
-        !any(block_info[["has_no_response"]])
-    )
-  tibble(cong_eff, switch_cost, validation)
+  is_normal <- check_resp_metric(data_cor) && !any(block_info$has_no_response)
+  tibble(cong_eff, switch_cost, is_normal)
 }

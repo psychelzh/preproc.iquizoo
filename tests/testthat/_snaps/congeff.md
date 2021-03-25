@@ -37,9 +37,9 @@
       At least one of the required variables are missing.
     Output
       # A tibble: 1 x 8
-        mrt_inc mrt_con cong_eff_rt pc_inc pc_con cong_eff_pc nc    is_normal
-        <lgl>   <lgl>   <lgl>       <lgl>  <lgl>  <lgl>       <lgl> <lgl>    
-      1 NA      NA      NA          NA     NA     NA          NA    FALSE    
+        mrt_inc mrt_con cong_eff_rt pc_inc pc_con cong_eff_pc    nc is_normal
+          <dbl>   <dbl>       <dbl>  <dbl>  <dbl>       <dbl> <dbl> <lgl>    
+      1      NA      NA          NA     NA     NA          NA    NA FALSE    
 
 ---
 
@@ -49,7 +49,7 @@
       At least one of the required variables are missing.
     Output
       # A tibble: 1 x 8
-        mrt_inc mrt_con cong_eff_rt pc_inc pc_con cong_eff_pc nc    is_normal
-        <lgl>   <lgl>   <lgl>       <lgl>  <lgl>  <lgl>       <lgl> <lgl>    
-      1 NA      NA      NA          NA     NA     NA          NA    FALSE    
+        mrt_inc mrt_con cong_eff_rt pc_inc pc_con cong_eff_pc    nc is_normal
+          <dbl>   <dbl>       <dbl>  <dbl>  <dbl>       <dbl> <dbl> <lgl>    
+      1      NA      NA          NA     NA     NA          NA    NA FALSE    
 

@@ -16,9 +16,9 @@
       At least one of the required variables are missing.
     Output
       # A tibble: 1 x 7
-        pc    hit_rate p_old_lure p_old_foil fm_ratio fm_dprime is_normal
-        <lgl> <lgl>    <lgl>      <lgl>      <lgl>    <lgl>     <lgl>    
-      1 NA    NA       NA         NA         NA       NA        FALSE    
+           pc hit_rate p_old_lure p_old_foil fm_ratio fm_dprime is_normal
+        <dbl>    <dbl>      <dbl>      <dbl>    <dbl>     <dbl> <lgl>    
+      1    NA       NA         NA         NA       NA        NA FALSE    
 
 ---
 
@@ -28,7 +28,7 @@
       At least one of the required variables are missing.
     Output
       # A tibble: 1 x 7
-        pc    hit_rate p_old_lure p_old_foil fm_ratio fm_dprime is_normal
-        <lgl> <lgl>    <lgl>      <lgl>      <lgl>    <lgl>     <lgl>    
-      1 NA    NA       NA         NA         NA       NA        FALSE    
+           pc hit_rate p_old_lure p_old_foil fm_ratio fm_dprime is_normal
+        <dbl>    <dbl>      <dbl>      <dbl>    <dbl>     <dbl> <lgl>    
+      1    NA       NA         NA         NA       NA        NA FALSE    
 

@@ -27,8 +27,8 @@
     Output
       # A tibble: 1 x 4
         mean_err mean_logerr mean_sqrterr is_normal
-        <lgl>    <lgl>       <lgl>        <lgl>    
-      1 NA       NA          NA           FALSE    
+           <dbl>       <dbl>        <dbl> <lgl>    
+      1       NA          NA           NA FALSE    
 
 ---
 
@@ -39,6 +39,6 @@
     Output
       # A tibble: 1 x 4
         mean_err mean_logerr mean_sqrterr is_normal
-        <lgl>    <lgl>       <lgl>        <lgl>    
-      1 NA       NA          NA           FALSE    
+           <dbl>       <dbl>        <dbl> <lgl>    
+      1       NA          NA           NA FALSE    
 

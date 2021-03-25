@@ -24,14 +24,7 @@ symncmp <- function(data, ...) {
   )
   vars_matched <- match_data_vars(data, vars_required)
   if (is.null(vars_matched)) {
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
   # set as wrong for trials responding too quickly
   data_cor <- correct_rt_acc(data)
@@ -53,10 +46,5 @@ symncmp <- function(data, ...) {
     dist_eff = dist_eff_orig,
     dist_eff_adj = dist_eff_orig / basic$mrt
   )
-  is_normal <- data_cor %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data[["acc_cor"]] == 1)) %>%
-    dplyr::transmute(
-      is_normal = .data[["nc"]] > stats::qbinom(0.95, .data[["nt"]], 0.5)
-    )
-  tibble(basic, dist_eff, is_normal)
+  tibble(basic, dist_eff, is_normal = check_resp_metric(data_cor))
 }

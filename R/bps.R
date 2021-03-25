@@ -25,14 +25,7 @@ bps <- function(data, ...) {
   )
   vars_matched <- match_data_vars(data, vars_required)
   if (is.null(vars_matched)) {
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
   pc_all <- data %>%
     dplyr::filter(.data[[vars_matched["name_phase"]]] == "test") %>%
@@ -53,9 +46,6 @@ bps <- function(data, ...) {
   is_normal <- data %>%
     dplyr::filter(.data[[vars_matched["name_phase"]]] == "test") %>%
     correct_rt_acc() %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data[["acc_cor"]] == 1)) %>%
-    dplyr::transmute(
-      is_normal = .data[["nc"]] > stats::qbinom(0.95, .data[["nt"]], 1 / 3)
-    )
+    check_resp_metric(chance = 1 / 3)
   tibble(pc_all, bps_score, is_normal)
 }

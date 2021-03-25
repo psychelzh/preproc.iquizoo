@@ -17,9 +17,9 @@
       At least one of the required variables are missing.
     Output
       # A tibble: 1 x 6
-        pc_all pc_go medrt_go mean_ssd ssrt  is_normal
-        <lgl>  <lgl> <lgl>    <lgl>    <lgl> <lgl>    
-      1 NA     NA    NA       NA       NA    FALSE    
+        pc_all pc_go medrt_go mean_ssd  ssrt is_normal
+         <dbl> <dbl>    <dbl>    <dbl> <dbl> <lgl>    
+      1     NA    NA       NA       NA    NA FALSE    
 
 ---
 
@@ -29,7 +29,7 @@
       At least one of the required variables are missing.
     Output
       # A tibble: 1 x 6
-        pc_all pc_go medrt_go mean_ssd ssrt  is_normal
-        <lgl>  <lgl> <lgl>    <lgl>    <lgl> <lgl>    
-      1 NA     NA    NA       NA       NA    FALSE    
+        pc_all pc_go medrt_go mean_ssd  ssrt is_normal
+         <dbl> <dbl>    <dbl>    <dbl> <dbl> <lgl>    
+      1     NA    NA       NA       NA    NA FALSE    
 

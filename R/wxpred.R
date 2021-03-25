@@ -22,14 +22,7 @@ wxpred <- function(data, ...) {
   )
   vars_matched <- match_data_vars(data, vars_required)
   if (is.null(vars_matched)) {
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
   if (is.na(vars_matched["name_block"])) {
     vars_matched["name_block"] <- "Block"
@@ -46,14 +39,7 @@ wxpred <- function(data, ...) {
   if (all(is.na(data[[vars_matched["name_block"]]])) ||
     max(data[[vars_matched["name_block"]]]) != 4) {
     warning("Number of blocks is not equal to 4.")
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
   data_cor <- correct_rt_acc(data)
   pc <- data_cor %>%
@@ -65,10 +51,5 @@ wxpred <- function(data, ...) {
       names_prefix = "pc_b",
       values_from = "pc"
     )
-  is_normal <- data_cor %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data[["acc_cor"]] == 1)) %>%
-    dplyr::transmute(
-      is_normal = .data[["nc"]] > stats::qbinom(0.95, .data[["nt"]], 0.5)
-    )
-  tibble(pc, is_normal)
+  tibble(pc, is_normal = check_resp_metric(data_cor))
 }
