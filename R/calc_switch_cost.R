@@ -1,39 +1,3 @@
-#' Congruency effect
-#'
-#' Utility function to calculate indices related to congruency effect.
-#'
-#' @param data A `data.frame` from which the indices are calculated.
-#' @param name_cong The name of the variable in `data` storing the congruency
-#'   info.
-#' @param name_rt The name of the variable in `data` storing reaction time data.
-#' @param name_acc The name of the variable in `data` storing accuracy data.
-#' @param values_cong The values of the congruency info variable, in which the
-#'   first is about 'congruent', and the second about 'incongruent'.
-#' @keywords internal
-calc_cong_eff <- function(data,
-                          name_cong = "Type",
-                          name_rt = "rt_cor",
-                          name_acc = "acc_cor",
-                          values_cong = c("Congruent", "Incongruent")) {
-  data %>%
-    dplyr::group_by(.data[[name_cong]]) %>%
-    dplyr::summarise(
-      mrt = mean(.data[[name_rt]], na.rm = TRUE),
-      pc = mean(.data[[name_acc]] == 1)
-    ) %>%
-    tidyr::pivot_wider(
-      names_from = dplyr::all_of(name_cong),
-      values_from = c("mrt", "pc")
-    ) %>%
-    dplyr::transmute(
-      mrt_con = .data[[paste("mrt", values_cong[[1]], sep = "_")]],
-      mrt_inc = .data[[paste("mrt", values_cong[[2]], sep = "_")]],
-      cong_eff_rt = .data$mrt_inc - .data$mrt_con,
-      pc_con = .data[[paste("pc", values_cong[[1]], sep = "_")]],
-      pc_inc = .data[[paste("pc", values_cong[[2]], sep = "_")]],
-      cong_eff_pc = .data$pc_con - .data$pc_inc
-    )
-}
 #' Switch cost
 #'
 #' Utility function to calculate indices related to switch cost.
@@ -105,45 +69,4 @@ calc_switch_cost <- function(data,
       switch_cost_rt_spe = .data$mrt_switch - .data$mrt_repeat
     )
   cbind(switch_cost_count, switch_cost_rt)
-}
-#' Signal Detection Theory
-#'
-#' Utility function to calculate indices related to signal detection theory,
-#' e.g., d', c.
-#'
-#' @param data Required. A `data.frame` from which the indices are calculated.
-#' @param name_type The name of the variable in `data` storing the signal type
-#'   info.
-#' @param name_acc The name of the variable in `data` storing accuracy data.
-#' @param values_type The values of signal type. The first is 'signal', and the
-#'   second is 'noise'.
-#' @keywords internal
-calc_sdt <- function(data,
-                     name_type = "Type",
-                     name_acc = "ACC",
-                     values_type = c("s", "n")) {
-  data %>%
-    dplyr::group_by(.data[[name_type]]) %>%
-    dplyr::summarise(
-      n = dplyr::n(),
-      pc = mean(.data[[name_acc]] == 1)
-    ) %>%
-    dplyr::mutate(
-      pc_cor = dplyr::case_when(
-        .data$pc == 0 ~ 1 / (2 * .data$n),
-        .data$pc == 1 ~ 1 - 1 / (2 * .data$n),
-        TRUE ~ .data$pc
-      )
-    ) %>%
-    dplyr::select(.data[[name_type]], .data$pc_cor) %>%
-    tidyr::pivot_wider(
-      names_from = .data[[name_type]],
-      values_from = .data[["pc_cor"]]
-    ) %>%
-    dplyr::transmute(
-      dprime = stats::qnorm(.data[[values_type[[1]]]]) +
-        stats::qnorm(.data[[values_type[[2]]]]),
-      c = -(stats::qnorm(.data[[values_type[[1]]]]) -
-        stats::qnorm(.data[[values_type[[2]]]])) / 2
-    )
 }
