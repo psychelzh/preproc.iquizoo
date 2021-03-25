@@ -25,6 +25,7 @@ Imports:
     tibble,
     tidyr
 Suggests:
+    covr,
     roxygen2,
     testthat (>= 3.0.0)
 Encoding: UTF-8
