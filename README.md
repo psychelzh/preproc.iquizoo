@@ -3,7 +3,7 @@
 [![tic](https://github.com/psychelzh/dataproc.iquizoo/workflows/tic/badge.svg?branch=master)](https://github.com/psychelzh/dataproc.iquizoo/actions)
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
-This is an R package provides preprocessing functions for IQUIZOO original data.
+This is an R package providing preprocessing functions for IQUIZOO original data.
 
 ## Table of Contents
 
@@ -17,7 +17,7 @@ This is an R package provides preprocessing functions for IQUIZOO original data.
 
 ## Background
 
-IQUIZOO is now a developing company shipped with a bunch of games assessing psychological constructs. The original data from these games have various format, and this package tries to provide PIs for every game. The basic logic here is to use one dataset named `game_info`, which is exported to provide information of each game and its preprocessing function name, so that one can easily match the correct function to preprocess data for these games based on this dataset.
+IQUIZOO is now a developing company shipped with a bunch of games assessing psychological constructs. The original data from these games have various format, and this package tries to provide APIs for every game. The basic logic here is to use one dataset named `game_info`, which is exported to provide information of each game and its preprocessing function name, so that one can easily match the correct function to preprocess data for these games based on this dataset.
 
 ## Install
 
