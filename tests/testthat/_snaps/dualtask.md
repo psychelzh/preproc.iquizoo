@@ -19,9 +19,9 @@
     Output
       # A tibble: 1 x 10
         mrt_all mrt_left mrt_right nc_all nc_left nc_right dprime_all dprime_left
-        <lgl>   <lgl>    <lgl>     <lgl>  <lgl>   <lgl>    <lgl>      <lgl>      
-      1 NA      NA       NA        NA     NA      NA       NA         NA         
-      # ... with 2 more variables: dprime_right <lgl>, is_normal <lgl>
+          <dbl>    <dbl>     <dbl>  <dbl>   <dbl>    <dbl>      <dbl>       <dbl>
+      1      NA       NA        NA     NA      NA       NA         NA          NA
+      # ... with 2 more variables: dprime_right <dbl>, is_normal <lgl>
 
 ---
 
@@ -32,7 +32,7 @@
     Output
       # A tibble: 1 x 10
         mrt_all mrt_left mrt_right nc_all nc_left nc_right dprime_all dprime_left
-        <lgl>   <lgl>    <lgl>     <lgl>  <lgl>   <lgl>    <lgl>      <lgl>      
-      1 NA      NA       NA        NA     NA      NA       NA         NA         
-      # ... with 2 more variables: dprime_right <lgl>, is_normal <lgl>
+          <dbl>    <dbl>     <dbl>  <dbl>   <dbl>    <dbl>      <dbl>       <dbl>
+      1      NA       NA        NA     NA      NA       NA         NA          NA
+      # ... with 2 more variables: dprime_right <dbl>, is_normal <lgl>
 

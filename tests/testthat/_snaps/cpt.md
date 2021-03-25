@@ -17,9 +17,9 @@
       At least one of the required variables are missing.
     Output
       # A tibble: 1 x 10
-        pc    dprime c     hits  commissions omissions count_error mrt   rtsd 
-        <lgl> <lgl>  <lgl> <lgl> <lgl>       <lgl>     <lgl>       <lgl> <lgl>
-      1 NA    NA     NA    NA    NA          NA        NA          NA    NA   
+           pc dprime     c  hits commissions omissions count_error   mrt  rtsd
+        <dbl>  <dbl> <dbl> <dbl>       <dbl>     <dbl>       <dbl> <dbl> <dbl>
+      1    NA     NA    NA    NA          NA        NA          NA    NA    NA
       # ... with 1 more variable: is_normal <lgl>
 
 ---
@@ -30,8 +30,8 @@
       At least one of the required variables are missing.
     Output
       # A tibble: 1 x 10
-        pc    dprime c     hits  commissions omissions count_error mrt   rtsd 
-        <lgl> <lgl>  <lgl> <lgl> <lgl>       <lgl>     <lgl>       <lgl> <lgl>
-      1 NA    NA     NA    NA    NA          NA        NA          NA    NA   
+           pc dprime     c  hits commissions omissions count_error   mrt  rtsd
+        <dbl>  <dbl> <dbl> <dbl>       <dbl>     <dbl>       <dbl> <dbl> <dbl>
+      1    NA     NA    NA    NA          NA        NA          NA    NA    NA
       # ... with 1 more variable: is_normal <lgl>
 

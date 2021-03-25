@@ -28,8 +28,8 @@
     Output
       # A tibble: 1 x 6
         pc_all pc_b1 pc_b2 pc_b3 pc_b4 is_normal
-        <lgl>  <lgl> <lgl> <lgl> <lgl> <lgl>    
-      1 NA     NA    NA    NA    NA    FALSE    
+         <dbl> <dbl> <dbl> <dbl> <dbl> <lgl>    
+      1     NA    NA    NA    NA    NA FALSE    
 
 ---
 
@@ -40,6 +40,6 @@
     Output
       # A tibble: 1 x 6
         pc_all pc_b1 pc_b2 pc_b3 pc_b4 is_normal
-        <lgl>  <lgl> <lgl> <lgl> <lgl> <lgl>    
-      1 NA     NA    NA    NA    NA    FALSE    
+         <dbl> <dbl> <dbl> <dbl> <dbl> <lgl>    
+      1     NA    NA    NA    NA    NA FALSE    
 

@@ -36,9 +36,9 @@
       At least one of the required variables are missing.
     Output
       # A tibble: 1 x 3
-        mean_dist pc    is_normal
-        <lgl>     <lgl> <lgl>    
-      1 NA        NA    FALSE    
+        mean_dist    pc is_normal
+            <dbl> <dbl> <lgl>    
+      1        NA    NA FALSE    
 
 ---
 
@@ -48,7 +48,7 @@
       At least one of the required variables are missing.
     Output
       # A tibble: 1 x 3
-        mean_dist pc    is_normal
-        <lgl>     <lgl> <lgl>    
-      1 NA        NA    FALSE    
+        mean_dist    pc is_normal
+            <dbl> <dbl> <lgl>    
+      1        NA    NA FALSE    
 

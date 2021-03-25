@@ -86,9 +86,9 @@
       At least one of the required variables are missing.
     Output
       # A tibble: 1 x 4
-        max_span mean_span nc    is_normal
-        <lgl>    <lgl>     <lgl> <lgl>    
-      1 NA       NA        NA    FALSE    
+        max_span mean_span    nc is_normal
+           <dbl>     <dbl> <dbl> <lgl>    
+      1       NA        NA    NA FALSE    
 
 ---
 
@@ -98,7 +98,7 @@
       At least one of the required variables are missing.
     Output
       # A tibble: 1 x 4
-        max_span mean_span nc    is_normal
-        <lgl>    <lgl>     <lgl> <lgl>    
-      1 NA       NA        NA    FALSE    
+        max_span mean_span    nc is_normal
+           <dbl>     <dbl> <dbl> <lgl>    
+      1       NA        NA    NA FALSE    
 

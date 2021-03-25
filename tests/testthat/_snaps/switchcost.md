@@ -60,10 +60,10 @@
     Output
       # A tibble: 1 x 10
         rc_all rc_mixed rc_pure switch_cost_rc_gen mrt_pure mrt_repeat mrt_switch
-        <lgl>  <lgl>    <lgl>   <lgl>              <lgl>    <lgl>      <lgl>     
-      1 NA     NA       NA      NA                 NA       NA         NA        
-      # ... with 3 more variables: switch_cost_rt_gen <lgl>,
-      #   switch_cost_rt_spe <lgl>, is_normal <lgl>
+         <dbl>    <dbl>   <dbl>              <dbl>    <dbl>      <dbl>      <dbl>
+      1     NA       NA      NA                 NA       NA         NA         NA
+      # ... with 3 more variables: switch_cost_rt_gen <dbl>,
+      #   switch_cost_rt_spe <dbl>, is_normal <lgl>
 
 # Test `switchcost()`: corrupted data
 
@@ -74,10 +74,10 @@
     Output
       # A tibble: 1 x 10
         rc_all rc_mixed rc_pure switch_cost_rc_gen mrt_pure mrt_repeat mrt_switch
-        <lgl>  <lgl>    <lgl>   <lgl>              <lgl>    <lgl>      <lgl>     
-      1 NA     NA       NA      NA                 NA       NA         NA        
-      # ... with 3 more variables: switch_cost_rt_gen <lgl>,
-      #   switch_cost_rt_spe <lgl>, is_normal <lgl>
+         <dbl>    <dbl>   <dbl>              <dbl>    <dbl>      <dbl>      <dbl>
+      1     NA       NA      NA                 NA       NA         NA         NA
+      # ... with 3 more variables: switch_cost_rt_gen <dbl>,
+      #   switch_cost_rt_spe <dbl>, is_normal <lgl>
 
 ---
 
@@ -88,8 +88,8 @@
     Output
       # A tibble: 1 x 10
         rc_all rc_mixed rc_pure switch_cost_rc_gen mrt_pure mrt_repeat mrt_switch
-        <lgl>  <lgl>    <lgl>   <lgl>              <lgl>    <lgl>      <lgl>     
-      1 NA     NA       NA      NA                 NA       NA         NA        
-      # ... with 3 more variables: switch_cost_rt_gen <lgl>,
-      #   switch_cost_rt_spe <lgl>, is_normal <lgl>
+         <dbl>    <dbl>   <dbl>              <dbl>    <dbl>      <dbl>      <dbl>
+      1     NA       NA      NA                 NA       NA         NA         NA
+      # ... with 3 more variables: switch_cost_rt_gen <dbl>,
+      #   switch_cost_rt_spe <dbl>, is_normal <lgl>
 

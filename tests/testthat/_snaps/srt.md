@@ -26,9 +26,9 @@
       At least one of the required variables are missing.
     Output
       # A tibble: 1 x 3
-        percent_valid mrt   is_normal
-        <lgl>         <lgl> <lgl>    
-      1 NA            NA    FALSE    
+        percent_valid   mrt is_normal
+                <dbl> <dbl> <lgl>    
+      1            NA    NA FALSE    
 
 ---
 
@@ -38,7 +38,7 @@
       At least one of the required variables are missing.
     Output
       # A tibble: 1 x 3
-        percent_valid mrt   is_normal
-        <lgl>         <lgl> <lgl>    
-      1 NA            NA    FALSE    
+        percent_valid   mrt is_normal
+                <dbl> <dbl> <lgl>    
+      1            NA    NA FALSE    
 

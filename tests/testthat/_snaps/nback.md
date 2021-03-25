@@ -46,9 +46,9 @@
       At least one of the required variables are missing.
     Output
       # A tibble: 1 x 5
-        pc    mrt   dprime c     is_normal
-        <lgl> <lgl> <lgl>  <lgl> <lgl>    
-      1 NA    NA    NA     NA    FALSE    
+           pc   mrt dprime     c is_normal
+        <dbl> <dbl>  <dbl> <dbl> <lgl>    
+      1    NA    NA     NA    NA FALSE    
 
 ---
 
@@ -58,7 +58,7 @@
       At least one of the required variables are missing.
     Output
       # A tibble: 1 x 5
-        pc    mrt   dprime c     is_normal
-        <lgl> <lgl> <lgl>  <lgl> <lgl>    
-      1 NA    NA    NA     NA    FALSE    
+           pc   mrt dprime     c is_normal
+        <dbl> <dbl>  <dbl> <dbl> <lgl>    
+      1    NA    NA     NA    NA FALSE    
 

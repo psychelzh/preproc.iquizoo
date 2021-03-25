@@ -29,8 +29,8 @@
     Output
       # A tibble: 1 x 5
         mrt_image mrt_sound mrt_mixed mrt_mixadv is_normal
-        <lgl>     <lgl>     <lgl>     <lgl>      <lgl>    
-      1 NA        NA        NA        NA         FALSE    
+            <dbl>     <dbl>     <dbl>      <dbl> <lgl>    
+      1        NA        NA        NA         NA FALSE    
 
 ---
 
@@ -41,6 +41,6 @@
     Output
       # A tibble: 1 x 5
         mrt_image mrt_sound mrt_mixed mrt_mixadv is_normal
-        <lgl>     <lgl>     <lgl>     <lgl>      <lgl>    
-      1 NA        NA        NA        NA         FALSE    
+            <dbl>     <dbl>     <dbl>      <dbl> <lgl>    
+      1        NA        NA        NA         NA FALSE    
 

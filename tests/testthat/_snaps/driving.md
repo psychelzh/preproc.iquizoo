@@ -24,8 +24,8 @@
     Output
       # A tibble: 1 x 2
         still_ratio is_normal
-        <lgl>       <lgl>    
-      1 NA          FALSE    
+              <dbl> <lgl>    
+      1          NA FALSE    
 
 ---
 
@@ -36,6 +36,6 @@
     Output
       # A tibble: 1 x 2
         still_ratio is_normal
-        <lgl>       <lgl>    
-      1 NA          FALSE    
+              <dbl> <lgl>    
+      1          NA FALSE    
 
