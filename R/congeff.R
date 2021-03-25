@@ -36,11 +36,6 @@ congeff <- function(data, ...) {
   }
   data_cor <- correct_rt_acc(data)
   cong_eff <- calc_cong_eff(data_cor)
-  nc_and_validation <- data_cor %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data[["acc_cor"]] == 1)) %>%
-    dplyr::transmute(
-      .data[["nc"]],
-      is_normal = .data[["nc"]] > stats::qbinom(0.95, .data[["nt"]], 0.5)
-    )
-  tibble(cong_eff, nc_and_validation)
+  is_normal <- check_resp_metric(data_cor)
+  tibble(cong_eff, nc = sum(data_cor[["acc_cor"]] == 1), is_normal)
 }

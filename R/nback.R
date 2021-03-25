@@ -36,10 +36,6 @@ nback <- function(data, ...) {
     name_acc = "acc_cor",
     values_type = c("Change", "Stay")
   )
-  is_normal <- data_cor %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data[["acc_cor"]] == 1)) %>%
-    dplyr::transmute(
-      is_normal = .data[["nc"]] > stats::qbinom(0.95, .data[["nt"]], 0.5)
-    )
+  is_normal <- check_resp_metric(data_cor)
   tibble(basic, sdt, is_normal)
 }

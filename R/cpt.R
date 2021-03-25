@@ -75,5 +75,6 @@ cpt <- function(data, ...) {
       mrt = mean(.data[["rt_cor"]]),
       rtsd = stats::sd(.data[["rt_cor"]])
     )
-  tibble(pc, sdt, counts, rt, is_normal = TRUE)
+  is_normal <- check_resp_metric(data_cor, check_type = "accuracy")
+  tibble(pc, sdt, counts, rt, is_normal)
 }

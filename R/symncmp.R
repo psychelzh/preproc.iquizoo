@@ -46,10 +46,5 @@ symncmp <- function(data, ...) {
     dist_eff = dist_eff_orig,
     dist_eff_adj = dist_eff_orig / basic$mrt
   )
-  is_normal <- data_cor %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data[["acc_cor"]] == 1)) %>%
-    dplyr::transmute(
-      is_normal = .data[["nc"]] > stats::qbinom(0.95, .data[["nt"]], 0.5)
-    )
-  tibble(basic, dist_eff, is_normal)
+  tibble(basic, dist_eff, is_normal = check_resp_metric(data_cor))
 }

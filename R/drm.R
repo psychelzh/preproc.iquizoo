@@ -63,9 +63,6 @@ drm <- function(data, ...) {
     )
   is_normal <- data %>%
     correct_rt_acc() %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data[["acc_cor"]] == 1)) %>%
-    dplyr::transmute(
-      is_normal = .data[["nc"]] > stats::qbinom(0.95, .data[["nt"]], 0.5)
-    )
+    check_resp_metric()
   tibble(pc_all, fm, is_normal)
 }

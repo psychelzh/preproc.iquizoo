@@ -75,17 +75,9 @@ stopsignal <- function(data, ...) {
     dplyr::group_by(.data[["medrt_go"]]) %>% # to keep `medrt_go` variable
     dplyr::summarise(mean_ssd = mean(.data[["ssd"]])) %>%
     dplyr::mutate(ssrt = .data[["medrt_go"]] - .data[["mean_ssd"]])
-  validation <- data_cor %>%
+  is_normal <- data_cor %>%
     dplyr::filter(.data[[vars_matched["name_type"]]] == "Go") %>%
-    dplyr::summarise(
-      nt = dplyr::n(),
-      nr = sum(.data[["acc_cor"]] != -1),
-      nc = sum(.data[["acc_cor"]] == 1)
-    ) %>%
-    dplyr::transmute(
-      is_normal = (.data[["nr"]] / .data[["nt"]]) > 0.8 && # response rate > 80%
-        .data[["nc"]] > stats::qbinom(0.95, .data[["nt"]], 0.5) &&
-        !is.na(indices_from_rt[["mean_ssd"]]) # fail in stop trials
-    )
-  tibble(indices_from_acc, indices_from_rt, validation)
+    check_resp_metric() %>%
+    `&&`(!is.na(indices_from_rt$ssrt))
+  tibble(indices_from_acc, indices_from_rt, is_normal)
 }

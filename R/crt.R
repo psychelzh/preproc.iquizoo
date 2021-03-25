@@ -25,7 +25,7 @@ crt <- function(data, ...) {
     correct_rt_acc() %>%
     dplyr::summarise(
       mrt = mean(.data[["rt_cor"]], na.rm = TRUE),
-      nc = sum(.data[[vars_matched["name_acc"]]] == 1),
-      is_normal = TRUE
+      nc = sum(.data[["acc_cor"]] == 1),
+      is_normal = check_resp_metric(.data[["acc_cor"]])
     )
 }

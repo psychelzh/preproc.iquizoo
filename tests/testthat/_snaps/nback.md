@@ -16,7 +16,7 @@
       # A tibble: 1 x 5
            pc   mrt dprime      c is_normal
         <dbl> <dbl>  <dbl>  <dbl> <lgl>    
-      1 0.625   280  0.648 -0.184 TRUE     
+      1 0.625   280  0.648 -0.184 FALSE    
 
 # Test `nback()`: Three Back Test
 

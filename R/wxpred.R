@@ -51,10 +51,5 @@ wxpred <- function(data, ...) {
       names_prefix = "pc_b",
       values_from = "pc"
     )
-  is_normal <- data_cor %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data[["acc_cor"]] == 1)) %>%
-    dplyr::transmute(
-      is_normal = .data[["nc"]] > stats::qbinom(0.95, .data[["nt"]], 0.5)
-    )
-  tibble(pc, is_normal)
+  tibble(pc, is_normal = check_resp_metric(data_cor))
 }

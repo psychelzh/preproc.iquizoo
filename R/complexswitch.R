@@ -85,11 +85,6 @@ complexswitch <- function(data, ...) {
     name_task = vars_matched["name_task"],
     name_switch = vars_matched["name_switch"]
   )
-  validation <- data_cor %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data[["acc_cor"]] == 1)) %>%
-    dplyr::transmute(
-      is_normal = .data[["nc"]] > stats::qbinom(0.95, .data[["nt"]], 0.5) &&
-        !any(block_info[["has_no_response"]])
-    )
-  tibble(cong_eff, switch_cost, validation)
+  is_normal <- check_resp_metric(data_cor) && !any(block_info$has_no_response)
+  tibble(cong_eff, switch_cost, is_normal)
 }
