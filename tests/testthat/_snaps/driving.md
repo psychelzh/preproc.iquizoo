@@ -3,8 +3,10 @@
     Code
       driving(jsonlite::read_json("data/driving/sample_driving.json", simplifyVector = TRUE))
     Output
+      # A tibble: 1 x 2
         still_ratio is_normal
-      1    0.514658      TRUE
+              <dbl> <lgl>    
+      1       0.515 TRUE     
 
 # Test `driving()`: Driving Test
 
@@ -12,8 +14,10 @@
       driving(jsonlite::read_json("data/driving/sample_driving2.json",
         simplifyVector = TRUE))
     Output
+      # A tibble: 1 x 2
         still_ratio is_normal
-      1   0.4684123      TRUE
+              <dbl> <lgl>    
+      1       0.468 TRUE     
 
 # Test `driving()`: corrupted data
 

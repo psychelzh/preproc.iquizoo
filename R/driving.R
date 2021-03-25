@@ -20,7 +20,7 @@ driving <- function(data, ...) {
   if (is.null(vars_matched)) {
     return(compose_abnormal_output(vars_output))
   }
-  data %>%
+  tibble(data) %>%
     dplyr::mutate(
       still_dur = purrr::map(
         .data[[vars_matched["name_still_dur"]]],
