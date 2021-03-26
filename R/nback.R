@@ -31,11 +31,13 @@ nback <- function(data, ...) {
       mrt = mean(.data[["rt_cor"]], na.rm = TRUE)
     )
   sdt <- calc_sdt(
-    data_cor,
-    name_type = vars_matched["name_type"],
-    name_acc = "acc_cor",
-    values_type = c("Change", "Stay")
-  )
+    data_cor[["acc_cor"]],
+    factor(
+      data_cor[[vars_matched["name_type"]]],
+      levels = c("Stay", "Change")
+    )
+  ) %>%
+    tibble::as_tibble_row()
   is_normal <- check_resp_metric(data_cor)
   tibble(basic, sdt, is_normal)
 }

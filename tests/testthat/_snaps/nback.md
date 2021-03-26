@@ -6,7 +6,7 @@
       # A tibble: 1 x 5
            pc   mrt dprime      c is_normal
         <dbl> <dbl>  <dbl>  <dbl> <lgl>    
-      1 0.875  560.   2.31 0.0677 TRUE     
+      1 0.875  560.   2.21 0.0623 TRUE     
 
 # Test `nback()`: Two Back Test
 
@@ -16,7 +16,7 @@
       # A tibble: 1 x 5
            pc   mrt dprime      c is_normal
         <dbl> <dbl>  <dbl>  <dbl> <lgl>    
-      1 0.625   280  0.648 -0.184 FALSE    
+      1 0.625   280  0.629 -0.179 FALSE    
 
 # Test `nback()`: Three Back Test
 
@@ -26,7 +26,7 @@
       # A tibble: 1 x 5
            pc   mrt dprime      c is_normal
         <dbl> <dbl>  <dbl>  <dbl> <lgl>    
-      1  0.75  623.   1.37 -0.177 TRUE     
+      1  0.75  623.   1.33 -0.169 TRUE     
 
 # Test `nback()`: Four Back Test
 
@@ -36,7 +36,7 @@
       # A tibble: 1 x 5
            pc   mrt dprime      c is_normal
         <dbl> <dbl>  <dbl>  <dbl> <lgl>    
-      1 0.681  881.  0.945 -0.117 TRUE     
+      1 0.681  881.  0.917 -0.113 TRUE     
 
 # Test `nback()` on corrupted data
 
