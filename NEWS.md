@@ -1,5 +1,7 @@
 # dataproc.iquizoo (development version)
 
+* Use log-linear correction for extreme proportions in calculation of d' based on signal detection theory (#16).
+
 # dataproc.iquizoo 0.2.8
 
 * Add more games to `game_info` data.

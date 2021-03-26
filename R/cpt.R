@@ -51,11 +51,8 @@ cpt <- function(data, ...) {
     dplyr::ungroup()
   pc <- data_cor %>%
     dplyr::summarise(pc = mean(.data[["acc_cor"]]))
-  sdt <- calc_sdt(
-    data_cor,
-    name_type = "type_cor",
-    name_acc = "acc_cor"
-  )
+  sdt <- calc_sdt(data_cor[["acc_cor"]], data_cor[["type_cor"]]) %>%
+    tibble::as_tibble_row()
   counts <- data_cor %>%
     dplyr::group_by(.data[["type_cor"]]) %>%
     dplyr::summarise(

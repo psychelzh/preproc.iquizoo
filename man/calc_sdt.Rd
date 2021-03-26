@@ -4,21 +4,34 @@
 \alias{calc_sdt}
 \title{Signal Detection Theory}
 \usage{
-calc_sdt(data, name_type = "Type", name_acc = "ACC", values_type = c("s", "n"))
+calc_sdt(acc, type, no_resp_to_inc = TRUE)
 }
 \arguments{
-\item{data}{Required. A \code{data.frame} from which the indices are calculated.}
+\item{acc, type}{\code{acc} is the correctness of each response, and \code{type} is the
+stimuli type of each response. These two inputs should have the same length
+(no broadcasting is done!)
+\itemize{
+\item \code{acc}: should be a \code{numeric} vector coded as that \code{1} means scoring
+correct, \code{0} means scoring incorrect, and that \code{-1} means no response is
+made. No other values are allowed.
+\item \code{type}: should be a vector of \code{factor} or \code{character} class. If a
+\code{factor}, only two levels are allowed, with which the first level
+represents the noise (i.e., non-target) type. If a \code{character}, it must
+contain values of "s" (signal, i.e., target) and "n" (noise) only.
+}}
 
-\item{name_type}{The name of the variable in \code{data} storing the signal type
-info.}
-
-\item{name_acc}{The name of the variable in \code{data} storing accuracy data.}
-
-\item{values_type}{The values of signal type. The first is 'signal', and the
-second is 'noise'.}
+\item{no_resp_to_inc}{a logical value indicating whether -1 values in \code{acc}
+should be treated as incorrect response or not. This value means the
+response is not a valid response. If \code{TRUE} (default), they will be treated
+as 0, i.e, incorrect response. Otherwise they are removed.}
+}
+\value{
+A \code{numeric} vector containing sensitivity index (named as \code{"dprime"})
+and bias (named as\code{"c"}).
 }
 \description{
-Utility function to calculate indices related to signal detection theory,
-e.g., d', c.
+Calculate sensitivity index and bias based on signal detection theory. The
+correction for extreme proportions of zero and one is the "log-linear" rule
+recommended by Hautus (1995).
 }
 \keyword{internal}
