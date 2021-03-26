@@ -1,4 +1,4 @@
-# dataproc.iquizoo (development version)
+# dataproc.iquizoo 0.2.7
 
 * Completely removed `conflict()`, which is defunct for many versions.
 * Used the 3rd version test framework of testthat package, especially takes advantage of the snapshot test (or goden test) to simplify all our tests.
