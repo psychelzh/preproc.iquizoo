@@ -1,4 +1,6 @@
-# dataproc.iquizoo (development version)
+# dataproc.iquizoo 0.2.8
+
+* Add more games to `game_info` data.
 
 # dataproc.iquizoo 0.2.7
 
