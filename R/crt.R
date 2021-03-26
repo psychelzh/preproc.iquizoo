@@ -19,19 +19,13 @@ crt <- function(data, ...) {
   )
   vars_matched <- match_data_vars(data, vars_required)
   if (is.null(vars_matched)) {
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
   tibble(data) %>%
+    correct_rt_acc() %>%
     dplyr::summarise(
-      mrt = mean(.data$RT[.data$ACC == 1]),
-      nc = sum(.data$ACC == 1),
-      is_normal = TRUE
+      mrt = mean(.data[["rt_cor"]], na.rm = TRUE),
+      nc = sum(.data[["acc_cor"]] == 1),
+      is_normal = check_resp_metric(.data[["acc_cor"]])
     )
 }

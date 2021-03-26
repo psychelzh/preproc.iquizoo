@@ -21,21 +21,14 @@ jlo <- function(data, ...) {
   )
   vars_matched <- match_data_vars(data, vars_required)
   if (is.null(vars_matched)) {
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
   nc <- data %>%
-    dplyr::summarise(nc = sum(.data$ACC == 1))
+    dplyr::summarise(nc = sum(.data[[vars_matched["name_acc"]]] == 1))
   ne <- data %>%
     dplyr::mutate(
-      resp_adj = purrr::map_dbl(
-        .data$Resp,
+      resp_cor = purrr::map_dbl(
+        .data[[vars_matched["name_resp"]]],
         ~ strsplit(.x, "-") %>%
           unlist() %>%
           stringr::str_replace_all(c("Left" = "1", "Right" = "-1")) %>%
@@ -44,15 +37,18 @@ jlo <- function(data, ...) {
       ),
       resp_angle = dplyr::case_when(
         # when rotating larger than a right angle, adjusting it
-        .data$resp_adj > 15 ~ .data$resp_adj * 6 - 180,
-        .data$resp_adj < -15 ~ .data$resp_adj * 6 + 180,
-        TRUE ~ .data$resp_adj * 6
+        .data[["resp_cor"]] > 15 ~ .data[["resp_cor"]] * 6 - 180,
+        .data[["resp_cor"]] < -15 ~ .data[["resp_cor"]] * 6 + 180,
+        TRUE ~ .data[["resp_cor"]] * 6
       )
     ) %>%
+    dplyr::mutate(
+      err = abs(.data[[vars_matched["name_angle"]]] - .data[["resp_angle"]])
+    ) %>%
     dplyr::summarise(
-      ne = sum(abs(.data$Angle - .data$resp_angle)),
-      ne_ln = sum(log(abs(.data$Angle - .data$resp_angle) + 1)),
-      ne_sqrt = sum(sqrt(abs(.data$Angle - .data$resp_angle)))
+      ne = sum(.data[["err"]]),
+      ne_ln = sum(log(.data[["err"]] + 1)),
+      ne_sqrt = sum(sqrt(abs(.data[["err"]])))
     )
   tibble(nc, ne, is_normal = TRUE)
 }

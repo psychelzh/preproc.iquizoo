@@ -32,23 +32,10 @@ congeff <- function(data, ...) {
   )
   vars_matched <- match_data_vars(data, vars_required)
   if (is.null(vars_matched)) {
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
-  data_adj <- data %>%
-    dplyr::mutate(acc_adj = dplyr::if_else(.data$RT >= 100, .data$ACC, 0L))
-  cong_eff <- calc_cong_eff(data_adj, name_acc = "acc_adj")
-  nc_and_validation <- data_adj %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data$acc_adj == 1)) %>%
-    dplyr::transmute(
-      .data$nc,
-      is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 0.5)
-    )
-  tibble(cong_eff, nc_and_validation)
+  data_cor <- correct_rt_acc(data)
+  cong_eff <- calc_cong_eff(data_cor)
+  is_normal <- check_resp_metric(data_cor)
+  tibble(cong_eff, nc = sum(data_cor[["acc_cor"]] == 1), is_normal)
 }

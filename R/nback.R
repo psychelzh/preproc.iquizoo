@@ -22,32 +22,20 @@ nback <- function(data, ...) {
   )
   vars_matched <- match_data_vars(data, vars_required)
   if (is.null(vars_matched)) {
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
-  data_adj <- data %>%
-    dplyr::mutate(
-      type_adj = dplyr::if_else(.data$Type == "Change", "s", "n"),
-      acc_adj = dplyr::if_else(.data$RT <= 100, 0L, .data$ACC)
-    )
-  basic <- data_adj %>%
+  data_cor <- correct_rt_acc(data)
+  basic <- data_cor %>%
     dplyr::summarise(
-      pc = mean(.data$acc_adj == 1),
-      mrt = mean(.data$RT[.data$acc_adj == 1])
+      pc = mean(.data[["acc_cor"]] == 1),
+      mrt = mean(.data[["rt_cor"]], na.rm = TRUE)
     )
   sdt <- calc_sdt(
-    data_adj,
-    name_type = "type_adj",
-    name_acc = "acc_adj"
+    data_cor,
+    name_type = vars_matched["name_type"],
+    name_acc = "acc_cor",
+    values_type = c("Change", "Stay")
   )
-  is_normal <- data_adj %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data$acc_adj == 1)) %>%
-    dplyr::transmute(is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 0.5))
+  is_normal <- check_resp_metric(data_cor)
   tibble(basic, sdt, is_normal)
 }

@@ -35,70 +35,75 @@ dualtask <- function(data, ...) {
   )
   vars_matched <- match_data_vars(data, vars_required)
   if (is.null(vars_matched)) {
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
-  data_adj <- data %>%
+  data_cor <- data %>%
     dplyr::mutate(
-      acc_adj = dplyr::if_else(
-        .data$RT >= 100 | .data$StimType == "NonTarget",
-        .data$ACC, 0L
+      correct_type = dplyr::if_else(
+        .data[[vars_matched["name_type"]]] == "Target",
+        "both", "rt"
       )
-    )
+    ) %>%
+    dplyr::group_by(.data[["correct_type"]]) %>%
+    dplyr::group_modify(
+      ~ correct_rt_acc(data = .x, correct_type = .y[["correct_type"]])
+    ) %>%
+    dplyr::ungroup()
   # dummy combination of side-wise data and full data
   data_dummy_cmb <- list(
-    sidewise = data_adj,
-    both = data_adj
+    sidewise = data_cor,
+    both = data_cor
   ) %>%
     dplyr::bind_rows(.id = "ind_type") %>%
     dplyr::mutate(
-      Side = dplyr::if_else(
-        .data$ind_type == "sidewise",
-        .data$Side, "all"
-      )
+      side = dplyr::if_else(
+        .data[["ind_type"]] == "sidewise",
+        .data[[vars_matched["name_side"]]], "all"
+      ),
+      .keep = "unused"
     )
   # indices calculated based on accuracy
   ind_from_acc <- data_dummy_cmb %>%
-    dplyr::group_by(.data$Side, .data$StimType) %>%
+    dplyr::group_by(
+      .data[["side"]],
+      .data[[vars_matched["name_type"]]]
+    ) %>%
     dplyr::summarise(
       nt = dplyr::n(),
-      nc = sum(.data$acc_adj),
-      pc = .data$nc / .data$nt
+      nc = sum(.data[["acc_cor"]] == 1),
+      pc = .data[["nc"]] / .data[["nt"]]
     ) %>%
     # correct perfect responses
     dplyr::mutate(
       pc = dplyr::case_when(
-        .data$pc == 0 ~ 1 / (2 * .data$nt),
-        .data$pc == 1 ~ 1 - 1 / (2 * .data$nt),
-        TRUE ~ .data$pc
+        .data[["pc"]] == 0 ~ 1 / (2 * .data[["nt"]]),
+        .data[["pc"]] == 1 ~ 1 - 1 / (2 * .data[["nt"]]),
+        TRUE ~ .data[["pc"]]
       )
     ) %>%
     dplyr::summarise(
-      nc = sum(.data$nc),
-      dprime = sum(stats::qnorm(.data$pc))
+      nc = sum(.data[["nc"]]),
+      dprime = sum(stats::qnorm(.data[["pc"]]))
     )
   # indices calculated based on reaction times
   ind_from_rt <- data_dummy_cmb %>%
-    dplyr::filter(.data$acc_adj == 1, .data$StimType == "Target") %>%
-    dplyr::group_by(.data$Side) %>%
+    dplyr::filter(
+      .data[["acc_cor"]] == 1,
+      .data[[vars_matched["name_type"]]] == "Target"
+    ) %>%
+    dplyr::group_by(.data[["side"]]) %>%
     dplyr::summarise(
-      mrt = mean(.data$RT),
+      mrt = mean(.data[[vars_matched["name_rt"]]]),
       .groups = "drop"
     )
   ind_from_rt %>%
-    dplyr::inner_join(ind_from_acc, by = "Side") %>%
+    dplyr::inner_join(ind_from_acc, by = "side") %>%
     # put indices in one row and rename to lowercase ones
     tidyr::pivot_wider(
-      names_from = "Side",
+      names_from = "side",
       values_from = c("mrt", "nc", "dprime")
     ) %>%
     dplyr::rename_with(tolower) %>%
     # no proper way to validate user's responses
-    dplyr::mutate(is_normal = TRUE)
+    tibble::add_column(is_normal = TRUE)
 }

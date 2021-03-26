@@ -48,65 +48,43 @@ complexswitch <- function(data, ...) {
   )
   vars_matched <- match_data_vars(data, vars_required)
   if (is.null(vars_matched)) {
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
-  data <- data %>%
-    dplyr::mutate(
-      acc_adj = dplyr::if_else(
-        !!sym(vars_matched[["name_rt"]]) >= 100,
-        !!sym(vars_matched[["name_acc"]]), 0L
-      )
-    )
+  data_cor <- correct_rt_acc(data, name_acc = vars_matched["name_acc"])
   # calculate congruency effect
   cong_eff <- calc_cong_eff(
-    data,
-    name_cong = vars_matched[["name_cong"]],
-    name_acc = "acc_adj"
+    data_cor,
+    name_cong = vars_matched["name_cong"],
+    name_acc = "acc_cor",
+    name_rt = "rt_cor"
   )
   # calculate switch cost
-  block_info <- data %>%
+  block_info <- data_cor %>%
     dplyr::mutate(
-      n_blocks = dplyr::n_distinct(!!sym(vars_matched[["name_block"]]))
+      n_blocks = dplyr::n_distinct(!!sym(vars_matched["name_block"]))
     ) %>%
-    dplyr::group_by(.data$n_blocks, !!sym(vars_matched[["name_block"]])) %>%
+    dplyr::group_by(
+      .data[["n_blocks"]],
+      .data[[vars_matched["name_block"]]]
+    ) %>%
     dplyr::summarise(
-      has_no_response = all(!!sym(vars_matched[["name_acc"]]) == -1),
+      has_no_response = all(.data[["acc_cor"]] == -1),
       type_block = ifelse(
-        all(!!sym(vars_matched[["name_switch"]]) %in% c("Pure", "")),
+        all(.data[[vars_matched["name_switch"]]] %in% c("Pure", "")),
         "pure", "mixed"
       ),
       .groups = "drop"
     ) %>%
-    dplyr::mutate(dur = dplyr::if_else(.data$type_block == "pure", 0.5, 1))
-  if (any(block_info$has_no_response)) {
+    dplyr::mutate(dur = dplyr::if_else(.data[["type_block"]] == "pure", 0.5, 1))
+  if (any(block_info[["has_no_response"]])) {
     warning("At least one block has no response.")
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
   switch_cost <- calc_switch_cost(
-    data, block_info,
-    name_task = vars_matched[["name_task"]],
-    name_switch = vars_matched[["name_switch"]],
-    name_acc = vars_matched[["name_acc"]]
+    data_cor, block_info,
+    name_task = vars_matched["name_task"],
+    name_switch = vars_matched["name_switch"]
   )
-  validation <- data %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data$acc_adj == 1)) %>%
-    dplyr::transmute(
-      is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 0.5) &&
-        !any(block_info$has_no_response)
-    )
-  tibble(cong_eff, switch_cost, validation)
+  is_normal <- check_resp_metric(data_cor) && !any(block_info$has_no_response)
+  tibble(cong_eff, switch_cost, is_normal)
 }

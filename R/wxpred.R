@@ -22,14 +22,7 @@ wxpred <- function(data, ...) {
   )
   vars_matched <- match_data_vars(data, vars_required)
   if (is.null(vars_matched)) {
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
   if (is.na(vars_matched["name_block"])) {
     vars_matched["name_block"] <- "Block"
@@ -39,35 +32,24 @@ wxpred <- function(data, ...) {
     } else {
       data <- data %>%
         dplyr::mutate(
-          !!vars_matched["name_block"] := (.data$Trial - 1) %/% 20 + 1
+          !!vars_matched["name_block"] := (.data[["Trial"]] - 1) %/% 20 + 1
         )
     }
   }
   if (all(is.na(data[[vars_matched["name_block"]]])) ||
-      max(data[[vars_matched["name_block"]]]) != 4) {
+    max(data[[vars_matched["name_block"]]]) != 4) {
     warning("Number of blocks is not equal to 4.")
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
-  data_adj <- data %>%
-    dplyr::mutate(acc_adj = dplyr::if_else(.data$RT >= 100, .data$ACC, 0L))
-  pc <- data_adj %>%
-    dplyr::mutate(pc_all = mean(.data$acc_adj == 1)) %>%
-    dplyr::group_by(.data$pc_all, .data$Block) %>%
-    dplyr::summarise(pc = mean(.data$acc_adj == 1), .groups = "drop") %>%
+  data_cor <- correct_rt_acc(data)
+  pc <- data_cor %>%
+    dplyr::mutate(pc_all = mean(.data[["acc_cor"]] == 1)) %>%
+    dplyr::group_by(.data[["pc_all"]], .data[[vars_matched["name_block"]]]) %>%
+    dplyr::summarise(pc = mean(.data[["acc_cor"]] == 1), .groups = "drop") %>%
     tidyr::pivot_wider(
       names_from = "Block",
       names_prefix = "pc_b",
       values_from = "pc"
     )
-  is_normal <- data_adj %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data$acc_adj == 1)) %>%
-    dplyr::transmute(is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 0.5))
-  tibble(pc, is_normal)
+  tibble(pc, is_normal = check_resp_metric(data_cor))
 }

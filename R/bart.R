@@ -19,20 +19,19 @@ bart <- function(data, ...) {
   )
   vars_matched <- match_data_vars(data, vars_required)
   if (is.null(vars_matched)) {
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
   tibble(data) %>%
+    dplyr::mutate(
+      pumps_cor = dplyr::if_else(
+        .data[[vars_matched["name_feedback"]]] == 1,
+        .data[[vars_matched["name_nhit"]]], NA_integer_
+      )
+    ) %>%
     dplyr::summarise(
-      mean_pumps = mean(.data$NHit[.data$Feedback == 1]),
-      mean_pumps_raw = mean(.data$NHit),
-      num_explosion = sum(.data$Feedback == 0),
-      is_normal = !is.na(.data$mean_pumps)
+      mean_pumps = mean(.data[["pumps_cor"]], na.rm = TRUE),
+      mean_pumps_raw = mean(.data[[vars_matched["name_nhit"]]]),
+      num_explosion = sum(.data[[vars_matched["name_feedback"]]] == 0),
+      is_normal = !is.na(.data[["mean_pumps"]])
     )
 }

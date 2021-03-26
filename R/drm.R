@@ -25,51 +25,44 @@ drm <- function(data, ...) {
     ~field, ~name,
     "name_type", "Type",
     "name_acc", "ACC",
-    "name_rt", "RT"
+    "name_rt", "RT",
+    "name_resp", "Resp"
   )
   vars_matched <- match_data_vars(data, vars_required)
   if (is.null(vars_matched)) {
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
   data <- data %>%
-    dplyr::filter(.data$Type != "Filler")
+    dplyr::filter(.data[[vars_matched["name_type"]]] != "Filler")
   pc_all <- data %>%
-    dplyr::summarise(pc = mean(.data$ACC == 1))
+    dplyr::summarise(pc = mean(.data[[vars_matched["name_acc"]]] == 1))
   fm <- data %>%
-    dplyr::group_by(.data$Type) %>%
+    dplyr::group_by(.data[[vars_matched["name_type"]]]) %>%
     dplyr::summarise(
       n = dplyr::n(),
-      p_old = sum(.data$Resp == "Old") / .data$n
+      p_old = sum(.data[[vars_matched["name_resp"]]] == "Old") / .data[["n"]]
     ) %>%
     dplyr::mutate(
-      p_old_adj = dplyr::case_when(
-        .data$p_old == 0 ~ 1 / (2 * .data$n),
-        .data$p_old == 1 ~ 1 - 1 / (2 * .data$n),
-        TRUE ~ .data$p_old
+      p_old_cor = dplyr::case_when(
+        .data[["p_old"]] == 0 ~ 1 / (2 * .data[["n"]]),
+        .data[["p_old"]] == 1 ~ 1 - 1 / (2 * .data[["n"]]),
+        TRUE ~ .data[["p_old"]]
       )
     ) %>%
     tidyr::pivot_wider(
       names_from = "Type",
-      values_from = c("n", "p_old", "p_old_adj")
+      values_from = c("n", "p_old", "p_old_cor")
     ) %>%
     dplyr::transmute(
-      hit_rate = .data$p_old_Old,
-      p_old_lure = .data$p_old_Lure,
-      p_old_foil = .data$p_old_Foil,
-      fm_ratio = .data$p_old_Lure - .data$p_old_Foil,
-      fm_dprime = stats::qnorm(.data$p_old_adj_Lure) -
-        stats::qnorm(.data$p_old_adj_Foil)
+      hit_rate = .data[["p_old_Old"]],
+      p_old_lure = .data[["p_old_Lure"]],
+      p_old_foil = .data[["p_old_Foil"]],
+      fm_ratio = .data[["p_old_Lure"]] - .data[["p_old_Foil"]],
+      fm_dprime = stats::qnorm(.data[["p_old_cor_Lure"]]) -
+        stats::qnorm(.data[["p_old_cor_Foil"]])
     )
   is_normal <- data %>%
-    dplyr::mutate(acc_adj = dplyr::if_else(.data$RT >= 100, .data$ACC, 0L)) %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data$acc_adj == 1)) %>%
-    dplyr::transmute(is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 0.5))
+    correct_rt_acc() %>%
+    check_resp_metric()
   tibble(pc_all, fm, is_normal)
 }

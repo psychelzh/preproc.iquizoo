@@ -1,7 +1,7 @@
 Type: Package
 Package: dataproc.iquizoo
 Title: Utility Functions for Data Processing of Iquizoo Games
-Version: 0.2.6
+Version: 0.2.7
 Authors@R:
     person(given = "Liang",
            family = "Zhang",
@@ -25,9 +25,11 @@ Imports:
     tibble,
     tidyr
 Suggests:
+    covr,
     roxygen2,
-    testthat
+    testthat (>= 3.0.0)
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+Config/testthat/edition: 3

@@ -21,27 +21,20 @@ span <- function(data, ...) {
   )
   vars_matched <- match_data_vars(data, vars_config)
   if (is.null(vars_matched)) {
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
   delim <- "-"
   if (is.na(vars_matched[["name_correct"]])) {
-    vars_matched[["name_correct"]] <- "Correctness"
+    vars_matched["name_correct"] <- "Correctness"
     if (!all(utils::hasName(data, c("STIM", "Resp")))) {
       # use na values if cannot be restored
       data <- data %>%
-        dplyr::mutate(!!vars_matched[["name_correct"]] := NA_character_)
+        dplyr::mutate(!!vars_matched["name_correct"] := NA_character_)
     } else {
       data <- data %>%
         dplyr::mutate(
           !!vars_matched[["name_correct"]] := purrr::map2_chr(
-            .data$STIM, .data$Resp,
+            .data[["STIM"]], .data[["Resp"]],
             ~ {
               stims <- unlist(strsplit(.x, delim))
               resps <- unlist(strsplit(.y, delim))
@@ -56,12 +49,15 @@ span <- function(data, ...) {
     }
   }
   span_indices <- data %>%
-    dplyr::mutate(max_span = max(.data[[vars_matched[["name_slen"]]]])) %>%
-    dplyr::group_by(.data[[vars_matched[["name_slen"]]]], .data$max_span) %>%
-    dplyr::summarise(pc = mean(.data$Outcome == 1)) %>%
-    dplyr::group_by(.data$max_span) %>%
+    dplyr::group_by(.data[[vars_matched["name_slen"]]]) %>%
     dplyr::summarise(
-      mean_span = min(.data[[vars_matched[["name_slen"]]]]) - .5 + sum(.data$pc)
+      pc = mean(.data[[vars_matched["name_outcome"]]] == 1),
+      .groups = "drop"
+    ) %>%
+    dplyr::summarise(
+      max_span = max(.data[[vars_matched["name_slen"]]]),
+      mean_span = min(.data[[vars_matched["name_slen"]]]) - .5 +
+        sum(.data[["pc"]])
     )
   nc <- data %>%
     dplyr::pull(vars_matched[["name_correct"]]) %>%

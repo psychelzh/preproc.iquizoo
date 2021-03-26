@@ -8,7 +8,8 @@
 #'   \item{pc}{Percent of correct responses.}
 #'   \item{p_sim_lure}{Percent of similar responses for "lure" stimuli.}
 #'   \item{p_sim_foil}{Percent of similar responses for "foil" stimuli.}
-#'   \item{p_sim_old}{Percent of similar responses for "target" (i.e., "old") stimuli.}
+#'   \item{p_sim_old}{Percent of similar responses for "target" (i.e., "old")
+#'     stimuli.}
 #'   \item{bps_score}{BPS score.}
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
@@ -24,35 +25,27 @@ bps <- function(data, ...) {
   )
   vars_matched <- match_data_vars(data, vars_required)
   if (is.null(vars_matched)) {
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
   pc_all <- data %>%
-    dplyr::filter(.data$Phase == "test") %>%
-    dplyr::summarise(pc = mean(.data$ACC == 1))
+    dplyr::filter(.data[[vars_matched["name_phase"]]] == "test") %>%
+    dplyr::summarise(pc = mean(.data[[vars_matched["name_acc"]]] == 1))
   bps_score <- data %>%
-    dplyr::filter(.data$Phase == "test") %>%
-    dplyr::group_by(.data$Type) %>%
-    dplyr::summarise(p_sim = sum(.data$Resp == "Similar") / dplyr::n()) %>%
+    dplyr::filter(.data[[vars_matched["name_phase"]]] == "test") %>%
+    dplyr::group_by(.data[[vars_matched["name_type"]]]) %>%
+    dplyr::summarise(
+      p_sim = sum(.data[[vars_matched["name_resp"]]] == "Similar") / dplyr::n()
+    ) %>%
     tidyr::pivot_wider(names_from = "Type", values_from = "p_sim") %>%
     dplyr::transmute(
-      p_sim_lure = .data$lure,
-      p_sim_foil = .data$foil,
-      p_sim_old = .data$target,
-      bps_score = .data$lure - .data$foil
+      p_sim_lure = .data[["lure"]],
+      p_sim_foil = .data[["foil"]],
+      p_sim_old = .data[["target"]],
+      bps_score = .data[["lure"]] - .data[["foil"]]
     )
   is_normal <- data %>%
-    dplyr::filter(.data$Phase == "test") %>%
-    dplyr::mutate(acc_adj = dplyr::if_else(.data$RT >= 100, .data$ACC, 0L)) %>%
-    dplyr::summarise(nt = dplyr::n(), nc = sum(.data$acc_adj == 1)) %>%
-    dplyr::transmute(
-      is_normal = .data$nc > stats::qbinom(0.95, .data$nt, 1 / 3)
-    )
+    dplyr::filter(.data[[vars_matched["name_phase"]]] == "test") %>%
+    correct_rt_acc() %>%
+    check_resp_metric(chance = 1 / 3)
   tibble(pc_all, bps_score, is_normal)
 }

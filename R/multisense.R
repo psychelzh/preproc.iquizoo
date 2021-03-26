@@ -8,7 +8,8 @@
 #'   \item{mrt_image}{Mean reaction time of Image stimuli.}
 #'   \item{mrt_sound}{Mean reaction time of Sound stimuli.}
 #'   \item{mrt_mixed}{Mean reaction time of Mixed stimuli.}
-#'   \item{mrt_mixadv}{Mean reaction decrease of Mixed stimuli compared to other two types of stimuli.}
+#'   \item{mrt_mixadv}{Mean reaction decrease of Mixed stimuli compared to other
+#'     two types of stimuli.}
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
 multisense <- function(data, ...) {
@@ -20,24 +21,20 @@ multisense <- function(data, ...) {
   )
   vars_matched <- match_data_vars(data, vars_required)
   if (is.null(vars_matched)) {
-    return(
-      rlang::set_names(
-        rep(NA, length(vars_output)),
-        nm = vars_output
-      ) %>%
-        tibble::as_tibble_row() %>%
-        tibble::add_column(is_normal = FALSE)
-    )
+    return(compose_abnormal_output(vars_output))
   }
   data %>%
-    dplyr::group_by(.data$Type) %>%
-    dplyr::summarise(mrt = mean(.data$RT[.data$RT > 100])) %>%
-    tidyr::pivot_wider(names_from = "Type", values_from = "mrt") %>%
+    correct_rt_acc(correct_type = "rt") %>%
+    dplyr::group_by(.data[[vars_matched["name_type"]]]) %>%
+    dplyr::summarise(mrt = mean(.data[["rt_cor"]], na.rm = TRUE)) %>%
+    tidyr::pivot_wider(
+      names_from = vars_matched["name_type"], values_from = "mrt"
+    ) %>%
     dplyr::transmute(
-      mrt_image = .data$Image,
-      mrt_sound = .data$Sound,
-      mrt_mixed = .data$Mixed,
-      mrt_mixadv = (.data$Image + .data$Sound) / 2 - .data$Mixed,
+      mrt_image = .data[["Image"]],
+      mrt_sound = .data[["Sound"]],
+      mrt_mixed = .data[["Mixed"]],
+      mrt_mixadv = (.data[["Image"]] + .data[["Sound"]]) / 2 - .data[["Mixed"]],
       is_normal = TRUE
     )
 }

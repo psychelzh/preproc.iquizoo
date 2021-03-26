@@ -1,3 +1,10 @@
+# dataproc.iquizoo 0.2.7
+
+* Completely removed `conflict()`, which is defunct for many versions.
+* Used the 3rd version test framework of testthat package, especially takes advantage of the snapshot test (or goden test) to simplify all our tests.
+* Unified the abnormal output by setting all of the `NA`s as `NA_real`.
+* Unified the response metrics checking. Now many games need to have a minimal valid response rate of 80% and a minimal accuracy rate, too. Use `?tarflow.iquizoo:::check_resp_metric` to see details. Note this function is not exported for now.
+
 # dataproc.iquizoo 0.2.6
 
 * Add external data `game_info`, which stores games information of preprocessing functions. Run `?game_info` in R to read more details.
