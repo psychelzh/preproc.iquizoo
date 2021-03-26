@@ -4,7 +4,7 @@
 \alias{calc_sdt}
 \title{Signal Detection Theory}
 \usage{
-calc_sdt(acc, type, no_resp_to_inc = FALSE)
+calc_sdt(acc, type, no_resp_to_inc = TRUE)
 }
 \arguments{
 \item{acc, type}{\code{acc} is the correctness of each response, and \code{type} is the
