@@ -21,6 +21,20 @@
 #' @param x Data to be checked. Can be a `data.frame` or `numeric` vector. If
 #'   `numeric` vector provided, make sure it is so coded that 1 means scoring
 #'   correct, 0 means scoring incorrect, and that -1 means no response is made.
+#' @keywords internal
+check_resp_metric <- function(x, ...) {
+  UseMethod("check_resp_metric")
+}
+#' @rdname check_resp_metric
+#' @param name_acc The variable name of accuracy in the input `x` if `x` is a
+#'   `data.frame`. Must obey the coding rule described at `x` input.
+check_resp_metric.data.frame <- function(x, ...,
+                                         name_acc = "acc_cor") {
+  # make sure the give accuracy column exists
+  stopifnot(rlang::has_name(x, name_acc))
+  check_resp_metric(x[[name_acc]], ...)
+}
+#' @rdname check_resp_metric
 #' @param crit_resp_rate The required minimal valid response rate. Default to
 #'   0.8.
 #' @param crit_acc The required minimal accuracy. Default to `NULL`, a minimal
@@ -35,35 +49,6 @@
 #' @return A logical value. `TRUE` means the response metrics meet the
 #'   requirements, and `FALSE` means not. If the `check_type` is set as "none",
 #'   `NA` is returned.
-#' @keywords internal
-check_resp_metric <- function(x, ...) {
-  UseMethod("check_resp_metric")
-}
-#' @rdname check_resp_metric
-#' @param name_acc The variable name of accuracy in the input `x` if `x` is a
-#'   `data.frame`. Must obey the coding rule described at `x` input.
-check_resp_metric.data.frame <- function(x,
-                                         crit_resp_rate = 0.8,
-                                         crit_acc = NULL,
-                                         check_type = c(
-                                           "all", "resp_rate",
-                                           "accuracy", "none"
-                                         ),
-                                         size = NULL,
-                                         chance = 0.5,
-                                         name_acc = "acc_cor") {
-  # make sure the give accuracy column exists
-  stopifnot(rlang::has_name(x, name_acc))
-  check_resp_metric(
-    x[[name_acc]],
-    crit_resp_rate,
-    crit_acc,
-    check_type,
-    size,
-    chance
-  )
-}
-#' @rdname check_resp_metric
 check_resp_metric.numeric <- function(x,
                                       crit_resp_rate = 0.8,
                                       crit_acc = NULL,

@@ -8,15 +8,7 @@
 \usage{
 check_resp_metric(x, ...)
 
-\method{check_resp_metric}{data.frame}(
-  x,
-  crit_resp_rate = 0.8,
-  crit_acc = NULL,
-  check_type = c("all", "resp_rate", "accuracy", "none"),
-  size = NULL,
-  chance = 0.5,
-  name_acc = "acc_cor"
-)
+\method{check_resp_metric}{data.frame}(x, ..., name_acc = "acc_cor")
 
 \method{check_resp_metric}{numeric}(
   x,
@@ -31,6 +23,9 @@ check_resp_metric(x, ...)
 \item{x}{Data to be checked. Can be a \code{data.frame} or \code{numeric} vector. If
 \code{numeric} vector provided, make sure it is so coded that 1 means scoring
 correct, 0 means scoring incorrect, and that -1 means no response is made.}
+
+\item{name_acc}{The variable name of accuracy in the input \code{x} if \code{x} is a
+\code{data.frame}. Must obey the coding rule described at \code{x} input.}
 
 \item{crit_resp_rate}{The required minimal valid response rate. Default to
 0.8.}
@@ -47,9 +42,6 @@ data.}
 
 \item{chance}{The chance level of score correct for each trial. Default to
 0.5, which is so for most games.}
-
-\item{name_acc}{The variable name of accuracy in the input \code{x} if \code{x} is a
-\code{data.frame}. Must obey the coding rule described at \code{x} input.}
 }
 \value{
 A logical value. \code{TRUE} means the response metrics meet the
