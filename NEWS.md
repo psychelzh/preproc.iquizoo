@@ -1,3 +1,7 @@
+# dataproc.iquizoo 0.2.8
+
+* Add more games to `game_info` data.
+
 # dataproc.iquizoo 0.2.7
 
 * Completely removed `conflict()`, which is defunct for many versions.
