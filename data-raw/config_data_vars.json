@@ -1,0 +1,13 @@
+{
+    "bart": {
+        "input": {
+            "name_nhit": "NHit",
+            "name_feedback": "Feedback"
+        },
+        "output": [
+            "mean_pumps",
+            "mean_pumps_raw",
+            "num_explosion"
+        ]
+    }
+}
