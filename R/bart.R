@@ -3,6 +3,12 @@
 #' The adjusted and unadjusted BART scores are both returned.
 #'
 #' @param data Raw data of class `data.frame`.
+#' @param by The column(s) variable names in `data` used to be grouped by. If
+#'   set to `NULL`, all data will be treated as from one subject.
+#' @param vars_input This is done by other functions, storing the matched
+#'   variable names for further processing.
+#' @param keep.by A logical value. Should the grouping variable be kept in the
+#'   output?
 #' @param ... Other input argument for future expansion.
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mean_pumps}{Mean of hits for balloons not exploded.}
@@ -10,28 +16,31 @@
 #'   \item{num_explosion}{Number of exploded balloons.}
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
-bart <- function(data, ...) {
-  vars_output <- c("mean_pumps", "mean_pumps_raw", "num_explosion")
-  vars_required <- tibble::tribble(
-    ~field, ~name,
-    "name_nhit", "NHit",
-    "name_feedback", "Feedback"
-  )
-  vars_matched <- match_data_vars(data, vars_required)
-  if (is.null(vars_matched)) {
-    return(compose_abnormal_output(vars_output))
+bart <- function(data, by = "id", vars_input = NULL, keep.by = TRUE, ...) {
+  if (is.null(vars_input)) {
+    name_nhit <- "NHit"
+    name_feedback <- "Feedback"
+  } else {
+    name_nhit <- vars_input["name_nhit"]
+    name_feedback <- vars_input["name_feedback"]
   }
-  tibble(data) %>%
-    dplyr::mutate(
-      pumps_cor = dplyr::if_else(
-        .data[[vars_matched["name_feedback"]]] == 1,
-        .data[[vars_matched["name_nhit"]]], NA_integer_
-      )
-    ) %>%
-    dplyr::summarise(
-      mean_pumps = mean(.data[["pumps_cor"]], na.rm = TRUE),
-      mean_pumps_raw = mean(.data[[vars_matched["name_nhit"]]]),
-      num_explosion = sum(.data[[vars_matched["name_feedback"]]] == 0),
-      is_normal = !is.na(.data[["mean_pumps"]])
-    )
+  vars_output <- c(
+    if (keep.by) by else NULL,
+    .get_output_vars("bart")
+  )
+  collapse::add_vars(data) <- list(
+    hit_cor = data[[name_nhit]] * data[[name_feedback]]
+  )
+  collapse::collapv(
+    data, by,
+    custom = list(
+      fmean = "hit_cor",
+      fmean = name_nhit,
+      fsum = name_feedback
+    ),
+    keep.col.order = FALSE,
+    keep.by = keep.by
+  ) %>%
+    setNames(vars_output) %>%
+    collapse::ftransform(is_normal = TRUE)
 }
