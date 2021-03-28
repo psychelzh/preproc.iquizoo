@@ -8,18 +8,20 @@
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param prep_fun_name The name of the called pre-processing function.
+#' @return A `list` of the matched variables, using `NA` value to represent not
+#'   found, and using the names configured in the internal data.
 #' @keywords internal
 match_data_vars <- function(data, prep_fun_name) {
-  purrr::imap_chr(
+  purrr::map(
     .get_input_vars(prep_fun_name),
-    ~ .find_matches(data, .x, .y)
+    ~ .find_matches(data, .x)
   )
 }
 
-.find_matches <- function(data, var_name, bind_name) {
+.find_matches <- function(data, var_name) {
   match_result <- rlang::has_name(data, var_name)
   if (sum(match_result) != 1) {
-    return(setNames(NA_character_, bind_name))
+    return(NA_character_)
   }
-  setNames(var_name[match_result], bind_name)
+  var_name[match_result]
 }

@@ -11,6 +11,10 @@ match_data_vars(data, prep_fun_name)
 
 \item{prep_fun_name}{The name of the called pre-processing function.}
 }
+\value{
+A \code{list} of the matched variables, using \code{NA} value to represent not
+found, and using the names configured in the internal data.
+}
 \description{
 Input data require several variables to be existed, and some variables can
 have alternatives. Here we check if all the variables exist, and if only one

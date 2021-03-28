@@ -11,7 +11,7 @@ preproc_data <- function(data, prep_fun, by = "id", ...) {
   # validate data variable names
   prep_fun_name <- deparse1(substitute(prep_fun))
   vars_input <- match_data_vars(data, prep_fun_name)
-  if (anyNA(vars_input)) {
+  if (any(purrr::map_lgl(vars_input, is.na))) {
     warning("At least one of the required input variables does not exist.")
     return(NULL)
   }

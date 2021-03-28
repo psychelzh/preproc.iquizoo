@@ -21,8 +21,8 @@ bart <- function(data, by = "id", vars_input = NULL, keep.by = TRUE, ...) {
     name_nhit <- "NHit"
     name_feedback <- "Feedback"
   } else {
-    name_nhit <- vars_input["name_nhit"]
-    name_feedback <- vars_input["name_feedback"]
+    name_nhit <- vars_input[["name_nhit"]]
+    name_feedback <- vars_input[["name_feedback"]]
   }
   vars_output <- c(
     if (keep.by) by else NULL,
