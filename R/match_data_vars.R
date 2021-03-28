@@ -22,20 +22,7 @@ match_data_vars <- function(data, vars_config) {
     vars_config$type <- "required"
   }
   vars_chk_result <- vars_config %>%
-    dplyr::mutate(
-      purrr::map_df(
-        .data$name,
-        ~ {
-          match_result <- utils::hasName(data, .x)
-          tibble(
-            is_found = any(match_result),
-            is_confused = sum(match_result) > 1,
-            # the match can be of length 0, so use `if` instead of `if_else`
-            matched = if (sum(match_result) == 1) .x[match_result] else NA
-          )
-        }
-      )
-    )
+    dplyr::mutate(purrr::map_df(.data$name, ~ .find_matches(data, .x)))
   if (!all(vars_chk_result$is_found[vars_chk_result$type == "required"])) {
     warning("At least one of the required variables are missing.")
     return(NULL)
@@ -48,5 +35,15 @@ match_data_vars <- function(data, vars_config) {
     vars_chk_result %>%
       dplyr::select(.data$field, .data$matched) %>%
       tibble::deframe()
+  )
+}
+
+.find_matches <- function(data, name) {
+  match_result <- rlang::has_name(data, name)
+  tibble(
+    is_found = any(match_result),
+    is_confused = sum(match_result) > 1,
+    # the match can be of length 0, so use `if` instead of `if_else`
+    matched = if (sum(match_result) == 1) name[match_result] else NA
   )
 }
