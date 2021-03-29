@@ -29,7 +29,7 @@ bart <- function(data, by = "id", vars_input = NULL, keep.by = TRUE, ...) {
     .get_output_vars("bart")
   )
   collapse::add_vars(data) <- list(
-    hit_cor = data[[name_nhit]] * data[[name_feedback]]
+    hit_cor = .subset2(data, name_nhit) * .subset2(data, name_feedback)
   )
   collapse::collapv(
     data, by,
