@@ -38,5 +38,10 @@ preproc_data <- function(data, prep_fun, by = "id", ...) {
     keep.by <- TRUE
   }
   # call the pre-processing function: note the tibble call
-  prep_fun(tibble(data), by, vars_input, keep.by = keep.by, ...)
+  iq_perf <- prep_fun(data = tibble(data), vars_input = vars_input, by = by)
+  # delete grouping variable if not keeping
+  if (!keep.by) {
+    collapse::get_vars(iq_perf, by) <- NULL
+  }
+  iq_perf
 }

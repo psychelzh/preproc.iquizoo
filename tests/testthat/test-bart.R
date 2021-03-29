@@ -9,7 +9,3 @@ data <- tibble(
 test_that("`bart()` default", {
   expect_snapshot(preproc_data(data, bart))
 })
-
-test_that("`bart()` supports no group", {
-  expect_snapshot(preproc_data(data, bart, by = NULL))
-})
