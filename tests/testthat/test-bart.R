@@ -13,19 +13,3 @@ test_that("`bart()` default", {
 test_that("`bart()` supports no group", {
   expect_snapshot(preproc_data(data, bart, by = NULL))
 })
-
-test_that("`bart()` warns and returns `NULL` when grouping varible errored", {
-  expect_warning(
-    be_null <- preproc_data(data, bart, by = "g"),
-    "grouping variables"
-  )
-  expect_null(be_null)
-})
-
-test_that("`bart()` warns and returns `NULL` when inputing corrupted data", {
-  expect_warning(
-    be_null <- preproc_data(list(), bart),
-    "required input variables"
-  )
-  expect_null(be_null)
-})
