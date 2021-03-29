@@ -2,16 +2,11 @@
 % Please edit documentation in R/check_resp_metric.R
 \name{check_resp_metric}
 \alias{check_resp_metric}
-\alias{check_resp_metric.data.frame}
-\alias{check_resp_metric.numeric}
 \title{Check whether basic data response metrics meet requirements}
 \usage{
-check_resp_metric(x, ...)
-
-\method{check_resp_metric}{data.frame}(x, ..., name_acc = "acc_cor")
-
-\method{check_resp_metric}{numeric}(
+check_resp_metric(
   x,
+  grp,
   crit_resp_rate = 0.8,
   crit_acc = NULL,
   check_type = c("all", "resp_rate", "accuracy", "none"),
@@ -20,12 +15,10 @@ check_resp_metric(x, ...)
 )
 }
 \arguments{
-\item{x}{Data to be checked. Can be a \code{data.frame} or \code{numeric} vector. If
-\code{numeric} vector provided, make sure it is so coded that 1 means scoring
-correct, 0 means scoring incorrect, and that -1 means no response is made.}
+\item{x}{A \code{numeric} vector so coded that 1 means scoring correct, 0 means
+scoring incorrect, and that -1 means no response is made.}
 
-\item{name_acc}{The variable name of accuracy in the input \code{x} if \code{x} is a
-\code{data.frame}. Must obey the coding rule described at \code{x} input.}
+\item{grp}{A \link[collapse:GRP]{GRP} object.}
 
 \item{crit_resp_rate}{The required minimal valid response rate. Default to
 0.8.}
@@ -44,9 +37,10 @@ data.}
 0.5, which is so for most games.}
 }
 \value{
-A logical value. \code{TRUE} means the response metrics meet the
-requirements, and \code{FALSE} means not. If the \code{check_type} is set as "none",
-\code{NA} is returned.
+A \code{data.frame} with columns of grouping and a new column named
+\code{is_normal}, in which \code{TRUE} means that the response metrics of that group
+meet the requirements, and \code{FALSE} means not. If the \code{check_type} is set as
+"none", \code{NA} is returned.
 }
 \description{
 This function is used to unify the check of response metrics for all the

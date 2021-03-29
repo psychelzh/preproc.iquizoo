@@ -18,23 +18,9 @@
 #' argument). So the minimal accuracy can be calculated based on the 95% region
 #' of rejection.
 #'
-#' @param x Data to be checked. Can be a `data.frame` or `numeric` vector. If
-#'   `numeric` vector provided, make sure it is so coded that 1 means scoring
-#'   correct, 0 means scoring incorrect, and that -1 means no response is made.
-#' @keywords internal
-check_resp_metric <- function(x, ...) {
-  UseMethod("check_resp_metric")
-}
-#' @rdname check_resp_metric
-#' @param name_acc The variable name of accuracy in the input `x` if `x` is a
-#'   `data.frame`. Must obey the coding rule described at `x` input.
-check_resp_metric.data.frame <- function(x, ...,
-                                         name_acc = "acc_cor") {
-  # make sure the give accuracy column exists
-  stopifnot(rlang::has_name(x, name_acc))
-  check_resp_metric(x[[name_acc]], ...)
-}
-#' @rdname check_resp_metric
+#' @param x A `numeric` vector so coded that 1 means scoring correct, 0 means
+#'   scoring incorrect, and that -1 means no response is made.
+#' @param grp A [GRP][collapse::GRP] object.
 #' @param crit_resp_rate The required minimal valid response rate. Default to
 #'   0.8.
 #' @param crit_acc The required minimal accuracy. Default to `NULL`, a minimal
@@ -46,32 +32,45 @@ check_resp_metric.data.frame <- function(x, ...,
 #'   data.
 #' @param chance The chance level of score correct for each trial. Default to
 #'   0.5, which is so for most games.
-#' @return A logical value. `TRUE` means the response metrics meet the
-#'   requirements, and `FALSE` means not. If the `check_type` is set as "none",
-#'   `NA` is returned.
-check_resp_metric.numeric <- function(x,
-                                      crit_resp_rate = 0.8,
-                                      crit_acc = NULL,
-                                      check_type = c(
-                                        "all", "resp_rate",
-                                        "accuracy", "none"
-                                      ),
-                                      size = NULL,
-                                      chance = 0.5) {
+#' @return A `data.frame` with columns of grouping and a new column named
+#'   `is_normal`, in which `TRUE` means that the response metrics of that group
+#'   meet the requirements, and `FALSE` means not. If the `check_type` is set as
+#'   "none", `NA` is returned.
+#' @keywords internal
+check_resp_metric <- function(x, grp,
+                              crit_resp_rate = 0.8,
+                              crit_acc = NULL,
+                              check_type = c(
+                                "all", "resp_rate",
+                                "accuracy", "none"
+                              ),
+                              size = NULL,
+                              chance = 0.5) {
   check_type <- match.arg(check_type)
   if (check_type == "none") {
-    return(NA)
+    return(collapse::ftransform(grp$groups, is_normal = NA))
   }
-  chk_res <- TRUE
+  stats <- collapse::add_vars(
+    grp$groups,
+    list(
+      resp_rate = collapse::fmean(x != -1, grp, use.g.names = FALSE),
+      accuracy = collapse::fmean(x == 1, grp, use.g.names = FALSE)
+    )
+  )
+  chk_res <- collapse::ftransform(grp$groups, is_normal = TRUE)
   if (check_type %in% c("all", "resp_rate")) {
-    chk_res <- chk_res && mean(x != -1) > crit_resp_rate
+    collapse::get_vars(chk_res, "is_normal") <-
+      .subset2(chk_res, "is_normal") &
+      .subset2(stats, "resp_rate") > crit_resp_rate
   }
   if (check_type %in% c("all", "accuracy")) {
     if (is.null(crit_acc)) {
-      if (is.null(size)) size <- length(x)
+      if (is.null(size)) size <- collapse::fNobs(x, grp, use.g.names = FALSE)
       crit_acc <- qbinom(0.95, size, chance) / size
     }
-    chk_res <- chk_res && mean(x == 1) > crit_acc
+    collapse::get_vars(chk_res, "is_normal") <-
+      .subset2(chk_res, "is_normal") &
+      .subset2(stats, "accuracy") > crit_acc
   }
   chk_res
 }
