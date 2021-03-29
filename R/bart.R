@@ -3,8 +3,9 @@
 #' The adjusted and unadjusted BART scores are both returned.
 #'
 #' @param data Raw data of class `data.frame`.
-#' @param by The column(s) variable names in `data` used to be grouped by. If
-#'   set to `NULL`, all data will be treated as from one subject.
+#' @param by The column(s) variable names in `data` used to be grouped by. Note,
+#'   the check of existence is in the higher level function, so here in this
+#'   function does not check them.
 #' @param vars_input This is done by other functions, storing the matched
 #'   variable names for further processing.
 #' @param keep.by A logical value. Should the grouping variable be kept in the

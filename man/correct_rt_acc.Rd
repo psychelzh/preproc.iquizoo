@@ -6,7 +6,6 @@
 \usage{
 correct_rt_acc(
   data,
-  ...,
   crit_rt = 100,
   correct_type = c("both", "rt", "acc", "none"),
   name_rt = "RT",
