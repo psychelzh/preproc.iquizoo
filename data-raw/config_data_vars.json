@@ -9,5 +9,21 @@
             "mean_pumps_raw",
             "num_explosion"
         ]
+    },
+    "bps": {
+        "input": {
+            "name_phase": "Phase",
+            "name_type": "Type",
+            "name_resp": "Resp",
+            "name_acc": "ACC",
+            "name_rt": "RT"
+        },
+        "output": [
+            "pc",
+            "p_sim_foil",
+            "p_sim_lure",
+            "p_sim_target",
+            "bps_score"
+        ]
     }
 }
