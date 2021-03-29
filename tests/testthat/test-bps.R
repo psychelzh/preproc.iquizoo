@@ -25,7 +25,3 @@ data <- tibble::tibble(
 test_that("`bps()` default", {
   expect_snapshot(preproc_data(data, bps))
 })
-
-test_that("`bps()` supports no group", {
-  expect_snapshot(preproc_data(data, bps, by = NULL))
-})

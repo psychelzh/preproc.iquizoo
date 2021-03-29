@@ -18,13 +18,3 @@
       10    10 0.317        0.4       0.25         0.35     -0.15 FALSE    
       # ... with 990 more rows
 
-# `bps()` supports no group
-
-    Code
-      preproc_data(data, bps, by = NULL)
-    Output
-      # A tibble: 1 x 7
-           id    pc p_sim_foil p_sim_lure p_sim_target bps_score is_normal
-        <dbl> <dbl>      <dbl>      <dbl>        <dbl>     <dbl> <lgl>    
-      1     1 0.316        0.4       0.25         0.35     -0.15 FALSE    
-
