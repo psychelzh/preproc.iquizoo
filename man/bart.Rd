@@ -9,8 +9,9 @@ bart(data, by = "id", vars_input = NULL, keep.by = TRUE)
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{by}{The column(s) variable names in \code{data} used to be grouped by. If
-set to \code{NULL}, all data will be treated as from one subject.}
+\item{by}{The column(s) variable names in \code{data} used to be grouped by. Note,
+the check of existence is in the higher level function, so here in this
+function does not check them.}
 
 \item{vars_input}{This is done by other functions, storing the matched
 variable names for further processing.}

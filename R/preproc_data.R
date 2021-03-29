@@ -7,7 +7,13 @@
 #' @param data Raw data to be pre-processed. Should be of `data.frame` class.
 #' @param prep_fun The function to be called. Currently, it should be a
 #'   `symbol`, representing the function.
+#' @param by The column(s) variable names in `data` used to be grouped by. If
+#'   set to `NULL`, all data will be treated as from one subject and there will
+#'   be no grouping columns in the value returned.
 #' @param ... These dots are for future extensions and must be empty.
+#' @return A [tibble][tibble::tibble-package] of game performances returned by
+#'   low-level functions. Grouping variable
+#' @author Liang Zhang <psychelzh@outlook.com>
 preproc_data <- function(data, prep_fun, by = "id", ...) {
   if (!missing(...)) {
     ellipsis::check_dots_empty()

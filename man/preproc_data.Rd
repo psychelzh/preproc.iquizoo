@@ -12,10 +12,21 @@ preproc_data(data, prep_fun, by = "id", ...)
 \item{prep_fun}{The function to be called. Currently, it should be a
 \code{symbol}, representing the function.}
 
+\item{by}{The column(s) variable names in \code{data} used to be grouped by. If
+set to \code{NULL}, all data will be treated as from one subject and there will
+be no grouping columns in the value returned.}
+
 \item{...}{These dots are for future extensions and must be empty.}
+}
+\value{
+A \link[tibble:tibble-package]{tibble} of game performances returned by
+low-level functions. Grouping variable
 }
 \description{
 This is the really "entry point" function that gives a convenient access to
 all the pre-processing functions. The documentation of each of them can be
 accessed to know its details of the returned values.
+}
+\author{
+Liang Zhang \href{mailto:psychelzh@outlook.com}{psychelzh@outlook.com}
 }
