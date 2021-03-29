@@ -4,7 +4,7 @@
 \alias{bps}
 \title{Calculates index scores for Behavioral Pattern Separation (BPS) game}
 \usage{
-bps(data, by = "id", vars_input = NULL, keep.by = TRUE, ...)
+bps(data, by = "id", vars_input = NULL, keep.by = TRUE)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
@@ -17,14 +17,12 @@ variable names for further processing.}
 
 \item{keep.by}{A logical value. Should the grouping variable be kept in the
 output?}
-
-\item{...}{Other input argument for future expansion.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
 \item{pc}{Percent of correct responses.}
-\item{p_sim_lure}{Percent of similar responses for "lure" stimuli.}
 \item{p_sim_foil}{Percent of similar responses for "foil" stimuli.}
+\item{p_sim_lure}{Percent of similar responses for "lure" stimuli.}
 \item{p_sim_target}{Percent of similar responses for "target" stimuli.}
 \item{bps_score}{BPS score.}
 \item{is_normal}{Checking result whether the data is normal.}

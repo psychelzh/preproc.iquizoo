@@ -9,7 +9,6 @@
 #'   variable names for further processing.
 #' @param keep.by A logical value. Should the grouping variable be kept in the
 #'   output?
-#' @param ... Other input argument for future expansion.
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{pc}{Percent of correct responses.}
 #'   \item{p_sim_foil}{Percent of similar responses for "foil" stimuli.}
@@ -18,7 +17,7 @@
 #'   \item{bps_score}{BPS score.}
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
-bps <- function(data, by = "id", vars_input = NULL, keep.by = TRUE, ...) {
+bps <- function(data, by = "id", vars_input = NULL, keep.by = TRUE) {
   if (is.null(vars_input)) {
     name_phase <- "Phase"
     name_type <- "Type"
