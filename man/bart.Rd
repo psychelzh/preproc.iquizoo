@@ -4,7 +4,7 @@
 \alias{bart}
 \title{Calculates index scores for BART game specifically}
 \usage{
-bart(data, by = "id", vars_input = NULL, keep.by = TRUE, ...)
+bart(data, by = "id", vars_input = NULL, keep.by = TRUE)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
@@ -17,8 +17,6 @@ variable names for further processing.}
 
 \item{keep.by}{A logical value. Should the grouping variable be kept in the
 output?}
-
-\item{...}{Other input argument for future expansion.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:

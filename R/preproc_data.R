@@ -7,7 +7,11 @@
 #' @param data Raw data to be pre-processed. Should be of `data.frame` class.
 #' @param prep_fun The function to be called. Currently, it should be a
 #'   `symbol`, representing the function.
+#' @param ... These dots are for future extensions and must be empty.
 preproc_data <- function(data, prep_fun, by = "id", ...) {
+  if (!missing(...)) {
+    ellipsis::check_dots_empty()
+  }
   # validate data variable names
   prep_fun_name <- deparse1(substitute(prep_fun))
   vars_input <- match_data_vars(data, prep_fun_name)

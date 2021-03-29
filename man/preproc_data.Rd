@@ -11,6 +11,8 @@ preproc_data(data, prep_fun, by = "id", ...)
 
 \item{prep_fun}{The function to be called. Currently, it should be a
 \code{symbol}, representing the function.}
+
+\item{...}{These dots are for future extensions and must be empty.}
 }
 \description{
 This is the really "entry point" function that gives a convenient access to
