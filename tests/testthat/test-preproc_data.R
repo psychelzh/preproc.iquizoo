@@ -1,7 +1,10 @@
 data <- data.frame(NHit = 1, Feedback = 0)
 
 test_that("Support `group = NULL` by deleting group variable afterward", {
-  expect_snapshot(preproc_data(data, bart, by = NULL))
+  expect_silent(
+    no_grp <- preproc_data(data, bart, by = NULL)
+  )
+  expect_true(!"id" %in% names(no_grp))
 })
 
 test_that("Warns and returns `NULL` when grouping varible errored", {
