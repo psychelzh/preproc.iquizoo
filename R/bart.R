@@ -2,19 +2,15 @@
 #'
 #' The adjusted and unadjusted BART scores are both returned.
 #'
-#' @param data Raw data of class `data.frame`.
-#' @param vars_input This is done by other functions, storing the matched
-#'   variable names for further processing.
-#' @param by The column(s) variable names in `data` used to be grouped by. Note,
-#'   the check of existence is in the higher level function, so here in this
-#'   function does not check them.
+#' @template low-data-by
+#' @template low-varsin
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mean_pumps}{Mean of hits for balloons not exploded.}
 #'   \item{mean_pumps_raw}{Mean of hits for all balloons.}
 #'   \item{num_explosion}{Number of exploded balloons.}
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
-bart <- function(data, vars_input, by) {
+bart <- function(data, by, vars_input) {
   data %>%
     dplyr::mutate(
       hit_cor = .data[[vars_input[["name_nhit"]]]] *

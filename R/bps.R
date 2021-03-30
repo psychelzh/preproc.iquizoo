@@ -2,10 +2,8 @@
 #'
 #' The index was developed by Stark et. al. (2013), named as "BPS score".
 #'
-#' @param data Raw data of class `data.frame`.
-#' @param vars_input This is done by other functions, storing the matched
-#'   variable names for further processing.
-#' @param by The column(s) variable names in `data` used to be grouped by.
+#' @template low-data-by
+#' @template low-varsin
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{pc}{Percent of correct responses.}
 #'   \item{p_sim_foil}{Percent of similar responses for "foil" stimuli.}
@@ -14,7 +12,7 @@
 #'   \item{bps_score}{BPS score.}
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
-bps <- function(data, vars_input, by) {
+bps <- function(data, by, vars_input) {
   data_cor <- data %>%
     dplyr::filter(tolower(.data[[vars_input[["name_phase"]]]]) ==  "test") %>%
     correct_rt_acc(

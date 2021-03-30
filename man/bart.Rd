@@ -4,17 +4,15 @@
 \alias{bart}
 \title{Calculates index scores for BART game specifically}
 \usage{
-bart(data, vars_input, by)
+bart(data, by, vars_input)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
+\item{by}{The column name(s) in \code{data} used to be grouped by.}
+
 \item{vars_input}{This is done by other functions, storing the matched
 variable names for further processing.}
-
-\item{by}{The column(s) variable names in \code{data} used to be grouped by. Note,
-the check of existence is in the higher level function, so here in this
-function does not check them.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:

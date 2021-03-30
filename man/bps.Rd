@@ -4,15 +4,15 @@
 \alias{bps}
 \title{Calculates index scores for Behavioral Pattern Separation (BPS) game}
 \usage{
-bps(data, vars_input, by)
+bps(data, by, vars_input)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
+\item{by}{The column name(s) in \code{data} used to be grouped by.}
+
 \item{vars_input}{This is done by other functions, storing the matched
 variable names for further processing.}
-
-\item{by}{The column(s) variable names in \code{data} used to be grouped by.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
