@@ -2,8 +2,9 @@
 #'
 #' The adjusted and unadjusted BART scores are both returned.
 #'
-#' @template low-data-by
-#' @template low-varsin
+#' @template para-data
+#' @template para-by
+#' @template para-vars_input
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mean_pumps}{Mean of hits for balloons not exploded.}
 #'   \item{mean_pumps_raw}{Mean of hits for all balloons.}

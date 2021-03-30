@@ -15,9 +15,9 @@ check_resp_metric(
 )
 }
 \arguments{
-\item{data}{The input data to be checked.}
+\item{data}{Raw data of class \code{data.frame}.}
 
-\item{by}{The column(s) variable names in \code{data} used to be grouped by.}
+\item{by}{The column name(s) in \code{data} used to be grouped by.}
 
 \item{name_acc}{The variable name of accuracy in the \code{data} input, in which
 stores a \code{numeric} vector so coded that 1 means scoring correct, 0 means

@@ -18,8 +18,8 @@
 #' argument). So the minimal accuracy can be calculated based on the 95% region
 #' of rejection.
 #'
-#' @param data The input data to be checked.
-#' @param by The column(s) variable names in `data` used to be grouped by.
+#' @template para-data
+#' @template para-by
 #' @param name_acc The variable name of accuracy in the `data` input, in which
 #'   stores a `numeric` vector so coded that 1 means scoring correct, 0 means
 #'   scoring incorrect, and that -1 means no response is made.
