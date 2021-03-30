@@ -5,20 +5,23 @@
 \title{Check whether basic data response metrics meet requirements}
 \usage{
 check_resp_metric(
-  x,
-  grp,
+  data,
+  by,
+  name_acc,
   crit_resp_rate = 0.8,
   crit_acc = NULL,
   check_type = c("all", "resp_rate", "accuracy", "none"),
-  size = NULL,
   chance = 0.5
 )
 }
 \arguments{
-\item{x}{A \code{numeric} vector so coded that 1 means scoring correct, 0 means
-scoring incorrect, and that -1 means no response is made.}
+\item{data}{The input data to be checked.}
 
-\item{grp}{A \link[collapse:GRP]{GRP} object.}
+\item{by}{The column(s) variable names in \code{data} used to be grouped by.}
+
+\item{name_acc}{The variable name of accuracy in the \code{data} input, in which
+stores a \code{numeric} vector so coded that 1 means scoring correct, 0 means
+scoring incorrect, and that -1 means no response is made.}
 
 \item{crit_resp_rate}{The required minimal valid response rate. Default to
 0.8.}
@@ -29,9 +32,6 @@ accuracy was calculated based on \code{size} and \code{chance} argument (see
 
 \item{check_type}{"all": check all metrics. "resp_rate": check response rate
 only. "accuracy": check accuracy only. "none": skip all checking.}
-
-\item{size}{The number of trials. Default to \code{NULL}, then get it from input
-data.}
 
 \item{chance}{The chance level of score correct for each trial. Default to
 0.5, which is so for most games.}

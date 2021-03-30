@@ -12,8 +12,7 @@ bps(data, vars_input, by)
 \item{vars_input}{This is done by other functions, storing the matched
 variable names for further processing.}
 
-\item{by}{The column(s) variable names in \code{data} used to be grouped by. If
-set to \code{NULL}, all data will be treated as from one subject.}
+\item{by}{The column(s) variable names in \code{data} used to be grouped by.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:

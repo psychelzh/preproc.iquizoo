@@ -18,9 +18,11 @@
 #' argument). So the minimal accuracy can be calculated based on the 95% region
 #' of rejection.
 #'
-#' @param x A `numeric` vector so coded that 1 means scoring correct, 0 means
+#' @param data The input data to be checked.
+#' @param by The column(s) variable names in `data` used to be grouped by.
+#' @param name_acc The variable name of accuracy in the `data` input, in which
+#'   stores a `numeric` vector so coded that 1 means scoring correct, 0 means
 #'   scoring incorrect, and that -1 means no response is made.
-#' @param grp A [GRP][collapse::GRP] object.
 #' @param crit_resp_rate The required minimal valid response rate. Default to
 #'   0.8.
 #' @param crit_acc The required minimal accuracy. Default to `NULL`, a minimal
@@ -28,8 +30,6 @@
 #'   "Details").
 #' @param check_type "all": check all metrics. "resp_rate": check response rate
 #'   only. "accuracy": check accuracy only. "none": skip all checking.
-#' @param size The number of trials. Default to `NULL`, then get it from input
-#'   data.
 #' @param chance The chance level of score correct for each trial. Default to
 #'   0.5, which is so for most games.
 #' @return A `data.frame` with columns of grouping and a new column named
@@ -37,40 +37,38 @@
 #'   meet the requirements, and `FALSE` means not. If the `check_type` is set as
 #'   "none", `NA` is returned.
 #' @keywords internal
-check_resp_metric <- function(x, grp,
+check_resp_metric <- function(data, by, name_acc,
                               crit_resp_rate = 0.8,
                               crit_acc = NULL,
                               check_type = c(
                                 "all", "resp_rate",
                                 "accuracy", "none"
                               ),
-                              size = NULL,
                               chance = 0.5) {
   check_type <- match.arg(check_type)
-  if (check_type == "none") {
-    return(collapse::ftransform(grp$groups, is_normal = NA))
-  }
-  stats <- collapse::add_vars(
-    grp$groups,
-    list(
-      resp_rate = collapse::fmean(x != -1, grp, use.g.names = FALSE),
-      accuracy = collapse::fmean(x == 1, grp, use.g.names = FALSE)
+  stats <- data %>%
+    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
+    dplyr::summarise(
+      n_obs = dplyr::n(),
+      pc = sum(.data[[name_acc]] == 1) / .data[["n_obs"]],
+      crit_acc = ifelse(
+        is.null(crit_acc),
+        qbinom(0.95, n_obs, chance) / n_obs,
+        crit_acc
+      ),
+      res_resp = mean(.data[[name_acc]] != -1) > crit_resp_rate,
+      res_acc = pc > crit_acc,
+      .groups = "keep"
     )
-  )
-  chk_res <- collapse::ftransform(grp$groups, is_normal = TRUE)
-  if (check_type %in% c("all", "resp_rate")) {
-    collapse::get_vars(chk_res, "is_normal") <-
-      .subset2(chk_res, "is_normal") &
-      .subset2(stats, "resp_rate") > crit_resp_rate
-  }
-  if (check_type %in% c("all", "accuracy")) {
-    if (is.null(crit_acc)) {
-      if (is.null(size)) size <- collapse::fNobs(x, grp, use.g.names = FALSE)
-      crit_acc <- qbinom(0.95, size, chance) / size
-    }
-    collapse::get_vars(chk_res, "is_normal") <-
-      .subset2(chk_res, "is_normal") &
-      .subset2(stats, "accuracy") > crit_acc
-  }
-  chk_res
+  stats %>%
+    dplyr::transmute(
+      is_normal = switch(
+        check_type,
+        all = .data[["res_resp"]] & .data[["res_acc"]],
+        resp_rate = .data[["res_resp"]],
+        accuracy = .data[["res_acc"]],
+        NA
+      )
+    ) %>%
+    dplyr::ungroup()
 }

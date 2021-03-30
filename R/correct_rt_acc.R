@@ -26,23 +26,29 @@ correct_rt_acc <- function(data,
   correct_type <- match.arg(correct_type)
   names_in <- names(data)
   if (correct_type %in% c("both", "rt")) {
-    rt_vals <- .subset2(data, name_rt)
-    collapse::add_vars(data) <- list(
-      rt_cor = ifelse(rt_vals > crit_rt, rt_vals, NA)
-    )
+    data <- data %>%
+      dplyr::mutate(
+        rt_cor = ifelse(
+          .data[[name_rt]] > crit_rt,
+          .data[[name_rt]], NA
+        )
+      )
   }
   if (correct_type %in% c("both", "acc")) {
-    acc_vals <- .subset2(data, name_acc)
-    collapse::add_vars(data) <- list(
-      acc_cor = ifelse(rt_vals > crit_rt, acc_vals, -1)
-    )
+    data <- data %>%
+      dplyr::mutate(
+        rt_cor = ifelse(
+          .data[[name_rt]] > crit_rt,
+          .data[[name_acc]], -1
+        )
+      )
   }
   # add corrected name (with uncorrected value) if name found in original data
   if (name_rt %in% names_in & !rlang::has_name(data, "rt_cor")) {
-    collapse::add_vars(data) <- list(rt_cor = .subset2(data, name_rt))
+    data <- dplyr::mutate(data, rt_cor = .data[[name_rt]])
   }
   if (name_acc %in% names_in & !rlang::has_name(data, "acc_cor")) {
-    collapse::add_vars(data) <- list(rt_cor = .subset2(data, name_acc))
+    data <- dplyr::mutate(data, acc_cor = .data[[name_acc]])
   }
   data
 }
