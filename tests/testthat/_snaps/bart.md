@@ -1,4 +1,4 @@
-# `bart()` default
+# Default behavior works
 
     Code
       preproc_data(data, bart)
@@ -18,7 +18,7 @@
       10    10       1.17           2.07            47 TRUE     
       # ... with 990 more rows
 
-# `bart()` works with multiple grouping variables
+# Works with multiple grouping variables
 
     Code
       preproc_data(data, bart, by = c("id", "id1"))

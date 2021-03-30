@@ -6,11 +6,11 @@ data <- tibble(
   Feedback = round(runif(100*1000))
 )
 
-test_that("`bart()` default", {
+test_that("Default behavior works", {
   expect_snapshot(preproc_data(data, bart))
 })
 
-test_that("`bart()` works with multiple grouping variables", {
+test_that("Works with multiple grouping variables", {
   data <- tibble::add_column(data, id1 = rep(1000:1, each = 100))
   expect_snapshot(preproc_data(data, bart, by = c("id", "id1")))
 })
