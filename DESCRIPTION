@@ -15,7 +15,6 @@ BugReports: https://github.com/psychelzh/dataproc.iquizoo/issues
 Depends:
     R (>= 2.10)
 Imports:
-    collapse,
     dplyr,
     magrittr,
     pracma,

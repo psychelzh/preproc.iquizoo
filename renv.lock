@@ -65,13 +65,6 @@
       "Repository": "CRAN",
       "Hash": "92c3ebb8587365ca7b6da4e14d7e6503"
     },
-    "collapse": {
-      "Package": "collapse",
-      "Version": "1.5.3",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "355486db26369bf9570518051b569fa1"
-    },
     "commonmark": {
       "Package": "commonmark",
       "Version": "1.7",
