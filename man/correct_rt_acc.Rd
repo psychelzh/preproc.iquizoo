@@ -13,7 +13,7 @@ correct_rt_acc(
 )
 }
 \arguments{
-\item{data}{Required. Raw data, a \code{data.frame}.}
+\item{data}{Raw data of class \code{data.frame}.}
 
 \item{crit_rt}{Minimal reaction time in milliseconds. Reaction times that are
 equal or less than this will be treated as illegal.}

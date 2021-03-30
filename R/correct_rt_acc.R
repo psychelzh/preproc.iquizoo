@@ -5,7 +5,7 @@
 #' operation. This function tried to correct that by setting reaction time to
 #' `NA` and accuracy to `-1` (can be opted out) for those trials.
 #'
-#' @param data Required. Raw data, a `data.frame`.
+#' @template para-data
 #' @param crit_rt Minimal reaction time in milliseconds. Reaction times that are
 #'   equal or less than this will be treated as illegal.
 #' @param correct_type Four types are supported. `"both"` (default) means that
