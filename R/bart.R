@@ -15,37 +15,17 @@
 #'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
 bart <- function(data, vars_input, by) {
-  if (is.null(vars_input)) {
-    name_nhit <- "NHit"
-    name_feedback <- "Feedback"
-  } else {
-    name_nhit <- vars_input[["name_nhit"]]
-    name_feedback <- vars_input[["name_feedback"]]
-  }
-  collapse::add_vars(data) <- list(
-    hit_cor = .subset2(data, vars_input[["name_nhit"]]) *
-      .subset2(data, vars_input[["name_feedback"]])
-  )
-  grps_out <- collapse::GRP(data, by)
-  collapse::add_vars(
-    grps_out$groups,
-    list(
-      mean_pumps = collapse::fmean(
-        .subset2(data, "hit_cor"),
-        grps_out,
-        use.g.names = FALSE
-      ),
-      mean_pumps_raw = collapse::fmean(
-        .subset2(data, vars_input[["name_nhit"]]),
-        grps_out,
-        use.g.names = FALSE
-      ),
-      num_explosion = collapse::fsum(
-        .subset2(data, vars_input[["name_feedback"]]),
-        grps_out,
-        use.g.names = FALSE
-      )
+  data %>%
+    dplyr::mutate(
+      hit_cor = .data[[vars_input[["name_nhit"]]]] *
+        .data[[vars_input[["name_feedback"]]]]
+    ) %>%
+    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
+    dplyr::summarise(
+      mean_pumps = mean(.data[["hit_cor"]]),
+      mean_pumps_raw = mean(.data[[vars_input[["name_nhit"]]]]),
+      num_explosion = sum(.data[[vars_input[["name_feedback"]]]] == 0),
+      is_normal = TRUE,
+      .groups = "drop"
     )
-  ) %>%
-    collapse::ftransform(is_normal = TRUE)
 }
