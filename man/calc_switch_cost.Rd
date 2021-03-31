@@ -6,41 +6,32 @@
 \usage{
 calc_switch_cost(
   data,
-  config_block,
-  name_block = "Block",
-  name_task = "Task",
-  name_switch = "Type",
-  name_rt = "rt_cor",
-  name_acc = "acc_cor",
-  values_mixed = c("Repeat", "Switch")
+  by,
+  name_type_block,
+  name_type_switch,
+  name_rt,
+  name_acc
 )
 }
 \arguments{
-\item{data}{Required. A \code{data.frame} from which the indices are calculated.}
+\item{data}{Raw data of class \code{data.frame}.}
 
-\item{config_block}{Required. A \code{data.frame} contains the configurations of
-each block. At least contains these variables:
-\itemize{
-\item Same name as \code{name_block} argument: The block identifier.
-\item \code{type_block}: The type of each block: must contain "pure" and "mixed".
-\item \code{dur}: The duration in minutes for each block.
-}}
+\item{by}{The column name(s) in \code{data} used to be grouped by.}
 
-\item{name_block}{The name of the variable in \code{data} storing block number.}
+\item{name_type_block}{The column name of the \code{data} input whose values are
+the block type, in which is a \code{character} vector with "pure block" (value:
+\code{"pure"}) and "mixed block" (value: \code{"mixed"}).}
 
-\item{name_task}{The name of variable in \code{data} storing task info.}
+\item{name_type_switch}{The column name of the \code{data} input whose values are
+the switch type, in which is a \code{character} vector with at least \code{"switch"} and
+\code{"repeat"} values. Other values if corresponding to \code{"pure"} block, will be
+used as task names.}
 
-\item{name_switch}{The name of the variable in \code{data} storing switch info.}
+\item{name_rt}{The column name of the \code{data} input whose values are user's reaction time, in which is a \code{numeric} vector with \code{NA} values representing abnormal reaction times.}
 
-\item{name_rt}{The name of the variable in \code{data} storing reaction time data.}
-
-\item{name_acc}{The name of the variable in \code{data} storing accuracy data.}
-
-\item{values_mixed}{The values of the variable \code{name_switch} in mixed
-blocks, in which the first is about 'repeat', and the second about
-'switch'.}
+\item{name_acc}{The column name of the \code{data} input whose values are user's correctness, in which is a \code{numeric} vector so coded that 1 means scoring correct, 0 means scoring incorrect, and that -1 means no response is made.}
 }
 \description{
-Utility function to calculate indices related to switch cost.
+Utility function to calculate general and specific switch cost.
 }
 \keyword{internal}

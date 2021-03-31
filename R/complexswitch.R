@@ -4,8 +4,9 @@
 #' interest. For its complexity, congruency effect will be calculated, too. In
 #' fact it is just a combination of [congeff()] and [switchcost()].
 #'
-#' @param data Raw data of class `data.frame`.
-#' @param ... Other input argument for future expansion.
+#' @templateVar by low
+#' @templateVar vars_input TRUE
+#' @template params-template
 #' @return A [tibble][tibble::tibble-package] with the following variables:
 #'   \item{mrt_con}{Mean reaction time for congruent trials.}
 #'   \item{mrt_inc}{Mean reaction time for incogruent trials.}
@@ -15,76 +16,63 @@
 #'   \item{pc_inc}{Percent of correct for incogruent trials.}
 #'   \item{cong_eff_pc}{Congruency effect of percent of correct (PC), i.e., PC
 #'     congruency - PC incongruency.}
-#'   \item{rc_all}{Count of correct responses per minute for all blocks.}
-#'   \item{rc_mixed}{Count of correct responses per minute for mixed blocks.}
-#'   \item{rc_pure}{Count of correct responses per minute for pure blocks.}
-#'   \item{switch_cost_rc_gen}{General switch cost (based on count of correct
-#'     responses).}
 #'   \item{mrt_pure}{Mean reaction time for non-mixed blocks.}
 #'   \item{mrt_repeat}{Mean reaction time for repeat trials.}
 #'   \item{mrt_switch}{Mean reaction time for switch trials.}
-#'   \item{switch_cost_gen_rt}{General switch cost (based on mean reaction
+#'   \item{switch_cost_rt_gen}{General switch cost (based on mean reaction
 #'     times).}
-#'   \item{switch_cost_spe_rt}{Specific switch cost (based on mean reaction
+#'   \item{switch_cost_rt_spe}{Specific switch cost (based on mean reaction
 #'     times).}
-#'   \item{is_normal}{Checking result whether the data is normal.}
+#'   \item{pc_pure}{Percent of correct for non-mixed blocks.}
+#'   \item{pc_repeat}{Percent of correct for repeat trials.}
+#'   \item{mrt_switch}{Percent of correct for switch trials.}
+#'   \item{switch_cost_pc_gen}{General switch cost (based on percent of
+#'     correct).}
+#'   \item{switch_cost_pc_spe}{Specific switch cost (based on percent of
+#'     correct).}
 #' @export
-complexswitch <- function(data, ...) {
-  vars_output <- c(
-    "mrt_con", "mrt_inc", "cong_eff_rt",
-    "pc_con", "pc_inc", "cong_eff_pc",
-    "rc_all", "rc_mixed", "rc_pure", "switch_cost_rc_gen",
-    "mrt_pure", "mrt_repeat", "mrt_switch",
-    "switch_cost_rt_gen", "switch_cost_rt_spe"
-  )
-  vars_required <- tibble::tribble(
-    ~field, ~name,
-    "name_block", "Block",
-    "name_cong", "StimType",
-    "name_task", c("Task", "Sex"),
-    "name_switch", "TaskType",
-    "name_acc", c("Acc", "ACC"),
-    "name_rt", "RT"
-  )
-  vars_matched <- match_data_vars(data, vars_required)
-  if (is.null(vars_matched)) {
-    return(compose_abnormal_output(vars_output))
-  }
-  data_cor <- correct_rt_acc(data, name_acc = vars_matched["name_acc"])
-  # calculate congruency effect
+complexswitch <- function(data, vars_input, by) {
+  data_cor <- data %>%
+    dplyr::mutate(
+      # remove rt of 100 or less
+      rt_cor = ifelse(
+        .data[[vars_input[["name_rt"]]]] > 100,
+        .data[[vars_input[["name_rt"]]]], NA
+      ),
+      # TODO: fix this using `tidyselect::where()` in future
+      r"({vars_input[["name_cong"]]})" := tolower(
+        .data[[vars_input[["name_cong"]]]]
+      ),
+      r"({vars_input[["name_switch"]]})" := tolower(
+        .data[[vars_input[["name_switch"]]]]
+      ),
+      type_block = ifelse(
+        .data[[vars_input[["name_switch"]]]] %in% c("", "pure"),
+        "pure", "mixed"
+      ),
+      type_switch = ifelse(
+        type_block == "pure",
+        .data[[vars_input[["name_task"]]]],
+        .data[[vars_input[["name_switch"]]]]
+      )
+    )
+  # calculate congruence effect
   cong_eff <- calc_cong_eff(
     data_cor,
-    name_cong = vars_matched["name_cong"],
-    name_acc = "acc_cor",
+    by = by,
+    name_cong = vars_input[["name_cong"]],
+    name_acc = vars_input[["name_acc"]],
     name_rt = "rt_cor"
   )
   # calculate switch cost
-  block_info <- data_cor %>%
-    dplyr::mutate(
-      n_blocks = dplyr::n_distinct(!!sym(vars_matched["name_block"]))
-    ) %>%
-    dplyr::group_by(
-      .data[["n_blocks"]],
-      .data[[vars_matched["name_block"]]]
-    ) %>%
-    dplyr::summarise(
-      has_no_response = all(.data[["acc_cor"]] == -1),
-      type_block = ifelse(
-        all(.data[[vars_matched["name_switch"]]] %in% c("Pure", "")),
-        "pure", "mixed"
-      ),
-      .groups = "drop"
-    ) %>%
-    dplyr::mutate(dur = dplyr::if_else(.data[["type_block"]] == "pure", 0.5, 1))
-  if (any(block_info[["has_no_response"]])) {
-    warning("At least one block has no response.")
-    return(compose_abnormal_output(vars_output))
-  }
   switch_cost <- calc_switch_cost(
-    data_cor, block_info,
-    name_task = vars_matched["name_task"],
-    name_switch = vars_matched["name_switch"]
+    data_cor,
+    by = by,
+    name_type_block = "type_block",
+    name_type_switch = "type_switch",
+    name_acc = vars_input[["name_acc"]],
+    name_rt = "rt_cor"
   )
-  is_normal <- check_resp_metric(data_cor) && !any(block_info$has_no_response)
-  tibble(cong_eff, switch_cost, is_normal)
+  cong_eff %>%
+    dplyr::left_join(switch_cost, by = by)
 }

@@ -4,12 +4,14 @@
 \alias{complexswitch}
 \title{Calculates index scores for complex switch games}
 \usage{
-complexswitch(data, ...)
+complexswitch(data, vars_input, by)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{...}{Other input argument for future expansion.}
+\item{vars_input}{The matched variable names for further processing. Typically setted automatically by \code{\link[=preproc_data]{preproc_data()}}.}
+
+\item{by}{The column name(s) in \code{data} used to be grouped by.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} with the following variables:
@@ -21,19 +23,20 @@ incongruency - RT congruency.}
 \item{pc_inc}{Percent of correct for incogruent trials.}
 \item{cong_eff_pc}{Congruency effect of percent of correct (PC), i.e., PC
 congruency - PC incongruency.}
-\item{rc_all}{Count of correct responses per minute for all blocks.}
-\item{rc_mixed}{Count of correct responses per minute for mixed blocks.}
-\item{rc_pure}{Count of correct responses per minute for pure blocks.}
-\item{switch_cost_rc_gen}{General switch cost (based on count of correct
-responses).}
 \item{mrt_pure}{Mean reaction time for non-mixed blocks.}
 \item{mrt_repeat}{Mean reaction time for repeat trials.}
 \item{mrt_switch}{Mean reaction time for switch trials.}
-\item{switch_cost_gen_rt}{General switch cost (based on mean reaction
+\item{switch_cost_rt_gen}{General switch cost (based on mean reaction
 times).}
-\item{switch_cost_spe_rt}{Specific switch cost (based on mean reaction
+\item{switch_cost_rt_spe}{Specific switch cost (based on mean reaction
 times).}
-\item{is_normal}{Checking result whether the data is normal.}
+\item{pc_pure}{Percent of correct for non-mixed blocks.}
+\item{pc_repeat}{Percent of correct for repeat trials.}
+\item{mrt_switch}{Percent of correct for switch trials.}
+\item{switch_cost_pc_gen}{General switch cost (based on percent of
+correct).}
+\item{switch_cost_pc_spe}{Specific switch cost (based on percent of
+correct).}
 }
 \description{
 Complex switch game, just as the name implied, switch cost will be of

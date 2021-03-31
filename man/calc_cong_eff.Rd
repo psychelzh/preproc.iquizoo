@@ -11,7 +11,11 @@ calc_cong_eff(data, by, name_cong, name_acc, name_rt)
 
 \item{by}{The column name(s) in \code{data} used to be grouped by.}
 
-\item{name_cong}{The column name of the \code{data} input whose values are the congruence information, in which is a \code{factor} vector with 'incongruent condition' (label: 'inc') the first level and 'congruent condition' (label: 'con') the second.}
+\item{name_cong}{The column name of the \code{data} input whose values are the
+congruence information, in which is a \code{character} vector with "incongruent
+condition" (label: \code{"incongruent"}) and "congruent condition" (label:
+\code{"congruent"}). It will be coerced as a \code{factor} vector with these two
+levels.}
 
 \item{name_acc}{The column name of the \code{data} input whose values are user's correctness, in which is a \code{numeric} vector so coded that 1 means scoring correct, 0 means scoring incorrect, and that -1 means no response is made.}
 

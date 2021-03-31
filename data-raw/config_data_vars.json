@@ -25,5 +25,39 @@
             "p_sim_target",
             "bps_score"
         ]
+    },
+    "complexswitch": {
+        "input": {
+            "name_block": "Block",
+            "name_cong": "StimType",
+            "name_task": [
+                "Task",
+                "Sex"
+            ],
+            "name_switch": "TaskType",
+            "name_acc": [
+                "Acc",
+                "ACC"
+            ],
+            "name_rt": "RT"
+        },
+        "output": [
+            "mrt_con",
+            "mrt_inc",
+            "cong_eff_rt",
+            "pc_con",
+            "pc_inc",
+            "cong_eff_pc",
+            "mrt_pure",
+            "mrt_repeat",
+            "mrt_switch",
+            "switch_cost_rt_gen",
+            "switch_cost_rt_spe",
+            "pc_pure",
+            "pc_repeat",
+            "pc_switch",
+            "switch_cost_pc_gen",
+            "switch_cost_pc_spe"
+        ]
     }
 }
