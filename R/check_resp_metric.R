@@ -18,11 +18,9 @@
 #' argument). So the minimal accuracy can be calculated based on the 95% region
 #' of rejection.
 #'
-#' @template para-data
-#' @template para-by
-#' @param name_acc The variable name of accuracy in the `data` input, in which
-#'   stores a `numeric` vector so coded that 1 means scoring correct, 0 means
-#'   scoring incorrect, and that -1 means no response is made.
+#' @templateVar by low
+#' @templateVar name_acc corrected
+#' @template params-template
 #' @param crit_resp_rate The required minimal valid response rate. Default to
 #'   0.8.
 #' @param crit_acc The required minimal accuracy. Default to `NULL`, a minimal

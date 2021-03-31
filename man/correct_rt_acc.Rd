@@ -22,9 +22,9 @@ equal or less than this will be treated as illegal.}
 both response time and accuracy are corrected, \code{"none"} means no
 correction, and \code{"rt"}/\verb{"acc} means correct the corresponding one.}
 
-\item{name_rt}{The variable name of reaction time in the input \code{data}.}
+\item{name_rt}{The column name of the \code{data} input whose value is user's reaction time, in which is a \code{numeric} vector.}
 
-\item{name_acc}{The variable name of accuracy in the input \code{data}.}
+\item{name_acc}{The column name of the \code{data} input whose value is user's correctness, in which is a \code{numeric} vector}
 }
 \value{
 The data is added with two new columns. \code{rt_cor}: the corrected

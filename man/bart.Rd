@@ -11,8 +11,7 @@ bart(data, by, vars_input)
 
 \item{by}{The column name(s) in \code{data} used to be grouped by.}
 
-\item{vars_input}{This is done by other functions, storing the matched
-variable names for further processing.}
+\item{vars_input}{The matched variable names for further processing. Typically setted automatically by \code{\link[=preproc_data]{preproc_data()}}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:

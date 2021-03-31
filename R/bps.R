@@ -2,9 +2,9 @@
 #'
 #' The index was developed by Stark et. al. (2013), named as "BPS score".
 #'
-#' @template para-data
-#' @template para-by
-#' @template para-vars_input
+#' @templateVar by low
+#' @templateVar vars_input TRUE
+#' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{pc}{Percent of correct responses.}
 #'   \item{p_sim_foil}{Percent of similar responses for "foil" stimuli.}

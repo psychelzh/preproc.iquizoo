@@ -4,12 +4,10 @@
 #' all the pre-processing functions. The documentation of each of them can be
 #' accessed to know its details of the returned values.
 #'
-#' @template para-data
+#' @templateVar by high
+#' @template params-template
 #' @param prep_fun The function to be called. Currently, it should be a
 #'   `symbol`, representing the function.
-#' @param by The column name(s) in `data` used to be grouped by. If set to
-#'   `NULL`, all data will be treated as from one subject and there will be no
-#'   grouping columns in the value returned.
 #' @param ... These dots are for future extensions and must be empty.
 #' @return A [tibble][tibble::tibble-package] of game performances returned by
 #'   low-level functions.

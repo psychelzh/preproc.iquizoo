@@ -12,9 +12,7 @@ preproc_data(data, prep_fun, by = "id", ...)
 \item{prep_fun}{The function to be called. Currently, it should be a
 \code{symbol}, representing the function.}
 
-\item{by}{The column name(s) in \code{data} used to be grouped by. If set to
-\code{NULL}, all data will be treated as from one subject and there will be no
-grouping columns in the value returned.}
+\item{by}{The column name(s) in \code{data} used to be grouped by. If set to \code{NULL}, all data will be treated as from one subject and there will be no grouping columns in the value returned.}
 
 \item{...}{These dots are for future extensions and must be empty.}
 }

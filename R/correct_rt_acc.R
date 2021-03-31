@@ -5,14 +5,14 @@
 #' operation. This function tried to correct that by setting reaction time to
 #' `NA` and accuracy to `-1` (can be opted out) for those trials.
 #'
-#' @template para-data
+#' @templateVar name_rt uncorrected
+#' @templateVar name_acc uncorrected
+#' @template params-template
 #' @param crit_rt Minimal reaction time in milliseconds. Reaction times that are
 #'   equal or less than this will be treated as illegal.
 #' @param correct_type Four types are supported. `"both"` (default) means that
 #'   both response time and accuracy are corrected, `"none"` means no
 #'   correction, and `"rt"`/`"acc` means correct the corresponding one.
-#' @param name_rt The variable name of reaction time in the input `data`.
-#' @param name_acc The variable name of accuracy in the input `data`.
 #' @return The data is added with two new columns. `rt_cor`: the corrected
 #'   reaction time; `acc_cor`: the corrected accuracy. They can both disappear,
 #'   because if there is no such correction, the column is added only if the
