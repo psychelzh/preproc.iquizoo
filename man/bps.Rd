@@ -20,7 +20,6 @@ A \link[tibble:tibble-package]{tibble} contains following values:
 \item{p_sim_lure}{Percent of similar responses for "lure" stimuli.}
 \item{p_sim_target}{Percent of similar responses for "target" stimuli.}
 \item{bps_score}{BPS score.}
-\item{is_normal}{Checking result whether the data is normal.}
 }
 \description{
 The index was developed by Stark et. al. (2013), named as "BPS score".

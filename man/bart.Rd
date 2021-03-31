@@ -18,7 +18,6 @@ A \link[tibble:tibble-package]{tibble} contains following values:
 \item{mean_pumps}{Mean of hits for balloons not exploded.}
 \item{mean_pumps_raw}{Mean of hits for all balloons.}
 \item{num_explosion}{Number of exploded balloons.}
-\item{is_normal}{Checking result whether the data is normal.}
 }
 \description{
 The adjusted and unadjusted BART scores are both returned.

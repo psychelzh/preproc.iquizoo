@@ -11,7 +11,6 @@
 #'   \item{p_sim_lure}{Percent of similar responses for "lure" stimuli.}
 #'   \item{p_sim_target}{Percent of similar responses for "target" stimuli.}
 #'   \item{bps_score}{BPS score.}
-#'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
 bps <- function(data, by, vars_input) {
   data_cor <- data %>%
@@ -36,8 +35,6 @@ bps <- function(data, by, vars_input) {
       values_from = "p_sim"
     ) %>%
     dplyr::mutate(bps_score = .data[["p_sim_lure"]] - .data[["p_sim_foil"]])
-  is_normal <- check_resp_metric(data_cor, by, "acc_cor", chance = 1 / 3)
   pc_all %>%
-    dplyr::left_join(bps_score, by = by) %>%
-    dplyr::left_join(is_normal, by = by)
+    dplyr::left_join(bps_score, by = by)
 }
