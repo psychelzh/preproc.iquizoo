@@ -2,30 +2,26 @@
 % Please edit documentation in R/calc_cong_eff.R
 \name{calc_cong_eff}
 \alias{calc_cong_eff}
-\title{Congruency effect}
+\title{Congruence effect}
 \usage{
-calc_cong_eff(
-  data,
-  name_cong = "Type",
-  name_rt = "rt_cor",
-  name_acc = "acc_cor",
-  values_cong = c("Congruent", "Incongruent")
-)
+calc_cong_eff(data, by, name_cong, name_acc, name_rt)
 }
 \arguments{
-\item{data}{A \code{data.frame} from which the indices are calculated.}
+\item{data}{Raw data of class \code{data.frame}.}
 
-\item{name_cong}{The name of the variable in \code{data} storing the congruency
-info.}
+\item{by}{The column name(s) in \code{data} used to be grouped by.}
 
-\item{name_rt}{The name of the variable in \code{data} storing reaction time data.}
+\item{name_cong}{The column name of the \code{data} input whose values are the congruence information, in which is a \code{factor} vector with 'incongruent condition' (label: 'inc') the first level and 'congruent condition' (label: 'con') the second.}
 
-\item{name_acc}{The name of the variable in \code{data} storing accuracy data.}
+\item{name_acc}{The column name of the \code{data} input whose values are user's correctness, in which is a \code{numeric} vector so coded that 1 means scoring correct, 0 means scoring incorrect, and that -1 means no response is made.}
 
-\item{values_cong}{The values of the congruency info variable, in which the
-first is about 'congruent', and the second about 'incongruent'.}
+\item{name_rt}{The column name of the \code{data} input whose values are user's reaction time, in which is a \code{numeric} vector with \code{NA} values representing abnormal reaction times.}
+}
+\value{
+A \link[tibble:tibble-package]{tibble} contains congruence effect results
+on accuracy and response time.
 }
 \description{
-Utility function to calculate indices related to congruency effect.
+Utility function to calculate congruence effect sizes.
 }
 \keyword{internal}
