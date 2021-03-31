@@ -19,7 +19,7 @@ check_resp_metric(
 
 \item{by}{The column name(s) in \code{data} used to be grouped by.}
 
-\item{name_acc}{The column name of the \code{data} input whose value is user's correctness, in which is a \code{numeric} vector so coded that 1 means scoring correct, 0 means scoring incorrect, and that -1 means no response is made.}
+\item{name_acc}{The column name of the \code{data} input whose values are user's correctness, in which is a \code{numeric} vector so coded that 1 means scoring correct, 0 means scoring incorrect, and that -1 means no response is made.}
 
 \item{crit_resp_rate}{The required minimal valid response rate. Default to
 0.8.}

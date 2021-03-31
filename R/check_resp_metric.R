@@ -19,7 +19,7 @@
 #' of rejection.
 #'
 #' @templateVar by low
-#' @templateVar name_acc corrected
+#' @templateVar name_acc TRUE
 #' @template params-template
 #' @param crit_resp_rate The required minimal valid response rate. Default to
 #'   0.8.
