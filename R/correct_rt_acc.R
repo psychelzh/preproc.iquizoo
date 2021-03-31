@@ -12,7 +12,7 @@
 #'   equal or less than this will be treated as illegal.
 #' @param correct_type Four types are supported. `"both"` (default) means that
 #'   both response time and accuracy are corrected, `"none"` means no
-#'   correction, and `"rt"`/`"acc` means correct the corresponding one.
+#'   correction, and `"rt"`/`"acc"` means correct the corresponding one.
 #' @return The data is added with two new columns. `rt_cor`: the corrected
 #'   reaction time; `acc_cor`: the corrected accuracy. They can both disappear,
 #'   because if there is no such correction, the column is added only if the
@@ -37,7 +37,7 @@ correct_rt_acc <- function(data,
   if (correct_type %in% c("both", "acc")) {
     data <- data %>%
       dplyr::mutate(
-        rt_cor = ifelse(
+        acc_cor = ifelse(
           .data[[name_rt]] > crit_rt,
           .data[[name_acc]], -1
         )
