@@ -13,6 +13,9 @@
 #'   low-level functions.
 #' @author Liang Zhang <psychelzh@outlook.com>
 preproc_data <- function(data, prep_fun, by = "id", ...) {
+  if (!missing(...)) {
+    ellipsis::check_dots_empty()
+  }
   # validate data variable names
   prep_fun_name <- deparse1(substitute(prep_fun))
   vars_input <- match_data_vars(data, prep_fun_name)
