@@ -53,8 +53,8 @@ calc_switch_cost <- function(data,
     ) %>%
     dplyr::group_by(dplyr::across(dplyr::all_of(c(by, "condition")))) %>%
     dplyr::summarise(
-      mrt = mean(mrt, na.rm = TRUE),
-      pc = mean(pc, na.rm = TRUE),
+      mrt = mean(.data[["mrt"]], na.rm = TRUE),
+      pc = mean(.data[["pc"]], na.rm = TRUE),
       .groups = "drop"
     ) %>%
     tidyr::pivot_wider(

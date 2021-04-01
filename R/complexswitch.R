@@ -51,7 +51,7 @@ complexswitch <- function(data, vars_input, by) {
         "pure", "mixed"
       ),
       type_switch = ifelse(
-        type_block == "pure",
+        .data[["type_block"]] == "pure",
         .data[[vars_input[["name_task"]]]],
         .data[[vars_input[["name_switch"]]]]
       )
