@@ -59,5 +59,20 @@
             "switch_cost_pc_gen",
             "switch_cost_pc_spe"
         ]
+    },
+    "congeff": {
+        "input": {
+            "name_cong": "Type",
+            "name_acc": "ACC",
+            "name_rt": "RT"
+        },
+        "output": [
+            "mrt_inc",
+            "mrt_con",
+            "cong_eff_rt",
+            "pc_inc",
+            "pc_con",
+            "cong_eff_pc"
+        ]
     }
 }

@@ -4,25 +4,25 @@
 \alias{congeff}
 \title{Calculates index scores for games related to congruency effect}
 \usage{
-congeff(data, ...)
+congeff(data, by, vars_input)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{...}{Other input argument for future expansion.}
+\item{by}{The column name(s) in \code{data} used to be grouped by.}
+
+\item{vars_input}{The matched variable names for further processing. Typically setted automatically by \code{\link[=preproc_data]{preproc_data()}}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
 \item{mrt_inc}{Mean reaction time for incogruent trials.}
 \item{mrt_con}{Mean reaction time for congruent trials.}
-\item{cong_eff_rt}{Congruency effect of reaction time (RT), i.e., RT
-incongruency - RT congruency.}
+\item{cong_eff_rt}{Congruence effect of reaction time (RT), i.e.,
+incongruent RT - congruent RT.}
 \item{pc_inc}{Percent of correct for incogruent trials.}
 \item{pc_con}{Percent of correct for congruent trials.}
-\item{cong_eff_pc}{Congruency effect of percent of correct (PC), i.e., PC
-congruency - PC incongruency.}
-\item{nc}{Count of correct responses.}
-\item{is_normal}{Checking result whether the data is normal.}
+\item{cong_eff_pc}{Congruence effect of percent of correct (PC), i.e.,
+congruent PC - incongruent PC}
 }
 \description{
 Count of correct responses and congruency effect of correct response and

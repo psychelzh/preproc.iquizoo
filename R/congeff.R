@@ -5,37 +5,36 @@
 #' difference between congruenct and incongruent trials. See Stroop effect as an
 #' example.
 #'
-#' @param data Raw data of class `data.frame`.
-#' @param ... Other input argument for future expansion.
+#' @templateVar by low
+#' @templateVar vars_input TRUE
+#' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mrt_inc}{Mean reaction time for incogruent trials.}
 #'   \item{mrt_con}{Mean reaction time for congruent trials.}
-#'   \item{cong_eff_rt}{Congruency effect of reaction time (RT), i.e., RT
-#'     incongruency - RT congruency.}
+#'   \item{cong_eff_rt}{Congruence effect of reaction time (RT), i.e.,
+#'     incongruent RT - congruent RT.}
 #'   \item{pc_inc}{Percent of correct for incogruent trials.}
 #'   \item{pc_con}{Percent of correct for congruent trials.}
-#'   \item{cong_eff_pc}{Congruency effect of percent of correct (PC), i.e., PC
-#'     congruency - PC incongruency.}
-#'   \item{nc}{Count of correct responses.}
-#'   \item{is_normal}{Checking result whether the data is normal.}
+#'   \item{cong_eff_pc}{Congruence effect of percent of correct (PC), i.e.,
+#'     congruent PC - incongruent PC}
 #' @export
-congeff <- function(data, ...) {
-  vars_output <- c(
-    "mrt_inc", "mrt_con", "cong_eff_rt",
-    "pc_inc", "pc_con", "cong_eff_pc", "nc"
+congeff <- function(data, by, vars_input) {
+  data_cor <- data %>%
+    dplyr::mutate(
+      # remove rt of 100 or less
+      rt_cor = ifelse(
+        .data[[vars_input[["name_rt"]]]] > 100,
+        .data[[vars_input[["name_rt"]]]], NA
+      ),
+      dplyr::across(
+        tidyselect::vars_select_helpers$where(is.character),
+        tolower
+      )
+    )
+  calc_cong_eff(
+    data_cor, by = by,
+    name_cong = vars_input[["name_cong"]],
+    name_acc = vars_input[["name_acc"]],
+    name_rt = "rt_cor"
   )
-  vars_required <- tibble::tribble(
-    ~field, ~name,
-    "name_cong", "Type",
-    "name_acc", "ACC",
-    "name_rt", "RT"
-  )
-  vars_matched <- match_data_vars(data, vars_required)
-  if (is.null(vars_matched)) {
-    return(compose_abnormal_output(vars_output))
-  }
-  data_cor <- correct_rt_acc(data)
-  cong_eff <- calc_cong_eff(data_cor)
-  is_normal <- check_resp_metric(data_cor)
-  tibble(cong_eff, nc = sum(data_cor[["acc_cor"]] == 1), is_normal)
 }
