@@ -4,18 +4,18 @@
 \alias{countcorrect}
 \title{Calculates index scores for games only considering correct response numbers.}
 \usage{
-countcorrect(data, ...)
+countcorrect(data, by, vars_input)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{...}{Other input argument for future expansion.}
+\item{by}{The column name(s) in \code{data} used to be grouped by.}
+
+\item{vars_input}{The matched variable names for further processing. Typically setted automatically by \code{\link[=preproc_data]{preproc_data()}}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
 \item{nc}{Count of correct responses.}
-\item{pc}{Percent of correct responses.}
-\item{is_normal}{Checking result whether the data is normal.}
 }
 \description{
 This is just to find out the count of correct responses.

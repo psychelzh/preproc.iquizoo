@@ -74,5 +74,15 @@
             "pc_con",
             "cong_eff_pc"
         ]
+    },
+    "countcorrect": {
+        "input": {
+            "name_acc": [
+                "ACC",
+                "Repetition",
+                "Correctness"
+            ]
+        },
+        "output": "nc"
     }
 }
