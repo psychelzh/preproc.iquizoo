@@ -23,7 +23,8 @@ Imports:
     rlang (>= 0.1.2),
     stringr,
     tibble,
-    tidyr
+    tidyr,
+    tidyselect
 Suggests:
     covr,
     jsonlite,
