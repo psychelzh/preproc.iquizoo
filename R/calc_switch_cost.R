@@ -33,8 +33,10 @@ calc_switch_cost <- function(data,
       dplyr::all_of(c(by, name_type_block, name_type_switch, "condition"))
     )) %>%
     dplyr::mutate(
+      # remove conditional reaction time outliers
       "{name_rt}" := ifelse(
-        .data[[name_rt]] %in% boxplot(.data[[name_rt]], plot = FALSE)$out,
+        .data[[name_rt]] %in%
+          graphics::boxplot(.data[[name_rt]], plot = FALSE)$out,
         NA, .data[[name_rt]]
       )
     ) %>%

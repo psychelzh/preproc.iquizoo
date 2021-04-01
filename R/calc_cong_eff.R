@@ -27,7 +27,8 @@ calc_cong_eff <- function(data, by, name_cong, name_acc, name_rt) {
     dplyr::mutate(
       # remove conditional reaction time outliers
       "{name_rt}" := ifelse(
-        .data[[name_rt]] %in% boxplot(.data[[name_rt]], plot = FALSE)$out,
+        .data[[name_rt]] %in%
+          graphics::boxplot(.data[[name_rt]], plot = FALSE)$out,
         NA, .data[[name_rt]]
       )
     ) %>%
