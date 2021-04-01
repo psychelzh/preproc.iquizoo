@@ -39,12 +39,9 @@ complexswitch <- function(data, vars_input, by) {
         .data[[vars_input[["name_rt"]]]] > 100,
         .data[[vars_input[["name_rt"]]]], NA
       ),
-      # TODO: fix this using `tidyselect::where()` in future
-      r"({vars_input[["name_cong"]]})" := tolower(
-        .data[[vars_input[["name_cong"]]]]
-      ),
-      r"({vars_input[["name_switch"]]})" := tolower(
-        .data[[vars_input[["name_switch"]]]]
+      dplyr::across(
+        tidyselect::vars_select_helpers$where(is.character),
+        tolower
       ),
       type_block = ifelse(
         .data[[vars_input[["name_switch"]]]] %in% c("", "pure"),
