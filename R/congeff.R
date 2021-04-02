@@ -1,9 +1,9 @@
-#' Calculates index scores for games related to congruency effect
+#' Congruence effect
 #'
-#' Count of correct responses and congruency effect of correct response and
-#' reaction time are all included. The congruency effect here is just the mean
-#' difference between congruenct and incongruent trials. See Stroop effect as an
-#' example.
+#' The stimuli for these tasks contain *congruent* and *incongruent* conditions.
+#' Typically, subjects score correct more easily and respond more quickly on
+#' *congruent* ones, thus creating a congruence effect. This function calculates
+#' scores of these effects.
 #'
 #' @templateVar by low
 #' @templateVar vars_input TRUE
@@ -16,7 +16,7 @@
 #'   \item{pc_inc}{Percent of correct for incogruent trials.}
 #'   \item{pc_con}{Percent of correct for congruent trials.}
 #'   \item{cong_eff_pc}{Congruence effect of percent of correct (PC), i.e.,
-#'     congruent PC - incongruent PC}
+#'     congruent PC - incongruent PC.}
 #' @export
 congeff <- function(data, by, vars_input) {
   data_cor <- data %>%

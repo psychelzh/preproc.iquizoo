@@ -2,27 +2,27 @@
 % Please edit documentation in R/complexswitch.R
 \name{complexswitch}
 \alias{complexswitch}
-\title{Calculates index scores for complex switch games}
+\title{Complex switch: congruence and switch combined}
 \usage{
-complexswitch(data, vars_input, by)
+complexswitch(data, by, vars_input)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{vars_input}{The matched variable names for further processing. Typically setted automatically by \code{\link[=preproc_data]{preproc_data()}}.}
-
 \item{by}{The column name(s) in \code{data} used to be grouped by.}
+
+\item{vars_input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc_data]{preproc_data()}}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} with the following variables:
 \item{mrt_con}{Mean reaction time for congruent trials.}
 \item{mrt_inc}{Mean reaction time for incogruent trials.}
-\item{cong_eff_rt}{Congruency effect of reaction time (RT), i.e., RT
-incongruency - RT congruency.}
+\item{cong_eff_rt}{Congruence effect of reaction time (RT), i.e.,
+incongruent RT - congruent RT.}
 \item{pc_con}{Percent of correct for congruent trials.}
 \item{pc_inc}{Percent of correct for incogruent trials.}
-\item{cong_eff_pc}{Congruency effect of percent of correct (PC), i.e., PC
-congruency - PC incongruency.}
+\item{cong_eff_pc}{Congruency effect of percent of correct (PC), i.e.,
+congruent PC - incongruent PC.}
 \item{mrt_pure}{Mean reaction time for non-mixed blocks.}
 \item{mrt_repeat}{Mean reaction time for repeat trials.}
 \item{mrt_switch}{Mean reaction time for switch trials.}
@@ -39,7 +39,10 @@ correct).}
 correct).}
 }
 \description{
-Complex switch game, just as the name implied, switch cost will be of
-interest. For its complexity, congruency effect will be calculated, too. In
-fact it is just a combination of \code{\link[=congeff]{congeff()}} and \code{\link[=switchcost]{switchcost()}}.
+Congruence effect and switch cost both exist in these tasks. This function
+just outputs scores of these two effects.
+}
+\seealso{
+\code{\link[=congeff]{congeff()}} and \code{\link[=switchcost]{switchcost()}} for congruence effect and switch cost
+respectively.
 }

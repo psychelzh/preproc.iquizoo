@@ -1,6 +1,7 @@
-#' Calculates index scores for BART game specifically
+#' Balloon Analogue Risk Task
 #'
-#' The adjusted and unadjusted BART scores are both returned.
+#' This task is deemed as a measure of impulsivity. Read more details on
+#' [this website](http://www.impulsivity.org/measurement/BART).
 #'
 #' @templateVar by low
 #' @templateVar vars_input TRUE

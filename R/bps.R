@@ -1,6 +1,7 @@
-#' Calculates index scores for Behavioral Pattern Separation (BPS) game
+#' Behavioral Pattern Separation (BPS) task
 #'
-#' The index was developed by Stark et. al. (2013), named as "BPS score".
+#' The function mainly calculated the "*BPS score*" developed by Stark et. al.
+#' (2013).
 #'
 #' @templateVar by low
 #' @templateVar vars_input TRUE

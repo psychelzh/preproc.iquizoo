@@ -1,8 +1,7 @@
-#' Calculates index scores for complex switch games
+#' Complex switch: congruence and switch combined
 #'
-#' Complex switch game, just as the name implied, switch cost will be of
-#' interest. For its complexity, congruency effect will be calculated, too. In
-#' fact it is just a combination of [congeff()] and [switchcost()].
+#' Congruence effect and switch cost both exist in these tasks. This function
+#' just outputs scores of these two effects.
 #'
 #' @templateVar by low
 #' @templateVar vars_input TRUE
@@ -10,12 +9,12 @@
 #' @return A [tibble][tibble::tibble-package] with the following variables:
 #'   \item{mrt_con}{Mean reaction time for congruent trials.}
 #'   \item{mrt_inc}{Mean reaction time for incogruent trials.}
-#'   \item{cong_eff_rt}{Congruency effect of reaction time (RT), i.e., RT
-#'     incongruency - RT congruency.}
+#'   \item{cong_eff_rt}{Congruence effect of reaction time (RT), i.e.,
+#'     incongruent RT - congruent RT.}
 #'   \item{pc_con}{Percent of correct for congruent trials.}
 #'   \item{pc_inc}{Percent of correct for incogruent trials.}
-#'   \item{cong_eff_pc}{Congruency effect of percent of correct (PC), i.e., PC
-#'     congruency - PC incongruency.}
+#'   \item{cong_eff_pc}{Congruency effect of percent of correct (PC), i.e.,
+#'     congruent PC - incongruent PC.}
 #'   \item{mrt_pure}{Mean reaction time for non-mixed blocks.}
 #'   \item{mrt_repeat}{Mean reaction time for repeat trials.}
 #'   \item{mrt_switch}{Mean reaction time for switch trials.}
@@ -30,8 +29,10 @@
 #'     correct).}
 #'   \item{switch_cost_pc_spe}{Specific switch cost (based on percent of
 #'     correct).}
+#' @seealso [congeff()] and [switchcost()] for congruence effect and switch cost
+#'   respectively.
 #' @export
-complexswitch <- function(data, vars_input, by) {
+complexswitch <- function(data, by, vars_input) {
   data_cor <- data %>%
     dplyr::mutate(
       # remove rt of 100 or less

@@ -2,7 +2,7 @@
 % Please edit documentation in R/countcorrect.R
 \name{countcorrect}
 \alias{countcorrect}
-\title{Calculates index scores for games only considering correct response numbers.}
+\title{Count correct responses}
 \usage{
 countcorrect(data, by, vars_input)
 }
@@ -11,12 +11,12 @@ countcorrect(data, by, vars_input)
 
 \item{by}{The column name(s) in \code{data} used to be grouped by.}
 
-\item{vars_input}{The matched variable names for further processing. Typically setted automatically by \code{\link[=preproc_data]{preproc_data()}}.}
+\item{vars_input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc_data]{preproc_data()}}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
 \item{nc}{Count of correct responses.}
 }
 \description{
-This is just to find out the count of correct responses.
+This function calculates the number of correct responses.
 }

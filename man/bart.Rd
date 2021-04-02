@@ -2,7 +2,7 @@
 % Please edit documentation in R/bart.R
 \name{bart}
 \alias{bart}
-\title{Calculates index scores for BART game specifically}
+\title{Balloon Analogue Risk Task}
 \usage{
 bart(data, by, vars_input)
 }
@@ -11,7 +11,7 @@ bart(data, by, vars_input)
 
 \item{by}{The column name(s) in \code{data} used to be grouped by.}
 
-\item{vars_input}{The matched variable names for further processing. Typically setted automatically by \code{\link[=preproc_data]{preproc_data()}}.}
+\item{vars_input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc_data]{preproc_data()}}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
@@ -20,5 +20,6 @@ A \link[tibble:tibble-package]{tibble} contains following values:
 \item{num_explosion}{Number of exploded balloons.}
 }
 \description{
-The adjusted and unadjusted BART scores are both returned.
+This task is deemed as a measure of impulsivity. Read more details on
+\href{http://www.impulsivity.org/measurement/BART}{this website}.
 }

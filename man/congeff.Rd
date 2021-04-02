@@ -2,7 +2,7 @@
 % Please edit documentation in R/congeff.R
 \name{congeff}
 \alias{congeff}
-\title{Calculates index scores for games related to congruency effect}
+\title{Congruence effect}
 \usage{
 congeff(data, by, vars_input)
 }
@@ -11,7 +11,7 @@ congeff(data, by, vars_input)
 
 \item{by}{The column name(s) in \code{data} used to be grouped by.}
 
-\item{vars_input}{The matched variable names for further processing. Typically setted automatically by \code{\link[=preproc_data]{preproc_data()}}.}
+\item{vars_input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc_data]{preproc_data()}}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
@@ -22,11 +22,11 @@ incongruent RT - congruent RT.}
 \item{pc_inc}{Percent of correct for incogruent trials.}
 \item{pc_con}{Percent of correct for congruent trials.}
 \item{cong_eff_pc}{Congruence effect of percent of correct (PC), i.e.,
-congruent PC - incongruent PC}
+congruent PC - incongruent PC.}
 }
 \description{
-Count of correct responses and congruency effect of correct response and
-reaction time are all included. The congruency effect here is just the mean
-difference between congruenct and incongruent trials. See Stroop effect as an
-example.
+The stimuli for these tasks contain \emph{congruent} and \emph{incongruent} conditions.
+Typically, subjects score correct more easily and respond more quickly on
+\emph{congruent} ones, thus creating a congruence effect. This function calculates
+scores of these effects.
 }

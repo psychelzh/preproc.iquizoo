@@ -1,6 +1,6 @@
-#' Calculates index scores for games only considering correct response numbers.
+#' Count correct responses
 #'
-#' This is just to find out the count of correct responses.
+#' This function calculates the number of correct responses.
 #'
 #' @templateVar by low
 #' @templateVar vars_input TRUE

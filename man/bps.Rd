@@ -2,7 +2,7 @@
 % Please edit documentation in R/bps.R
 \name{bps}
 \alias{bps}
-\title{Calculates index scores for Behavioral Pattern Separation (BPS) game}
+\title{Behavioral Pattern Separation (BPS) task}
 \usage{
 bps(data, by, vars_input)
 }
@@ -11,7 +11,7 @@ bps(data, by, vars_input)
 
 \item{by}{The column name(s) in \code{data} used to be grouped by.}
 
-\item{vars_input}{The matched variable names for further processing. Typically setted automatically by \code{\link[=preproc_data]{preproc_data()}}.}
+\item{vars_input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc_data]{preproc_data()}}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
@@ -22,5 +22,6 @@ A \link[tibble:tibble-package]{tibble} contains following values:
 \item{bps_score}{BPS score.}
 }
 \description{
-The index was developed by Stark et. al. (2013), named as "BPS score".
+The function mainly calculated the "\emph{BPS score}" developed by Stark et. al.
+(2013).
 }
