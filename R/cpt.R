@@ -32,14 +32,13 @@ cpt <- function(data, by, vars_input) {
         .data[[vars_input[["name_rt"]]]], NA
       )
     )
-  basics <- data_cor %>%
-    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
-    dplyr::summarise(
-      pc = mean(.data[[vars_input[["name_acc"]]]]),
-      mrt = mean(.data[["rt_cor"]], na.rm = TRUE),
-      rtsd = stats::sd(.data[["rt_cor"]], na.rm = TRUE),
-      .groups = "drop"
-    )
+  basics <- calc_spd_acc(
+    data_cor,
+    by,
+    name_acc = vars_input[["name_acc"]],
+    name_rt = "rt_cor",
+    acc_rtn = "percent"
+  )
   sdt <- calc_sdt(data_cor, by, vars_input[["name_acc"]], "type_cor")
   basics %>%
     dplyr::left_join(sdt, by = by)
