@@ -84,5 +84,23 @@
             ]
         },
         "output": "nc"
+    },
+    "cpt": {
+        "input": {
+            "name_type": "Type",
+            "name_acc": "ACC",
+            "name_rt": "RT"
+        },
+        "output": [
+            "pc",
+            "mrt",
+            "rtsd",
+            "dprime",
+            "c",
+            "hits",
+            "commissions",
+            "omissions",
+            "ne"
+        ]
     }
 }
