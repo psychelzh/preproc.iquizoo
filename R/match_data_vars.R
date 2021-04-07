@@ -3,8 +3,7 @@
 #' Input data require several variables to be existed, and some variables can
 #' have alternatives. Here we check if all the variables exist, and if only one
 #' of the alternatives exists for each variable. If the check is passed, the
-#' matched result (a character vector) will be returned, or else a `NULL` value
-#' will be returned.
+#' matched result (a character vector, `NA` means not found) will be returned.
 #'
 #' @param data Raw data of class `data.frame`.
 #' @param prep_fun_name The name of the called pre-processing function.

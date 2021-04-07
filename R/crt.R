@@ -1,31 +1,52 @@
-#' Calculates index scores for Choice Reaction Time game
+#' Reaction Times
 #'
-#' Now we majorly consider two indices: mean reaction time and count of correct
-#' responses.
+#' Choice Reaction Time (CRT) and Simple Reaction Time (SRT) are classical tests
+#' of human reaction times. These functions calculates the mean and standard
+#' deviation of reaction times. In addition, subjects can commit errors in CRT
+#' tests, so the number of correct responses is also calculated in [crt()].
 #'
-#' @param data Raw data of class `data.frame`.
-#' @param ... Other input argument for future expansion.
+#' @templateVar by low
+#' @templateVar vars_input TRUE
+#' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
-#'   \item{mrt}{Mean reaction time}
-#'   \item{nc}{Count of correct responses}
-#'   \item{is_normal}{Checking result whether the data is normal.}
+#'   \item{mrt}{Mean reaction time.}
+#'   \item{rtsd}{Standard deviation of reaction times.}
+#'   \item{nc}{Count of correct responses. Only for [crt()].}
+#' @name rt
 #' @export
-crt <- function(data, ...) {
-  vars_output <- c("mrt", "nc")
-  vars_required <- tibble::tribble(
-    ~field, ~name,
-    "name_acc", "ACC",
-    "name_rt", "RT"
-  )
-  vars_matched <- match_data_vars(data, vars_required)
-  if (is.null(vars_matched)) {
-    return(compose_abnormal_output(vars_output))
-  }
-  tibble(data) %>%
-    correct_rt_acc() %>%
-    dplyr::summarise(
-      mrt = mean(.data[["rt_cor"]], na.rm = TRUE),
-      nc = sum(.data[["acc_cor"]] == 1),
-      is_normal = check_resp_metric(.data[["acc_cor"]])
+crt <- function(data, by, vars_input) {
+  data %>%
+    dplyr::mutate(
+      # remove rt of 100 or less
+      rt_cor = ifelse(
+        .data[[vars_input[["name_rt"]]]] > 100,
+        .data[[vars_input[["name_rt"]]]], NA
+      )
+    ) %>%
+    calc_spd_acc(
+      by,
+      name_acc = vars_input[["name_acc"]],
+      name_rt = "rt_cor",
+      acc_rtn = "count"
+    )
+}
+
+#' @rdname rt
+#' @export
+srt <- function(data, by, vars_input) {
+  data %>%
+    dplyr::mutate(
+      # remove rt of 100 or less
+      rt_cor = ifelse(
+        .data[[vars_input[["name_rt"]]]] > 100,
+        .data[[vars_input[["name_rt"]]]], NA
+      ),
+      acc_dummy = 1
+    ) %>%
+    calc_spd_acc(
+      by,
+      name_acc = "acc_dummy",
+      name_rt = "rt_cor",
+      acc_rtn = "none"
     )
 }

@@ -2,23 +2,22 @@
 % Please edit documentation in R/nle.R
 \name{nle}
 \alias{nle}
-\title{Calculates index scores for Number Line Estimation game.}
+\title{Number Line Estimation}
 \usage{
-nle(data, ...)
+nle(data, by, vars_input)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{...}{Other input argument for future expansion.}
+\item{by}{The column name(s) in \code{data} used to be grouped by.}
+
+\item{vars_input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc_data]{preproc_data()}}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
-\item{mean_err}{Mean absolute error.}
-\item{mean_logerr}{Mean log absolute error.}
-\item{mean_sqrterr}{Mean square root of absolute error.}
-\item{is_normal}{Checking result whether the data is normal.}
+\item{mean_abs_err}{Mean absolute error.}
+\item{mean_log_err}{Mean log absolute error.}
 }
 \description{
-Now the mean absolute error (mean_err) is calculated. Future work will
-be to do model fitting.
+A classical test on subject's numerical estimation skills.
 }

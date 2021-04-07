@@ -19,7 +19,6 @@ found, and using the names configured in the internal data.
 Input data require several variables to be existed, and some variables can
 have alternatives. Here we check if all the variables exist, and if only one
 of the alternatives exists for each variable. If the check is passed, the
-matched result (a character vector) will be returned, or else a \code{NULL} value
-will be returned.
+matched result (a character vector, \code{NA} means not found) will be returned.
 }
 \keyword{internal}

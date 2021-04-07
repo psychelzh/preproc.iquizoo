@@ -15,15 +15,13 @@ cpt(data, by, vars_input)
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
-\item{pc}{Percentage of correct responses.}
+\item{nc}{Count of correct responses.}
 \item{mrt}{Mean reaction time of hits.}
 \item{rtsd}{Standard deviation of reaction times of hits.}
 \item{dprime}{Sensitivity (d').}
 \item{c}{Bias index.}
-\item{hits}{Number of hits.}
 \item{commissions}{Number of errors caused by action.}
 \item{omissions}{Number of errors caused by inaction.}
-\item{count_error}{Count of incorrect responses.}
 }
 \description{
 Continuous Performance Test (CPT) is a classical test for attention. There

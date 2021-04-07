@@ -2,28 +2,25 @@
 % Please edit documentation in R/drm.R
 \name{drm}
 \alias{drm}
-\title{Calculates index scores for DRM paradigm game}
+\title{Deese-Roediger-McDermott (DRM) paradigm}
 \usage{
-drm(data, ...)
+drm(data, by, vars_input)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{...}{Other input argument for future expansion.}
+\item{by}{The column name(s) in \code{data} used to be grouped by.}
+
+\item{vars_input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc_data]{preproc_data()}}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
-\item{pc}{Percent of correct responses.}
-\item{hit_rate}{Hit rate, i.e., percent of "old" responses for "old"
-stimuli.}
-\item{p_old_lure}{Percent of "old" responses for "lure" stimuli.}
-\item{p_old_foil}{Percent of "old" responses for "foil" stimuli.}
-\item{fm_ratio}{False memory ratio.}
-\item{fm_dprime}{False memory d'.}
-\item{is_normal}{Checking result whether the data is normal.}
+\item{tm_dprime}{Sensitivity (d') of true memory (against "foil" stimuli).}
+\item{tm_bias}{Bias of true memory (against "foil" stimuli).}
+\item{fm_dprime}{Sensitivity (d') of false memory.}
+\item{fm_bias}{ias of false memory.}
 }
 \description{
-Two major indices are included: fm_ratio (false memory ratio, i.e.,
-p(old|lure) - p(old|foil)) and fm_dprime (false memory d', i.e.,
-z(p(old|lure)) - z(p(old|foil)))
+This is a classical false memory test. Here calculates the effect size of
+false memory.
 }

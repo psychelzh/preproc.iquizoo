@@ -1,36 +1,24 @@
-#' Calculates index scores for Number Line Estimation game.
+#' Number Line Estimation
 #'
-#' Now the mean absolute error (mean_err) is calculated. Future work will
-#' be to do model fitting.
+#' A classical test on subject's numerical estimation skills.
 #'
-#' @param data Raw data of class `data.frame`.
-#' @param ... Other input argument for future expansion.
+#' @templateVar by low
+#' @templateVar vars_input TRUE
+#' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
-#'   \item{mean_err}{Mean absolute error.}
-#'   \item{mean_logerr}{Mean log absolute error.}
-#'   \item{mean_sqrterr}{Mean square root of absolute error.}
-#'   \item{is_normal}{Checking result whether the data is normal.}
+#'   \item{mean_abs_err}{Mean absolute error.}
+#'   \item{mean_log_err}{Mean log absolute error.}
 #' @export
-nle <- function(data, ...) {
-  vars_output <- c("mean_err", "mean_logerr", "mean_sqrterr")
-  vars_required <- tibble::tribble(
-    ~field, ~name,
-    "name_number", "Number",
-    "name_resp", "Resp"
-  )
-  vars_matched <- match_data_vars(data, vars_required)
-  if (is.null(vars_matched)) {
-    return(compose_abnormal_output(vars_output))
-  }
-  tibble(data) %>%
+nle <- function(data, by, vars_input) {
+  data %>%
     dplyr::mutate(
-      err = abs(.data[[vars_matched["name_number"]]] -
-        .data[[vars_matched["name_resp"]]])
+      err = abs(.data[[vars_input[["name_number"]]]] -
+        .data[[vars_input[["name_resp"]]]])
     ) %>%
+    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
     dplyr::summarise(
-      mean_err = mean(.data[["err"]]),
-      mean_logerr = mean(log(.data[["err"]] + 1)),
-      mean_sqrterr = mean(sqrt(.data[["err"]])),
-      is_normal = TRUE
+      mean_abs_err = mean(.data[["err"]]),
+      mean_log_err = mean(log(.data[["err"]] + 1)),
+      .groups = "drop"
     )
 }

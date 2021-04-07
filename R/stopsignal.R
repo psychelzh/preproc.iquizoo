@@ -1,83 +1,73 @@
-#' Calculates index scores for stop signal game
+#' Stop Signal Paradigm
 #'
-#' The main index for stop signal games is the so-called stop signal reaction
-#' time (*SSRT*). Here the method used is the same as that in stair-case method.
+#' A classical test on inhibition skills.
 #'
-#' @param data Raw data of class `data.frame`.
-#' @param ... Other input argument for future expansion.
+#' @templateVar by low
+#' @templateVar vars_input TRUE
+#' @template params-template
 #' @return A [tibble][tibble::tibble-package] with the following variables:
 #'   \item{pc_all}{Percent of correct for all the responses.}
 #'   \item{pc_go}{Percent of correct for the go trials only.}
 #'   \item{medrt_go}{Median reaction time (ms) of go trials.}
-#'   \item{mean_ssd}{Mean stop signal delay time (ms).}
 #'   \item{ssrt}{Stop signal reaction time (ms).}
-#'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
-stopsignal <- function(data, ...) {
-  vars_output <- c(
-    "pc_all", "pc_go",
-    "medrt_go", "mean_ssd", "ssrt"
-  )
-  vars_required <- tibble::tribble(
-    ~field, ~name,
-    "name_type", "Type",
-    "name_ssd", "SSD",
-    "name_acc", "ACC",
-    "name_rt", "RT"
-  )
-  vars_matched <- match_data_vars(data, vars_required)
-  if (is.null(vars_matched)) {
-    return(compose_abnormal_output(vars_output))
-  }
+stopsignal <- function(data, by, vars_input) {
   data_cor <- data %>%
     dplyr::mutate(
-      correct_type = dplyr::if_else(
-        .data[[vars_matched["name_type"]]] == "Go",
-        "both", "none"
+      type_cor = tolower(.data[[vars_input[["name_type"]]]]),
+      # remove rt of 100 or less for go trials
+      rt_cor = ifelse(
+        .data[[vars_input[["name_rt"]]]] <= 100 & .data[["type_cor"]] == "go",
+        NA, .data[[vars_input[["name_rt"]]]]
+      )
+    )
+  indices_from_acc <- data_cor %>%
+    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
+    dplyr::summarise(
+      pc_all = mean(.data[[vars_input[["name_acc"]]]] == 1),
+      pc_go = sum(
+        .data[[vars_input[["name_acc"]]]] == 1 &
+          .data[["type_cor"]] == "go"
+      ) / sum(.data[["type_cor"]] == "go")
+    )
+  indices_from_rt <- data_cor %>%
+    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
+    dplyr::group_modify(
+      ~ .calc_ssrt(
+        .x,
+        name_type = "type_cor",
+        name_acc = vars_input[["name_acc"]],
+        name_rt = "rt_cor",
+        name_ssd = vars_input[["name_ssd"]]
       )
     ) %>%
-    dplyr::group_by(.data[["correct_type"]]) %>%
-    dplyr::group_modify(
-      ~ correct_rt_acc(data = .x, correct_type = .y[["correct_type"]])
-    ) %>%
     dplyr::ungroup()
-  indices_from_acc <- data_cor %>%
-    dplyr::mutate(pc_all = mean(.data[["acc_cor"]])) %>%
-    dplyr::filter(.data[[vars_matched["name_type"]]] == "Go") %>%
-    dplyr::group_by(.data[["pc_all"]]) %>% # to keep `pc_all` variable
-    dplyr::summarise(pc_go = mean(.data[["acc_cor"]]), .groups = "drop")
-  indices_from_rt <- data_cor %>%
-    dplyr::mutate(
-      rt_go = dplyr::if_else(
-        .data[[vars_matched["name_type"]]] == "Go",
-        .data[["rt_cor"]], NA_integer_
-      ),
-      medrt_go = stats::median(.data[["rt_go"]], na.rm = TRUE)
-    ) %>%
-    dplyr::filter(
-      stringr::str_detect(.data[[vars_matched["name_type"]]], "Stop")
-    ) %>%
-    dplyr::group_by(
-      .data[[vars_matched["name_type"]]],
-      .data[["medrt_go"]]
-    ) %>%
+  dplyr::left_join(indices_from_acc, indices_from_rt, by = by)
+}
+
+.calc_ssrt <- function(data, name_type, name_acc, name_rt, name_ssd) {
+  calc_ssd <- purrr::possibly(
+    ~ mean(
+      c(
+        pracma::findpeaks(.x)[, 1],
+        -pracma::findpeaks(-.x)[, 1]
+      )
+    ),
+    otherwise = NA_real_
+  )
+  data %>%
+    dplyr::filter(.data[[name_type]] != "go") %>%
+    dplyr::group_by(.data[[name_type]]) %>%
     dplyr::summarise(
-      ssd = purrr::possibly(
-        ~ c(
-          pracma::findpeaks(.x)[, 1],
-          -pracma::findpeaks(-.x)[, 1]
-        ) %>%
-          mean(),
-        otherwise = NA_real_
-      )(.data[["SSD"]]),
+      ssd = calc_ssd(.data[[name_ssd]]),
       .groups = "drop"
     ) %>%
-    dplyr::group_by(.data[["medrt_go"]]) %>% # to keep `medrt_go` variable
     dplyr::summarise(mean_ssd = mean(.data[["ssd"]])) %>%
-    dplyr::mutate(ssrt = .data[["medrt_go"]] - .data[["mean_ssd"]])
-  is_normal <- data_cor %>%
-    dplyr::filter(.data[[vars_matched["name_type"]]] == "Go") %>%
-    check_resp_metric() %>%
-    `&&`(!is.na(indices_from_rt$ssrt))
-  tibble(indices_from_acc, indices_from_rt, is_normal)
+    dplyr::transmute(
+      medrt_go = stats::median(
+        data[[name_rt]][data[[name_type]] == "go" & data[[name_acc]] == 1],
+        na.rm = TRUE
+      ),
+      ssrt = .data[["medrt_go"]] - .data[["mean_ssd"]]
+    )
 }

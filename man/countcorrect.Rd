@@ -2,9 +2,12 @@
 % Please edit documentation in R/countcorrect.R
 \name{countcorrect}
 \alias{countcorrect}
+\alias{countcorrect2}
 \title{Count correct responses}
 \usage{
 countcorrect(data, by, vars_input)
+
+countcorrect2(data, by, vars_input)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
@@ -15,8 +18,10 @@ countcorrect(data, by, vars_input)
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
-\item{nc}{Count of correct responses.}
+\item{nc/nc_cor}{Count of correct responses. \code{nc_cor} means a corrected
+count, which is returned by \code{\link[=countcorrect2]{countcorrect2()}}.}
 }
 \description{
-This function calculates the number of correct responses.
+These functions calculates the number of correct responses. \code{\link[=countcorrect2]{countcorrect2()}}
+subtracts the count of errors, which is not the case for \code{\link[=countcorrect]{countcorrect()}}.
 }

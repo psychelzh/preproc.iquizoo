@@ -2,21 +2,32 @@
 % Please edit documentation in R/locmem.R
 \name{locmem}
 \alias{locmem}
-\title{Calculates index scores for Location Memory (so-called Black Hole) games.}
+\alias{locmem2}
+\title{Location Memory}
 \usage{
-locmem(data, ...)
+locmem(data, by, vars_input)
+
+locmem2(data, by, vars_input)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{...}{Other input argument for future expansion.}
+\item{by}{The column name(s) in \code{data} used to be grouped by.}
+
+\item{vars_input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc_data]{preproc_data()}}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
-\item{mean_dist}{Mean distance.}
-\item{pc}{Percentage of correct responses.}
-\item{is_normal}{Checking result whether the data is normal.}
+\item{nc_loc}{Count of correct responses for location.}
+\item{mean_dist_err}{Mean of the response distance errors.}
+\item{mean_log_err}{Mean of the log-transformed (of base \eqn{e}) response
+distance errors.}
+\item{nc_order}{Count of correct responses for order. For \code{\link[=locmem2]{locmem2()}}
+only.}
 }
 \description{
-Mean distance and percentage of correct responses are returned.
+Several tests are based on subject's spatial acuity, so typically a distance
+error is collected and scores are calculated based on that error. \code{\link[=locmem]{locmem()}}
+deal with the distance condition only. \code{\link[=locmem2]{locmem2()}} deals with a special case
+when the response order and distance both matter.
 }

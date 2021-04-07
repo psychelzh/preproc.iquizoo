@@ -1,54 +1,44 @@
-#' Calculates index scores for JLO game.
+#' Judgment of Line Orientation
 #'
-#' Count of correct responses and other angle deviations indices.
+#' This test is about visuo-spatial skills. For more details, read [this
+#' introduction](https://en.wikipedia.org/wiki/Judgment_of_Line_Orientation).
+#' Mean absolute angle error and mean log-transformed angle error are
+#' calculated.
 #'
-#' @param data Raw data of class `data.frame`.
-#' @param ... Other input argument for future expansion.
+#' @templateVar by low
+#' @templateVar vars_input TRUE
+#' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{nc}{Count of correct responses.}
-#'   \item{ne}{Sum of the angle deviations.}
-#'   \item{ne_ln}{Sum of the log of angle deviations.}
-#'   \item{ne_sqrt}{Sum of the square root of angle deviations.}
-#'   \item{is_normal}{Checking result whether the data is normal.}
+#'   \item{mean_ang_err}{Mean of the response angle errors.}
+#'   \item{mean_log_err}{Mean of the log-transformed (of base 2) response angle
+#'     errors.}
 #' @export
-jlo <- function(data, ...) {
-  vars_output <- c("nc", "ne", "ne_ln", "ne_sqrt")
-  vars_required <- tibble::tribble(
-    ~field, ~name,
-    "name_angle", "Angle",
-    "name_resp", "Resp",
-    "name_acc", "ACC"
-  )
-  vars_matched <- match_data_vars(data, vars_required)
-  if (is.null(vars_matched)) {
-    return(compose_abnormal_output(vars_output))
-  }
-  nc <- data %>%
-    dplyr::summarise(nc = sum(.data[[vars_matched["name_acc"]]] == 1))
-  ne <- data %>%
+jlo <- function(data, by, vars_input) {
+  data %>%
     dplyr::mutate(
-      resp_cor = purrr::map_dbl(
-        .data[[vars_matched["name_resp"]]],
-        ~ strsplit(.x, "-") %>%
-          unlist() %>%
-          stringr::str_replace_all(c("Left" = "1", "Right" = "-1")) %>%
-          as.numeric() %>%
-          sum()
-      ),
-      resp_angle = dplyr::case_when(
-        # when rotating larger than a right angle, adjusting it
-        .data[["resp_cor"]] > 15 ~ .data[["resp_cor"]] * 6 - 180,
-        .data[["resp_cor"]] < -15 ~ .data[["resp_cor"]] * 6 + 180,
-        TRUE ~ .data[["resp_cor"]] * 6
+      resp_angle = stringr::str_split(
+        .data[[vars_input[["name_resp"]]]],
+        "-"
+      ) %>%
+        purrr::map_dbl(
+          ~ sum(dplyr::recode(.x, Left = 1, Right = -1) * 6)
+        ),
+      resp_err_raw = abs(
+        .data[["resp_angle"]] - .data[[vars_input[["name_angle"]]]]
+      ) %% 180, # ignore vector head and tail
+      resp_err = ifelse(
+        .data[["resp_err_raw"]] > 90, # measure errors as acute angles
+        180 - .data[["resp_err_raw"]],
+        .data[["resp_err_raw"]]
       )
     ) %>%
-    dplyr::mutate(
-      err = abs(.data[[vars_matched["name_angle"]]] - .data[["resp_angle"]])
-    ) %>%
+    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
     dplyr::summarise(
-      ne = sum(.data[["err"]]),
-      ne_ln = sum(log(.data[["err"]] + 1)),
-      ne_sqrt = sum(sqrt(abs(.data[["err"]])))
+      nc = sum(.data[[vars_input[["name_acc"]]]] == 1),
+      mean_ang_err = mean(.data[["resp_err"]]),
+      # make sure it is between 0 and 1
+      mean_log_err = mean(log2(.data[["resp_err"]] / 90 + 1)),
+      .groups = "drop"
     )
-  tibble(nc, ne, is_normal = TRUE)
 }

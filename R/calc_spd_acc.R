@@ -44,7 +44,7 @@ calc_spd_acc <- function(data, by, name_acc, name_rt,
     ) %>%
     dplyr::summarise(
       nc = sum(.data[[name_acc]] == 1),
-      pc = nc / dplyr::n(),
+      pc = .data[["nc"]] / dplyr::n(),
       mrt = mean(.data[[name_rt]], na.rm = TRUE),
       rtsd = stats::sd(.data[[name_rt]], na.rm = TRUE),
       .groups = "drop"

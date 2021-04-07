@@ -35,6 +35,5 @@ bps <- function(data, by, vars_input) {
       values_from = "p_sim"
     ) %>%
     dplyr::mutate(bps_score = .data[["p_sim_lure"]] - .data[["p_sim_foil"]])
-  pc_all %>%
-    dplyr::left_join(bps_score, by = by)
+  dplyr::left_join(pc_all, bps_score, by = by)
 }

@@ -2,24 +2,23 @@
 % Please edit documentation in R/london.R
 \name{london}
 \alias{london}
-\title{Calculates index scores for London Tower game.}
+\title{London Tower}
 \usage{
-london(data, ...)
+london(data, by, vars_input)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{...}{Other input argument for future expansion.}
+\item{by}{The column name(s) in \code{data} used to be grouped by.}
+
+\item{vars_input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc_data]{preproc_data()}}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
 \item{total_score}{Total score defined by the game itself.}
-\item{ratio_score}{Mean of the ratio between best steps and actual steps.}
 \item{mean_level}{Mean level reached.}
-\item{is_normal}{Checking result whether the data is normal.}
+\item{level_score}{Sum of mean score (a ratio) for each level.}
 }
 \description{
-Two indices are returned: total scores (defined in the game itself), ratio
-score (defined as the mean of the ratios between best steps and actual steps)
-and mean level.
+A classical test on problem solving.
 }

@@ -2,14 +2,16 @@
 % Please edit documentation in R/nback.R
 \name{nback}
 \alias{nback}
-\title{Calculates index scores for N Back games.}
+\title{N Back Paradigm}
 \usage{
-nback(data, ...)
+nback(data, by, vars_input)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{...}{Other input argument for future expansion.}
+\item{by}{The column name(s) in \code{data} used to be grouped by.}
+
+\item{vars_input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc_data]{preproc_data()}}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
@@ -17,9 +19,7 @@ A \link[tibble:tibble-package]{tibble} contains following values:
 \item{mrt}{Mean reaction time.}
 \item{dprime}{Sensitivity index.}
 \item{c}{Bias.}
-\item{is_normal}{Checking result whether the data is normal.}
 }
 \description{
-Several values including percentage of correct responses (pc), mean reaction
-time (mrt), sensitivity index (i.e, d') and bias (c).
+A classical working memory test.
 }

@@ -1,40 +1,46 @@
-#' Calculates index scores for Multisense games.
+#' Multiple Sensory Integration
 #'
-#' Three mean reaction times as to Image, Sound and Mixed stimuli are returned.
+#' There will some speed advantage if there are more than one sensory inputs to
+#' be employed. This function calculates this advantage.
 #'
-#' @param data Raw data of class `data.frame`.
-#' @param ... Other input argument for future expansion.
+#' @templateVar by low
+#' @templateVar vars_input TRUE
+#' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mrt_image}{Mean reaction time of Image stimuli.}
 #'   \item{mrt_sound}{Mean reaction time of Sound stimuli.}
 #'   \item{mrt_mixed}{Mean reaction time of Mixed stimuli.}
 #'   \item{mrt_mixadv}{Mean reaction decrease of Mixed stimuli compared to other
 #'     two types of stimuli.}
-#'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
-multisense <- function(data, ...) {
-  vars_output <- c("mrt_image", "mrt_sound", "mrt_mixed", "mrt_mixadv")
-  vars_required <- tibble::tribble(
-    ~field, ~name,
-    "name_type", "Type",
-    "name_rt", "RT"
-  )
-  vars_matched <- match_data_vars(data, vars_required)
-  if (is.null(vars_matched)) {
-    return(compose_abnormal_output(vars_output))
-  }
+multisense <- function(data, by, vars_input) {
   data %>%
-    correct_rt_acc(correct_type = "rt") %>%
-    dplyr::group_by(.data[[vars_matched["name_type"]]]) %>%
-    dplyr::summarise(mrt = mean(.data[["rt_cor"]], na.rm = TRUE)) %>%
-    tidyr::pivot_wider(
-      names_from = vars_matched["name_type"], values_from = "mrt"
+    dplyr::mutate(
+      type = tolower(.data[[vars_input[["name_type"]]]]),
+      rt_cor = ifelse(
+        .data[[vars_input[["name_rt"]]]] > 100,
+        .data[[vars_input[["name_rt"]]]], NA
+      )
     ) %>%
-    dplyr::transmute(
-      mrt_image = .data[["Image"]],
-      mrt_sound = .data[["Sound"]],
-      mrt_mixed = .data[["Mixed"]],
-      mrt_mixadv = (.data[["Image"]] + .data[["Sound"]]) / 2 - .data[["Mixed"]],
-      is_normal = TRUE
+    dplyr::group_by(dplyr::across(dplyr::all_of(c(by, "type")))) %>%
+    dplyr::mutate(
+      rt_cor = ifelse(
+        .data[["rt_cor"]] %in%
+          graphics::boxplot(.data[["rt_cor"]], plot = FALSE)$out,
+        NA, .data[["rt_cor"]]
+      )
+    ) %>%
+    dplyr::summarise(
+      mrt = mean(.data[["rt_cor"]], na.rm = TRUE),
+      .groups = "drop"
+    ) %>%
+    tidyr::pivot_wider(
+      names_from = "type",
+      names_prefix = "mrt_",
+      values_from = "mrt"
+    ) %>%
+    dplyr::mutate(
+      mrt_mixadv = (.data[["mrt_image"]] + .data[["mrt_sound"]]) / 2 -
+        .data[["mrt_mixed"]]
     )
 }

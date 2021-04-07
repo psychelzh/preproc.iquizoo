@@ -1,68 +1,45 @@
-#' Calculates index scores for DRM paradigm game
+#' Deese-Roediger-McDermott (DRM) paradigm
 #'
-#' Two major indices are included: fm_ratio (false memory ratio, i.e.,
-#' p(old|lure) - p(old|foil)) and fm_dprime (false memory d', i.e.,
-#' z(p(old|lure)) - z(p(old|foil)))
+#' This is a classical false memory test. Here calculates the effect size of
+#' false memory.
 #'
-#' @param data Raw data of class `data.frame`.
-#' @param ... Other input argument for future expansion.
+#' @templateVar by low
+#' @templateVar vars_input TRUE
+#' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
-#'   \item{pc}{Percent of correct responses.}
-#'   \item{hit_rate}{Hit rate, i.e., percent of "old" responses for "old"
-#'     stimuli.}
-#'   \item{p_old_lure}{Percent of "old" responses for "lure" stimuli.}
-#'   \item{p_old_foil}{Percent of "old" responses for "foil" stimuli.}
-#'   \item{fm_ratio}{False memory ratio.}
-#'   \item{fm_dprime}{False memory d'.}
-#'   \item{is_normal}{Checking result whether the data is normal.}
+#'   \item{tm_dprime}{Sensitivity (d') of true memory (against "foil" stimuli).}
+#'   \item{tm_bias}{Bias of true memory (against "foil" stimuli).}
+#'   \item{fm_dprime}{Sensitivity (d') of false memory.}
+#'   \item{fm_bias}{ias of false memory.}
 #' @export
-drm <- function(data, ...) {
-  vars_output <- c(
-    "pc", "hit_rate", "p_old_lure", "p_old_foil",
-    "fm_ratio", "fm_dprime"
-  )
-  vars_required <- tibble::tribble(
-    ~field, ~name,
-    "name_type", "Type",
-    "name_acc", "ACC",
-    "name_rt", "RT",
-    "name_resp", "Resp"
-  )
-  vars_matched <- match_data_vars(data, vars_required)
-  if (is.null(vars_matched)) {
-    return(compose_abnormal_output(vars_output))
-  }
-  data <- data %>%
-    dplyr::filter(.data[[vars_matched["name_type"]]] != "Filler")
-  pc_all <- data %>%
-    dplyr::summarise(pc = mean(.data[[vars_matched["name_acc"]]] == 1))
-  fm <- data %>%
-    dplyr::group_by(.data[[vars_matched["name_type"]]]) %>%
-    dplyr::summarise(
-      n = dplyr::n(),
-      p_old = sum(.data[[vars_matched["name_resp"]]] == "Old") / .data[["n"]]
-    ) %>%
+drm <- function(data, by, vars_input) {
+  data %>%
     dplyr::mutate(
-      p_old_cor = dplyr::case_when(
-        .data[["p_old"]] == 0 ~ 1 / (2 * .data[["n"]]),
-        .data[["p_old"]] == 1 ~ 1 - 1 / (2 * .data[["n"]]),
-        TRUE ~ .data[["p_old"]]
+      dplyr::across(
+        tidyselect::vars_select_helpers$where(is.character),
+        tolower
       )
     ) %>%
+    dplyr::filter(.data[[vars_input[["name_type"]]]] != "filler") %>%
+    dplyr::group_by(dplyr::across(
+      dplyr::all_of(c(by, vars_input[["name_type"]]))
+    )) %>%
+    dplyr::summarise(
+      z_old = stats::qnorm(
+        (sum(.data[[vars_input[["name_resp"]]]] == "old") + 0.5) /
+          (dplyr::n() + 1)
+      ),
+      .groups = "drop_last"
+    ) %>%
     tidyr::pivot_wider(
-      names_from = "Type",
-      values_from = c("n", "p_old", "p_old_cor")
+      names_from = .data[[vars_input[["name_type"]]]],
+      values_from = "z_old"
     ) %>%
     dplyr::transmute(
-      hit_rate = .data[["p_old_Old"]],
-      p_old_lure = .data[["p_old_Lure"]],
-      p_old_foil = .data[["p_old_Foil"]],
-      fm_ratio = .data[["p_old_Lure"]] - .data[["p_old_Foil"]],
-      fm_dprime = stats::qnorm(.data[["p_old_cor_Lure"]]) -
-        stats::qnorm(.data[["p_old_cor_Foil"]])
-    )
-  is_normal <- data %>%
-    correct_rt_acc() %>%
-    check_resp_metric()
-  tibble(pc_all, fm, is_normal)
+      tm_dprime = .data[["old"]] - .data[["foil"]],
+      tm_bias = - (.data[["old"]] + .data[["foil"]]) / 2,
+      fm_dprime = .data[["lure"]] - .data[["foil"]],
+      fm_bias = - (.data[["lure"]] + .data[["foil"]]) / 2
+    ) %>%
+    dplyr::ungroup()
 }

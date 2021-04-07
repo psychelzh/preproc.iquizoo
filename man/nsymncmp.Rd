@@ -2,23 +2,26 @@
 % Please edit documentation in R/nsymncmp.R
 \name{nsymncmp}
 \alias{nsymncmp}
-\title{Calculates index scores for Nonsymbolic Number Comparison game.}
+\title{Non-symbolic Number Comparison}
 \usage{
-nsymncmp(data, ...)
+nsymncmp(data, by, vars_input)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{...}{Other input argument for future expansion.}
+\item{by}{The column name(s) in \code{data} used to be grouped by.}
+
+\item{vars_input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc_data]{preproc_data()}}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
 \item{pc}{Percentage of correct responses.}
 \item{mrt}{Mean reaction time.}
 \item{w}{Weber fraction.}
-\item{is_normal}{Checking result whether the data is normal.}
 }
 \description{
-Several values including percentage of correct responses (pc), mean reaction
-time (mrt), weber fraction (w).
+A classical test on subject's counting estimation skills.
+}
+\seealso{
+\code{\link[=symncmp]{symncmp()}} for symbolic number comparison.
 }

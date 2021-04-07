@@ -4,7 +4,7 @@ test_that("Support `group = NULL` by deleting group variable afterward", {
   expect_silent(
     no_grp <- preproc_data(data, bart, by = NULL)
   )
-  expect_true(!"id" %in% names(no_grp))
+  expect_named(no_grp, .get_output_vars("bart"))
 })
 
 test_that("Warns and returns `NULL` when grouping varible errored", {

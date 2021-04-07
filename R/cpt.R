@@ -8,15 +8,13 @@
 #' @templateVar vars_input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
-#'   \item{pc}{Percentage of correct responses.}
+#'   \item{nc}{Count of correct responses.}
 #'   \item{mrt}{Mean reaction time of hits.}
 #'   \item{rtsd}{Standard deviation of reaction times of hits.}
 #'   \item{dprime}{Sensitivity (d').}
 #'   \item{c}{Bias index.}
-#'   \item{hits}{Number of hits.}
 #'   \item{commissions}{Number of errors caused by action.}
 #'   \item{omissions}{Number of errors caused by inaction.}
-#'   \item{count_error}{Count of incorrect responses.}
 #' @export
 cpt <- function(data, by, vars_input) {
   data_cor <- data %>%
@@ -37,9 +35,8 @@ cpt <- function(data, by, vars_input) {
     by,
     name_acc = vars_input[["name_acc"]],
     name_rt = "rt_cor",
-    acc_rtn = "percent"
+    acc_rtn = "count"
   )
   sdt <- calc_sdt(data_cor, by, vars_input[["name_acc"]], "type_cor")
-  basics %>%
-    dplyr::left_join(sdt, by = by)
+  dplyr::left_join(basics, sdt, by = by)
 }

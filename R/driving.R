@@ -1,50 +1,35 @@
-#' Calculates index scores for Driving game.
+#' Driving Test
 #'
-#' Caculcate the ratio of still duration in yellow light state.
+#' A test measuring impulsivity originally developed by Gardner et. al. (2005).
 #'
-#' @param data Raw data of class `data.frame`.
-#' @param ... Other input argument for future expansion.
+#' @templateVar by low
+#' @templateVar vars_input TRUE
+#' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{still_ratio}{The ratio of still duration in yellow light state.}
-#'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
-driving <- function(data, ...) {
-  vars_output <- "still_ratio"
-  vars_required <- tibble::tribble(
-    ~field, ~name,
-    "name_yellow_dur", "YellowDur",
-    "name_still_dur", "StillDur",
-    "name_still_light", "StillLight"
-  )
-  vars_matched <- match_data_vars(data, vars_required)
-  if (is.null(vars_matched)) {
-    return(compose_abnormal_output(vars_output))
-  }
-  tibble(data) %>%
+driving <- function(data, by, vars_input) {
+  data %>%
+    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
     dplyr::mutate(
-      still_dur = purrr::map(
-        .data[[vars_matched["name_still_dur"]]],
-        ~ stringr::str_split(.x, "-", simplify = TRUE) %>%
-          as.numeric()
-      ),
-      still_light = purrr::map(
-        .data[[vars_matched["name_still_light"]]],
-        ~ stringr::str_split(.x, "-", simplify = TRUE)
+      still_dur = parse_char_resp(.data[[vars_input[["name_still_dur"]]]]),
+      still_light = parse_char_resp(
+        .data[[vars_input[["name_still_light"]]]],
+        convert_numeric = FALSE
       )
-    ) %>%
-    # remove those trials with minus signs logged into data
-    dplyr::filter(
-      lengths(.data[["still_dur"]]) == lengths(.data[["still_light"]])
     ) %>%
     dplyr::mutate(
       still_dur_yellow = purrr::map2_dbl(
         .data[["still_dur"]], .data[["still_light"]],
-        ~ sum(.x[.y == "Yellow"])
+        ~ ifelse(length(.x) == length(.y), sum(.x[.y == "Yellow"]), NA)
       )
     ) %>%
     dplyr::summarise(
-      still_ratio = sum(.data[["still_dur_yellow"]]) /
-        sum(.data[[vars_matched["name_yellow_dur"]]]),
-      is_normal = TRUE
+      still_ratio = ifelse(
+        all(is.na(.data[["still_dur_yellow"]])), NA,
+        sum(.data[["still_dur_yellow"]], na.rm = TRUE) /
+          sum(.data[[vars_input[["name_yellow_dur"]]]])
+      ),
+      .groups = "drop"
     )
 }
