@@ -39,23 +39,23 @@ cab61a44-0891-4d0f-bdc3-aee60f3a5f00,魔术师高级,Three Back Test,Nback3,nbac
 83d5c767-12ae-464b-9892-c3883c3b1a78,魔术师中级,Two Back Test,Nback2,nback
 bc9f51d0-1d24-4826-a024-67b431741f51,魔术师终极,Four Back Test,Nback4,nback
 082ea578-9bea-4618-94ac-946b7c1daff6,拼音判断,Pinyin,Pinyin,countcorrect
-3a90d262-2d4f-4628-8902-01cd653f6bf5,请你找茬,Spot the Difference,StD,spotdiff
+3a90d262-2d4f-4628-8902-01cd653f6bf5,请你找茬,Spot the Difference,StD,countcorrect2
 4b245057-1fc7-4b88-83e1-9cc8b0448c7a,人工语言-初级,Associative Memory Language Junior,AscLanJr,countcorrect
 33cb1542-8736-444d-80b5-4bed6cdac1a5,人工语言-中级,Associative Memory Language Medium,AscLanMd,countcorrect
 e563c580-004f-454b-85e1-80a0774df7e2,谁在唱歌,Speech Discrimination,SpchDiscr,span
 eecc6df6-a95d-4036-aca0-b1aa65b120db,声调判断,Tone,Tone,countcorrect
-ec40acb2-efba-40cd-adbc-fd604668b451,时空相机A,Spatiotemporal Memory A,SpatTempA,spattemp
-b896281d-9460-450e-9675-47ab3ba1068c,时空相机B,Spatiotemporal Memory B,SpatTempB,spattemp
+ec40acb2-efba-40cd-adbc-fd604668b451,时空相机A,Spatiotemporal Memory A,SpatTempA,locmem2
+b896281d-9460-450e-9675-47ab3ba1068c,时空相机B,Spatiotemporal Memory B,SpatTempB,locmem2
 87c63149-07ba-4d34-bcad-7e5fff3b5dc8,视听反应,Multisense,MltSns,multisense
-98b2cb06-900e-49c1-b9bf-499e6c705838,舒尔特方格（初级）,Schulte Grid Junior,SchulteJr,schulte
-8cd79a3c-bcfa-45f1-aa15-65c52bd4f4ea,舒尔特方格（高级）,Schulte Grid Advanced,SchulteAdv,schulte
-e88ce3d8-88eb-41c6-ba2d-0650e6897d0f,舒尔特方格（中级）,Schulte Grid Medium,SchulteMed,schulte
+98b2cb06-900e-49c1-b9bf-499e6c705838,舒尔特方格（初级）,Schulte Grid Junior,SchulteJr,countcorrect2
+8cd79a3c-bcfa-45f1-aa15-65c52bd4f4ea,舒尔特方格（高级）,Schulte Grid Advanced,SchulteAdv,countcorrect2
+e88ce3d8-88eb-41c6-ba2d-0650e6897d0f,舒尔特方格（中级）,Schulte Grid Medium,SchulteMed,countcorrect2
 6d16b4e2-cb8a-4fe7-be67-17aca93ababf,数感,Nonsymbolic Numeric Comparison,NsymNCmp,nsymncmp
 9007f653-4750-4b6a-bf5d-e5084fb35417,数字大小比较,Symbolic Numeric Comparison,SymNCmp,symncmp
 7c7fe5b8-58dd-49dd-bf2a-30376b44f778,顺背数,Forward Digit Span,FDS,span
 761ae897-4196-496e-b1bf-58c214acaebd,速算师（初级）,Calculation Junior,CalcJr,countcorrect
 933d51d5-49de-454a-bb7b-a9481f7244f0,速算师（中级）,Calculation Medium,CalcMed,countcorrect
-6bfc5052-76d1-4234-9f82-d1d2dd3ade11,塔罗牌,Weather Prediction Paradigm,WxPred,wxpred
+6bfc5052-76d1-4234-9f82-d1d2dd3ade11,塔罗牌,Weather Prediction Paradigm,WxPred,countcorrect
 6ea55de0-0d70-4ae1-8ccf-00705d103b69,太空飞船,Flanker Test,Flkr,congeff
 148077f2-17e2-471d-99fc-4fbb77027aef,太空飞船极速版,Flanker Test Speeded,FlkrSpd,congeff
 0972552f-ca53-4176-a772-23014be41d2e,图片记忆,Behavioral Pattern Separation,BPS,bps
@@ -68,8 +68,8 @@ b4dcbdfe-f835-438b-9448-bc570f384851,图片记忆D,Behavioral Pattern Separation
 539f4c20-7800-4444-8871-1ef833628a6d,位置记忆极速版,Spatial Short-term Memory Speeded,SSTMSpd,span
 76621a53-d00c-4efd-83f2-d7d499b7c8b0,言语记忆,DRM Paradigm,DRM,drm
 d30fe222-c37d-42fb-97d8-e65a039e17d8,言语记忆B,DRM Paradigm B,DRMB,drm
-b9f0a08c-48fa-4291-be8a-85d86a4efc89,一心多用,Multiple Task Paradigm,MultiTask,multitask
-3b68c304-efbe-431c-8f87-38611b593b80,一心二用,Dual Task Paradigm,DualTask,dualtask
+b9f0a08c-48fa-4291-be8a-85d86a4efc89,一心多用,Multiple Task Paradigm,MultiTask,cpt
+3b68c304-efbe-431c-8f87-38611b593b80,一心二用,Dual Task Paradigm,DualTask,cpt
 393b69dc-c995-45ae-9a8d-c65b18eb659b,萤火虫,Multiple Object Tracking,MOT,span
 5134b80a-945f-452e-b6cc-3c2b01295120,萤火虫高级版,Multiple Object Tracking 2,MOT2,span
 6ca66b83-d5ef-47ad-8977-6c114598ae2e,萤火虫极速版,Multiple Object Tracking (Short Version),MOTS,span
