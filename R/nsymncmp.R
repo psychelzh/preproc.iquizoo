@@ -32,7 +32,7 @@ nsymncmp <- function(data, by, vars_input) {
     acc_rtn = "percent"
   )
   fit_errproof <- purrr::possibly(
-    ~ stats::nls(
+    ~ stats::coef(stats::nls(
       as.formula(
         stringr::str_glue(
           r"({vars_input[["name_acc"]]})",
@@ -41,8 +41,7 @@ nsymncmp <- function(data, by, vars_input) {
       ),
       .x,
       start = list(w = 1)
-    ) %>%
-      stats::coef(),
+    )),
     otherwise = NA_real_
   )
   weber <- data_cor %>%
