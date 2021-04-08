@@ -25,11 +25,8 @@ driving <- function(data, by, vars_input) {
       )
     ) %>%
     dplyr::summarise(
-      still_ratio = ifelse(
-        all(is.na(.data[["still_dur_yellow"]])), NA,
-        sum(.data[["still_dur_yellow"]], na.rm = TRUE) /
-          sum(.data[[vars_input[["name_yellow_dur"]]]])
-      ),
+      still_ratio = sum(.data[["still_dur_yellow"]]) /
+        sum(.data[[vars_input[["name_yellow_dur"]]]]),
       .groups = "drop"
     )
 }

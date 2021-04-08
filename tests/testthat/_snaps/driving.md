@@ -38,3 +38,13 @@
       10    10    11       0.216
       # ... with 90 more rows
 
+# No error for negative duration case (but produces `NA`s)
+
+    Code
+      preproc_data(data_negtive_dur, driving)
+    Output
+      # A tibble: 1 x 2
+           id still_ratio
+        <dbl>       <dbl>
+      1     1          NA
+
