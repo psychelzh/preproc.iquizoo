@@ -2,23 +2,23 @@
 % Please edit documentation in R/span.R
 \name{span}
 \alias{span}
-\title{Calculates index scores for Span related games}
+\title{Span (spatial or verbal)}
 \usage{
-span(data, ...)
+span(data, by, vars_input)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{...}{Other input argument for future expansion.}
+\item{by}{The column name(s) in \code{data} used to be grouped by.}
+
+\item{vars_input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc_data]{preproc_data()}}.}
 }
 \value{
-A \link[tibble:tibble-package]{tibble} contains following values:
+A \link[tibble:tibble-package]{tibble} contains following values:]
+\item{nc}{Count of correct responses.}
 \item{max_span}{Maximal span.}
 \item{mean_span}{Mean span.}
-\item{nc}{Count of correct responses.}
-\item{is_normal}{Checking result whether the data is normal.}
 }
 \description{
-Three indices are returned: maximal span, mean span and count of correct
-responses.
+There is a bunch of tests measuring working memory span or attention span.
 }

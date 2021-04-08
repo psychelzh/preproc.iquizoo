@@ -2,21 +2,27 @@
 % Please edit documentation in R/countcorrect.R
 \name{countcorrect}
 \alias{countcorrect}
-\title{Calculates index scores for games only considering correct response numbers.}
+\alias{countcorrect2}
+\title{Count Correct Responses}
 \usage{
-countcorrect(data, ...)
+countcorrect(data, by, vars_input)
+
+countcorrect2(data, by, vars_input)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{...}{Other input argument for future expansion.}
+\item{by}{The column name(s) in \code{data} used to be grouped by.}
+
+\item{vars_input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc_data]{preproc_data()}}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
-\item{nc}{Count of correct responses.}
-\item{pc}{Percent of correct responses.}
-\item{is_normal}{Checking result whether the data is normal.}
+\item{nc/nc_cor}{Count of correct responses. \code{nc_cor} means a corrected
+count (subtracting number of errors), which is returned by
+\code{\link[=countcorrect2]{countcorrect2()}}.}
 }
 \description{
-This is just to find out the count of correct responses.
+These functions calculates the number of correct responses. \code{\link[=countcorrect2]{countcorrect2()}}
+subtracts the count of errors, which is not the case for \code{\link[=countcorrect]{countcorrect()}}.
 }

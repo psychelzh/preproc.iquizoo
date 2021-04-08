@@ -4,30 +4,26 @@
 \alias{calc_sdt}
 \title{Signal Detection Theory}
 \usage{
-calc_sdt(acc, type, no_resp_to_inc = TRUE)
+calc_sdt(data, by, name_acc, name_type, keep_counts = TRUE)
 }
 \arguments{
-\item{acc, type}{\code{acc} is the correctness of each response, and \code{type} is the
-stimuli type of each response. These two inputs should have the same length
-(no broadcasting is done!)
-\itemize{
-\item \code{acc}: should be a \code{numeric} vector coded as that \code{1} means scoring
-correct, \code{0} means scoring incorrect, and that \code{-1} means no response is
-made. No other values are allowed.
-\item \code{type}: should be a vector of \code{factor} or \code{character} class. If a
-\code{factor}, only two levels are allowed, with which the first level
-represents the noise (i.e., non-target) type. If a \code{character}, it must
-contain values of "s" (signal, i.e., target) and "n" (noise) only.
-}}
+\item{data}{Raw data of class \code{data.frame}.}
 
-\item{no_resp_to_inc}{a logical value indicating whether -1 values in \code{acc}
-should be treated as incorrect response or not. This value means the
-response is not a valid response. If \code{TRUE} (default), they will be treated
-as 0, i.e, incorrect response. Otherwise they are removed.}
+\item{by}{The column name(s) in \code{data} used to be grouped by.}
+
+\item{name_acc}{The column name of the \code{data} input whose values are user's correctness, in which is a \code{numeric} vector so coded that 1 means scoring correct, 0 means scoring incorrect, and that -1 means no response is made.}
+
+\item{name_type}{The column name of the \code{data} input whose values are the
+stimuli types, in which is a \code{character} vector with value \code{"s"} (denoting
+"\emph{signal}") and \code{"n"} (denoting "\emph{non-signal}") only. It will be coerced as
+a \code{factor} vector with these two levels.}
+
+\item{keep_counts}{A logical value. Whether the counts of correct and error
+be returned. Default is \code{TRUE}.}
 }
 \value{
-A \code{numeric} vector containing sensitivity index (named as \code{"dprime"})
-and bias (named as\code{"c"}).
+A \link[tibble:tibble-package]{tibble} contains sensitivity index and
+bias (and other counts measures)
 }
 \description{
 Calculate sensitivity index and bias based on signal detection theory. The

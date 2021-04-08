@@ -1,178 +1,80 @@
-# Test `countcorrect()`: Associative Lang game (new version)
+# Default behavior works on different types of input
 
     Code
-      countcorrect(jsonlite::read_json("data/countcorrect/sample_assoclang_new.json",
-        simplifyVector = TRUE))
+      preproc_data(data_cancellation, countcorrect)
     Output
-      # A tibble: 1 x 3
-           nc     pc is_normal
-        <int>  <dbl> <lgl>    
-      1     3 0.0476 TRUE     
-
-# Test `countcorrect()`: Associative Lang game (old version)
-
-    Code
-      countcorrect(jsonlite::read_json("data/countcorrect/sample_assoclang_old.json",
-        simplifyVector = TRUE))
-    Output
-      # A tibble: 1 x 3
-           nc    pc is_normal
-        <int> <dbl> <lgl>    
-      1    17 0.293 TRUE     
-
-# Test `countcorrect()`: Attention Search
-
-    Code
-      countcorrect(jsonlite::read_json("data/countcorrect/sample_attsearch.json",
-        simplifyVector = TRUE))
-    Output
-      # A tibble: 1 x 3
-           nc    pc is_normal
-        <int> <dbl> <lgl>    
-      1    53     1 TRUE     
-
-# Test `countcorrect()`: Calculation
-
-    Code
-      countcorrect(jsonlite::read_json("data/countcorrect/sample_calc.json",
-        simplifyVector = TRUE))
-    Output
-      # A tibble: 1 x 3
-           nc    pc is_normal
-        <int> <dbl> <lgl>    
-      1    24 0.453 TRUE     
-
-# Test `countcorrect()`: Calculation (junior version)
-
-    Code
-      countcorrect(jsonlite::read_json("data/countcorrect/sample_calcjr.json",
-        simplifyVector = TRUE))
-    Output
-      # A tibble: 1 x 3
-           nc    pc is_normal
-        <int> <dbl> <lgl>    
-      1    70 0.921 TRUE     
-
-# Test `countcorrect()`: Calculation (medium version)
-
-    Code
-      countcorrect(jsonlite::read_json("data/countcorrect/sample_calcmed.json",
-        simplifyVector = TRUE))
-    Output
-      # A tibble: 1 x 3
-           nc    pc is_normal
-        <int> <dbl> <lgl>    
-      1   115 0.950 TRUE     
-
-# Test `countcorrect()`: Five Point Test
-
-    Code
-      countcorrect(jsonlite::read_json("data/countcorrect/sample_fpt.json",
-        simplifyVector = TRUE))
-    Output
-      # A tibble: 1 x 3
-           nc    pc is_normal
-        <int> <dbl> <lgl>    
-      1    49 0.662 TRUE     
-
-# Test `countcorrect()`: Lexic Judgment
-
-    Code
-      countcorrect(jsonlite::read_json("data/countcorrect/sample_lexic.json",
-        simplifyVector = TRUE))
-    Output
-      # A tibble: 1 x 3
-           nc    pc is_normal
-        <int> <dbl> <lgl>    
-      1    86 0.573 TRUE     
-
-# Test `countcorrect()`: Number Sets
-
-    Code
-      countcorrect(jsonlite::read_json("data/countcorrect/sample_numsets.json",
-        simplifyVector = TRUE))
-    Output
-      # A tibble: 1 x 3
-           nc    pc is_normal
-        <int> <dbl> <lgl>    
-      1    85 0.425 TRUE     
-
-# Test `countcorrect()`: Orthography Judgment
-
-    Code
-      countcorrect(jsonlite::read_json("data/countcorrect/sample_ortho.json",
-        simplifyVector = TRUE))
-    Output
-      # A tibble: 1 x 3
-           nc    pc is_normal
-        <int> <dbl> <lgl>    
-      1    88  0.88 TRUE     
-
-# Test `countcorrect()`: Pinyin Judgment
-
-    Code
-      countcorrect(jsonlite::read_json("data/countcorrect/sample_pinyin.json",
-        simplifyVector = TRUE))
-    Output
-      # A tibble: 1 x 3
-           nc    pc is_normal
-        <int> <dbl> <lgl>    
-      1    76 0.507 TRUE     
-
-# Test `countcorrect()`: Semantic Judgment
-
-    Code
-      countcorrect(jsonlite::read_json("data/countcorrect/sample_seman.json",
-        simplifyVector = TRUE))
-    Output
-      # A tibble: 1 x 3
-           nc    pc is_normal
-        <int> <dbl> <lgl>    
-      1    73 0.487 TRUE     
-
-# Test `countcorrect()`: Symbol Judgment
-
-    Code
-      countcorrect(jsonlite::read_json("data/countcorrect/sample_symbol.json",
-        simplifyVector = TRUE))
-    Output
-      # A tibble: 1 x 3
-           nc    pc is_normal
-        <int> <dbl> <lgl>    
-      1   141  0.94 TRUE     
-
-# Test `countcorrect()`: Tone Judgment
-
-    Code
-      countcorrect(jsonlite::read_json("data/countcorrect/sample_tone.json",
-        simplifyVector = TRUE))
-    Output
-      # A tibble: 1 x 3
-           nc    pc is_normal
-        <int> <dbl> <lgl>    
-      1    56 0.373 TRUE     
-
-# Test `countcorrect()`: corrupted data
-
-    Code
-      countcorrect(data.frame())
-    Warning <simpleWarning>
-      At least one of the required variables are missing.
-    Output
-      # A tibble: 1 x 3
-           nc    pc is_normal
-        <dbl> <dbl> <lgl>    
-      1    NA    NA FALSE    
+      # A tibble: 100 x 2
+            id    nc
+         <int> <int>
+       1     1    86
+       2     2   120
+       3     3   118
+       4     4   136
+       5     5    76
+       6     6    56
+       7     7   138
+       8     8    68
+       9     9    99
+      10    10    56
+      # ... with 90 more rows
 
 ---
 
     Code
-      countcorrect(1)
-    Warning <simpleWarning>
-      At least one of the required variables are missing.
+      preproc_data(data_canteen, countcorrect)
     Output
-      # A tibble: 1 x 3
-           nc    pc is_normal
-        <dbl> <dbl> <lgl>    
-      1    NA    NA FALSE    
+      # A tibble: 100 x 2
+            id    nc
+         <int> <int>
+       1     1    36
+       2     2    28
+       3     3    42
+       4     4    51
+       5     5    17
+       6     6    31
+       7     7    25
+       8     8    29
+       9     9    41
+      10    10    35
+      # ... with 90 more rows
+
+---
+
+    Code
+      preproc_data(data_fpt, countcorrect)
+    Output
+      # A tibble: 100 x 2
+            id    nc
+         <int> <int>
+       1     1    33
+       2     2    35
+       3     3    29
+       4     4    31
+       5     5    29
+       6     6    26
+       7     7    35
+       8     8    37
+       9     9    28
+      10    10    24
+      # ... with 90 more rows
+
+# Works with multiple grouping variables
+
+    Code
+      preproc_data(data_cancellation, countcorrect, by = c("id", "id1"))
+    Output
+      # A tibble: 100 x 3
+            id   id1    nc
+         <int> <dbl> <int>
+       1     1     2    86
+       2     2     3   120
+       3     3     4   118
+       4     4     5   136
+       5     5     6    76
+       6     6     7    56
+       7     7     8   138
+       8     8     9    68
+       9     9    10    99
+      10    10    11    56
+      # ... with 90 more rows
 

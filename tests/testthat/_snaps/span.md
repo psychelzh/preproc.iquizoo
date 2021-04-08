@@ -1,104 +1,60 @@
-# Test `span()`: Backward Digit Span
+# Default behavior works
 
     Code
-      span(jsonlite::read_json("data/span/sample_bds.json", simplifyVector = TRUE))
+      preproc_data(data, span)
     Output
-      # A tibble: 1 x 4
-        max_span mean_span    nc is_normal
-           <int>     <dbl> <dbl> <lgl>    
-      1        9      7.37    19 TRUE     
+      # A tibble: 100 x 4
+            id    nc max_span mean_span
+         <int> <int>    <dbl>     <dbl>
+       1     1    71       10      9.5 
+       2     2    91       12     11.7 
+       3     3   104       12     10.5 
+       4     4   116       14     14   
+       5     5   100       13     12.5 
+       6     6    55        8      6.67
+       7     7   116       14     14   
+       8     8    89       10      8.33
+       9     9   115       14     14   
+      10    10   105       12     11.5 
+      # ... with 90 more rows
 
-# Test `span()`: Forward Digit Span
+# Works with multiple grouping variables
 
     Code
-      span(jsonlite::read_json("data/span/sample_fds.json", simplifyVector = TRUE))
+      preproc_data(data, span, by = c("id", "id1"))
     Output
-      # A tibble: 1 x 4
-        max_span mean_span    nc is_normal
-           <int>     <dbl> <dbl> <lgl>    
-      1       16      16.5   133 TRUE     
+      # A tibble: 100 x 5
+            id   id1    nc max_span mean_span
+         <int> <dbl> <int>    <dbl>     <dbl>
+       1     1     2    71       10      9.5 
+       2     2     3    91       12     11.7 
+       3     3     4   104       12     10.5 
+       4     4     5   116       14     14   
+       5     5     6   100       13     12.5 
+       6     6     7    55        8      6.67
+       7     7     8   116       14     14   
+       8     8     9    89       10      8.33
+       9     9    10   115       14     14   
+      10    10    11   105       12     11.5 
+      # ... with 90 more rows
 
-# Test `span()`: Forward Word Span
+# Works when no acc column found
 
     Code
-      span(jsonlite::read_json("data/span/sample_fws.json", simplifyVector = TRUE))
+      preproc_data(data_no_acc, span)
     Output
-      # A tibble: 1 x 4
-        max_span mean_span    nc is_normal
-           <int>     <dbl> <dbl> <lgl>    
-      1       16      16.5     0 TRUE     
-
-# Test `span()`: Multiple Object Tracking
-
-    Code
-      span(jsonlite::read_json("data/span/sample_mot.json", simplifyVector = TRUE))
-    Output
-      # A tibble: 1 x 4
-        max_span mean_span    nc is_normal
-           <int>     <dbl> <dbl> <lgl>    
-      1        8      6.83    57 TRUE     
-
-# Test `span()`: Multiple Object Tracking (with distractors)
-
-    Code
-      span(jsonlite::read_json("data/span/sample_mot2.json", simplifyVector = TRUE))
-    Output
-      # A tibble: 1 x 4
-        max_span mean_span    nc is_normal
-           <int>     <dbl> <dbl> <lgl>    
-      1        5      3.08    23 TRUE     
-
-# Test `span()`: Symmetry Complex Span
-
-    Code
-      span(jsonlite::read_json("data/span/sample_sspan.json", simplifyVector = TRUE))
-    Output
-      # A tibble: 1 x 4
-        max_span mean_span    nc is_normal
-           <int>     <dbl> <dbl> <lgl>    
-      1        7      5.17    49 TRUE     
-
-# Test `span()`: Spatial Short-Term Memory
-
-    Code
-      span(jsonlite::read_json("data/span/sample_sstm.json", simplifyVector = TRUE))
-    Output
-      # A tibble: 1 x 4
-        max_span mean_span    nc is_normal
-           <int>     <dbl> <dbl> <lgl>    
-      1        5      3.93    40 TRUE     
-
-# Test `span()`: Spatial Short-term Memory (simple version)
-
-    Code
-      span(jsonlite::read_json("data/span/sample_sstms.json", simplifyVector = TRUE))
-    Output
-      # A tibble: 1 x 4
-        max_span mean_span    nc is_normal
-           <int>     <dbl> <dbl> <lgl>    
-      1        8      6.23    73 TRUE     
-
-# Test `span()`: corrupted data
-
-    Code
-      span(data.frame())
-    Warning <simpleWarning>
-      At least one of the required variables are missing.
-    Output
-      # A tibble: 1 x 4
-        max_span mean_span    nc is_normal
-           <dbl>     <dbl> <dbl> <lgl>    
-      1       NA        NA    NA FALSE    
-
----
-
-    Code
-      span(1)
-    Warning <simpleWarning>
-      At least one of the required variables are missing.
-    Output
-      # A tibble: 1 x 4
-        max_span mean_span    nc is_normal
-           <dbl>     <dbl> <dbl> <lgl>    
-      1       NA        NA    NA FALSE    
+      # A tibble: 100 x 4
+            id    nc max_span mean_span
+         <int> <int>    <dbl>     <dbl>
+       1     1    NA       10      8.58
+       2     2    NA       14     14   
+       3     3    NA       16     15.5 
+       4     4    NA       14     14   
+       5     5    NA       12     11.5 
+       6     6    NA       12     11.8 
+       7     7    NA        8      6   
+       8     8    NA        7      5.05
+       9     9    NA        8      7   
+      10    10    NA        9      7.67
+      # ... with 90 more rows
 

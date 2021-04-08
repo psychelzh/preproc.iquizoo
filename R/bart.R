@@ -1,37 +1,29 @@
-#' Calculates index scores for BART game specifically
+#' Balloon Analogue Risk Task
 #'
-#' The adjusted and unadjusted BART scores are both returned.
+#' This task is deemed as a measure of impulsivity. Read more details on
+#' [this website](http://www.impulsivity.org/measurement/BART).
 #'
-#' @param data Raw data of class `data.frame`.
-#' @param ... Other input argument for future expansion.
+#' @templateVar by low
+#' @templateVar vars_input TRUE
+#' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mean_pumps}{Mean of hits for balloons not exploded.}
 #'   \item{mean_pumps_raw}{Mean of hits for all balloons.}
 #'   \item{num_explosion}{Number of exploded balloons.}
-#'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
-bart <- function(data, ...) {
-  vars_output <- c("mean_pumps", "mean_pumps_raw", "num_explosion")
-  vars_required <- tibble::tribble(
-    ~field, ~name,
-    "name_nhit", "NHit",
-    "name_feedback", "Feedback"
-  )
-  vars_matched <- match_data_vars(data, vars_required)
-  if (is.null(vars_matched)) {
-    return(compose_abnormal_output(vars_output))
-  }
-  tibble(data) %>%
+bart <- function(data, by, vars_input) {
+  data %>%
     dplyr::mutate(
-      pumps_cor = dplyr::if_else(
-        .data[[vars_matched["name_feedback"]]] == 1,
-        .data[[vars_matched["name_nhit"]]], NA_integer_
+      nhit_cor = ifelse(
+        .data[[vars_input[["name_feedback"]]]] == 1,
+        .data[[vars_input[["name_nhit"]]]], NA
       )
     ) %>%
+    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
     dplyr::summarise(
-      mean_pumps = mean(.data[["pumps_cor"]], na.rm = TRUE),
-      mean_pumps_raw = mean(.data[[vars_matched["name_nhit"]]]),
-      num_explosion = sum(.data[[vars_matched["name_feedback"]]] == 0),
-      is_normal = !is.na(.data[["mean_pumps"]])
+      mean_pumps = mean(.data[["nhit_cor"]], na.rm = TRUE),
+      mean_pumps_raw = mean(.data[[vars_input[["name_nhit"]]]]),
+      num_explosion = sum(.data[[vars_input[["name_feedback"]]]] == 0),
+      .groups = "drop"
     )
 }

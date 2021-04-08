@@ -5,3 +5,4 @@
 ^\.github$
 ^tic\.R$
 ^codecov\.yml$
+^man-roxygen$

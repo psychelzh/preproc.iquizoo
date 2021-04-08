@@ -1,43 +1,41 @@
-#' Calculates index scores for N Back games.
+#' N Back Paradigm
 #'
-#' Several values including percentage of correct responses (pc), mean reaction
-#' time (mrt), sensitivity index (i.e, d') and bias (c).
+#' A classical working memory test.
 #'
-#' @param data Raw data of class `data.frame`.
-#' @param ... Other input argument for future expansion.
+#' @templateVar by low
+#' @templateVar vars_input TRUE
+#' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{pc}{Percentage of correct responses.}
 #'   \item{mrt}{Mean reaction time.}
 #'   \item{dprime}{Sensitivity index.}
 #'   \item{c}{Bias.}
-#'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
-nback <- function(data, ...) {
-  vars_output <- c("pc", "mrt", "dprime", "c")
-  vars_required <- tibble::tribble(
-    ~field, ~name,
-    "name_type", "Type",
-    "name_acc", "ACC",
-    "name_rt", "RT"
+nback <- function(data, by, vars_input) {
+  data_cor <- data %>%
+    dplyr::mutate(
+      # standardize stimuli type
+      type_cor = dplyr::if_else(
+        .data[[vars_input[["name_type"]]]] == "Target",
+        "s", "n"
+      ),
+      # remove rt of 100 or less and rt from non-signal trials
+      rt_cor = ifelse(
+        .data[[vars_input[["name_rt"]]]] > 100 & .data[["type_cor"]] == "s",
+        .data[[vars_input[["name_rt"]]]], NA
+      )
+    )
+  basics <- calc_spd_acc(
+    data_cor,
+    by,
+    name_acc = vars_input[["name_acc"]],
+    name_rt = "rt_cor",
+    rt_rtn = "mean",
+    acc_rtn = "percent"
   )
-  vars_matched <- match_data_vars(data, vars_required)
-  if (is.null(vars_matched)) {
-    return(compose_abnormal_output(vars_output))
-  }
-  data_cor <- correct_rt_acc(data)
-  basic <- data_cor %>%
-    dplyr::summarise(
-      pc = mean(.data[["acc_cor"]] == 1),
-      mrt = mean(.data[["rt_cor"]], na.rm = TRUE)
-    )
   sdt <- calc_sdt(
-    data_cor[["acc_cor"]],
-    factor(
-      data_cor[[vars_matched["name_type"]]],
-      levels = c("Stay", "Change")
-    )
-  ) %>%
-    tibble::as_tibble_row()
-  is_normal <- check_resp_metric(data_cor)
-  tibble(basic, sdt, is_normal)
+    data_cor, by, vars_input[["name_acc"]], "type_cor",
+    keep_counts = FALSE
+  )
+  dplyr::left_join(basics, sdt, by = by)
 }

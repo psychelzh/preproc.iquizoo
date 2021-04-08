@@ -1,0 +1,316 @@
+{
+    "bart": {
+        "input": {
+            "name_nhit": "NHit",
+            "name_feedback": "Feedback"
+        },
+        "output": [
+            "mean_pumps",
+            "mean_pumps_raw",
+            "num_explosion"
+        ]
+    },
+    "bps": {
+        "input": {
+            "name_phase": "Phase",
+            "name_type": "Type",
+            "name_resp": "Resp",
+            "name_acc": "ACC",
+            "name_rt": "RT"
+        },
+        "output": [
+            "pc",
+            "p_sim_foil",
+            "p_sim_lure",
+            "p_sim_target",
+            "bps_score"
+        ]
+    },
+    "complexswitch": {
+        "input": {
+            "name_block": "Block",
+            "name_cong": "StimType",
+            "name_task": [
+                "Task",
+                "Sex"
+            ],
+            "name_switch": "TaskType",
+            "name_acc": [
+                "Acc",
+                "ACC"
+            ],
+            "name_rt": "RT"
+        },
+        "output": [
+            "mrt_con",
+            "mrt_inc",
+            "cong_eff_rt",
+            "pc_con",
+            "pc_inc",
+            "cong_eff_pc",
+            "mrt_pure",
+            "mrt_repeat",
+            "mrt_switch",
+            "switch_cost_rt_gen",
+            "switch_cost_rt_spe",
+            "pc_pure",
+            "pc_repeat",
+            "pc_switch",
+            "switch_cost_pc_gen",
+            "switch_cost_pc_spe"
+        ]
+    },
+    "congeff": {
+        "input": {
+            "name_cong": "Type",
+            "name_acc": "ACC",
+            "name_rt": "RT"
+        },
+        "output": [
+            "mrt_inc",
+            "mrt_con",
+            "cong_eff_rt",
+            "pc_inc",
+            "pc_con",
+            "cong_eff_pc"
+        ]
+    },
+    "countcorrect": {
+        "input": {
+            "name_acc": [
+                "ACC",
+                "Repetition",
+                "Correctness"
+            ]
+        },
+        "output": "nc"
+    },
+    "countcorrect2": {
+        "input": {
+            "name_nc": "NCorrect",
+            "name_ne": "NError"
+        },
+        "output": "nc_cor"
+    },
+    "cpt": {
+        "input": {
+            "name_type": [
+                "Type",
+                "StimType"
+            ],
+            "name_acc": "ACC",
+            "name_rt": "RT"
+        },
+        "output": [
+            "nc",
+            "mrt",
+            "rtsd",
+            "dprime",
+            "c",
+            "commissions",
+            "omissions"
+        ]
+    },
+    "crt": {
+        "input": {
+            "name_acc": "ACC",
+            "name_rt": "RT"
+        },
+        "output": [
+            "mrt",
+            "rtsd",
+            "nc"
+        ]
+    },
+    "driving": {
+        "input": {
+            "name_yellow_dur": "YellowDur",
+            "name_still_dur": "StillDur",
+            "name_still_light": "StillLight"
+        },
+        "output": "still_ratio"
+    },
+    "drm": {
+        "input": {
+            "name_type": "Type",
+            "name_acc": "ACC",
+            "name_rt": "RT",
+            "name_resp": "Resp"
+        },
+        "output": [
+            "tm_dprime",
+            "tm_bias",
+            "fm_dprime",
+            "fm_bias"
+        ]
+    },
+    "jlo": {
+        "input": {
+            "name_angle": "Angle",
+            "name_resp": "Resp",
+            "name_acc": "ACC"
+        },
+        "output": [
+            "nc",
+            "mean_ang_err",
+            "mean_log_err"
+        ]
+    },
+    "locmem": {
+        "input": {
+            "name_dist": "RespLocDist"
+        },
+        "output": [
+            "nc_loc",
+            "mean_dist_err",
+            "mean_log_err"
+        ]
+    },
+    "locmem2": {
+        "input": {
+            "name_acc_order": "RespAccOrder",
+            "name_dist": "RespLocDist"
+        },
+        "output": [
+            "nc_loc",
+            "mean_dist_err",
+            "mean_log_err",
+            "nc_order"
+        ]
+    },
+    "london": {
+        "input": {
+            "name_level": [
+                "LeveL",
+                "Level"
+            ],
+            "name_score": "Score",
+            "name_outcome": "Outcome",
+            "name_steps": "StepsUsed"
+        },
+        "output": [
+            "total_score",
+            "mean_level",
+            "level_score"
+        ]
+    },
+    "multisense": {
+        "input": {
+            "name_type": "Type",
+            "name_rt": "RT"
+        },
+        "output": [
+            "mrt_image",
+            "mrt_sound",
+            "mrt_mixed",
+            "mrt_mixadv"
+        ]
+    },
+    "nback": {
+        "input": {
+            "name_type": "Type",
+            "name_acc": "ACC",
+            "name_rt": "RT"
+        },
+        "output": [
+            "pc",
+            "mrt",
+            "dprime",
+            "c"
+        ]
+    },
+    "nle": {
+        "input": {
+            "name_number": "Number",
+            "name_resp": "Resp"
+        },
+        "output": [
+            "mean_abs_err",
+            "mean_log_err"
+        ]
+    },
+    "nsymncmp": {
+        "input": {
+            "name_big": "BigSetCount",
+            "name_small": "SmallSetCount",
+            "name_acc": "ACC",
+            "name_rt": "RT"
+        },
+        "output": [
+            "pc",
+            "mrt",
+            "w"
+        ]
+    },
+    "span": {
+        "input": {
+            "name_slen": [
+                "NumTarget",
+                "SLen"
+            ],
+            "name_outcome": "Outcome"
+        },
+        "output": [
+            "nc",
+            "max_span",
+            "mean_span"
+        ]
+    },
+    "srt": {
+        "input": {
+            "name_rt": "RT"
+        },
+        "output": [
+            "mrt",
+            "rtsd"
+        ]
+    },
+    "stopsignal": {
+        "input": {
+            "name_type": "Type",
+            "name_ssd": "SSD",
+            "name_acc": "ACC",
+            "name_rt": "RT"
+        },
+        "output": [
+            "pc_all",
+            "pc_go",
+            "medrt_go",
+            "ssrt"
+        ]
+    },
+    "switchcost": {
+        "input": {
+            "name_block": "Block",
+            "name_task": "Task",
+            "name_switch": "Type",
+            "name_acc": "ACC",
+            "name_rt": "RT"
+        },
+        "output": [
+            "mrt_pure",
+            "mrt_repeat",
+            "mrt_switch",
+            "switch_cost_rt_gen",
+            "switch_cost_rt_spe",
+            "pc_pure",
+            "pc_repeat",
+            "pc_switch",
+            "switch_cost_pc_gen",
+            "switch_cost_pc_spe"
+        ]
+    },
+    "symncmp": {
+        "input": {
+            "name_big": "Big",
+            "name_small": "Small",
+            "name_acc": "ACC",
+            "name_rt": "RT"
+        },
+        "output": [
+            "pc",
+            "mrt",
+            "dist_eff"
+        ]
+    }
+}
