@@ -10,7 +10,7 @@ data_canteen <- tidyr::expand_grid(
   id = seq_len(n_subject),
   Block = 1:6
 ) %>%
-  dplyr::mutate(n = sample(2*(1:12), dplyr::n(), replace = TRUE)) %>%
+  dplyr::mutate(n = sample(2 * (1:12), dplyr::n(), replace = TRUE)) %>%
   tidyr::uncount(n, .id = "Trial") %>%
   dplyr::mutate(
     Correctness = ifelse(

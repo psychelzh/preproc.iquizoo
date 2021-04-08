@@ -6,7 +6,7 @@ data <- tibble(
   tidyr::uncount(n) %>%
   dplyr::mutate(
     NCorrect = sample(0:100, dplyr::n(), replace = TRUE),
-    NError =  sample(0:100, dplyr::n(), replace = TRUE, prob = (101:1)^3)
+    NError = sample(0:100, dplyr::n(), replace = TRUE, prob = (101:1)^3)
   )
 
 test_that("Default behavior works", {

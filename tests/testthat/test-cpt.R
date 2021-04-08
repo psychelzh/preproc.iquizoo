@@ -8,7 +8,8 @@ data <- tibble(
   dplyr::mutate(
     Type = sample(
       c("Random", "Aonly", "Bonly", "Target"),
-      dplyr::n(), replace = TRUE
+      dplyr::n(),
+      replace = TRUE
     ),
     ACC = sample(c(0, 1), dplyr::n(), replace = TRUE),
     RT = rexp(dplyr::n(), 0.001)
@@ -17,7 +18,8 @@ data_perfect <- tibble(
   id = rep(1, 10),
   Type = sample(
     c("Random", "Aonly", "Bonly", "Target"),
-    10, replace = TRUE
+    10,
+    replace = TRUE
   ),
   ACC = 1,
   RT = rexp(10, 0.001)
@@ -30,7 +32,8 @@ data_dualtask <- tibble(
   dplyr::mutate(
     StimType = sample(
       c("NonTarget", "Target"),
-      dplyr::n(), replace = TRUE
+      dplyr::n(),
+      replace = TRUE
     ),
     ACC = sample(c(0, 1), dplyr::n(), replace = TRUE),
     RT = rexp(dplyr::n(), 0.001)

@@ -98,7 +98,8 @@ congeff <- function(data, by, vars_input) {
       )
     )
   calc_cong_eff(
-    data_cor, by = by,
+    data_cor,
+    by = by,
     name_cong = vars_input[["name_cong"]],
     name_acc = vars_input[["name_acc"]],
     name_rt = "rt_cor"
@@ -138,4 +139,3 @@ switchcost <- function(data, by, vars_input) {
     name_rt = "rt_cor"
   )
 }
-

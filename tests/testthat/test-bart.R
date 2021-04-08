@@ -2,8 +2,8 @@
 set.seed(1)
 data <- tibble(
   id = rep(1:1000, each = 100),
-  NHit = rpois(100*1000, 2),
-  Feedback = round(runif(100*1000))
+  NHit = rpois(100 * 1000, 2),
+  Feedback = round(runif(100 * 1000))
 )
 
 test_that("Default behavior works", {

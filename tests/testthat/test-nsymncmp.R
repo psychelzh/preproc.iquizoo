@@ -27,4 +27,3 @@ test_that("Works with multiple grouping variables", {
   data <- dplyr::mutate(data, id1 = id + 1)
   expect_snapshot(preproc_data(data, nsymncmp, by = c("id", "id1")))
 })
-

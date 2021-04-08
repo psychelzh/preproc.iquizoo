@@ -46,7 +46,7 @@ calc_sdt <- function(data, by, name_acc, name_type, keep_counts = TRUE) {
       commissions = .data[["e_n"]],
       omissions = .data[["e_s"]],
       dprime = .data[["zc_s"]] - .data[["ze_n"]],
-      c = - (.data[["zc_s"]] + .data[["ze_n"]]) / 2
+      c = -(.data[["zc_s"]] + .data[["ze_n"]]) / 2
     ) %>%
     dplyr::select(
       dplyr::all_of(

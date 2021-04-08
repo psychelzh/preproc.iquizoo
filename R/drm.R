@@ -37,9 +37,9 @@ drm <- function(data, by, vars_input) {
     ) %>%
     dplyr::transmute(
       tm_dprime = .data[["old"]] - .data[["foil"]],
-      tm_bias = - (.data[["old"]] + .data[["foil"]]) / 2,
+      tm_bias = -(.data[["old"]] + .data[["foil"]]) / 2,
       fm_dprime = .data[["lure"]] - .data[["foil"]],
-      fm_bias = - (.data[["lure"]] + .data[["foil"]]) / 2
+      fm_bias = -(.data[["lure"]] + .data[["foil"]]) / 2
     ) %>%
     dplyr::ungroup()
 }
