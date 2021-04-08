@@ -1,7 +1,7 @@
 #' Multiple Sensory Integration
 #'
-#' There will some speed advantage if there are more than one sensory inputs to
-#' be employed. This function calculates this advantage.
+#' There will typically be some speed advantage if there are more than one
+#' sensory inputs to be employed. This function calculates this advantage.
 #'
 #' @templateVar by low
 #' @templateVar vars_input TRUE

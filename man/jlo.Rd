@@ -22,6 +22,4 @@ errors.}
 }
 \description{
 This test is about visuo-spatial skills. For more details, read \href{https://en.wikipedia.org/wiki/Judgment_of_Line_Orientation}{this introduction}.
-Mean absolute angle error and mean log-transformed angle error are
-calculated.
 }

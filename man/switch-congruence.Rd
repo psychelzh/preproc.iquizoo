@@ -5,7 +5,7 @@
 \alias{complexswitch}
 \alias{congeff}
 \alias{switchcost}
-\title{Task Switch and Stroop-like paradigm}
+\title{Task Switching and Stroop-like paradigm}
 \usage{
 complexswitch(data, by, vars_input)
 
@@ -50,10 +50,11 @@ correct).}
 correct).}
 }
 \description{
-There are two types of tasks switching between each other for task swicth
-paradigms, thus a switch cost can be calculated (using \code{\link[=switchcost]{switchcost()}}).
-Similarly, the stimuli for Stroop-like tasks contain \emph{congruent} and
-\emph{incongruent} conditions, thus a congruence effect can be calculated (using
-\code{\link[=congeff]{congeff()}}). There are also special types of tests in which congruence
-effect and switch cost both exist, and \code{\link[=complexswitch]{complexswitch()}} calculates both.
+In task switching paradigms, two types of tasks switch between each other, so
+the "\emph{switch cost}" can be calculated (using \code{\link[=switchcost]{switchcost()}}). Similarly, in
+Stroop-like tasks, stimuli are classified into two conditions (i.e.,
+"congruent" and "incongruent"), so the "\emph{congruence effect}" can be
+calculated (using \code{\link[=congeff]{congeff()}}). There are also special types of tests where
+congruence effect and switch cost both exist, from which \code{\link[=complexswitch]{complexswitch()}}
+calculates both.
 }

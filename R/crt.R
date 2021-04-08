@@ -5,6 +5,7 @@
 #' deviation of reaction times. In addition, subjects can commit errors in CRT
 #' tests, so the number of correct responses is also calculated in [crt()].
 #'
+#' @name rt
 #' @templateVar by low
 #' @templateVar vars_input TRUE
 #' @template params-template
@@ -12,7 +13,6 @@
 #'   \item{mrt}{Mean reaction time.}
 #'   \item{rtsd}{Standard deviation of reaction times.}
 #'   \item{nc}{Count of correct responses. Only for [crt()].}
-#' @name rt
 #' @export
 crt <- function(data, by, vars_input) {
   data %>%

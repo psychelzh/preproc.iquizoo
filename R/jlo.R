@@ -2,8 +2,6 @@
 #'
 #' This test is about visuo-spatial skills. For more details, read [this
 #' introduction](https://en.wikipedia.org/wiki/Judgment_of_Line_Orientation).
-#' Mean absolute angle error and mean log-transformed angle error are
-#' calculated.
 #'
 #' @templateVar by low
 #' @templateVar vars_input TRUE

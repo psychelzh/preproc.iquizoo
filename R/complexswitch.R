@@ -1,11 +1,12 @@
-#' Task Switch and Stroop-like paradigm
+#' Task Switching and Stroop-like paradigm
 #'
-#' There are two types of tasks switching between each other for task swicth
-#' paradigms, thus a switch cost can be calculated (using [switchcost()]).
-#' Similarly, the stimuli for Stroop-like tasks contain *congruent* and
-#' *incongruent* conditions, thus a congruence effect can be calculated (using
-#' [congeff()]). There are also special types of tests in which congruence
-#' effect and switch cost both exist, and [complexswitch()] calculates both.
+#' In task switching paradigms, two types of tasks switch between each other, so
+#' the "*switch cost*" can be calculated (using [switchcost()]). Similarly, in
+#' Stroop-like tasks, stimuli are classified into two conditions (i.e.,
+#' "congruent" and "incongruent"), so the "*congruence effect*" can be
+#' calculated (using [congeff()]). There are also special types of tests where
+#' congruence effect and switch cost both exist, from which [complexswitch()]
+#' calculates both.
 #'
 #' @name switch-congruence
 #' @templateVar by low

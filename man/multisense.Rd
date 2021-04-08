@@ -22,6 +22,6 @@ A \link[tibble:tibble-package]{tibble} contains following values:
 two types of stimuli.}
 }
 \description{
-There will some speed advantage if there are more than one sensory inputs to
-be employed. This function calculates this advantage.
+There will typically be some speed advantage if there are more than one
+sensory inputs to be employed. This function calculates this advantage.
 }

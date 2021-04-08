@@ -1,4 +1,4 @@
-#' Count correct responses
+#' Count Correct Responses
 #'
 #' These functions calculates the number of correct responses. [countcorrect2()]
 #' subtracts the count of errors, which is not the case for [countcorrect()].
@@ -8,7 +8,8 @@
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{nc/nc_cor}{Count of correct responses. `nc_cor` means a corrected
-#'     count, which is returned by [countcorrect2()].}
+#'     count (subtracting number of errors), which is returned by
+#'     [countcorrect2()].}
 #' @export
 countcorrect <- function(data, by, vars_input) {
   if (is.character(data[[vars_input[["name_acc"]]]])) {
