@@ -242,6 +242,18 @@
             "w"
         ]
     },
+    "refframe": {
+        "input": {
+            "name_type": "Type",
+            "name_dist": "Dist"
+        },
+        "output": [
+            "mean_dist_err_allo",
+            "mean_dist_err_ego",
+            "mean_log_err_allo",
+            "mean_log_err_ego"
+        ]
+    },
     "span": {
         "input": {
             "name_slen": [
