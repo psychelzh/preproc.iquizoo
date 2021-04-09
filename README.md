@@ -1,7 +1,10 @@
 # dataproc-iquizoo
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/psychelzh/dataproc.iquizoo/workflows/R-CMD-check/badge.svg?branch=master)](https://github.com/psychelzh/dataproc.iquizoo/actions)
 [![Codecov test coverage](https://codecov.io/gh/psychelzh/dataproc.iquizoo/branch/master/graph/badge.svg)](https://codecov.io/gh/psychelzh/dataproc.iquizoo?branch=master)
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
+<!-- badges: end -->
 
 This is an R package providing preprocessing functions for IQUIZOO original data.
 
