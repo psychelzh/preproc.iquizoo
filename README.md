@@ -33,7 +33,7 @@ remotes::install_github("psychelzh/dataproc.iquizoo")
 
 ## Usage
 
-This package is best used in company with [`tarflow.iquizoo`](https://github.com/psychelzh/tarflow.iquizoo) package, which used this package in its `"indices"` and `"original"` (dataset only) schemas.
+This package is best used in company with [tarflow.iquizoo](https://github.com/psychelzh/tarflow.iquizoo) package, which used this package in its `"indices"` and `"original"` (dataset only) schemas.
 
 ```r
 # remotes::install_github("psychelzh/tarflow.iquizoo")
