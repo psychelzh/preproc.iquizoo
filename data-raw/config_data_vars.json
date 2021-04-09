@@ -144,6 +144,16 @@
             "fm_bias"
         ]
     },
+    "igt": {
+        "input": {
+            "name_pool": "PoolID",
+            "name_outcome": "Outcome"
+        },
+        "output": [
+            "sum_outcome",
+            "perc_good"
+        ]
+    },
     "jlo": {
         "input": {
             "name_angle": "Angle",
