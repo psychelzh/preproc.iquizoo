@@ -6,3 +6,6 @@
 ^tic\.R$
 ^codecov\.yml$
 ^man-roxygen$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
