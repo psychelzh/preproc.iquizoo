@@ -24,7 +24,6 @@
       preproc_data(data, countcorrect2, by = c("id", "id1"))
     Output
       # A tibble: 100 x 3
-      # Groups:   id [100]
             id   id1 nc_cor
          <int> <dbl>  <int>
        1     1     2     13
