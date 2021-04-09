@@ -301,6 +301,19 @@
             "ssrt"
         ]
     },
+    "sumweighted": {
+        "input": {
+            "name_weight": "NStim",
+            "name_acc": "ACC"
+        },
+        "output": "nc_weighted"
+    },
+    "sumscore": {
+        "input": {
+            "name_score": "Score"
+        },
+        "output": "nc_score"
+    },
     "switchcost": {
         "input": {
             "name_block": "Block",
