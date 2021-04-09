@@ -144,6 +144,16 @@
             "fm_bias"
         ]
     },
+    "igt": {
+        "input": {
+            "name_pool": "PoolID",
+            "name_outcome": "Outcome"
+        },
+        "output": [
+            "sum_outcome",
+            "perc_good"
+        ]
+    },
     "jlo": {
         "input": {
             "name_angle": "Angle",
@@ -242,6 +252,18 @@
             "w"
         ]
     },
+    "refframe": {
+        "input": {
+            "name_type": "Type",
+            "name_dist": "Dist"
+        },
+        "output": [
+            "mean_dist_err_allo",
+            "mean_dist_err_ego",
+            "mean_log_err_allo",
+            "mean_log_err_ego"
+        ]
+    },
     "span": {
         "input": {
             "name_slen": [
@@ -278,6 +300,19 @@
             "medrt_go",
             "ssrt"
         ]
+    },
+    "sumweighted": {
+        "input": {
+            "name_weight": "NStim",
+            "name_acc": "ACC"
+        },
+        "output": "nc_weighted"
+    },
+    "sumscore": {
+        "input": {
+            "name_score": "Score"
+        },
+        "output": "nc_score"
     },
     "switchcost": {
         "input": {
