@@ -13,6 +13,9 @@
 #'   \item{mrt}{Mean reaction time.}
 #'   \item{rtsd}{Standard deviation of reaction times.}
 #'   \item{nc}{Count of correct responses. Only for [crt()].}
+NULL
+
+#' @rdname rt
 #' @export
 crt <- function(data, by, vars_input) {
   data %>%

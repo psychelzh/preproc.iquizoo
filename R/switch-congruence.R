@@ -39,6 +39,9 @@
 #'     correct).}
 #'   \item{switch_cost_pc_spe}{Specific switch cost (based on percent of
 #'     correct).}
+NULL
+
+#' @rdname switch-congruence
 #' @export
 complexswitch <- function(data, by, vars_input) {
   data_cor <- data %>%
