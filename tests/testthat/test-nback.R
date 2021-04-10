@@ -2,8 +2,8 @@ set.seed(1)
 data <- tidyr::expand_grid(
   id = seq_len(100),
   tibble(
-    Type = c("Target", "NonTarget"),
-    n = 20
+    Type = c("None", "Change", "Stay"),
+    n = c(1, 10, 10)
   )
 ) %>%
   tidyr::uncount(n) %>%
