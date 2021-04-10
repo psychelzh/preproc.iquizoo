@@ -14,13 +14,13 @@ data <- tidyr::expand_grid(
     ACC = sample(c(0, 1), dplyr::n(), replace = TRUE),
     RT = rexp(dplyr::n(), 0.001)
   )
-data_single_conditions <- tibble(
+data_miss_cond <- tibble(
   id = rep(1:2, each = 8),
   Type = "Incongruent",
   ACC = sample(c(0, 1), 16, replace = TRUE),
   RT = rexp(16, 0.001)
 )
-data_part_single_conditions <- tibble(
+data_part_miss_cond <- tibble(
   id = rep(1:2, each = 8),
   Type = c(
     rep("Incongruent", 8),
@@ -32,15 +32,15 @@ data_part_single_conditions <- tibble(
 )
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc_data(data, congeff))
+  expect_snapshot(preproc_data(data, congeff, by = "id"))
 })
 
 test_that("All single condition", {
-  expect_snapshot(preproc_data(data_single_conditions, congeff))
+  expect_snapshot(preproc_data(data_miss_cond, congeff, by = "id"))
 })
 
 test_that("Part subject single condition", {
-  expect_snapshot(preproc_data(data_part_single_conditions, congeff))
+  expect_snapshot(preproc_data(data_part_miss_cond, congeff, by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {

@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, bps)
+      preproc_data(data, bps, by = "id")
     Output
       # A tibble: 1,000 x 6
             id    pc p_sim_foil p_sim_lure p_sim_target bps_score

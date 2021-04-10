@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, bart)
+      preproc_data(data, bart, by = "id")
     Output
       # A tibble: 1,000 x 4
             id mean_pumps mean_pumps_raw num_explosion

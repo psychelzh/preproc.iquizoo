@@ -12,7 +12,7 @@ data <- tidyr::expand_grid(
   )
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc_data(data, sumweighted))
+  expect_snapshot(preproc_data(data, sumweighted, by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {

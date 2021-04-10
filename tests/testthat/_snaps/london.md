@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, london)
+      preproc_data(data, london, by = "id")
     Output
       # A tibble: 100 x 4
             id total_score mean_level level_score

@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, complexswitch)
+      preproc_data(data, complexswitch, by = "id")
     Output
       # A tibble: 100 x 17
             id mrt_con mrt_inc cong_eff_rt pc_con pc_inc cong_eff_pc mrt_pure
@@ -24,7 +24,7 @@
 # All single condition
 
     Code
-      preproc_data(data_single_conditions, complexswitch)
+      preproc_data(data_miss_cond, complexswitch, by = "id")
     Output
       # A tibble: 2 x 17
            id mrt_con mrt_inc cong_eff_rt pc_con pc_inc cong_eff_pc mrt_pure
@@ -39,7 +39,7 @@
 # Part subject single condition
 
     Code
-      preproc_data(data_part_single_conditions, complexswitch)
+      preproc_data(data_part_miss_cond, complexswitch, by = "id")
     Output
       # A tibble: 2 x 17
            id mrt_con mrt_inc cong_eff_rt pc_con pc_inc cong_eff_pc mrt_pure

@@ -10,7 +10,7 @@ data <- tidyr::expand_grid(
   dplyr::mutate(RT = rexp(dplyr::n(), 0.001))
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc_data(data, multisense))
+  expect_snapshot(preproc_data(data, multisense, by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {

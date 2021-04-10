@@ -29,10 +29,10 @@ data_fpt <- tibble(
   dplyr::mutate(Repetition = sample(c(0, 1), dplyr::n(), replace = TRUE))
 
 test_that("Default behavior works on different types of input", {
-  expect_snapshot(preproc_data(data_cancellation, countcorrect))
+  expect_snapshot(preproc_data(data_cancellation, countcorrect, by = "id"))
   # character input of correctness
-  expect_snapshot(preproc_data(data_canteen, countcorrect))
-  expect_snapshot(preproc_data(data_fpt, countcorrect))
+  expect_snapshot(preproc_data(data_canteen, countcorrect, by = "id"))
+  expect_snapshot(preproc_data(data_fpt, countcorrect, by = "id"))
 })
 test_that("Works with multiple grouping variables", {
   data_cancellation <- dplyr::mutate(data_cancellation, id1 = id + 1)

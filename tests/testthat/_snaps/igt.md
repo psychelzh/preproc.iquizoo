@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, igt)
+      preproc_data(data, igt, by = "id")
     Output
       # A tibble: 100 x 3
             id sum_outcome perc_good

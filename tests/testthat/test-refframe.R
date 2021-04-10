@@ -10,7 +10,7 @@ data <- tidyr::expand_grid(
   dplyr::mutate(Dist = runif(dplyr::n(), 0, 200))
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc_data(data, refframe))
+  expect_snapshot(preproc_data(data, refframe, by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {

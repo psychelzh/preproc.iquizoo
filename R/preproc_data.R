@@ -16,7 +16,7 @@
 #'   low-level functions.
 #' @author Liang Zhang <psychelzh@outlook.com>
 #' @export
-preproc_data <- function(data, prep_fun, by = "id", ...,
+preproc_data <- function(data, prep_fun, by = NULL, ...,
                          character.only = FALSE) {
   if (!missing(...)) {
     ellipsis::check_dots_empty()

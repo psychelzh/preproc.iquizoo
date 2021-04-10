@@ -40,15 +40,15 @@ data_dualtask <- tibble(
   )
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc_data(data, cpt))
+  expect_snapshot(preproc_data(data, cpt, by = "id"))
 })
 
 test_that("Default behavior works for Dual Task Paradigm", {
-  expect_snapshot(preproc_data(data_dualtask, cpt))
+  expect_snapshot(preproc_data(data_dualtask, cpt, by = "id"))
 })
 
 test_that("Works on perfect accuracy data (no `NA`s)", {
-  expect_snapshot(preproc_data(data_perfect, cpt))
+  expect_snapshot(preproc_data(data_perfect, cpt, by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {

@@ -10,7 +10,7 @@ data <- tibble(
   )
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc_data(data, srt))
+  expect_snapshot(preproc_data(data, srt, by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {

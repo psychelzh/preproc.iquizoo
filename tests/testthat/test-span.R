@@ -71,7 +71,7 @@ data_no_acc <- tibble(
   dplyr::ungroup()
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc_data(data, span))
+  expect_snapshot(preproc_data(data, span, by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {
@@ -80,5 +80,5 @@ test_that("Works with multiple grouping variables", {
 })
 
 test_that("Works when no acc column found", {
-  expect_snapshot(preproc_data(data_no_acc, span))
+  expect_snapshot(preproc_data(data_no_acc, span, by = "id"))
 })

@@ -22,7 +22,7 @@ data <- tidyr::expand_grid(
   )
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc_data(data, drm))
+  expect_snapshot(preproc_data(data, drm, by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {

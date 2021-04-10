@@ -9,7 +9,7 @@ data <- tibble(
   )
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc_data(data, sumscore))
+  expect_snapshot(preproc_data(data, sumscore, by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {

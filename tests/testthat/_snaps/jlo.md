@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, jlo)
+      preproc_data(data, jlo, by = "id")
     Output
       # A tibble: 100 x 4
             id    nc mean_ang_err mean_log_err

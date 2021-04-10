@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, switchcost)
+      preproc_data(data, switchcost, by = "id")
     Output
       # A tibble: 100 x 11
             id mrt_pure mrt_repeat mrt_switch switch_cost_rt_gen switch_cost_rt_spe
@@ -22,7 +22,7 @@
 # All single condition
 
     Code
-      preproc_data(data_single_conditions, switchcost)
+      preproc_data(data_miss_cond, switchcost, by = "id")
     Output
       # A tibble: 2 x 11
            id mrt_pure mrt_repeat mrt_switch switch_cost_rt_~ switch_cost_rt_~ pc_pure
@@ -35,7 +35,7 @@
 # Part subject single condition
 
     Code
-      preproc_data(data_part_single_conditions, switchcost)
+      preproc_data(data_part_miss_cond, switchcost, by = "id")
     Output
       # A tibble: 2 x 11
            id mrt_pure mrt_repeat mrt_switch switch_cost_rt_~ switch_cost_rt_~ pc_pure

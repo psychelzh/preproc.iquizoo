@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, nle)
+      preproc_data(data, nle, by = "id")
     Output
       # A tibble: 100 x 3
             id mean_abs_err mean_log_err

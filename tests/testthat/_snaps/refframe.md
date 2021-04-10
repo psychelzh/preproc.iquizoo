@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, refframe)
+      preproc_data(data, refframe, by = "id")
     Output
       # A tibble: 100 x 5
             id mean_dist_err_allo mean_dist_err_ego mean_log_err_allo mean_log_err_ego

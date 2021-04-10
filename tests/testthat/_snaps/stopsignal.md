@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, stopsignal)
+      preproc_data(data, stopsignal, by = "id")
     Output
       # A tibble: 100 x 5
             id pc_all pc_go medrt_go  ssrt

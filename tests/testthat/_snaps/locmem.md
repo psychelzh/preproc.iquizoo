@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, locmem)
+      preproc_data(data, locmem, by = "id")
     Output
       # A tibble: 100 x 4
             id nc_loc mean_dist_err mean_log_err

@@ -11,7 +11,7 @@ data <- tibble(
   dplyr::ungroup()
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc_data(data, locmem))
+  expect_snapshot(preproc_data(data, locmem, by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {

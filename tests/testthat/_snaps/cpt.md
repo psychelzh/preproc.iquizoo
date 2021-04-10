@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, cpt)
+      preproc_data(data, cpt, by = "id")
     Output
       # A tibble: 100 x 8
             id    nc   mrt  rtsd  dprime         c commissions omissions
@@ -21,7 +21,7 @@
 # Default behavior works for Dual Task Paradigm
 
     Code
-      preproc_data(data_dualtask, cpt)
+      preproc_data(data_dualtask, cpt, by = "id")
     Output
       # A tibble: 100 x 8
             id    nc   mrt  rtsd  dprime       c commissions omissions
@@ -41,7 +41,7 @@
 # Works on perfect accuracy data (no `NA`s)
 
     Code
-      preproc_data(data_perfect, cpt)
+      preproc_data(data_perfect, cpt, by = "id")
     Output
       # A tibble: 1 x 8
            id    nc   mrt  rtsd dprime     c commissions omissions

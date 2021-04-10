@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, span)
+      preproc_data(data, span, by = "id")
     Output
       # A tibble: 100 x 4
             id    nc max_span mean_span
@@ -41,7 +41,7 @@
 # Works when no acc column found
 
     Code
-      preproc_data(data_no_acc, span)
+      preproc_data(data_no_acc, span, by = "id")
     Output
       # A tibble: 100 x 4
             id    nc max_span mean_span

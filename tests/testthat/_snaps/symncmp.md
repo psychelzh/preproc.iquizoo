@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, symncmp)
+      preproc_data(data, symncmp, by = "id")
     Output
       # A tibble: 100 x 4
             id    pc   mrt dist_eff

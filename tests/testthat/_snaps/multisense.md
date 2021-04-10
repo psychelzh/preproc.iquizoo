@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, multisense)
+      preproc_data(data, multisense, by = "id")
     Output
       # A tibble: 100 x 5
             id mrt_image mrt_sound mrt_mixed mrt_mixadv

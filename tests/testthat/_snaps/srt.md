@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, srt)
+      preproc_data(data, srt, by = "id")
     Output
       # A tibble: 100 x 3
             id   mrt  rtsd

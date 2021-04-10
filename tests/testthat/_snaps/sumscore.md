@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, sumscore)
+      preproc_data(data, sumscore, by = "id")
     Output
       # A tibble: 100 x 2
             id nc_score

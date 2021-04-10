@@ -1,7 +1,7 @@
 # Default behavior works on different types of input
 
     Code
-      preproc_data(data_cancellation, countcorrect)
+      preproc_data(data_cancellation, countcorrect, by = "id")
     Output
       # A tibble: 100 x 2
             id    nc
@@ -21,7 +21,7 @@
 ---
 
     Code
-      preproc_data(data_canteen, countcorrect)
+      preproc_data(data_canteen, countcorrect, by = "id")
     Output
       # A tibble: 100 x 2
             id    nc
@@ -41,7 +41,7 @@
 ---
 
     Code
-      preproc_data(data_fpt, countcorrect)
+      preproc_data(data_fpt, countcorrect, by = "id")
     Output
       # A tibble: 100 x 2
             id    nc

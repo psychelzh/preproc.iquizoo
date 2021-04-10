@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, nback)
+      preproc_data(data, nback, by = "id")
     Output
       # A tibble: 100 x 5
             id    pc   mrt dprime         c

@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, drm)
+      preproc_data(data, drm, by = "id")
     Output
       # A tibble: 100 x 5
             id tm_dprime tm_bias fm_dprime   fm_bias

@@ -27,7 +27,7 @@ data <- tibble(
   dplyr::ungroup()
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc_data(data, london))
+  expect_snapshot(preproc_data(data, london, by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {

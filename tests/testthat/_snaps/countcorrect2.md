@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, countcorrect2)
+      preproc_data(data, countcorrect2, by = "id")
     Output
       # A tibble: 100 x 2
             id nc_cor

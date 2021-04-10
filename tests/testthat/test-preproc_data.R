@@ -1,8 +1,8 @@
 data <- data.frame(NHit = 1, Feedback = 0)
 
-test_that("Support `group = NULL` by deleting group variable afterward", {
+test_that("Default behavior (`by = NULL`) deletes group variables afterward", {
   expect_silent(
-    no_grp <- preproc_data(data, bart, by = NULL)
+    no_grp <- preproc_data(data, bart)
   )
   expect_named(no_grp, .get_output_vars("bart"))
 })
@@ -32,16 +32,16 @@ test_that("Error when input unused argument", {
 
 test_that("Support character function name input", {
   expect_equal(
-    preproc_data(data, "bart", by = NULL, character.only = TRUE),
-    preproc_data(data, bart, by = NULL)
+    preproc_data(data, "bart", character.only = TRUE),
+    preproc_data(data, bart)
   )
 })
 
 test_that("Can deal with name conflicts", {
   bart <- 1
-  expect_silent(preproc_data(data, bart, by = NULL))
+  expect_silent(preproc_data(data, bart))
   expect_equal(
-    preproc_data(data, "bart", by = NULL, character.only = TRUE),
-    preproc_data(data, bart, by = NULL)
+    preproc_data(data, "bart", character.only = TRUE),
+    preproc_data(data, bart)
   )
 })

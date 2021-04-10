@@ -31,7 +31,7 @@ data <- tidyr::expand_grid(
       TRUE ~ "Switch"
     )
   )
-data_single_conditions <- tibble(
+data_miss_cond <- tibble(
   id = rep(1:2, each = 8),
   Block = rep(1:8, 2),
   Task = "T1",
@@ -39,7 +39,7 @@ data_single_conditions <- tibble(
   ACC = sample(c(0, 1), 16, replace = TRUE),
   RT = rexp(16, 0.001)
 )
-data_part_single_conditions <- tibble(
+data_part_miss_cond <- tibble(
   id = rep(1:2, each = 8),
   Block = rep(1:8, 2),
   Task = "T1",
@@ -52,15 +52,15 @@ data_part_single_conditions <- tibble(
 )
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc_data(data, switchcost))
+  expect_snapshot(preproc_data(data, switchcost, by = "id"))
 })
 
 test_that("All single condition", {
-  expect_snapshot(preproc_data(data_single_conditions, switchcost))
+  expect_snapshot(preproc_data(data_miss_cond, switchcost, by = "id"))
 })
 
 test_that("Part subject single condition", {
-  expect_snapshot(preproc_data(data_part_single_conditions, switchcost))
+  expect_snapshot(preproc_data(data_part_miss_cond, switchcost, by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {

@@ -49,7 +49,7 @@ data <- tidyr::expand_grid(
   dplyr::arrange(id, Trial)
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc_data(data, stopsignal))
+  expect_snapshot(preproc_data(data, stopsignal, by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {

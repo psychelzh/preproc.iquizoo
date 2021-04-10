@@ -58,7 +58,7 @@ data_negtive_dur <- tibble(
 
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc_data(data, driving))
+  expect_snapshot(preproc_data(data, driving, by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {
@@ -67,5 +67,5 @@ test_that("Works with multiple grouping variables", {
 })
 
 test_that("No error for negative duration case (but produces `NA`s)", {
-  expect_snapshot(preproc_data(data_negtive_dur, driving))
+  expect_snapshot(preproc_data(data_negtive_dur, driving, by = "id"))
 })

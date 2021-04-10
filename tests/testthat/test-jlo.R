@@ -17,7 +17,7 @@ data <- tidyr::expand_grid(
   dplyr::select(-dplyr::contains("_"))
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc_data(data, jlo))
+  expect_snapshot(preproc_data(data, jlo, by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {

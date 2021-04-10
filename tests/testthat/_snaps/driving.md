@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, driving)
+      preproc_data(data, driving, by = "id")
     Output
       # A tibble: 100 x 2
             id still_ratio
@@ -41,7 +41,7 @@
 # No error for negative duration case (but produces `NA`s)
 
     Code
-      preproc_data(data_negtive_dur, driving)
+      preproc_data(data_negtive_dur, driving, by = "id")
     Output
       # A tibble: 1 x 2
            id still_ratio
