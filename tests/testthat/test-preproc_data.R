@@ -38,7 +38,7 @@ test_that("Support character function name input", {
 })
 
 test_that("Can deal with name conflicts", {
-  bart <- 1
+  bart <- function() stop("errored")
   expect_silent(preproc_data(data, bart))
   expect_equal(
     preproc_data(data, "bart", character.only = TRUE),
