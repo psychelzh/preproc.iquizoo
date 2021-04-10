@@ -22,7 +22,7 @@
     <loc>https://psychelzh.github.io/dataproc.iquizoo/reference/calc_switch_cost.html</loc>
   </url>
   <url>
-    <loc>https://psychelzh.github.io/dataproc.iquizoo/reference/countcorrect.html</loc>
+    <loc>https://psychelzh.github.io/dataproc.iquizoo/reference/counts.html</loc>
   </url>
   <url>
     <loc>https://psychelzh.github.io/dataproc.iquizoo/reference/cpt.html</loc>
@@ -37,7 +37,10 @@
     <loc>https://psychelzh.github.io/dataproc.iquizoo/reference/game_info.html</loc>
   </url>
   <url>
-    <loc>https://psychelzh.github.io/dataproc.iquizoo/reference/get_vars.html</loc>
+    <loc>https://psychelzh.github.io/dataproc.iquizoo/reference/get_data_vars.html</loc>
+  </url>
+  <url>
+    <loc>https://psychelzh.github.io/dataproc.iquizoo/reference/igt.html</loc>
   </url>
   <url>
     <loc>https://psychelzh.github.io/dataproc.iquizoo/reference/jlo.html</loc>
@@ -71,6 +74,9 @@
   </url>
   <url>
     <loc>https://psychelzh.github.io/dataproc.iquizoo/reference/preproc_data.html</loc>
+  </url>
+  <url>
+    <loc>https://psychelzh.github.io/dataproc.iquizoo/reference/refframe.html</loc>
   </url>
   <url>
     <loc>https://psychelzh.github.io/dataproc.iquizoo/reference/rt.html</loc>

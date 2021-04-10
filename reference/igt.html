@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Behavioral Pattern Separation (BPS) task — bps • dataproc.iquizoo</title>
+<title>Iowa Gambling Task (modified) — igt • dataproc.iquizoo</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,10 @@
 
 
 
-<meta property="og:title" content="Behavioral Pattern Separation (BPS) task — bps" />
-<meta property="og:description" content="This function mainly calculates the &quot;BPS score&quot; developed by Stark et. al.
-(2013)." />
+<meta property="og:title" content="Iowa Gambling Task (modified) — igt" />
+<meta property="og:description" content="A classical test on decision making. Read more details on
+wikipedia. This modified
+version uses pools to simulate cards, but the essential ideas are the same." />
 
 
 
@@ -112,17 +113,18 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Behavioral Pattern Separation (BPS) task</h1>
-    <small class="dont-index">Source: <a href='https://github.com/psychelzh/dataproc.iquizoo/blob/master/R/bps.R'><code>R/bps.R</code></a></small>
-    <div class="hidden name"><code>bps.Rd</code></div>
+    <h1>Iowa Gambling Task (modified)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/psychelzh/dataproc.iquizoo/blob/master/R/igt.R'><code>R/igt.R</code></a></small>
+    <div class="hidden name"><code>igt.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function mainly calculates the "<em>BPS score</em>" developed by Stark et. al.
-(2013).</p>
+    <p>A classical test on decision making. Read more details on
+<a href='https://en.wikipedia.org/wiki/Iowa_gambling_task'>wikipedia</a>. This modified
+version uses pools to simulate cards, but the essential ideas are the same.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bps</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>by</span>, <span class='va'>vars_input</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>igt</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>by</span>, <span class='va'>vars_input</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -144,11 +146,8 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <a href='https://tibble.tidyverse.org/reference/tibble-package.html'>tibble</a> contains following values:</p>
-<dt>pc</dt><dd><p>Percent of correct responses.</p></dd>
-<dt>p_sim_foil</dt><dd><p>Percent of similar responses for "foil" stimuli.</p></dd>
-<dt>p_sim_lure</dt><dd><p>Percent of similar responses for "lure" stimuli.</p></dd>
-<dt>p_sim_target</dt><dd><p>Percent of similar responses for "target" stimuli.</p></dd>
-<dt>bps_score</dt><dd><p>BPS score.</p></dd>
+<dt>sum_outcome</dt><dd><p>The total outcome over all trials.</p></dd>
+<dt>perc_good</dt><dd><p>The number of choices on "good" pools.</p></dd>
 
 
   </div>

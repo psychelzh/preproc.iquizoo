@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">dataproc.iquizoo</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.8.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -73,6 +73,7 @@
 <div id="dataproc-iquizoo" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#dataproc-iquizoo" class="anchor"></a>dataproc-iquizoo</h1></div>
+<!-- badges: start -->
 
 <p>This is an R package providing preprocessing functions for IQUIZOO original data.</p>
 <div id="table-of-contents" class="section level2">
@@ -104,7 +105,7 @@
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<p>This package is best used in company with <a href="https://github.com/psychelzh/tarflow.iquizoo"><code>tarflow.iquizoo</code></a> package, which used this package in its <code>"indices"</code> and <code>"original"</code> (dataset only) schemas.</p>
+<p>This package is best used in company with <a href="https://github.com/psychelzh/tarflow.iquizoo">tarflow.iquizoo</a> package, which used this package in its <code>"indices"</code> and <code>"original"</code> (dataset only) schemas.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># remotes::install_github("psychelzh/tarflow.iquizoo")</span>
 <span class="fu">tarflow.iquizoo</span><span class="fu">::</span><span class="fu">use_targets</span><span class="op">(</span><span class="st">"indices"</span>, separate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
@@ -156,7 +157,7 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/psychelzh/dataproc.iquizoo/actions"><img src="https://github.com/psychelzh/dataproc.iquizoo/workflows/tic/badge.svg?branch=master" alt="tic"></a></li>
+<li><a href="https://github.com/psychelzh/dataproc.iquizoo/actions"><img src="https://github.com/psychelzh/dataproc.iquizoo/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://codecov.io/gh/psychelzh/dataproc.iquizoo?branch=master"><img src="https://codecov.io/gh/psychelzh/dataproc.iquizoo/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 <li><a href="https://github.com/RichardLitt/standard-readme"><img src="https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square" alt="standard-readme compliant"></a></li>
 </ul>

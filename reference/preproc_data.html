@@ -74,7 +74,7 @@ accessed to know its details of the returned values." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dataproc.iquizoo</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.8.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -124,7 +124,7 @@ all the pre-processing functions. The documentation of each of them can be
 accessed to know its details of the returned values.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>preproc_data</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>prep_fun</span>, by <span class='op'>=</span> <span class='st'>"id"</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>preproc_data</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>prep_fun_name</span>, by <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span>, character.only <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -134,17 +134,23 @@ accessed to know its details of the returned values.</p>
       <td><p>Raw data of class <code>data.frame</code>.</p></td>
     </tr>
     <tr>
-      <th>prep_fun</th>
-      <td><p>The function to be called. Currently, it should be a
-<code>symbol</code>, representing the function.</p></td>
+      <th>prep_fun_name</th>
+      <td><p>The name of a function, given as a <a href='https://rdrr.io/r/base/name.html'>name</a> or
+literal character string, depending on whether <code>character.only</code> is <code>FALSE</code>
+(default) or <code>TRUE</code>. Only functions from this package is supported for now.</p></td>
     </tr>
     <tr>
       <th>by</th>
-      <td><p>The column name(s) in <code>data</code> used to be grouped by. If set to <code>NULL</code>, all data will be treated as from one subject and there will be no grouping columns in the value returned.</p></td>
+      <td><p>The column name(s) in <code>data</code> used to be grouped by. If set to <code>NULL</code> (default), all data will be treated as from one subject and there will be no grouping columns in the value returned.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>These dots are for future extensions and must be empty.</p></td>
+    </tr>
+    <tr>
+      <th>character.only</th>
+      <td><p>A logical indicating whether <code>prep_fun_name</code> can be
+assumed to be character strings.</p></td>
     </tr>
     </table>
 

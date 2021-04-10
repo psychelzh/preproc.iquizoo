@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Behavioral Pattern Separation (BPS) task — bps • dataproc.iquizoo</title>
+<title>Spatial Reference Frame — refframe • dataproc.iquizoo</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,9 @@
 
 
 
-<meta property="og:title" content="Behavioral Pattern Separation (BPS) task — bps" />
-<meta property="og:description" content="This function mainly calculates the &quot;BPS score&quot; developed by Stark et. al.
-(2013)." />
+<meta property="og:title" content="Spatial Reference Frame — refframe" />
+<meta property="og:description" content="Typically, two classes of spatial frames of reference: &quot;egocentric&quot; and
+&quot;allocentric&quot;. The spatial acuity for both classes are calculated." />
 
 
 
@@ -112,17 +112,17 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Behavioral Pattern Separation (BPS) task</h1>
-    <small class="dont-index">Source: <a href='https://github.com/psychelzh/dataproc.iquizoo/blob/master/R/bps.R'><code>R/bps.R</code></a></small>
-    <div class="hidden name"><code>bps.Rd</code></div>
+    <h1>Spatial Reference Frame</h1>
+    <small class="dont-index">Source: <a href='https://github.com/psychelzh/dataproc.iquizoo/blob/master/R/refframe.R'><code>R/refframe.R</code></a></small>
+    <div class="hidden name"><code>refframe.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function mainly calculates the "<em>BPS score</em>" developed by Stark et. al.
-(2013).</p>
+    <p>Typically, two classes of spatial frames of reference: "egocentric" and
+"allocentric". The spatial acuity for both classes are calculated.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bps</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>by</span>, <span class='va'>vars_input</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>refframe</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>by</span>, <span class='va'>vars_input</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -144,11 +144,11 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <a href='https://tibble.tidyverse.org/reference/tibble-package.html'>tibble</a> contains following values:</p>
-<dt>pc</dt><dd><p>Percent of correct responses.</p></dd>
-<dt>p_sim_foil</dt><dd><p>Percent of similar responses for "foil" stimuli.</p></dd>
-<dt>p_sim_lure</dt><dd><p>Percent of similar responses for "lure" stimuli.</p></dd>
-<dt>p_sim_target</dt><dd><p>Percent of similar responses for "target" stimuli.</p></dd>
-<dt>bps_score</dt><dd><p>BPS score.</p></dd>
+<dt>mean_dist_err_allo/mean_dist_err_ego</dt><dd><p>Mean of the response distance
+errors for allocentric and egocentric conditions respectively.</p></dd>
+<dt>mean_log_err_allo/mean_log_err_ego</dt><dd><p>Mean of the log-transformed (of
+base \(e\)) response distance errors for allocentric and egocentric
+conditions respectively.</p></dd>
 
 
   </div>

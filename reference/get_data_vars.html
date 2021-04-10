@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Behavioral Pattern Separation (BPS) task — bps • dataproc.iquizoo</title>
+<title>Get variable names of data — get_data_vars • dataproc.iquizoo</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,10 @@
 
 
 
-<meta property="og:title" content="Behavioral Pattern Separation (BPS) task — bps" />
-<meta property="og:description" content="This function mainly calculates the &quot;BPS score&quot; developed by Stark et. al.
-(2013)." />
+<meta property="og:title" content="Get variable names of data — get_data_vars" />
+<meta property="og:description" content="An internal data-set is used to store data variables, which should not be
+visited directly by any other functions. Here is two functions to get its
+&quot;input&quot; and &quot;output&quot; variables." />
 
 
 
@@ -112,43 +113,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Behavioral Pattern Separation (BPS) task</h1>
-    <small class="dont-index">Source: <a href='https://github.com/psychelzh/dataproc.iquizoo/blob/master/R/bps.R'><code>R/bps.R</code></a></small>
-    <div class="hidden name"><code>bps.Rd</code></div>
+    <h1>Get variable names of data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/psychelzh/dataproc.iquizoo/blob/master/R/get_data_vars.R'><code>R/get_data_vars.R</code></a></small>
+    <div class="hidden name"><code>get_data_vars.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function mainly calculates the "<em>BPS score</em>" developed by Stark et. al.
-(2013).</p>
+    <p>An internal data-set is used to store data variables, which should not be
+visited directly by any other functions. Here is two functions to get its
+"input" and "output" variables.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bps</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>by</span>, <span class='va'>vars_input</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>.get_input_vars</span><span class='op'>(</span><span class='va'>prep_fun_name</span><span class='op'>)</span>
+
+<span class='fu'>.get_output_vars</span><span class='op'>(</span><span class='va'>prep_fun_name</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>Raw data of class <code>data.frame</code>.</p></td>
-    </tr>
-    <tr>
-      <th>by</th>
-      <td><p>The column name(s) in <code>data</code> used to be grouped by.</p></td>
-    </tr>
-    <tr>
-      <th>vars_input</th>
-      <td><p>The matched variable names for further processing. Typically set by the high-level function <code><a href='preproc_data.html'>preproc_data()</a></code>.</p></td>
+      <th>prep_fun_name</th>
+      <td><p>The name of the called pre-processing function.</p></td>
     </tr>
     </table>
-
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A <a href='https://tibble.tidyverse.org/reference/tibble-package.html'>tibble</a> contains following values:</p>
-<dt>pc</dt><dd><p>Percent of correct responses.</p></dd>
-<dt>p_sim_foil</dt><dd><p>Percent of similar responses for "foil" stimuli.</p></dd>
-<dt>p_sim_lure</dt><dd><p>Percent of similar responses for "lure" stimuli.</p></dd>
-<dt>p_sim_target</dt><dd><p>Percent of similar responses for "target" stimuli.</p></dd>
-<dt>bps_score</dt><dd><p>BPS score.</p></dd>
 
 
   </div>
