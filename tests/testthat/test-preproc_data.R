@@ -29,3 +29,19 @@ test_that("Error when input unused argument", {
     "not empty"
   )
 })
+
+test_that("Support character function name input", {
+  expect_equal(
+    preproc_data(data, "bart", by = NULL, character.only = TRUE),
+    preproc_data(data, bart, by = NULL)
+  )
+})
+
+test_that("Can deal with name conflicts", {
+  bart <- 1
+  expect_silent(preproc_data(data, bart, by = NULL))
+  expect_equal(
+    preproc_data(data, "bart", by = NULL, character.only = TRUE),
+    preproc_data(data, bart, by = NULL)
+  )
+})
