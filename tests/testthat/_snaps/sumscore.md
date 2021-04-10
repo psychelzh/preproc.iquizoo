@@ -5,7 +5,7 @@
     Output
       # A tibble: 100 x 2
             id nc_score
-         <int>    <int>
+         <int>    <dbl>
        1     1       57
        2     2       53
        3     3       63
@@ -25,7 +25,7 @@
     Output
       # A tibble: 100 x 3
             id   id1 nc_score
-         <int> <dbl>    <int>
+         <int> <dbl>    <dbl>
        1     1     2       57
        2     2     3       53
        3     3     4       63
