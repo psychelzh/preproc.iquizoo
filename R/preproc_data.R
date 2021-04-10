@@ -12,6 +12,7 @@
 #' @return A [tibble][tibble::tibble-package] of game performances returned by
 #'   low-level functions.
 #' @author Liang Zhang <psychelzh@outlook.com>
+#' @export
 preproc_data <- function(data, prep_fun, by = "id", ...) {
   if (!missing(...)) {
     ellipsis::check_dots_empty()
