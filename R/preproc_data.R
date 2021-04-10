@@ -25,7 +25,7 @@ preproc_data <- function(data, prep_fun_name, by = NULL, ...,
   if (!character.only) {
     prep_fun_name <- deparse1(substitute(prep_fun_name))
   }
-  prep_fun <- utils::getFromNamespace(prep_fun_name, "dataproc.iquizoo")
+  prep_fun <- utils::getFromNamespace(prep_fun_name, utils::packageName())
   # validate data variable names
   vars_input <- match_data_vars(data, prep_fun_name)
   if (anyNA(vars_input)) {
