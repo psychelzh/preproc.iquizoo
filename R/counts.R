@@ -74,7 +74,7 @@ sumscore <- function(data, by, vars_input) {
   data %>%
     dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
     dplyr::summarise(
-      nc_score = sum(.data[[vars_input[["name_score"]]]]),
+      nc_score = sum(as.numeric(.data[[vars_input[["name_score"]]]])),
       .groups = "drop"
     )
 }
