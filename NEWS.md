@@ -1,3 +1,13 @@
+# dataproc.iquizoo 1.0.0
+
+## New Features
+
+* Add support for group-wise calculation, and this is implemented by using a new "entry-point" function `preproc_data()` with an input argument of `by` (#23, #25).
+
+## Enhancement
+
+* Use log-linear correction for extreme proportions in calculation of d' based on signal detection theory (#16).
+
 # dataproc.iquizoo 0.2.8
 
 * Add more games to `game_info` data.

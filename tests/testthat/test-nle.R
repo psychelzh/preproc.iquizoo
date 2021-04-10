@@ -1,26 +1,19 @@
-test_that("Test `nle()`: Number Line Estimation (junior version)", {
-  expect_snapshot(
-    nle(
-      jsonlite::read_json(
-        "data/nle/sample_nlejr.json",
-        simplifyVector = TRUE
-      )
-    )
+set.seed(1)
+data <- tidyr::expand_grid(
+  id = seq_len(100),
+  n = 20
+) %>%
+  tidyr::uncount(n) %>%
+  dplyr::mutate(
+    Number = sample(1:99, dplyr::n(), replace = TRUE),
+    Resp = sample(1:99, dplyr::n(), replace = TRUE)
   )
+
+test_that("Default behavior works", {
+  expect_snapshot(preproc_data(data, nle, by = "id"))
 })
 
-test_that("Test `nle()`: Number Line Estimation (medium version)", {
-  expect_snapshot(
-    nle(
-      jsonlite::read_json(
-        "data/nle/sample_nlemed.json",
-        simplifyVector = TRUE
-      )
-    )
-  )
-})
-
-test_that("Test `nle()`: corrupted data", {
-  expect_snapshot(nle(data.frame()))
-  expect_snapshot(nle(1))
+test_that("Works with multiple grouping variables", {
+  data <- dplyr::mutate(data, id1 = id + 1)
+  expect_snapshot(preproc_data(data, nle, by = c("id", "id1")))
 })

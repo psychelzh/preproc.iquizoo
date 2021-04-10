@@ -2,23 +2,24 @@
 % Please edit documentation in R/jlo.R
 \name{jlo}
 \alias{jlo}
-\title{Calculates index scores for JLO game.}
+\title{Judgment of Line Orientation}
 \usage{
-jlo(data, ...)
+jlo(data, by, vars_input)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{...}{Other input argument for future expansion.}
+\item{by}{The column name(s) in \code{data} used to be grouped by.}
+
+\item{vars_input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc_data]{preproc_data()}}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
 \item{nc}{Count of correct responses.}
-\item{ne}{Sum of the angle deviations.}
-\item{ne_ln}{Sum of the log of angle deviations.}
-\item{ne_sqrt}{Sum of the square root of angle deviations.}
-\item{is_normal}{Checking result whether the data is normal.}
+\item{mean_ang_err}{Mean of the response angle errors.}
+\item{mean_log_err}{Mean of the log-transformed (of base 2) response angle
+errors.}
 }
 \description{
-Count of correct responses and other angle deviations indices.
+This test is about visuo-spatial skills. For more details, read \href{https://en.wikipedia.org/wiki/Judgment_of_Line_Orientation}{this introduction}.
 }

@@ -1,51 +1,39 @@
-#' Calculates index scores for Behavioral Pattern Separation (BPS) game
+#' Behavioral Pattern Separation (BPS) task
 #'
-#' The index was developed by Stark et. al. (2013), named as "BPS score".
+#' This function mainly calculates the "*BPS score*" developed by Stark et. al.
+#' (2013).
 #'
-#' @param data Raw data of class `data.frame`.
-#' @param ... Other input argument for future expansion.
+#' @templateVar by low
+#' @templateVar vars_input TRUE
+#' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{pc}{Percent of correct responses.}
-#'   \item{p_sim_lure}{Percent of similar responses for "lure" stimuli.}
 #'   \item{p_sim_foil}{Percent of similar responses for "foil" stimuli.}
-#'   \item{p_sim_old}{Percent of similar responses for "target" (i.e., "old")
-#'     stimuli.}
+#'   \item{p_sim_lure}{Percent of similar responses for "lure" stimuli.}
+#'   \item{p_sim_target}{Percent of similar responses for "target" stimuli.}
 #'   \item{bps_score}{BPS score.}
-#'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
-bps <- function(data, ...) {
-  vars_output <- c("pc", "p_sim_lure", "p_sim_foil", "p_sim_old", "bps_score")
-  vars_required <- tibble::tribble(
-    ~field, ~name,
-    "name_phase", "Phase",
-    "name_type", "Type",
-    "name_resp", "Resp",
-    "name_acc", "ACC",
-    "name_rt", "RT"
-  )
-  vars_matched <- match_data_vars(data, vars_required)
-  if (is.null(vars_matched)) {
-    return(compose_abnormal_output(vars_output))
-  }
-  pc_all <- data %>%
-    dplyr::filter(.data[[vars_matched["name_phase"]]] == "test") %>%
-    dplyr::summarise(pc = mean(.data[[vars_matched["name_acc"]]] == 1))
-  bps_score <- data %>%
-    dplyr::filter(.data[[vars_matched["name_phase"]]] == "test") %>%
-    dplyr::group_by(.data[[vars_matched["name_type"]]]) %>%
+bps <- function(data, by, vars_input) {
+  data_cor <- data %>%
+    dplyr::filter(tolower(.data[[vars_input[["name_phase"]]]]) == "test")
+  pc_all <- data_cor %>%
+    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
     dplyr::summarise(
-      p_sim = sum(.data[[vars_matched["name_resp"]]] == "Similar") / dplyr::n()
-    ) %>%
-    tidyr::pivot_wider(names_from = "Type", values_from = "p_sim") %>%
-    dplyr::transmute(
-      p_sim_lure = .data[["lure"]],
-      p_sim_foil = .data[["foil"]],
-      p_sim_old = .data[["target"]],
-      bps_score = .data[["lure"]] - .data[["foil"]]
+      pc = mean(.data[[vars_input[["name_acc"]]]] == 1),
+      .groups = "drop"
     )
-  is_normal <- data %>%
-    dplyr::filter(.data[[vars_matched["name_phase"]]] == "test") %>%
-    correct_rt_acc() %>%
-    check_resp_metric(chance = 1 / 3)
-  tibble(pc_all, bps_score, is_normal)
+  bps_score <- data_cor %>%
+    dplyr::group_by(dplyr::across(
+      dplyr::all_of(c(by, vars_input[["name_type"]]))
+    )) %>%
+    dplyr::summarise(
+      p_sim = mean(tolower(.data[[vars_input[["name_resp"]]]]) == "similar")
+    ) %>%
+    tidyr::pivot_wider(
+      names_from = .data[[vars_input[["name_type"]]]],
+      names_prefix = "p_sim_",
+      values_from = "p_sim"
+    ) %>%
+    dplyr::mutate(bps_score = .data[["p_sim_lure"]] - .data[["p_sim_foil"]])
+  dplyr::left_join(pc_all, bps_score, by = by)
 }

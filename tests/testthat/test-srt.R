@@ -1,26 +1,19 @@
-test_that("Test `srt()`: Simple Reaction Time", {
-  expect_snapshot(
-    srt(
-      jsonlite::read_json(
-        "data/srt/sample_srt.json",
-        simplifyVector = TRUE
-      )
-    )
+set.seed(1)
+n_subject <- 100
+data <- tibble(
+  id = seq_len(n_subject),
+  n = sample(40:80, n_subject, replace = TRUE)
+) %>%
+  tidyr::uncount(n, .id = "Trial") %>%
+  dplyr::mutate(
+    RT = rexp(dplyr::n(), 0.001)
   )
+
+test_that("Default behavior works", {
+  expect_snapshot(preproc_data(data, srt, by = "id"))
 })
 
-test_that("Test `srt()`: Simple Reaction Time (abnormal response)", {
-  expect_snapshot(
-    srt(
-      jsonlite::read_json(
-        "data/srt/sample_srt_abnormal.json",
-        simplifyVector = TRUE
-      )
-    )
-  )
-})
-
-test_that("Test `srt()`: corrupted data", {
-  expect_snapshot(srt(data.frame()))
-  expect_snapshot(srt(1))
+test_that("Works with multiple grouping variables", {
+  data <- dplyr::mutate(data, id1 = id + 1)
+  expect_snapshot(preproc_data(data, srt, by = c("id", "id1")))
 })

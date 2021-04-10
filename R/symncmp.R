@@ -1,50 +1,59 @@
-#' Calculates index scores for Symbolic Number Comparison game.
+#' Symbolic Number Comparison
 #'
 #' Several values including percentage of correct responses (pc), mean reaction
 #' time (mrt), distance effect (dist_effect) and adjusted distance effect
 #' (dist_effect_cor).
 #'
-#' @param data Raw data of class `data.frame`.
-#' @param ... Other input argument for future expansion.
+#' @templateVar by low
+#' @templateVar vars_input TRUE
+#' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{pc}{Percentage of correct responses.}
 #'   \item{mrt}{Mean reaction time.}
 #'   \item{dist_eff}{Distance effect.}
-#'   \item{dist_eff_adj}{Adjusted distance effect.}
-#'   \item{is_normal}{Checking result whether the data is normal.}
+#' @seealso [nsymncmp()] for non-symbolic number comparison.
 #' @export
-symncmp <- function(data, ...) {
-  vars_output <- c("pc", "mrt", "dist_eff", "dist_eff_adj")
-  vars_required <- tibble::tribble(
-    ~field, ~name,
-    "name_big_digit", "Big",
-    "name_small_digit", "Small",
-    "name_acc", "ACC",
-    "name_rt", "RT"
-  )
-  vars_matched <- match_data_vars(data, vars_required)
-  if (is.null(vars_matched)) {
-    return(compose_abnormal_output(vars_output))
-  }
-  # set as wrong for trials responding too quickly
-  data_cor <- correct_rt_acc(data)
-  basic <- data_cor %>%
-    dplyr::summarise(
-      pc = mean(.data[["acc_cor"]] == 1),
-      mrt = mean(.data[["rt_cor"]], na.rm = TRUE)
-    )
-  data_dist_eff <- data_cor %>%
-    dplyr::filter(.data[["acc_cor"]] == 1) %>%
+symncmp <- function(data, by, vars_input) {
+  data_cor <- data %>%
     dplyr::mutate(
-      dist = .data[[vars_matched["name_big_digit"]]] -
-        .data[[vars_matched["name_small_digit"]]]
+      rt_cor = ifelse(
+        .data[[vars_input[["name_rt"]]]] > 100,
+        .data[[vars_input[["name_rt"]]]], NA
+      )
     )
-  dist_eff_orig <- stats::lm(RT ~ dist, data_dist_eff) %>%
-    stats::coef() %>%
-    `[`("dist")
-  dist_eff <- data.frame(
-    dist_eff = dist_eff_orig,
-    dist_eff_adj = dist_eff_orig / basic$mrt
+  basics <- calc_spd_acc(
+    data_cor,
+    by,
+    name_acc = vars_input[["name_acc"]],
+    name_rt = "rt_cor",
+    rt_rtn = "mean",
+    acc_rtn = "percent"
   )
-  tibble(basic, dist_eff, is_normal = check_resp_metric(data_cor))
+  fit_errproof <- purrr::possibly(
+    ~ stats::coef(stats::lm(
+      as.formula(
+        stringr::str_glue(r"({vars_input[["name_rt"]]} ~ dist)")
+      ),
+      .x
+    ))[["dist"]],
+    otherwise = NA_real_
+  )
+  dist_eff <- data_cor %>%
+    dplyr::mutate(
+      dist = .data[[vars_input[["name_big"]]]] -
+        .data[[vars_input[["name_small"]]]]
+    ) %>%
+    dplyr::group_nest(dplyr::across(dplyr::all_of(by))) %>%
+    dplyr::mutate(
+      dist_eff = purrr::map_dbl(
+        .data[["data"]],
+        ~ .x %>%
+          dplyr::filter(
+            .data[[vars_input[["name_acc"]]]] == 1
+          ) %>%
+          fit_errproof()
+      ),
+      .keep = "unused"
+    )
+  dplyr::left_join(basics, dist_eff, by = by)
 }

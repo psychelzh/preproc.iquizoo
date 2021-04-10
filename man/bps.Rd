@@ -2,25 +2,26 @@
 % Please edit documentation in R/bps.R
 \name{bps}
 \alias{bps}
-\title{Calculates index scores for Behavioral Pattern Separation (BPS) game}
+\title{Behavioral Pattern Separation (BPS) task}
 \usage{
-bps(data, ...)
+bps(data, by, vars_input)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{...}{Other input argument for future expansion.}
+\item{by}{The column name(s) in \code{data} used to be grouped by.}
+
+\item{vars_input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc_data]{preproc_data()}}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
 \item{pc}{Percent of correct responses.}
-\item{p_sim_lure}{Percent of similar responses for "lure" stimuli.}
 \item{p_sim_foil}{Percent of similar responses for "foil" stimuli.}
-\item{p_sim_old}{Percent of similar responses for "target" (i.e., "old")
-stimuli.}
+\item{p_sim_lure}{Percent of similar responses for "lure" stimuli.}
+\item{p_sim_target}{Percent of similar responses for "target" stimuli.}
 \item{bps_score}{BPS score.}
-\item{is_normal}{Checking result whether the data is normal.}
 }
 \description{
-The index was developed by Stark et. al. (2013), named as "BPS score".
+This function mainly calculates the "\emph{BPS score}" developed by Stark et. al.
+(2013).
 }

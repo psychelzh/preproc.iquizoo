@@ -1,34 +1,51 @@
-#' Calculates index scores for Location Memory (so-called Black Hole) games.
+#' Location Memory
 #'
-#' Mean distance and percentage of correct responses are returned.
+#' Several tests are based on subject's spatial acuity, so typically a distance
+#' error is collected and scores are calculated based on that error. [locmem()]
+#' deal with the distance condition only. [locmem2()] deals with a special case
+#' when the response order and distance both matter.
 #'
-#' @param data Raw data of class `data.frame`.
-#' @param ... Other input argument for future expansion.
+#' @templateVar by low
+#' @templateVar vars_input TRUE
+#' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
-#'   \item{mean_dist}{Mean distance.}
-#'   \item{pc}{Percentage of correct responses.}
-#'   \item{is_normal}{Checking result whether the data is normal.}
+#'   \item{nc_loc}{Count of correct responses for location.}
+#'   \item{mean_dist_err}{Mean of the response distance errors.}
+#'   \item{mean_log_err}{Mean of the log-transformed (of base \eqn{e}) response
+#'     distance errors.}
+#'   \item{nc_order}{Count of correct responses for order. For [locmem2()]
+#'     only.}
 #' @export
-locmem <- function(data, ...) {
-  vars_output <- c("mean_dist", "pc")
-  vars_required <- tibble::tribble(
-    ~field, ~name,
-    "name_dist_loc", "RespLocDist"
-  )
-  vars_matched <- match_data_vars(data, vars_required)
-  if (is.null(vars_matched)) {
-    return(compose_abnormal_output(vars_output))
-  }
-  delim <- "-"
-  all_dists <- data %>%
-    dplyr::pull("RespLocDist") %>%
-    paste(collapse = delim) %>%
-    strsplit(delim) %>%
-    unlist() %>%
-    as.numeric()
-  tibble(
-    mean_dist = mean(all_dists),
-    pc = mean(all_dists == 0),
-    is_normal = TRUE
-  )
+locmem <- function(data, by, vars_input) {
+  data %>%
+    dplyr::mutate(
+      dist = parse_char_resp(.data[[vars_input[["name_dist"]]]]),
+      .keep = "unused"
+    ) %>%
+    tidyr::unnest(.data[["dist"]]) %>%
+    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
+    dplyr::summarise(
+      nc_loc = sum(.data[["dist"]] == 0),
+      mean_dist_err = mean(.data[["dist"]]),
+      mean_log_err = mean(log(.data[["dist"]] + 1)),
+      .groups = "drop"
+    )
+}
+
+#' @rdname locmem
+#' @export
+locmem2 <- function(data, by, vars_input) {
+  loc_results <- locmem(data, by, vars_input)
+  nc_order <- data %>%
+    dplyr::mutate(
+      acc_order = parse_char_resp(.data[[vars_input[["name_acc_order"]]]]),
+      .keep = "unused"
+    ) %>%
+    tidyr::unnest(.data[["acc_order"]]) %>%
+    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
+    dplyr::summarise(
+      nc_order = sum(.data[["acc_order"]] == 1),
+      .groups = "drop"
+    )
+  dplyr::left_join(loc_results, nc_order, by = by)
 }

@@ -1,69 +1,50 @@
-#' Calculates index scores for Span related games
+#' Span (spatial or verbal)
 #'
-#' Three indices are returned: maximal span, mean span and count of correct
-#' responses.
+#' There is a bunch of tests measuring working memory span or attention span.
 #'
-#' @param data Raw data of class `data.frame`.
-#' @param ... Other input argument for future expansion.
-#' @return A [tibble][tibble::tibble-package] contains following values:
+#' @templateVar by low
+#' @templateVar vars_input TRUE
+#' @template params-template
+#' @return A [tibble][tibble::tibble-package] contains following values:]
+#'   \item{nc}{Count of correct responses.}
 #'   \item{max_span}{Maximal span.}
 #'   \item{mean_span}{Mean span.}
-#'   \item{nc}{Count of correct responses.}
-#'   \item{is_normal}{Checking result whether the data is normal.}
 #' @export
-span <- function(data, ...) {
-  vars_output <- c("max_span", "mean_span", "nc")
-  vars_config <- tibble::tribble(
-    ~type, ~field, ~name,
-    "required", "name_slen", c("NumTarget", "SLen"),
-    "optional", "name_correct", c("Correctness", "AccLoc"),
-    "required", "name_outcome", "Outcome"
-  )
-  vars_matched <- match_data_vars(data, vars_config)
-  if (is.null(vars_matched)) {
-    return(compose_abnormal_output(vars_output))
+span <- function(data, by, vars_input) {
+  # "nc" is calculated from "Correctness/AccLoc" column, but can be absent
+  name_acc_cand <- c("Correctness", "AccLoc")
+  name_acc_chk <- rlang::has_name(data, name_acc_cand)
+  if (any(name_acc_chk)) {
+    name_acc <- name_acc_cand[name_acc_chk]
+    nc <- data %>%
+      dplyr::mutate(acc = parse_char_resp(.data[[name_acc]])) %>%
+      tidyr::unnest(.data[["acc"]]) %>%
+      dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
+      dplyr::summarise(
+        nc = sum(.data[["acc"]] == 1),
+        .groups = "drop"
+      )
+  } else {
+    nc <- data %>%
+      dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
+      dplyr::summarise(
+        nc = NA_integer_,
+        .groups = "drop"
+      )
   }
-  delim <- "-"
-  if (is.na(vars_matched[["name_correct"]])) {
-    vars_matched["name_correct"] <- "Correctness"
-    if (!all(utils::hasName(data, c("STIM", "Resp")))) {
-      # use na values if cannot be restored
-      data <- data %>%
-        dplyr::mutate(!!vars_matched["name_correct"] := NA_character_)
-    } else {
-      data <- data %>%
-        dplyr::mutate(
-          !!vars_matched[["name_correct"]] := purrr::map2_chr(
-            .data[["STIM"]], .data[["Resp"]],
-            ~ {
-              stims <- unlist(strsplit(.x, delim))
-              resps <- unlist(strsplit(.y, delim))
-              len_diff <- length(stims) - length(resps)
-              if (len_diff > 0) {
-                resps <- c(resps, rep(-1, len_diff))
-              }
-              paste(as.numeric(stims == resps), collapse = delim)
-            }
-          )
-        )
-    }
-  }
-  span_indices <- data %>%
-    dplyr::group_by(.data[[vars_matched["name_slen"]]]) %>%
+  spans <- data %>%
+    dplyr::group_by(dplyr::across(
+      dplyr::all_of(c(by, vars_input[["name_slen"]]))
+    )) %>%
     dplyr::summarise(
-      pc = mean(.data[[vars_matched["name_outcome"]]] == 1),
-      .groups = "drop"
+      pc = mean(.data[[vars_input[["name_outcome"]]]] == 1),
+      .groups = "drop_last"
     ) %>%
     dplyr::summarise(
-      max_span = max(.data[[vars_matched["name_slen"]]]),
-      mean_span = min(.data[[vars_matched["name_slen"]]]) - .5 +
-        sum(.data[["pc"]])
+      max_span = max(.data[[vars_input[["name_slen"]]]]),
+      mean_span = sum(.data[["pc"]]) +
+        min(.data[[vars_input[["name_slen"]]]]) - .5,
+      .groups = "drop"
     )
-  nc <- data %>%
-    dplyr::pull(vars_matched[["name_correct"]]) %>%
-    strsplit(delim) %>%
-    unlist() %>%
-    as.numeric() %>%
-    sum()
-  tibble(span_indices, nc, is_normal = TRUE)
+  dplyr::left_join(nc, spans, by = by)
 }

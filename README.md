@@ -1,8 +1,10 @@
 # dataproc-iquizoo
 
-[![tic](https://github.com/psychelzh/dataproc.iquizoo/workflows/tic/badge.svg?branch=master)](https://github.com/psychelzh/dataproc.iquizoo/actions)
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/psychelzh/dataproc.iquizoo/workflows/R-CMD-check/badge.svg)](https://github.com/psychelzh/dataproc.iquizoo/actions)
 [![Codecov test coverage](https://codecov.io/gh/psychelzh/dataproc.iquizoo/branch/master/graph/badge.svg)](https://codecov.io/gh/psychelzh/dataproc.iquizoo?branch=master)
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
+<!-- badges: end -->
 
 This is an R package providing preprocessing functions for IQUIZOO original data.
 
@@ -31,7 +33,7 @@ remotes::install_github("psychelzh/dataproc.iquizoo")
 
 ## Usage
 
-This package is best used in company with [`tarflow.iquizoo`](https://github.com/psychelzh/tarflow.iquizoo) package, which used this package in its `"indices"` and `"original"` (dataset only) schemas.
+This package is best used in company with [tarflow.iquizoo](https://github.com/psychelzh/tarflow.iquizoo) package, which used this package in its `"indices"` and `"original"` (dataset only) schemas.
 
 ```r
 # remotes::install_github("psychelzh/tarflow.iquizoo")

@@ -1,45 +1,50 @@
-# Test `driving()`: Driving Test (with 0 still durations)
+# Default behavior works
 
     Code
-      driving(jsonlite::read_json("data/driving/sample_driving.json", simplifyVector = TRUE))
+      preproc_data(data, driving, by = "id")
     Output
-      # A tibble: 1 x 2
-        still_ratio is_normal
-              <dbl> <lgl>    
-      1       0.515 TRUE     
+      # A tibble: 100 x 2
+            id still_ratio
+         <int>       <dbl>
+       1     1       0.267
+       2     2       0.153
+       3     3       0.325
+       4     4       0.168
+       5     5       0.243
+       6     6       0.275
+       7     7       0.175
+       8     8       0.304
+       9     9       0.363
+      10    10       0.216
+      # ... with 90 more rows
 
-# Test `driving()`: Driving Test
+# Works with multiple grouping variables
 
     Code
-      driving(jsonlite::read_json("data/driving/sample_driving2.json",
-        simplifyVector = TRUE))
+      preproc_data(data, driving, by = c("id", "id1"))
     Output
-      # A tibble: 1 x 2
-        still_ratio is_normal
-              <dbl> <lgl>    
-      1       0.468 TRUE     
+      # A tibble: 100 x 3
+            id   id1 still_ratio
+         <int> <dbl>       <dbl>
+       1     1     2       0.267
+       2     2     3       0.153
+       3     3     4       0.325
+       4     4     5       0.168
+       5     5     6       0.243
+       6     6     7       0.275
+       7     7     8       0.175
+       8     8     9       0.304
+       9     9    10       0.363
+      10    10    11       0.216
+      # ... with 90 more rows
 
-# Test `driving()`: corrupted data
+# No error for negative duration case (but produces `NA`s)
 
     Code
-      driving(data.frame())
-    Warning <simpleWarning>
-      At least one of the required variables are missing.
+      preproc_data(data_negtive_dur, driving, by = "id")
     Output
       # A tibble: 1 x 2
-        still_ratio is_normal
-              <dbl> <lgl>    
-      1          NA FALSE    
-
----
-
-    Code
-      driving(1)
-    Warning <simpleWarning>
-      At least one of the required variables are missing.
-    Output
-      # A tibble: 1 x 2
-        still_ratio is_normal
-              <dbl> <lgl>    
-      1          NA FALSE    
+           id still_ratio
+        <dbl>       <dbl>
+      1     1          NA
 

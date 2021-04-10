@@ -1,7 +1,7 @@
 Type: Package
 Package: dataproc.iquizoo
 Title: Utility Functions for Data Processing of Iquizoo Games
-Version: 0.2.8
+Version: 1.0.0
 Authors@R:
     person(given = "Liang",
            family = "Zhang",
@@ -10,26 +10,31 @@ Authors@R:
 Description: Several couples of games are developed by IQUIZOO.COM. Here
     are the functions used to do data processing for all of those games.
 License: MIT + file LICENSE
-URL: https://github.com/psychelzh/dataproc.iquizoo
+URL: https://psychelzh.github.io/dataproc.iquizoo,
+    https://github.com/psychelzh/dataproc.iquizoo
 BugReports: https://github.com/psychelzh/dataproc.iquizoo/issues
-Depends: 
+Depends:
     R (>= 2.10)
 Imports:
     dplyr,
-    jsonlite,
+    ellipsis,
+    graphics,
     magrittr,
     pracma,
     purrr,
     rlang (>= 0.1.2),
     stringr,
     tibble,
-    tidyr
+    tidyr,
+    tidyselect,
+    utils
 Suggests:
     covr,
+    jsonlite,
     roxygen2,
     testthat (>= 3.0.0)
+Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-Config/testthat/edition: 3
