@@ -4,21 +4,21 @@
 \alias{preproc_data}
 \title{Call pre-processing function to get the performances of the given data}
 \usage{
-preproc_data(data, prep_fun, by = NULL, ..., character.only = FALSE)
+preproc_data(data, prep_fun_name, by = NULL, ..., character.only = FALSE)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{prep_fun}{The name of a function, given as a \link[base:name]{name} or
+\item{prep_fun_name}{The name of a function, given as a \link[base:name]{name} or
 literal character string, depending on whether \code{character.only} is \code{FALSE}
-(default) or \code{TRUE}.}
+(default) or \code{TRUE}. Only functions from this package is supported for now.}
 
 \item{by}{The column name(s) in \code{data} used to be grouped by. If set to \code{NULL} (default), all data will be treated as from one subject and there will be no grouping columns in the value returned.}
 
 \item{...}{These dots are for future extensions and must be empty.}
 
-\item{character.only}{A logical indicating whether \code{prep_fun} can be assumed
-to be character strings.}
+\item{character.only}{A logical indicating whether \code{prep_fun_name} can be
+assumed to be character strings.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} of game performances returned by
