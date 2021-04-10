@@ -6,19 +6,29 @@
 #'
 #' @templateVar by high
 #' @template params-template
-#' @param prep_fun The function to be called. Currently, it should be a
-#'   `symbol`, representing the function.
+#' @param prep_fun The name of a function, given as a [name][base::name] or
+#'   literal character string, depending on whether `character.only` is `FALSE`
+#'   (default) or `TRUE`.
 #' @param ... These dots are for future extensions and must be empty.
+#' @param character.only A logical indicating whether `prep_fun` can be assumed
+#'   to be character strings.
 #' @return A [tibble][tibble::tibble-package] of game performances returned by
 #'   low-level functions.
 #' @author Liang Zhang <psychelzh@outlook.com>
 #' @export
-preproc_data <- function(data, prep_fun, by = "id", ...) {
+preproc_data <- function(data, prep_fun, by = "id", ...,
+                         character.only = FALSE) {
   if (!missing(...)) {
     ellipsis::check_dots_empty()
   }
+  # match preprocessing function
+  if (!character.only) {
+    prep_fun_name <- deparse1(substitute(prep_fun))
+  } else {
+    prep_fun_name <- prep_fun
+  }
+  prep_fun <- utils::getFromNamespace(prep_fun_name, "dataproc.iquizoo")
   # validate data variable names
-  prep_fun_name <- deparse1(substitute(prep_fun))
   vars_input <- match_data_vars(data, prep_fun_name)
   if (anyNA(vars_input)) {
     warning("At least one of the required input variables does not exist.")

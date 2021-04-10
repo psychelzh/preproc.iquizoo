@@ -10,7 +10,8 @@ Authors@R:
 Description: Several couples of games are developed by IQUIZOO.COM. Here
     are the functions used to do data processing for all of those games.
 License: MIT + file LICENSE
-URL: https://psychelzh.github.io/dataproc.iquizoo, https://github.com/psychelzh/dataproc.iquizoo
+URL: https://psychelzh.github.io/dataproc.iquizoo,
+    https://github.com/psychelzh/dataproc.iquizoo
 BugReports: https://github.com/psychelzh/dataproc.iquizoo/issues
 Depends:
     R (>= 2.10)
@@ -25,7 +26,8 @@ Imports:
     stringr,
     tibble,
     tidyr,
-    tidyselect
+    tidyselect,
+    utils
 Suggests:
     covr,
     jsonlite,
