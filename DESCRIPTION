@@ -6,7 +6,8 @@ Authors@R:
     person(given = "Liang",
            family = "Zhang",
            role = c("aut", "cre"),
-           email = "psychelzh@outlook.com")
+           email = "psychelzh@outlook.com",
+           comment = c(ORCID = "0000-0001-9041-1150"))
 Description: Several couples of games are developed by IQUIZOO.COM. Here
     are the functions used to do data processing for all of those games.
 License: MIT + file LICENSE
