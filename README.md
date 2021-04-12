@@ -3,6 +3,7 @@
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/psychelzh/dataproc.iquizoo/workflows/R-CMD-check/badge.svg)](https://github.com/psychelzh/dataproc.iquizoo/actions)
 [![Codecov test coverage](https://codecov.io/gh/psychelzh/dataproc.iquizoo/branch/master/graph/badge.svg)](https://codecov.io/gh/psychelzh/dataproc.iquizoo?branch=master)
+[![lint](https://github.com/psychelzh/dataproc.iquizoo/workflows/lint/badge.svg)](https://github.com/psychelzh/dataproc.iquizoo/actions)
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 <!-- badges: end -->
 
