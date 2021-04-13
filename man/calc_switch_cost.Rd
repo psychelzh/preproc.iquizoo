@@ -23,9 +23,9 @@ the block type, in which is a \code{character} vector with "pure block" (value:
 \code{"pure"}) and "mixed block" (value: \code{"mixed"}).}
 
 \item{name_type_switch}{The column name of the \code{data} input whose values are
-the switch type, in which is a \code{character} vector with at least \code{"switch"} and
-\code{"repeat"} values. Other values if corresponding to \code{"pure"} block, will be
-used as task names.}
+the switch type, in which is a \code{character} vector with at least \code{"switch"}
+and \code{"repeat"} values. Other values if corresponding to \code{"pure"} block,
+will be used as task names.}
 
 \item{name_rt}{The column name of the \code{data} input whose values are user's reaction time, in which is a \code{numeric} vector with \code{NA} values representing abnormal reaction times.}
 
