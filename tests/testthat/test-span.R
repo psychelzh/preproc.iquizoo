@@ -6,7 +6,7 @@ data <- tibble(
 ) %>%
   tidyr::uncount(n, .id = "Trial") %>%
   dplyr::mutate(
-    Outcome = sample(
+    outcome = sample(
       c(0, 1),
       dplyr::n(),
       replace = TRUE,
@@ -17,8 +17,8 @@ data <- tibble(
   dplyr::group_modify(
     ~ .x %>%
       dplyr::mutate(
-        SLen = .prepare_level(
-          Outcome,
+        slen = .prepare_level(
+          outcome,
           init_level = 3,
           max_level = 16,
           min_level = 2
@@ -26,14 +26,14 @@ data <- tibble(
       ) %>%
       dplyr::rowwise() %>%
       dplyr::mutate(
-        Correctness = ifelse(
-          Outcome == 1,
-          stringr::str_c(rep(1, SLen), collapse = "-"),
+        correctness = ifelse(
+          outcome == 1,
+          stringr::str_c(rep(1, slen), collapse = "-"),
           stringr::str_c(
             sample(
               c(
                 0,
-                sample(c(0, 1), SLen, replace = TRUE)
+                sample(c(0, 1), slen, replace = TRUE)
               )
             ),
             collapse = "-"
@@ -49,7 +49,7 @@ data_no_acc <- tibble(
 ) %>%
   tidyr::uncount(n, .id = "Trial") %>%
   dplyr::mutate(
-    Outcome = sample(
+    outcome = sample(
       c(0, 1),
       dplyr::n(),
       replace = TRUE,
@@ -60,8 +60,8 @@ data_no_acc <- tibble(
   dplyr::group_modify(
     ~ .x %>%
       dplyr::mutate(
-        SLen = .prepare_level(
-          Outcome,
+        slen = .prepare_level(
+          outcome,
           init_level = 3,
           max_level = 16,
           min_level = 2

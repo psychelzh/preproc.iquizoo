@@ -4,7 +4,7 @@ data <- tibble(
 ) %>%
   dplyr::rowwise() %>%
   dplyr::mutate(
-    RespLocDist = runif(sample.int(10, 1), 0, 10) %>%
+    resplocdist = runif(sample.int(10, 1), 0, 10) %>%
       round(2) %>%
       stringr::str_c(collapse = "-")
   ) %>%

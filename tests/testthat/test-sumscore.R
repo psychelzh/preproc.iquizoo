@@ -5,7 +5,7 @@ data <- tibble(
 ) %>%
   tidyr::uncount(n) %>%
   dplyr::mutate(
-    Score = sample(1:5, dplyr::n(), replace = TRUE)
+    score = sample(1:5, dplyr::n(), replace = TRUE)
   )
 
 test_that("Default behavior works", {

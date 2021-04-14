@@ -3,22 +3,22 @@ n_subject <- 100
 data <- tidyr::expand_grid(
   id = seq_len(n_subject),
   tibble::tribble(
-    ~Type, ~n,
+    ~type, ~n,
     "Filler", 10,
     "Foil", 30,
     "Lure", 30,
     "Old", 30
   ) %>%
-    tidyr::uncount(n, .id = "Trial")
+    tidyr::uncount(n)
 ) %>%
   dplyr::mutate(
-    Resp = sample(c("New", "Old"), dplyr::n(), replace = TRUE),
-    ACC = ifelse(
-      (Type == "Old" & Resp == "Old") |
-        (Type %in% c("Foil", "Lure") & Resp == "New"),
+    resp = sample(c("New", "Old"), dplyr::n(), replace = TRUE),
+    acc = ifelse(
+      (type == "Old" & resp == "Old") |
+        (type %in% c("Foil", "Lure") & resp == "New"),
       1, 0
     ),
-    RT = rexp(dplyr::n(), 0.001)
+    rt = rexp(dplyr::n(), 0.001)
   )
 
 test_that("Default behavior works", {

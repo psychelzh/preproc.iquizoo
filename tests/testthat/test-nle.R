@@ -5,8 +5,8 @@ data <- tidyr::expand_grid(
 ) %>%
   tidyr::uncount(n) %>%
   dplyr::mutate(
-    Number = sample(1:99, dplyr::n(), replace = TRUE),
-    Resp = sample(1:99, dplyr::n(), replace = TRUE)
+    number = sample(1:99, dplyr::n(), replace = TRUE),
+    resp = sample(1:99, dplyr::n(), replace = TRUE)
   )
 
 test_that("Default behavior works", {
