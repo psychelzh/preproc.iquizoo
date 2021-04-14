@@ -6,7 +6,7 @@ data <- tibble(
 ) %>%
   tidyr::uncount(n, .id = "Trial") %>%
   dplyr::mutate(
-    RT = rexp(dplyr::n(), 0.001)
+    rt = rexp(dplyr::n(), 0.001)
   )
 
 test_that("Default behavior works", {

@@ -2,11 +2,11 @@ set.seed(1)
 n_subject <- 100
 data <- tidyr::expand_grid(
   id = seq_len(n_subject),
-  YellowDur = runif(8, 3000, 15000)
+  yellowdur = runif(8, 3000, 15000)
 ) %>%
   dplyr::mutate(
-    StillDurList = purrr::map(
-      YellowDur,
+    stilldurlist = purrr::map(
+      yellowdur,
       ~ {
         repeat {
           n <- sample(1:10, 1)
@@ -16,25 +16,25 @@ data <- tidyr::expand_grid(
         round(dur)
       }
     ),
-    StillDur = purrr::map_chr(
-      StillDurList,
+    stilldur = purrr::map_chr(
+      stilldurlist,
       ~ stringr::str_c(.x, collapse = "-")
     ),
-    StillLight = purrr::map_chr(
-      StillDurList,
+    stilllight = purrr::map_chr(
+      stilldurlist,
       ~ sample(c("Yellow", "Green"), length(.x), replace = TRUE) %>%
         stringr::str_c(collapse = "-")
     )
   ) %>%
-  dplyr::select(-StillDurList)
+  dplyr::select(-stilldurlist)
 # some rare cases produce negative durations by error
 data_negtive_dur <- tibble(
   id = 1,
-  YellowDur = runif(8, 3000, 15000)
+  yellowdur = runif(8, 3000, 15000)
 ) %>%
   dplyr::mutate(
-    StillDurList = purrr::map(
-      YellowDur,
+    stilldurlist = purrr::map(
+      yellowdur,
       ~ {
         repeat {
           n <- sample(1:10, 1)
@@ -44,17 +44,17 @@ data_negtive_dur <- tibble(
         round(dur)
       }
     ),
-    StillDur = purrr::map_chr(
-      StillDurList,
+    stilldur = purrr::map_chr(
+      stilldurlist,
       ~ stringr::str_c(.x, collapse = "-")
     ),
-    StillLight = purrr::map_chr(
-      StillDurList,
+    stilllight = purrr::map_chr(
+      stilldurlist,
       ~ sample(c("Yellow", "Green"), length(.x), replace = TRUE) %>%
         stringr::str_c(collapse = "-")
     )
   ) %>%
-  dplyr::select(-StillDurList)
+  dplyr::select(-stilldurlist)
 
 
 test_that("Default behavior works", {

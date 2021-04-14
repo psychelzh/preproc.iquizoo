@@ -3,31 +3,31 @@ set.seed(1)
 data <- tidyr::expand_grid(
   id = 1:1000,
   tibble(
-    Phase = c("Learn", "Test"),
+    phase = c("Learn", "Test"),
     n = c(40, 60)
   )
 ) %>%
-  tidyr::uncount(n, .id = "Trial") %>%
+  tidyr::uncount(n, .id = "trial") %>%
   dplyr::mutate(
-    Type = dplyr::case_when(
-      Phase == "Learn" ~ NA_character_,
-      (Trial + 1) %% 3 == 0 ~ "lure",
-      (Trial + 1) %% 3 == 1 ~ "foil",
-      (Trial + 1) %% 3 == 2 ~ "target"
+    type = dplyr::case_when(
+      phase == "Learn" ~ NA_character_,
+      (trial + 1) %% 3 == 0 ~ "lure",
+      (trial + 1) %% 3 == 1 ~ "foil",
+      (trial + 1) %% 3 == 2 ~ "target"
     ),
-    Resp = dplyr::if_else(
-      Phase == "Learn",
+    resp = dplyr::if_else(
+      phase == "Learn",
       sample(c("Left", "Right"), dplyr::n(), replace = TRUE),
       sample(c("Old", "Similar", "New"), dplyr::n(), replace = TRUE)
     ),
-    ACC = dplyr::case_when(
-      Phase == "Learn" ~ NA_integer_,
-      (Type == "target" & Resp == "Old") |
-        (Type == "foil" & Resp == "New") |
-        (Type == "lure" & Resp == "Similar") ~ 1L,
+    acc = dplyr::case_when(
+      phase == "Learn" ~ NA_integer_,
+      (type == "target" & resp == "Old") |
+        (type == "foil" & resp == "New") |
+        (type == "lure" & resp == "Similar") ~ 1L,
       TRUE ~ 0L
     ),
-    RT = rexp(dplyr::n(), 0.001)
+    rt = rexp(dplyr::n(), 0.001)
   )
 
 test_that("Default behavior works", {

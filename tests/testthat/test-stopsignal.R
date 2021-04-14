@@ -22,8 +22,8 @@ set.seed(1)
 data <- tidyr::expand_grid(
   id = seq_len(100),
   tibble(
-    Trial = seq_len(160),
-    Type = sample(
+    trial = seq_len(160),
+    type = sample(
       c(
         rep("Go", 120),
         rep("Stop1", 20),
@@ -32,21 +32,21 @@ data <- tidyr::expand_grid(
     )
   )
 ) %>%
-  dplyr::mutate(ACC = sample(c(0, 1), dplyr::n(), replace = TRUE)) %>%
-  dplyr::group_by(id, Type) %>%
+  dplyr::mutate(acc = sample(c(0, 1), dplyr::n(), replace = TRUE)) %>%
+  dplyr::group_by(id, type) %>%
   dplyr::group_modify(
     ~ .x %>%
       dplyr::mutate(
-        SSD = .prepare_ssd(
-          ACC, .y$Type
+        ssd = .prepare_ssd(
+          acc, .y$type
         )
       )
   ) %>%
   dplyr::ungroup() %>%
   dplyr::mutate(
-    RT = ifelse(ACC == 1 & Type != "Go", 0, rexp(dplyr::n(), 0.001))
+    rt = ifelse(acc == 1 & type != "Go", 0, rexp(dplyr::n(), 0.001))
   ) %>%
-  dplyr::arrange(id, Trial)
+  dplyr::arrange(id, trial)
 
 test_that("Default behavior works", {
   expect_snapshot(preproc_data(data, stopsignal, by = "id"))

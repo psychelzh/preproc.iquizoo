@@ -5,10 +5,10 @@ data <- tibble(
   dplyr::rowwise() %>%
   dplyr::mutate(
     n_obj = sample.int(10, 1),
-    RespLocDist = runif(n_obj, 0, 10) %>%
+    resplocdist = runif(n_obj, 0, 10) %>%
       round(2) %>%
       stringr::str_c(collapse = "-"),
-    RespAccOrder = sample(c(0, 1), n_obj, replace = TRUE) %>%
+    respaccorder = sample(c(0, 1), n_obj, replace = TRUE) %>%
       stringr::str_c(collapse = "-")
   ) %>%
   dplyr::ungroup()

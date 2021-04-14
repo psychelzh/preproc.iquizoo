@@ -5,8 +5,8 @@ data <- tibble(
   dplyr::mutate(n = sample(50:100, dplyr::n(), replace = TRUE)) %>%
   tidyr::uncount(n) %>%
   dplyr::mutate(
-    PoolID = sample(LETTERS[1:4], dplyr::n(), replace = TRUE),
-    Outcome = sample(c(0, 200, 400, 2000, 4000), dplyr::n(), replace = TRUE)
+    poolid = sample(LETTERS[1:4], dplyr::n(), replace = TRUE),
+    outcome = sample(c(0, 200, 400, 2000, 4000), dplyr::n(), replace = TRUE)
   )
 
 test_that("Default behavior works", {

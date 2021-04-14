@@ -2,7 +2,7 @@ set.seed(1)
 data <- tidyr::expand_grid(
   id = seq_len(100),
   tibble::tribble(
-    ~BigSetCount, ~SmallSetCount, ~n,
+    ~bigsetcount, ~smallsetcount, ~n,
     12, 6, 10,
     14, 7, 10,
     9, 6, 10,
@@ -15,8 +15,8 @@ data <- tidyr::expand_grid(
 ) %>%
   tidyr::uncount(n) %>%
   dplyr::mutate(
-    ACC = sample(c(0, 1), dplyr::n(), replace = TRUE),
-    RT = rexp(dplyr::n(), 0.001)
+    acc = sample(c(0, 1), dplyr::n(), replace = TRUE),
+    rt = rexp(dplyr::n(), 0.001)
   )
 
 test_that("Default behavior works", {

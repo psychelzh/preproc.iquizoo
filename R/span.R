@@ -11,8 +11,8 @@
 #'   \item{mean_span}{Mean span.}
 #' @export
 span <- function(data, by, vars_input) {
-  # "nc" is calculated from "Correctness/AccLoc" column, but can be absent
-  name_acc_cand <- c("Correctness", "AccLoc")
+  # "nc" is calculated from "correctness/accloc" column, but can be absent
+  name_acc_cand <- c("correctness", "accloc")
   name_acc_chk <- rlang::has_name(data, name_acc_cand)
   if (any(name_acc_chk)) {
     name_acc <- name_acc_cand[name_acc_chk]

@@ -2,13 +2,13 @@ set.seed(1)
 data <- tidyr::expand_grid(
   id = seq_len(100),
   tibble(
-    NStim = 2:4,
+    nstim = 2:4,
     n = 10
   )
 ) %>%
   tidyr::uncount(n) %>%
   dplyr::mutate(
-    ACC = sample(-1:1, dplyr::n(), replace = TRUE)
+    acc = sample(-1:1, dplyr::n(), replace = TRUE)
   )
 
 test_that("Default behavior works", {
