@@ -1,4 +1,4 @@
-# dataproc.iquizoo (development version)
+# dataproc.iquizoo 1.0.1
 
 ## Bug Fixes
 
