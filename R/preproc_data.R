@@ -36,18 +36,18 @@ preproc_data <- function(data, prep_fun_name, by = NULL, ...,
   if (is.null(by)) {
     by <- "id"
     data[[by]] <- 1
-    keep.by <- FALSE
+    keep_by <- FALSE
   } else {
     if (!all(rlang::has_name(data, by))) {
       warning("At least one of the grouping variables does not exist.")
       return(NULL)
     }
-    keep.by <- TRUE
+    keep_by <- TRUE
   }
   # call the pre-processing function: note the tibble call
   prep_fun(data = tibble(data), vars_input = vars_input, by = by) %>%
     dplyr::select(dplyr::all_of(
       # keep grouping variable when required
-      c(if (keep.by) by, .get_output_vars(prep_fun_name))
+      c(if (keep_by) by, .get_output_vars(prep_fun_name))
     ))
 }
