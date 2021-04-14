@@ -1,4 +1,4 @@
-game_id,game_name,game_name_en,game_name_abbr,prep_fun_name
+﻿game_id,game_name,game_name_en,game_name_abbr,prep_fun_name
 ed0a28e4-9a36-402d-b671-3a26abb57581,按图索骥,Hidden Object Paradigm,HOP,refframe
 b058c5e3-cff0-417d-93a9-dd82f901530d,变色魔块,Stop Signal,StopSig,stopsignal
 885f599e-6cde-4588-a57e-24d2ea80e8ec,不倒翁,Tumbler,TBLR,countcorrect
