@@ -1,8 +1,8 @@
-#' Call pre-processing function to get the performances of the given data
+#' Call low-level functions given data
 #'
 #' This is the really "entry point" function that gives a convenient access to
-#' all the pre-processing functions. The documentation of each of them can be
-#' accessed to know its details of the returned values.
+#' all the low-level pre-processing functions. These low-level functions are
+#' also exported and documented with the details of the returned values.
 #'
 #' @templateVar by high
 #' @template params-template
@@ -36,18 +36,18 @@ preproc_data <- function(data, prep_fun_name, by = NULL, ...,
   if (is.null(by)) {
     by <- "id"
     data[[by]] <- 1
-    keep.by <- FALSE
+    keep_by <- FALSE
   } else {
     if (!all(rlang::has_name(data, by))) {
       warning("At least one of the grouping variables does not exist.")
       return(NULL)
     }
-    keep.by <- TRUE
+    keep_by <- TRUE
   }
   # call the pre-processing function: note the tibble call
   prep_fun(data = tibble(data), vars_input = vars_input, by = by) %>%
     dplyr::select(dplyr::all_of(
       # keep grouping variable when required
-      c(if (keep.by) by, .get_output_vars(prep_fun_name))
+      c(if (keep_by) by, .get_output_vars(prep_fun_name))
     ))
 }

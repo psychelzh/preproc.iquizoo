@@ -10,9 +10,9 @@
 #'   the block type, in which is a `character` vector with "pure block" (value:
 #'   `"pure"`) and "mixed block" (value: `"mixed"`).
 #' @param name_type_switch The column name of the `data` input whose values are
-#'   the switch type, in which is a `character` vector with at least `"switch"` and
-#'   `"repeat"` values. Other values if corresponding to `"pure"` block, will be
-#'   used as task names.
+#'   the switch type, in which is a `character` vector with at least `"switch"`
+#'   and `"repeat"` values. Other values if corresponding to `"pure"` block,
+#'   will be used as task names.
 #' @keywords internal
 calc_switch_cost <- function(data,
                              by,

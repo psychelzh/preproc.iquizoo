@@ -1,8 +1,8 @@
 {
     "bart": {
         "input": {
-            "name_nhit": "NHit",
-            "name_feedback": "Feedback"
+            "name_nhit": "nhit",
+            "name_feedback": "feedback"
         },
         "output": [
             "mean_pumps",
@@ -12,11 +12,11 @@
     },
     "bps": {
         "input": {
-            "name_phase": "Phase",
-            "name_type": "Type",
-            "name_resp": "Resp",
-            "name_acc": "ACC",
-            "name_rt": "RT"
+            "name_phase": "phase",
+            "name_type": "type",
+            "name_resp": "resp",
+            "name_acc": "acc",
+            "name_rt": "rt"
         },
         "output": [
             "pc",
@@ -28,18 +28,15 @@
     },
     "complexswitch": {
         "input": {
-            "name_block": "Block",
-            "name_cong": "StimType",
+            "name_block": "block",
+            "name_cong": "stimtype",
             "name_task": [
-                "Task",
-                "Sex"
+                "task",
+                "sex"
             ],
-            "name_switch": "TaskType",
-            "name_acc": [
-                "Acc",
-                "ACC"
-            ],
-            "name_rt": "RT"
+            "name_switch": "tasktype",
+            "name_acc": "acc",
+            "name_rt": "rt"
         },
         "output": [
             "mrt_con",
@@ -62,9 +59,9 @@
     },
     "congeff": {
         "input": {
-            "name_cong": "Type",
-            "name_acc": "ACC",
-            "name_rt": "RT"
+            "name_cong": "type",
+            "name_acc": "acc",
+            "name_rt": "rt"
         },
         "output": [
             "mrt_inc",
@@ -78,28 +75,28 @@
     "countcorrect": {
         "input": {
             "name_acc": [
-                "ACC",
-                "Repetition",
-                "Correctness"
+                "acc",
+                "repetition",
+                "correctness"
             ]
         },
         "output": "nc"
     },
     "countcorrect2": {
         "input": {
-            "name_nc": "NCorrect",
-            "name_ne": "NError"
+            "name_nc": "ncorrect",
+            "name_ne": "nerror"
         },
         "output": "nc_cor"
     },
     "cpt": {
         "input": {
             "name_type": [
-                "Type",
-                "StimType"
+                "type",
+                "stimtype"
             ],
-            "name_acc": "ACC",
-            "name_rt": "RT"
+            "name_acc": "acc",
+            "name_rt": "rt"
         },
         "output": [
             "nc",
@@ -113,8 +110,8 @@
     },
     "crt": {
         "input": {
-            "name_acc": "ACC",
-            "name_rt": "RT"
+            "name_acc": "acc",
+            "name_rt": "rt"
         },
         "output": [
             "mrt",
@@ -124,18 +121,18 @@
     },
     "driving": {
         "input": {
-            "name_yellow_dur": "YellowDur",
-            "name_still_dur": "StillDur",
-            "name_still_light": "StillLight"
+            "name_yellow_dur": "yellowdur",
+            "name_still_dur": "stilldur",
+            "name_still_light": "stilllight"
         },
         "output": "still_ratio"
     },
     "drm": {
         "input": {
-            "name_type": "Type",
-            "name_acc": "ACC",
-            "name_rt": "RT",
-            "name_resp": "Resp"
+            "name_type": "type",
+            "name_acc": "acc",
+            "name_rt": "rt",
+            "name_resp": "resp"
         },
         "output": [
             "tm_dprime",
@@ -146,8 +143,8 @@
     },
     "igt": {
         "input": {
-            "name_pool": "PoolID",
-            "name_outcome": "Outcome"
+            "name_pool": "poolid",
+            "name_outcome": "outcome"
         },
         "output": [
             "sum_outcome",
@@ -156,9 +153,9 @@
     },
     "jlo": {
         "input": {
-            "name_angle": "Angle",
-            "name_resp": "Resp",
-            "name_acc": "ACC"
+            "name_angle": "angle",
+            "name_resp": "resp",
+            "name_acc": "acc"
         },
         "output": [
             "nc",
@@ -168,7 +165,7 @@
     },
     "locmem": {
         "input": {
-            "name_dist": "RespLocDist"
+            "name_dist": "resplocdist"
         },
         "output": [
             "nc_loc",
@@ -178,8 +175,8 @@
     },
     "locmem2": {
         "input": {
-            "name_acc_order": "RespAccOrder",
-            "name_dist": "RespLocDist"
+            "name_acc_order": "respaccorder",
+            "name_dist": "resplocdist"
         },
         "output": [
             "nc_loc",
@@ -190,13 +187,10 @@
     },
     "london": {
         "input": {
-            "name_level": [
-                "LeveL",
-                "Level"
-            ],
-            "name_score": "Score",
-            "name_outcome": "Outcome",
-            "name_steps": "StepsUsed"
+            "name_level": "level",
+            "name_score": "score",
+            "name_outcome": "outcome",
+            "name_steps": "stepsused"
         },
         "output": [
             "total_score",
@@ -206,8 +200,8 @@
     },
     "multisense": {
         "input": {
-            "name_type": "Type",
-            "name_rt": "RT"
+            "name_type": "type",
+            "name_rt": "rt"
         },
         "output": [
             "mrt_image",
@@ -218,9 +212,9 @@
     },
     "nback": {
         "input": {
-            "name_type": "Type",
-            "name_acc": "ACC",
-            "name_rt": "RT"
+            "name_type": "type",
+            "name_acc": "acc",
+            "name_rt": "rt"
         },
         "output": [
             "pc",
@@ -231,8 +225,8 @@
     },
     "nle": {
         "input": {
-            "name_number": "Number",
-            "name_resp": "Resp"
+            "name_number": "number",
+            "name_resp": "resp"
         },
         "output": [
             "mean_abs_err",
@@ -241,10 +235,10 @@
     },
     "nsymncmp": {
         "input": {
-            "name_big": "BigSetCount",
-            "name_small": "SmallSetCount",
-            "name_acc": "ACC",
-            "name_rt": "RT"
+            "name_big": "bigsetcount",
+            "name_small": "smallsetcount",
+            "name_acc": "acc",
+            "name_rt": "rt"
         },
         "output": [
             "pc",
@@ -254,8 +248,8 @@
     },
     "refframe": {
         "input": {
-            "name_type": "Type",
-            "name_dist": "Dist"
+            "name_type": "type",
+            "name_dist": "dist"
         },
         "output": [
             "mean_dist_err_allo",
@@ -267,10 +261,10 @@
     "span": {
         "input": {
             "name_slen": [
-                "NumTarget",
-                "SLen"
+                "numtarget",
+                "slen"
             ],
-            "name_outcome": "Outcome"
+            "name_outcome": "outcome"
         },
         "output": [
             "nc",
@@ -280,7 +274,7 @@
     },
     "srt": {
         "input": {
-            "name_rt": "RT"
+            "name_rt": "rt"
         },
         "output": [
             "mrt",
@@ -289,10 +283,10 @@
     },
     "stopsignal": {
         "input": {
-            "name_type": "Type",
-            "name_ssd": "SSD",
-            "name_acc": "ACC",
-            "name_rt": "RT"
+            "name_type": "type",
+            "name_ssd": "ssd",
+            "name_acc": "acc",
+            "name_rt": "rt"
         },
         "output": [
             "pc_all",
@@ -303,24 +297,24 @@
     },
     "sumweighted": {
         "input": {
-            "name_weight": "NStim",
-            "name_acc": "ACC"
+            "name_weight": "nstim",
+            "name_acc": "acc"
         },
         "output": "nc_weighted"
     },
     "sumscore": {
         "input": {
-            "name_score": "Score"
+            "name_score": "score"
         },
         "output": "nc_score"
     },
     "switchcost": {
         "input": {
-            "name_block": "Block",
-            "name_task": "Task",
-            "name_switch": "Type",
-            "name_acc": "ACC",
-            "name_rt": "RT"
+            "name_block": "block",
+            "name_task": "task",
+            "name_switch": "type",
+            "name_acc": "acc",
+            "name_rt": "rt"
         },
         "output": [
             "mrt_pure",
@@ -337,10 +331,10 @@
     },
     "symncmp": {
         "input": {
-            "name_big": "Big",
-            "name_small": "Small",
-            "name_acc": "ACC",
-            "name_rt": "RT"
+            "name_big": "big",
+            "name_small": "small",
+            "name_acc": "acc",
+            "name_rt": "rt"
         },
         "output": [
             "pc",

@@ -1,4 +1,4 @@
-data <- data.frame(NHit = 1, Feedback = 0)
+data <- data.frame(nhit = 1, feedback = 0)
 
 test_that("Default behavior (`by = NULL`) deletes group variables afterward", {
   expect_silent(

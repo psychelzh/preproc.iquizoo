@@ -4,10 +4,10 @@ data <- tibble(
   id = seq_len(n_subject),
   n = sample(40:80, n_subject, replace = TRUE)
 ) %>%
-  tidyr::uncount(n, .id = "Trial") %>%
+  tidyr::uncount(n) %>%
   dplyr::mutate(
-    ACC = sample(c(0, 1), dplyr::n(), replace = TRUE),
-    RT = rexp(dplyr::n(), 0.001)
+    acc = sample(c(0, 1), dplyr::n(), replace = TRUE),
+    rt = rexp(dplyr::n(), 0.001)
   )
 
 test_that("Default behavior works", {

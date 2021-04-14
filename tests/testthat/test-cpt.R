@@ -4,39 +4,39 @@ data <- tibble(
   id = seq_len(n_subject),
   n = 300
 ) %>%
-  tidyr::uncount(n, .id = "Trial") %>%
+  tidyr::uncount(n) %>%
   dplyr::mutate(
-    Type = sample(
+    type = sample(
       c("Random", "Aonly", "Bonly", "Target"),
       dplyr::n(),
       replace = TRUE
     ),
-    ACC = sample(c(0, 1), dplyr::n(), replace = TRUE),
-    RT = rexp(dplyr::n(), 0.001)
+    acc = sample(c(0, 1), dplyr::n(), replace = TRUE),
+    rt = rexp(dplyr::n(), 0.001)
   )
 data_perfect <- tibble(
   id = rep(1, 10),
-  Type = sample(
+  type = sample(
     c("Random", "Aonly", "Bonly", "Target"),
     10,
     replace = TRUE
   ),
-  ACC = 1,
-  RT = rexp(10, 0.001)
+  acc = 1,
+  rt = rexp(10, 0.001)
 )
 data_dualtask <- tibble(
   id = seq_len(n_subject),
   n = 300
 ) %>%
-  tidyr::uncount(n, .id = "Trial") %>%
+  tidyr::uncount(n) %>%
   dplyr::mutate(
-    StimType = sample(
+    stimtype = sample(
       c("NonTarget", "Target"),
       dplyr::n(),
       replace = TRUE
     ),
-    ACC = sample(c(0, 1), dplyr::n(), replace = TRUE),
-    RT = rexp(dplyr::n(), 0.001)
+    acc = sample(c(0, 1), dplyr::n(), replace = TRUE),
+    rt = rexp(dplyr::n(), 0.001)
   )
 
 test_that("Default behavior works", {

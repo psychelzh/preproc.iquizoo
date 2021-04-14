@@ -2,7 +2,7 @@
 % Please edit documentation in R/preproc_data.R
 \name{preproc_data}
 \alias{preproc_data}
-\title{Call pre-processing function to get the performances of the given data}
+\title{Call low-level functions given data}
 \usage{
 preproc_data(data, prep_fun_name, by = NULL, ..., character.only = FALSE)
 }
@@ -26,8 +26,8 @@ low-level functions.
 }
 \description{
 This is the really "entry point" function that gives a convenient access to
-all the pre-processing functions. The documentation of each of them can be
-accessed to know its details of the returned values.
+all the low-level pre-processing functions. These low-level functions are
+also exported and documented with the details of the returned values.
 }
 \author{
 Liang Zhang \href{mailto:psychelzh@outlook.com}{psychelzh@outlook.com}

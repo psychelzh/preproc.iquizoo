@@ -1,3 +1,10 @@
+# dataproc.iquizoo 1.0.1
+
+## Bug Fixes
+
+* Added more games in the data `game_info`, mostly are questionnaires (#27, thanks to @Blockhead-yj).
+* Fixed case issues of data name. Now lowercase is used thoroughly for data names (note it is not snake_case, for readability is not for consideration).
+
 # dataproc.iquizoo 1.0.0
 
 ## New Features

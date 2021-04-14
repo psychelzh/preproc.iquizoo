@@ -6,21 +6,21 @@ data <- tibble(
 ) %>%
   tidyr::uncount(n, .id = "Trial") %>%
   dplyr::mutate(
-    Outcome = sample(c(0, 1), dplyr::n(), replace = TRUE, prob = c(0.2, 0.8))
+    outcome = sample(c(0, 1), dplyr::n(), replace = TRUE, prob = c(0.2, 0.8))
   ) %>%
   dplyr::group_by(id) %>%
   dplyr::group_modify(
     ~ .x %>%
       dplyr::mutate(
-        Level = .prepare_level(
-          Outcome,
+        level = .prepare_level(
+          outcome,
           init_level = 3,
           max_level = 8,
           min_level = 2
         ),
-        Score = ifelse(Outcome == 1, Level * 100, 0) +
-          round(runif(dplyr::n(), max = Level * 100)),
-        StepsUsed = ifelse(Outcome == 1, Level, 0) +
+        score = ifelse(outcome == 1, level * 100, 0) +
+          round(runif(dplyr::n(), max = level * 100)),
+        stepsused = ifelse(outcome == 1, level, 0) +
           sample(0:20, dplyr::n(), replace = TRUE)
       )
   ) %>%
