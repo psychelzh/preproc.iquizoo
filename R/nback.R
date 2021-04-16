@@ -14,11 +14,13 @@
 nback <- function(data, by, vars_input) {
   data_cor <- data %>%
     # type of "None" should be ignored
-    dplyr::filter(.data[[vars_input[["name_type"]]]] != "None") %>%
+    dplyr::filter(
+      !.data[[vars_input[["name_type"]]]] %in% c("none", "filler")
+    ) %>%
     dplyr::mutate(
       # standardize stimuli type
       type_cor = dplyr::if_else(
-        .data[[vars_input[["name_type"]]]] == "Change",
+        .data[[vars_input[["name_type"]]]] %in% c("change", "target"),
         "s", "n"
       ),
       # remove rt of 100 or less and rt from non-signal trials

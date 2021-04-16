@@ -51,10 +51,6 @@ complexswitch <- function(data, by, vars_input) {
         .data[[vars_input[["name_rt"]]]] > 100,
         .data[[vars_input[["name_rt"]]]], NA
       ),
-      dplyr::across(
-        tidyselect::vars_select_helpers$where(is.character),
-        tolower
-      ),
       type_block = ifelse(
         .data[[vars_input[["name_switch"]]]] %in% c("", "pure"),
         "pure", "mixed"
@@ -94,10 +90,6 @@ congeff <- function(data, by, vars_input) {
       rt_cor = ifelse(
         .data[[vars_input[["name_rt"]]]] > 100,
         .data[[vars_input[["name_rt"]]]], NA
-      ),
-      dplyr::across(
-        tidyselect::vars_select_helpers$where(is.character),
-        tolower
       )
     )
   calc_cong_eff(
@@ -118,10 +110,6 @@ switchcost <- function(data, by, vars_input) {
       rt_cor = ifelse(
         .data[[vars_input[["name_rt"]]]] > 100,
         .data[[vars_input[["name_rt"]]]], NA
-      ),
-      dplyr::across(
-        tidyselect::vars_select_helpers$where(is.character),
-        tolower
       ),
       type_block = ifelse(
         .data[[vars_input[["name_switch"]]]] %in% c("", "pure"),

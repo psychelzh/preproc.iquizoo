@@ -1,3 +1,10 @@
+# dataproc.iquizoo 1.0.2
+
+## New Features
+
+* Add a subtle new feature that now more keywords are supported in `nback()`. Specifically, you can now use `"filler"` and `"target"` keywords.
+* Add another subtle new feature so that you can ignore the case of character vectors. For example, `"filler"` and `"Filler"` are both okay for now, but only `"Filler"` is errorproof for previous versions.
+
 # dataproc.iquizoo 1.0.1
 
 ## Bug Fixes

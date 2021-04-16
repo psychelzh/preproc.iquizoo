@@ -80,3 +80,19 @@ test_that("Works with multiple grouping variables", {
   data <- dplyr::mutate(data, id1 = id + 1)
   expect_snapshot(preproc_data(data, complexswitch, by = c("id", "id1")))
 })
+
+test_that("Works when character case is messy", {
+  data_case_messy <- data %>%
+    dplyr::mutate(
+      stimtype = dplyr::recode(stimtype, Congruent = "congruent"),
+      tasktype = dplyr::recode(tasktype, Pure = "pure"),
+      task = dplyr::recode(task, T1 = "t1")
+    )
+  expect_silent(
+    case_messy <- preproc_data(data_case_messy, complexswitch, by = "id")
+  )
+  expect_identical(
+    case_messy,
+    preproc_data(data, complexswitch, by = "id")
+  )
+})

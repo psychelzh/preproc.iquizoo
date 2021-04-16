@@ -14,10 +14,10 @@
 stopsignal <- function(data, by, vars_input) {
   data_cor <- data %>%
     dplyr::mutate(
-      type_cor = tolower(.data[[vars_input[["name_type"]]]]),
       # remove rt of 100 or less for go trials
       rt_cor = ifelse(
-        .data[[vars_input[["name_rt"]]]] <= 100 & .data[["type_cor"]] == "go",
+        .data[[vars_input[["name_rt"]]]] <= 100 &
+          .data[[vars_input[["name_type"]]]] == "go",
         NA, .data[[vars_input[["name_rt"]]]]
       )
     )
@@ -27,15 +27,15 @@ stopsignal <- function(data, by, vars_input) {
       pc_all = mean(.data[[vars_input[["name_acc"]]]] == 1),
       pc_go = sum(
         .data[[vars_input[["name_acc"]]]] == 1 &
-          .data[["type_cor"]] == "go"
-      ) / sum(.data[["type_cor"]] == "go")
+          .data[[vars_input[["name_type"]]]] == "go"
+      ) / sum(.data[[vars_input[["name_type"]]]] == "go")
     )
   indices_from_rt <- data_cor %>%
     dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
     dplyr::group_modify(
       ~ .calc_ssrt(
         .x,
-        name_type = "type_cor",
+        name_type = vars_input[["name_type"]],
         name_acc = vars_input[["name_acc"]],
         name_rt = "rt_cor",
         name_ssd = vars_input[["name_ssd"]]

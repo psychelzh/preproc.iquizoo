@@ -69,3 +69,17 @@ test_that("Works with multiple grouping variables", {
 test_that("No error for negative duration case (but produces `NA`s)", {
   expect_snapshot(preproc_data(data_negtive_dur, driving, by = "id"))
 })
+
+test_that("Works when character case is messy", {
+  data_case_messy <- data %>%
+    dplyr::mutate(
+      stilllight = dplyr::recode(stilllight, Green = "green")
+    )
+  expect_silent(
+    case_messy <- preproc_data(data_case_messy, driving, by = "id")
+  )
+  expect_identical(
+    case_messy,
+    preproc_data(data, driving, by = "id")
+  )
+})

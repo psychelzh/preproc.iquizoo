@@ -15,14 +15,15 @@
 #' @export
 multisense <- function(data, by, vars_input) {
   data %>%
+    dplyr::group_by(dplyr::across(
+      dplyr::all_of(c(by, vars_input[["name_type"]]))
+    )) %>%
     dplyr::mutate(
-      type = tolower(.data[[vars_input[["name_type"]]]]),
       rt_cor = ifelse(
         .data[[vars_input[["name_rt"]]]] > 100,
         .data[[vars_input[["name_rt"]]]], NA
       )
     ) %>%
-    dplyr::group_by(dplyr::across(dplyr::all_of(c(by, "type")))) %>%
     dplyr::mutate(
       rt_cor = ifelse(
         .data[["rt_cor"]] %in%
@@ -35,7 +36,7 @@ multisense <- function(data, by, vars_input) {
       .groups = "drop"
     ) %>%
     tidyr::pivot_wider(
-      names_from = "type",
+      names_from = vars_input[["name_type"]],
       names_prefix = "mrt_",
       values_from = "mrt"
     ) %>%
