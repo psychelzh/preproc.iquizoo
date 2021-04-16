@@ -45,7 +45,15 @@ preproc_data <- function(data, prep_fun_name, by = NULL, ...,
     keep_by <- TRUE
   }
   # call the pre-processing function: note the tibble call
-  prep_fun(data = tibble(data), vars_input = vars_input, by = by) %>%
+  tibble(data) %>%
+    # transform character values to lowercase
+    dplyr::mutate(
+      dplyr::across(
+        tidyselect::vars_select_helpers$where(is.character),
+        tolower
+      )
+    ) %>%
+    prep_fun(vars_input = vars_input, by = by) %>%
     dplyr::select(dplyr::all_of(
       # keep grouping variable when required
       c(if (keep_by) by, .get_output_vars(prep_fun_name))

@@ -14,12 +14,6 @@
 #' @export
 drm <- function(data, by, vars_input) {
   data %>%
-    dplyr::mutate(
-      dplyr::across(
-        tidyselect::vars_select_helpers$where(is.character),
-        tolower
-      )
-    ) %>%
     dplyr::filter(.data[[vars_input[["name_type"]]]] != "filler") %>%
     dplyr::group_by(dplyr::across(
       dplyr::all_of(c(by, vars_input[["name_type"]]))

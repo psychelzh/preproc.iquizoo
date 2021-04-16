@@ -21,7 +21,7 @@ driving <- function(data, by, vars_input) {
     dplyr::mutate(
       still_dur_yellow = purrr::map2_dbl(
         .data[["still_dur"]], .data[["still_light"]],
-        ~ ifelse(length(.x) == length(.y), sum(.x[.y == "Yellow"]), NA)
+        ~ ifelse(length(.x) == length(.y), sum(.x[.y == "yellow"]), NA)
       )
     ) %>%
     dplyr::summarise(

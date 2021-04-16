@@ -15,7 +15,7 @@
 #' @export
 bps <- function(data, by, vars_input) {
   data_cor <- data %>%
-    dplyr::filter(tolower(.data[[vars_input[["name_phase"]]]]) == "test")
+    dplyr::filter(.data[[vars_input[["name_phase"]]]] == "test")
   pc_all <- data_cor %>%
     dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
     dplyr::summarise(
@@ -27,7 +27,7 @@ bps <- function(data, by, vars_input) {
       dplyr::all_of(c(by, vars_input[["name_type"]]))
     )) %>%
     dplyr::summarise(
-      p_sim = mean(tolower(.data[[vars_input[["name_resp"]]]]) == "similar")
+      p_sim = mean(.data[[vars_input[["name_resp"]]]] == "similar")
     ) %>%
     tidyr::pivot_wider(
       names_from = .data[[vars_input[["name_type"]]]],
