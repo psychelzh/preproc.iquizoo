@@ -56,3 +56,17 @@ test_that("Works with multiple grouping variables", {
   data <- dplyr::mutate(data, id1 = id + 1)
   expect_snapshot(preproc_data(data, stopsignal, by = c("id", "id1")))
 })
+
+test_that("Works when character case is messy", {
+  data_case_messy <- data %>%
+    dplyr::mutate(
+      type = dplyr::recode(type, Stop1 = "stop1")
+    )
+  expect_silent(
+    case_messy <- preproc_data(data_case_messy, stopsignal, by = "id")
+  )
+  expect_identical(
+    case_messy,
+    preproc_data(data, stopsignal, by = "id")
+  )
+})
