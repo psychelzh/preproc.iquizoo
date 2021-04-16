@@ -20,7 +20,7 @@ jlo <- function(data, by, vars_input) {
         "-"
       ) %>%
         purrr::map_dbl(
-          ~ sum(dplyr::recode(.x, Left = 1, Right = -1) * 6)
+          ~ sum(dplyr::recode(.x, left = 1, right = -1) * 6)
         ),
       resp_err_raw = abs(
         .data[["resp_angle"]] - .data[[vars_input[["name_angle"]]]]

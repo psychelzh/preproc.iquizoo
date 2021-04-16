@@ -18,8 +18,8 @@ refframe <- function(data, by, vars_input) {
     dplyr::mutate(
       type_cor = dplyr::recode(
         .data[[vars_input[["name_type"]]]],
-        Allocentric = "allo",
-        Egocentric = "ego"
+        allocentric = "allo",
+        egocentric = "ego"
       )
     ) %>%
     dplyr::group_by(dplyr::across(dplyr::all_of(c(by, "type_cor")))) %>%
