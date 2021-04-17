@@ -35,6 +35,7 @@ You can install the development version from [GitHub](https://github.com/) with:
 # install.packages("devtools")
 devtools::install_github("psychelzh/dataproc.iquizoo")
 ```
+
 ## Usage
 
 This package is best used in company with [tarflow.iquizoo](https://github.com/psychelzh/tarflow.iquizoo) package. Read the [documentation](https://psychelzh.github.io/tarflow.iquizoo) there.
