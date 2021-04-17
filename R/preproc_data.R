@@ -38,7 +38,7 @@ preproc_data <- function(data, prep_fun_name, by = NULL, ...,
     data[[by]] <- 1
     keep_by <- FALSE
   } else {
-    if (!all(rlang::has_name(data, by))) {
+    if (!all(has_name(data, by))) {
       warning("At least one of the grouping variables does not exist.")
       return(NULL)
     }

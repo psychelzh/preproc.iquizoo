@@ -18,7 +18,7 @@ match_data_vars <- function(data, prep_fun_name) {
 }
 
 .find_matches <- function(data, var_name) {
-  match_result <- rlang::has_name(data, var_name)
+  match_result <- has_name(data, var_name)
   if (sum(match_result) != 1) {
     return(NA_character_)
   }

@@ -11,12 +11,12 @@ NULL
 
 #' @rdname get_data_vars
 .get_input_vars <- function(prep_fun_name) {
-  stopifnot(rlang::has_name(config_data_vars, prep_fun_name))
+  stopifnot(has_name(config_data_vars, prep_fun_name))
   config_data_vars[[prep_fun_name]][["input"]]
 }
 
 #' @rdname get_data_vars
 .get_output_vars <- function(prep_fun_name) {
-  stopifnot(rlang::has_name(config_data_vars, prep_fun_name))
+  stopifnot(has_name(config_data_vars, prep_fun_name))
   config_data_vars[[prep_fun_name]][["output"]]
 }
