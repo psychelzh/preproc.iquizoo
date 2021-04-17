@@ -27,10 +27,14 @@ preproc_data <- function(data, prep_fun_name, by = NULL, ...,
   }
   prep_fun <- utils::getFromNamespace(prep_fun_name, utils::packageName())
   # validate data variable names
+  if (is_empty(data)) {
+    warn("Input `data` is empty.", "data_empty")
+    return()
+  }
   vars_input <- match_data_vars(data, prep_fun_name)
   if (anyNA(vars_input)) {
-    warning("At least one of the required input variables does not exist.")
-    return(NULL)
+    warn("Input `data` miss required variable(s).", "data_invalid")
+    return()
   }
   # checking grouping variable
   if (is.null(by)) {
@@ -39,8 +43,8 @@ preproc_data <- function(data, prep_fun_name, by = NULL, ...,
     keep_by <- FALSE
   } else {
     if (!all(has_name(data, by))) {
-      warning("At least one of the grouping variables does not exist.")
-      return(NULL)
+      warn("Input `by` does not match any name of `data`.", "by_invalid")
+      return()
     }
     keep_by <- TRUE
   }

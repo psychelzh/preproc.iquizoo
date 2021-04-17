@@ -10,7 +10,7 @@ test_that("Default behavior (`by = NULL`) deletes group variables afterward", {
 test_that("Warns and returns `NULL` when grouping varible errored", {
   expect_warning(
     be_null <- preproc_data(data, bart, by = "g"),
-    "grouping variables"
+    class = "by_invalid"
   )
   expect_null(be_null)
 })
@@ -18,7 +18,12 @@ test_that("Warns and returns `NULL` when grouping varible errored", {
 test_that("Warns and returns `NULL` when inputing corrupted data", {
   expect_warning(
     be_null <- preproc_data(list(), bart),
-    "required input variables"
+    class = "data_empty"
+  )
+  expect_null(be_null)
+  expect_warning(
+    be_null <- preproc_data(data.frame(x = 1), bart),
+    class = "data_invalid"
   )
   expect_null(be_null)
 })
