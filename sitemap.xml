@@ -70,9 +70,6 @@
     <loc>https://psychelzh.github.io/dataproc.iquizoo/reference/parse_char_resp.html</loc>
   </url>
   <url>
-    <loc>https://psychelzh.github.io/dataproc.iquizoo/reference/pipe.html</loc>
-  </url>
-  <url>
     <loc>https://psychelzh.github.io/dataproc.iquizoo/reference/preproc_data.html</loc>
   </url>
   <url>
@@ -92,8 +89,5 @@
   </url>
   <url>
     <loc>https://psychelzh.github.io/dataproc.iquizoo/reference/symncmp.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/dataproc.iquizoo/reference/tidyeval.html</loc>
   </url>
 </urlset>

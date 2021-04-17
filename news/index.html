@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dataproc.iquizoo</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.3</span>
       </span>
     </div>
 
@@ -114,12 +114,30 @@
       <small>Source: <a href='https://github.com/psychelzh/dataproc.iquizoo/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="dataprociquizoo-102" class="section level1">
-<h1 class="page-header" data-toc-text="1.0.2">
-<a href="#dataprociquizoo-102" class="anchor"></a>dataproc.iquizoo 1.0.2</h1>
+    <div id="dataprociquizoo-103" class="section level1">
+<h1 class="page-header" data-toc-text="1.0.3">
+<a href="#dataprociquizoo-103" class="anchor"></a>dataproc.iquizoo 1.0.3</h1>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New Features</h2>
+<ul>
+<li>Changed the behavior of <code><a href="../reference/preproc_data.html">preproc_data()</a></code> to make sure it restores all the attributes from input <code>data</code>.</li>
+</ul>
+</div>
+<div id="misc" class="section level2">
+<h2 class="hasAnchor">
+<a href="#misc" class="anchor"></a>Misc</h2>
+<ul>
+<li>Now pipe and rlang helpers are not re-exported from this package.</li>
+</ul>
+</div>
+</div>
+    <div id="dataprociquizoo-102" class="section level1">
+<h1 class="page-header" data-toc-text="1.0.2">
+<a href="#dataprociquizoo-102" class="anchor"></a>dataproc.iquizoo 1.0.2</h1>
+<div id="new-features-1" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features-1" class="anchor"></a>New Features</h2>
 <ul>
 <li>Add a subtle new feature that now more keywords are supported in <code><a href="../reference/nback.html">nback()</a></code>. Specifically, you can now use <code>"filler"</code> and <code>"target"</code> keywords.</li>
 <li>Add another subtle new feature so that you can ignore the case of character vectors. For example, <code>"filler"</code> and <code>"Filler"</code> are both okay for now, but only <code>"Filler"</code> is errorproof for previous versions.</li>
@@ -141,9 +159,9 @@
     <div id="dataprociquizoo-100" class="section level1">
 <h1 class="page-header" data-toc-text="1.0.0">
 <a href="#dataprociquizoo-100" class="anchor"></a>dataproc.iquizoo 1.0.0</h1>
-<div id="new-features-1" class="section level2">
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>New Features</h2>
+<a href="#new-features-2" class="anchor"></a>New Features</h2>
 <ul>
 <li>Add support for group-wise calculation, and this is implemented by using a new “entry-point” function <code><a href="../reference/preproc_data.html">preproc_data()</a></code> with an input argument of <code>by</code> (<a href='https://github.com/psychelzh/dataproc.iquizoo/issues/23'>#23</a>, <a href='https://github.com/psychelzh/dataproc.iquizoo/issues/25'>#25</a>).</li>
 </ul>
