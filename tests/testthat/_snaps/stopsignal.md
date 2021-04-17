@@ -24,7 +24,6 @@
       preproc_data(data, stopsignal, by = c("id", "id1"))
     Output
       # A tibble: 100 x 6
-      # Groups:   id [100]
             id   id1 pc_all pc_go medrt_go  ssrt
          <int> <dbl>  <dbl> <dbl>    <dbl> <dbl>
        1     1     2  0.519 0.517     777.  420.
