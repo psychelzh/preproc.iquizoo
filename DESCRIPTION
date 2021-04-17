@@ -28,7 +28,8 @@ Imports:
     tibble,
     tidyr,
     tidyselect,
-    utils
+    utils,
+    vctrs
 Suggests:
     covr,
     jsonlite,

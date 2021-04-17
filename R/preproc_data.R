@@ -21,7 +21,7 @@ preproc_data <- function(data, prep_fun_name, by = NULL, ...,
   if (!missing(...)) {
     ellipsis::check_dots_empty()
   }
-  # match preprocessing function
+  # match pre-processing function
   if (!character.only) {
     prep_fun_name <- deparse1(substitute(prep_fun_name))
   }
@@ -44,8 +44,8 @@ preproc_data <- function(data, prep_fun_name, by = NULL, ...,
     }
     keep_by <- TRUE
   }
-  # call the pre-processing function: note the tibble call
-  tibble(data) %>%
+  # call the pre-processing function
+  data %>%
     # transform character values to lowercase
     dplyr::mutate(
       dplyr::across(
@@ -57,5 +57,6 @@ preproc_data <- function(data, prep_fun_name, by = NULL, ...,
     dplyr::select(dplyr::all_of(
       # keep grouping variable when required
       c(if (keep_by) by, .get_output_vars(prep_fun_name))
-    ))
+    )) %>%
+    vctrs::vec_restore(data)
 }
