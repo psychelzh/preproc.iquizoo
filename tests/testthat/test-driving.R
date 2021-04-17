@@ -28,7 +28,7 @@ data <- tidyr::expand_grid(
   ) %>%
   dplyr::select(-stilldurlist)
 # some rare cases produce negative durations by error
-data_negtive_dur <- tibble(
+data_negtive_dur <- tibble::tibble(
   id = 1,
   yellowdur = runif(8, 3000, 15000)
 ) %>%

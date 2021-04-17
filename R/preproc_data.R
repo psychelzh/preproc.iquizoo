@@ -21,16 +21,20 @@ preproc_data <- function(data, prep_fun_name, by = NULL, ...,
   if (!missing(...)) {
     ellipsis::check_dots_empty()
   }
-  # match preprocessing function
+  # match pre-processing function
   if (!character.only) {
     prep_fun_name <- deparse1(substitute(prep_fun_name))
   }
   prep_fun <- utils::getFromNamespace(prep_fun_name, utils::packageName())
   # validate data variable names
+  if (is_empty(data)) {
+    warn("Input `data` is empty.", "data_empty")
+    return()
+  }
   vars_input <- match_data_vars(data, prep_fun_name)
   if (anyNA(vars_input)) {
-    warning("At least one of the required input variables does not exist.")
-    return(NULL)
+    warn("Input `data` miss required variable(s).", "data_invalid")
+    return()
   }
   # checking grouping variable
   if (is.null(by)) {
@@ -38,14 +42,14 @@ preproc_data <- function(data, prep_fun_name, by = NULL, ...,
     data[[by]] <- 1
     keep_by <- FALSE
   } else {
-    if (!all(rlang::has_name(data, by))) {
-      warning("At least one of the grouping variables does not exist.")
-      return(NULL)
+    if (!all(has_name(data, by))) {
+      warn("Input `by` does not match any name of `data`.", "by_invalid")
+      return()
     }
     keep_by <- TRUE
   }
-  # call the pre-processing function: note the tibble call
-  tibble(data) %>%
+  # call the pre-processing function
+  data %>%
     # transform character values to lowercase
     dplyr::mutate(
       dplyr::across(
@@ -57,5 +61,6 @@ preproc_data <- function(data, prep_fun_name, by = NULL, ...,
     dplyr::select(dplyr::all_of(
       # keep grouping variable when required
       c(if (keep_by) by, .get_output_vars(prep_fun_name))
-    ))
+    )) %>%
+    vctrs::vec_restore(data)
 }

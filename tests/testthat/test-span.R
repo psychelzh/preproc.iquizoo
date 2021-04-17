@@ -1,6 +1,6 @@
 set.seed(1)
 n_subject <- 100
-data <- tibble(
+data <- tibble::tibble(
   id = seq_len(n_subject),
   n = 14
 ) %>%
@@ -43,7 +43,7 @@ data <- tibble(
       dplyr::ungroup()
   ) %>%
   dplyr::ungroup()
-data_no_acc <- tibble(
+data_no_acc <- tibble::tibble(
   id = seq_len(n_subject),
   n = 14
 ) %>%

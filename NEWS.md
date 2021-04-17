@@ -1,3 +1,13 @@
+# dataproc.iquizoo 1.0.3
+
+## New Features
+
+* Changed the behavior of `preproc_data()` to make sure it restores all the attributes from input `data`.
+
+## Misc
+
+* Now pipe and rlang helpers are not re-exported from this package.
+
 # dataproc.iquizoo 1.0.2
 
 ## New Features

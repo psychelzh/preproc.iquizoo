@@ -1,6 +1,6 @@
 set.seed(1)
 n_subject <- 100
-data_cancellation <- tibble(
+data_cancellation <- tibble::tibble(
   id = seq_len(n_subject),
   n = sample(100:300, n_subject, replace = TRUE)
 ) %>%
@@ -21,7 +21,7 @@ data_canteen <- tidyr::expand_grid(
       )
     )
   )
-data_fpt <- tibble(
+data_fpt <- tibble::tibble(
   id = seq_len(n_subject),
   n = sample(50:100, n_subject, replace = TRUE)
 ) %>%

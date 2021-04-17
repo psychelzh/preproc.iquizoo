@@ -1,5 +1,5 @@
 set.seed(1)
-data <- tibble(
+data <- tibble::tibble(
   id = rep(1:100, each = 10)
 ) %>%
   dplyr::rowwise() %>%

@@ -29,7 +29,8 @@ stopsignal <- function(data, by, vars_input) {
         .data[[vars_input[["name_acc"]]]] == 1 &
           .data[[vars_input[["name_type"]]]] == "go"
       ) / sum(.data[[vars_input[["name_type"]]]] == "go")
-    )
+    ) %>%
+    dplyr::ungroup()
   indices_from_rt <- data_cor %>%
     dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
     dplyr::group_modify(

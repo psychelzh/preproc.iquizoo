@@ -1,5 +1,5 @@
 set.seed(1)
-data <- tibble(
+data <- tibble::tibble(
   id = seq_len(100)
 ) %>%
   dplyr::mutate(n = sample(50:100, dplyr::n(), replace = TRUE)) %>%

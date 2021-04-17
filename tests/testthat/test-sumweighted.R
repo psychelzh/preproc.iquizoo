@@ -1,7 +1,7 @@
 set.seed(1)
 data <- tidyr::expand_grid(
   id = seq_len(100),
-  tibble(
+  tibble::tibble(
     nstim = 2:4,
     n = 10
   )
