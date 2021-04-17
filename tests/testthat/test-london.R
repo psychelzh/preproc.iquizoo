@@ -1,6 +1,6 @@
 set.seed(1)
 n_subject <- 100
-data <- tibble(
+data <- tibble::tibble(
   id = seq_len(n_subject),
   n = 14
 ) %>%

@@ -21,7 +21,7 @@
 set.seed(1)
 data <- tidyr::expand_grid(
   id = seq_len(100),
-  tibble(
+  tibble::tibble(
     trial = seq_len(160),
     type = sample(
       c(

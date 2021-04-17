@@ -31,7 +31,7 @@ data <- tidyr::expand_grid(
       TRUE ~ "Switch"
     )
   )
-data_miss_cond <- tibble(
+data_miss_cond <- tibble::tibble(
   id = rep(1:2, each = 8),
   block = rep(1:8, 2),
   task = "T1",
@@ -39,7 +39,7 @@ data_miss_cond <- tibble(
   acc = sample(c(0, 1), 16, replace = TRUE),
   rt = rexp(16, 0.001)
 )
-data_part_miss_cond <- tibble(
+data_part_miss_cond <- tibble::tibble(
   id = rep(1:2, each = 8),
   block = rep(1:8, 2),
   task = "T1",

@@ -1,6 +1,6 @@
 # prepare data
 set.seed(1)
-data <- tibble(
+data <- tibble::tibble(
   id = rep(1:1000, each = 100),
   nhit = rpois(100 * 1000, 2),
   feedback = round(runif(100 * 1000))

@@ -1,6 +1,6 @@
 set.seed(1)
 n_subject <- 100
-data <- tibble(
+data <- tibble::tibble(
   id = seq_len(n_subject),
   n = 300
 ) %>%
@@ -14,7 +14,7 @@ data <- tibble(
     acc = sample(c(0, 1), dplyr::n(), replace = TRUE),
     rt = rexp(dplyr::n(), 0.001)
   )
-data_perfect <- tibble(
+data_perfect <- tibble::tibble(
   id = rep(1, 10),
   type = sample(
     c("Random", "Aonly", "Bonly", "Target"),
@@ -24,7 +24,7 @@ data_perfect <- tibble(
   acc = 1,
   rt = rexp(10, 0.001)
 )
-data_dualtask <- tibble(
+data_dualtask <- tibble::tibble(
   id = seq_len(n_subject),
   n = 300
 ) %>%

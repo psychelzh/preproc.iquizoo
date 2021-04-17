@@ -2,7 +2,7 @@
 set.seed(1)
 data <- tidyr::expand_grid(
   id = 1:1000,
-  tibble(
+  tibble::tibble(
     phase = c("Learn", "Test"),
     n = c(40, 60)
   )

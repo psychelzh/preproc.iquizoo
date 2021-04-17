@@ -14,13 +14,13 @@ data <- tidyr::expand_grid(
     acc = sample(c(0, 1), dplyr::n(), replace = TRUE),
     rt = rexp(dplyr::n(), 0.001)
   )
-data_miss_cond <- tibble(
+data_miss_cond <- tibble::tibble(
   id = rep(1:2, each = 8),
   type = "Incongruent",
   acc = sample(c(0, 1), 16, replace = TRUE),
   rt = rexp(16, 0.001)
 )
-data_part_miss_cond <- tibble(
+data_part_miss_cond <- tibble::tibble(
   id = rep(1:2, each = 8),
   type = c(
     rep("Incongruent", 8),

@@ -1,5 +1,5 @@
 set.seed(1)
-data <- tibble(
+data <- tibble::tibble(
   id = seq_len(100),
   n = 20
 ) %>%
