@@ -38,6 +38,26 @@
       10    10   161  916.  799.  0.183   0.0340          67        72
       # ... with 90 more rows
 
+# Default behavior works for Cancellation Paradigm
+
+    Code
+      preproc_data(data, cpt, by = "id")
+    Output
+      # A tibble: 100 x 8
+            id    nc   mrt  rtsd  dprime        c commissions omissions
+         <int> <int> <dbl> <dbl>   <dbl>    <dbl>       <int>     <int>
+       1     1   103 1100.  747.  0.0458  0.0780           51        47
+       2     2   106 1125.  858.  0.106   0.0907           46        51
+       3     3    94  979.  755. -0.173  -0.00510          51        57
+       4     4   119 1032.  880.  0.612   0.160            29        45
+       5     5   113  808.  508.  0.258  -0.0180           51        41
+       6     6    92 1031.  792. -0.161  -0.0263           57        48
+       7     7    98  866.  721. -0.103  -0.0514           59        48
+       8     8   113  879.  664.  0.224   0.112            39        57
+       9     9    99  827.  540. -0.135   0.141            48        63
+      10    10    89 1197.  783. -0.159  -0.0410           51        50
+      # ... with 90 more rows
+
 # Works on perfect accuracy data (no `NA`s)
 
     Code

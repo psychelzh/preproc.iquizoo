@@ -30,6 +30,7 @@ calc_sdt <- function(data, by, name_acc, name_type, keep_counts = TRUE) {
       e = dplyr::n() - .data[["c"]],
       .groups = "drop"
     ) %>%
+    # TODO: call `tidyr::complete()` to make sure "s" and "n" both exist
     dplyr::mutate(
       dplyr::across(
         dplyr::all_of(c("c", "e")),
