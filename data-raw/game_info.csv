@@ -7,7 +7,7 @@ d4995118-c8ed-401d-9eb6-ee729fb98116,超级秒表,Simple Reaction Time Test,SRT,
 8448e9c1-a791-4d6f-9a04-da2a7d7cb3fe,超级秒表极速版,Simple Reaction Time Test (Short Version),SRTS,srt
 238faaad-4968-4a91-9c29-84f59da38ad4,城市导航,Location Memory Advanced,LocMemAdv,locmem
 c26c3b9c-5582-4155-9f76-b31e47c07f2a,吹气球,BART,BART,bart
-c89ae889-110f-4c57-b201-802374d2f624,词语判断,Lexic,Lexic,countcorrect
+c89ae889-110f-4c57-b201-802374d2f624,词语判断,Lexic,Lexic,cpt
 7034b6f2-0f09-46ea-8b95-634689a8e998,倒背数,Backward Digit Span,BDS,span
 8cf5d67b-d853-4acb-a253-a8ff9aa2d486,登陆月球（初级）,Number Line Estimation Junior,NLEJr,nle
 5c9e7f8b-41a1-4b31-9d94-63be74e5d806,登陆月球（中级）,Number Line Estimation Medium,NLEMed,nle
@@ -15,7 +15,7 @@ c89ae889-110f-4c57-b201-802374d2f624,词语判断,Lexic,Lexic,countcorrect
 1c188618-612a-468c-b0a0-76a4afcdbaa0,多彩文字,Color Stroop Paradigm,ColStrp,congeff
 697d1de9-d140-4e21-9269-6de08443f784,方块速记,Spatial Short-term Memory Simple,SSTMS,span
 1813dfbd-f61e-47f5-aec6-721cde20f838,方向临摹,Judgment of Line Orientation,JLO,jlo
-cd0b8686-e775-416e-8a58-31a44f37f239,符号判断,Symbol,Symbol,countcorrect
+cd0b8686-e775-416e-8a58-31a44f37f239,符号判断,Symbol,Symbol,cpt
 e4399b39-92a0-4f44-871c-6108a1b17a63,各得其所,London Tower Test,LdnTwr,london
 7cb86e74-810d-45a3-ba3c-8b8a9dc6dc1c,过目不忘,Forward Word Span,FWS,span
 9a4aad2c-7afc-4c6f-b586-0721ba2e29c8,河道捕鱼,One Back Fishing,OneBackFish,sumweighted
@@ -38,12 +38,12 @@ bf3e0ca1-0998-4eb7-91ec-500c8199fdb5,明白他的心,Theory of Mind,ToM,countcor
 cab61a44-0891-4d0f-bdc3-aee60f3a5f00,魔术师高级,Three Back Test,Nback3,nback
 83d5c767-12ae-464b-9892-c3883c3b1a78,魔术师中级,Two Back Test,Nback2,nback
 bc9f51d0-1d24-4826-a024-67b431741f51,魔术师终极,Four Back Test,Nback4,nback
-082ea578-9bea-4618-94ac-946b7c1daff6,拼音判断,Pinyin,Pinyin,countcorrect
+082ea578-9bea-4618-94ac-946b7c1daff6,拼音判断,Pinyin,Pinyin,cpt
 3a90d262-2d4f-4628-8902-01cd653f6bf5,请你找茬,Spot the Difference,StD,countcorrect2
 4b245057-1fc7-4b88-83e1-9cc8b0448c7a,人工语言-初级,Associative Memory Language Junior,AscLanJr,countcorrect
 33cb1542-8736-444d-80b5-4bed6cdac1a5,人工语言-中级,Associative Memory Language Medium,AscLanMd,countcorrect
 e563c580-004f-454b-85e1-80a0774df7e2,谁在唱歌,Speech Discrimination,SpchDiscr,span
-eecc6df6-a95d-4036-aca0-b1aa65b120db,声调判断,Tone,Tone,countcorrect
+eecc6df6-a95d-4036-aca0-b1aa65b120db,声调判断,Tone,Tone,cpt
 ec40acb2-efba-40cd-adbc-fd604668b451,时空相机A,Spatiotemporal Memory A,SpatTempA,locmem2
 b896281d-9460-450e-9675-47ab3ba1068c,时空相机B,Spatiotemporal Memory B,SpatTempB,locmem2
 87c63149-07ba-4d34-bcad-7e5fff3b5dc8,视听反应,Multisense,MltSns,multisense
@@ -76,7 +76,7 @@ b9f0a08c-48fa-4291-be8a-85d86a4efc89,一心多用,Multiple Task Paradigm,MultiTa
 a8813ba1-9dc0-4949-a9a7-f184ebf68091,宇宙遨游,Space Gatherer,SpaGath,countcorrect
 de124965-f280-4177-a747-20fe4aba79fa,宇宙黑洞A,Location Memory A,LocMemA,locmem
 9ca38d8d-a402-49fd-bb5f-aa0f1d499c5e,宇宙黑洞B,Location Memory B,LocMemB,locmem
-605d5346-5b07-4a9a-b28d-db522de05b02,语义判断,Semanteme,Seman,countcorrect
+605d5346-5b07-4a9a-b28d-db522de05b02,语义判断,Semanteme,Seman,cpt
 f6ec0ad6-6c19-4863-89ca-f365bb172ebe,找不同情绪,Spot the Difference (Emotion Version),StDEmo,countcorrect
 28ddff7c-396a-4bce-8b16-c3258cd637dc,专注大师,Calculation Speeded Junior,CalcSpdJr,countcorrect
 4352204f-790c-4f6e-aa8b-4518c9c23c0c,专注大师_高级,Calculation Speeded Advanced,CalcSpdAdv,countcorrect
@@ -84,7 +84,7 @@ f6ec0ad6-6c19-4863-89ca-f365bb172ebe,找不同情绪,Spot the Difference (Emotio
 ef44f5a5-5134-47da-9c6e-9f2f714f6cfc,捉虫,Continuous Performance Test,CPT,cpt
 dad9699d-bf5d-4287-b6e0-27890c821307,捉虫高级版,Test of Variables of Attention,TOVA,cpt
 d38a4f12-520a-4b01-86b8-95bd6345896e,捉虫高级简版,Test of Variables of Attention (Short Version),TOVAS,cpt
-db0b4727-86f8-40c7-95dd-863197b95c03,字形判断,Orthography,Ortho,countcorrect
+db0b4727-86f8-40c7-95dd-863197b95c03,字形判断,Orthography,Ortho,cpt
 4b72d72d-b6f3-430f-b744-4209fe9508a2,阻挡陨石,Earth Protect,EP,countcorrect
 9a7e8886-d69c-4ab2-8899-4fa7150942f0,阻挡陨石极速版,Earth Protect (Short Version),EPS,countcorrect
 9e14dbf6-8689-4e45-88e6-472f8f3f2663,Conners行为评定量表,Conners,Conners,sumscore
