@@ -47,6 +47,24 @@ test_that("Default behavior works for Dual Task Paradigm", {
   expect_snapshot(preproc_data(data_dualtask, cpt, by = "id"))
 })
 
+test_that("Default behavior works for Cancellation Paradigm", {
+  data <- tibble::tibble(
+    id = seq_len(n_subject),
+    n = 300
+  ) %>%
+    tidyr::uncount(n) %>%
+    dplyr::mutate(
+      cresp = sample(
+        c("Left", "Right"),
+        dplyr::n(),
+        replace = TRUE
+      ),
+      acc = sample(c(0, 1), dplyr::n(), replace = TRUE),
+      rt = rexp(dplyr::n(), 0.001)
+    )
+  expect_snapshot(preproc_data(data, cpt, by = "id"))
+})
+
 test_that("Works on perfect accuracy data (no `NA`s)", {
   expect_snapshot(preproc_data(data_perfect, cpt, by = "id"))
 })
