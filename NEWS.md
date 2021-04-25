@@ -1,3 +1,13 @@
+# dataproc.iquizoo 1.0.4
+
+## New Features
+
+* Support input of cancellation games data for `cpt()`.
+
+## Misc
+
+* Now cancellation games use `cpt()` preprocessing function.
+
 # dataproc.iquizoo 1.0.3
 
 ## New Features
