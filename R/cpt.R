@@ -21,7 +21,7 @@ cpt <- function(data, by, vars_input) {
     dplyr::mutate(
       # standardize stimuli type
       type_cor = dplyr::if_else(
-        .data[[vars_input[["name_type"]]]] == "target",
+        .data[[vars_input[["name_type"]]]] %in% c("target", "left"),
         "s", "n"
       ),
       # remove rt of 100 or less and rt from non-signal trials
