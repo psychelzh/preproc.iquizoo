@@ -59,10 +59,16 @@ test_that("Default behavior works for Cancellation Paradigm", {
         dplyr::n(),
         replace = TRUE
       ),
-      acc = sample(c(0, 1), dplyr::n(), replace = TRUE),
+      acc = sample(-1:1, dplyr::n(), replace = TRUE),
       rt = rexp(dplyr::n(), 0.001)
     )
+  data_clean <- data %>%
+    dplyr::filter(acc != -1)
   expect_snapshot(preproc_data(data, cpt, by = "id"))
+  expect_identical(
+    preproc_data(data, cpt, by = "id"),
+    preproc_data(data_clean, cpt, by = "id")
+  )
 })
 
 test_that("Works on perfect accuracy data (no `NA`s)", {

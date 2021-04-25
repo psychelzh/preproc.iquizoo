@@ -18,6 +18,8 @@
 #' @export
 cpt <- function(data, by, vars_input) {
   data_cor <- data %>%
+    # some tests records stimuli not presented
+    dplyr::filter(.data[[vars_input[["name_acc"]]]] != -1) %>%
     dplyr::mutate(
       # standardize stimuli type
       type_cor = dplyr::if_else(
