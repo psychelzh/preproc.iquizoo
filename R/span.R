@@ -28,9 +28,12 @@ span <- function(data, by, vars_input) {
     if (all(has_name(data, c("stim", "resp")))) {
       nc <- data %>%
         dplyr::mutate(
-          stim = parse_char_resp(stim),
-          resp = parse_char_resp(resp),
-          nc = purrr::map2_int(stim, resp, ~ sum(.x == .y))
+          stim = parse_char_resp(.data[["stim"]]),
+          resp = parse_char_resp(.data[["resp"]]),
+          nc = purrr::map2_int(
+            .data[["stim"]], .data[["resp"]],
+            ~ sum(.x == .y)
+          )
         ) %>%
         dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
         dplyr::summarise(
