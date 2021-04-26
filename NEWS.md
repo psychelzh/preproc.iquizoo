@@ -1,3 +1,9 @@
+# dataproc.iquizoo 1.0.5
+
+## New Features
+
+* Support an edge case for `span()` when number of correct responses can be recovered from columns `"stim"` and `"resp"`. Use it with care, for it does take order into consideration!
+
 # dataproc.iquizoo 1.0.4
 
 ## New Features

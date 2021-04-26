@@ -41,7 +41,7 @@
 # Works when no acc column found
 
     Code
-      preproc_data(data_no_acc, span, by = "id")
+      result_no_acc
     Output
       # A tibble: 100 x 4
             id    nc max_span mean_span
@@ -56,5 +56,25 @@
        8     8    NA        7      5.05
        9     9    NA        8      7   
       10    10    NA        9      7.67
+      # ... with 90 more rows
+
+---
+
+    Code
+      result_repaired
+    Output
+      # A tibble: 100 x 4
+            id    nc max_span mean_span
+         <int> <int>    <dbl>     <dbl>
+       1     1    14       10      8.58
+       2     2    11       14     14   
+       3     3    18       16     15.5 
+       4     4    14       14     14   
+       5     5    16       12     11.5 
+       6     6    21       12     11.8 
+       7     7     9        8      6   
+       8     8     9        7      5.05
+       9     9    13        8      7   
+      10    10    16        9      7.67
       # ... with 90 more rows
 
