@@ -25,12 +25,26 @@ span <- function(data, by, vars_input) {
         .groups = "drop"
       )
   } else {
-    nc <- data %>%
-      dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
-      dplyr::summarise(
-        nc = NA_integer_,
-        .groups = "drop"
-      )
+    if (all(has_name(data, c("stim", "resp")))) {
+      nc <- data %>%
+        dplyr::mutate(
+          stim = parse_char_resp(stim),
+          resp = parse_char_resp(resp),
+          nc = purrr::map2_int(stim, resp, ~ sum(.x == .y))
+        ) %>%
+        dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
+        dplyr::summarise(
+          nc = sum(.data[["nc"]]),
+          .groups = "drop"
+        )
+    } else {
+      nc <- data %>%
+        dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
+        dplyr::summarise(
+          nc = NA_integer_,
+          .groups = "drop"
+        )
+    }
   }
   spans <- data %>%
     dplyr::group_by(dplyr::across(
