@@ -254,9 +254,11 @@
         },
         "output": [
             "mean_dist_err_allo",
-            "mean_dist_err_ego",
             "mean_log_err_allo",
-            "mean_log_err_ego"
+            "mean_dist_err_ego",
+            "mean_log_err_ego",
+            "mean_dist_err_both",
+            "mean_log_err_both"
         ]
     },
     "span": {

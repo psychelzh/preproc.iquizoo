@@ -13,14 +13,14 @@
 #' @export
 bart <- function(data, by, vars_input) {
   data %>%
-    dplyr::mutate(
+    mutate(
       nhit_cor = ifelse(
         .data[[vars_input[["name_feedback"]]]] == 1,
         .data[[vars_input[["name_nhit"]]]], NA
       )
     ) %>%
-    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
-    dplyr::summarise(
+    group_by(across(all_of(by))) %>%
+    summarise(
       mean_pumps = mean(.data[["nhit_cor"]], na.rm = TRUE),
       mean_pumps_raw = mean(.data[[vars_input[["name_nhit"]]]]),
       num_explosion = sum(.data[[vars_input[["name_feedback"]]]] == 0),

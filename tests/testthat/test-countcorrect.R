@@ -4,19 +4,19 @@ data_cancellation <- tibble::tibble(
   id = seq_len(n_subject),
   n = sample(100:300, n_subject, replace = TRUE)
 ) %>%
-  tidyr::uncount(n, .id = "trial") %>%
-  dplyr::mutate(acc = sample(c(0, 1), dplyr::n(), replace = TRUE))
-data_canteen <- tidyr::expand_grid(
+  uncount(n, .id = "trial") %>%
+  mutate(acc = sample(c(0, 1), n(), replace = TRUE))
+data_canteen <- expand_grid(
   id = seq_len(n_subject),
   block = 1:6
 ) %>%
-  dplyr::mutate(n = sample(2 * (1:12), dplyr::n(), replace = TRUE)) %>%
-  tidyr::uncount(n, .id = "trial") %>%
-  dplyr::mutate(
+  mutate(n = sample(2 * (1:12), n(), replace = TRUE)) %>%
+  uncount(n, .id = "trial") %>%
+  mutate(
     correctness = ifelse(
       trial %% 2 == 0, NA,
       replicate(
-        dplyr::n(),
+        n(),
         stringr::str_c(sample(c(0, 1, 99), 3, replace = TRUE), collapse = "-")
       )
     )
@@ -25,8 +25,8 @@ data_fpt <- tibble::tibble(
   id = seq_len(n_subject),
   n = sample(50:100, n_subject, replace = TRUE)
 ) %>%
-  tidyr::uncount(n, .id = "trial") %>%
-  dplyr::mutate(repetition = sample(c(0, 1), dplyr::n(), replace = TRUE))
+  uncount(n, .id = "trial") %>%
+  mutate(repetition = sample(c(0, 1), n(), replace = TRUE))
 
 test_that("Default behavior works on different types of input", {
   expect_snapshot(preproc_data(data_cancellation, countcorrect, by = "id"))
@@ -35,7 +35,7 @@ test_that("Default behavior works on different types of input", {
   expect_snapshot(preproc_data(data_fpt, countcorrect, by = "id"))
 })
 test_that("Works with multiple grouping variables", {
-  data_cancellation <- dplyr::mutate(data_cancellation, id1 = id + 1)
+  data_cancellation <- mutate(data_cancellation, id1 = id + 1)
   expect_snapshot(
     preproc_data(data_cancellation, countcorrect, by = c("id", "id1"))
   )

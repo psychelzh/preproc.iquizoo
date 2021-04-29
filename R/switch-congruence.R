@@ -45,7 +45,7 @@ NULL
 #' @export
 complexswitch <- function(data, by, vars_input) {
   data_cor <- data %>%
-    dplyr::mutate(
+    mutate(
       # remove rt of 100 or less
       rt_cor = ifelse(
         .data[[vars_input[["name_rt"]]]] > 100,
@@ -78,14 +78,14 @@ complexswitch <- function(data, by, vars_input) {
     name_acc = vars_input[["name_acc"]],
     name_rt = "rt_cor"
   )
-  dplyr::left_join(cong_eff, switch_cost, by = by)
+  left_join(cong_eff, switch_cost, by = by)
 }
 
 #' @rdname switch-congruence
 #' @export
 congeff <- function(data, by, vars_input) {
   data_cor <- data %>%
-    dplyr::mutate(
+    mutate(
       # remove rt of 100 or less
       rt_cor = ifelse(
         .data[[vars_input[["name_rt"]]]] > 100,
@@ -105,7 +105,7 @@ congeff <- function(data, by, vars_input) {
 #' @export
 switchcost <- function(data, by, vars_input) {
   data_cor <- data %>%
-    dplyr::mutate(
+    mutate(
       # remove rt of 100 or less
       rt_cor = ifelse(
         .data[[vars_input[["name_rt"]]]] > 100,

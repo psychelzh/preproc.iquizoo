@@ -14,22 +14,26 @@
 #'     conditions respectively.}
 #' @export
 refframe <- function(data, by, vars_input) {
-  data %>%
-    dplyr::mutate(
-      type_cor = dplyr::recode(
-        .data[[vars_input[["name_type"]]]],
-        allocentric = "allo",
-        egocentric = "ego"
+  bind_rows(
+    each = data,
+    both = data,
+    .id = "set"
+  ) %>%
+    mutate(
+      type_cor = case_when(
+        .data[["set"]] == "both" ~ "both",
+        .data[[vars_input[["name_type"]]]] == "allocentric" ~ "allo",
+        .data[[vars_input[["name_type"]]]] == "egocentric" ~ "ego"
       )
     ) %>%
-    dplyr::group_by(dplyr::across(dplyr::all_of(c(by, "type_cor")))) %>%
-    dplyr::summarise(
+    group_by(across(all_of(c(by, "type_cor")))) %>%
+    summarise(
       mean_dist_err = mean(.data[[vars_input[["name_dist"]]]]),
       mean_log_err = mean(log(.data[[vars_input[["name_dist"]]]] + 1)),
       .groups = "drop"
     ) %>%
-    tidyr::pivot_wider(
+    pivot_wider(
       names_from = .data[["type_cor"]],
-      values_from = dplyr::starts_with("mean")
+      values_from = starts_with("mean")
     )
 }

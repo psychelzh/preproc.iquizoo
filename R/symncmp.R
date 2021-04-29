@@ -15,7 +15,7 @@
 #' @export
 symncmp <- function(data, by, vars_input) {
   data_cor <- data %>%
-    dplyr::mutate(
+    mutate(
       rt_cor = ifelse(
         .data[[vars_input[["name_rt"]]]] > 100,
         .data[[vars_input[["name_rt"]]]], NA
@@ -39,21 +39,21 @@ symncmp <- function(data, by, vars_input) {
     otherwise = NA_real_
   )
   dist_eff <- data_cor %>%
-    dplyr::mutate(
+    mutate(
       dist = .data[[vars_input[["name_big"]]]] -
         .data[[vars_input[["name_small"]]]]
     ) %>%
-    dplyr::group_nest(dplyr::across(dplyr::all_of(by))) %>%
-    dplyr::mutate(
+    group_nest(across(all_of(by))) %>%
+    mutate(
       dist_eff = purrr::map_dbl(
         .data[["data"]],
         ~ .x %>%
-          dplyr::filter(
+          filter(
             .data[[vars_input[["name_acc"]]]] == 1
           ) %>%
           fit_errproof()
       ),
       .keep = "unused"
     )
-  dplyr::left_join(basics, dist_eff, by = by)
+  left_join(basics, dist_eff, by = by)
 }

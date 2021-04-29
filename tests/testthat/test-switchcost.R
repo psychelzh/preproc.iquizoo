@@ -1,21 +1,21 @@
 set.seed(1)
-data <- tidyr::expand_grid(
+data <- expand_grid(
   id = 1:100,
   block = 1:8
 ) %>%
-  dplyr::mutate(n = sample(0:50, dplyr::n(), replace = TRUE)) %>%
-  tidyr::uncount(n, .id = "trial") %>%
-  dplyr::mutate(
-    task = dplyr::case_when(
+  mutate(n = sample(0:50, n(), replace = TRUE)) %>%
+  uncount(n, .id = "trial") %>%
+  mutate(
+    task = case_when(
       block %in% c(1, 8) ~ "T1",
       block %in% c(2, 7) ~ "T2",
-      TRUE ~ sample(c("T1", "T2"), dplyr::n(), replace = TRUE)
+      TRUE ~ sample(c("T1", "T2"), n(), replace = TRUE)
     ),
-    acc = sample(c(0, 1), dplyr::n(), replace = TRUE),
-    rt = rexp(dplyr::n(), 0.001)
+    acc = sample(c(0, 1), n(), replace = TRUE),
+    rt = rexp(n(), 0.001)
   ) %>%
-  tidyr::complete(
-    block, tidyr::nesting(id),
+  complete(
+    block, nesting(id),
     fill = list(
       trial = 1,
       task = "T1",
@@ -23,11 +23,11 @@ data <- tidyr::expand_grid(
       rt = 0
     )
   ) %>%
-  dplyr::mutate(
-    type = dplyr::case_when(
+  mutate(
+    type = case_when(
       block %in% c(1:2, 7:8) ~ "Pure",
       trial == 1 ~ "Filler",
-      task == dplyr::lag(task) ~ "Repeat",
+      task == lag(task) ~ "Repeat",
       TRUE ~ "Switch"
     )
   )
@@ -64,14 +64,14 @@ test_that("Part subject single condition", {
 })
 
 test_that("Works with multiple grouping variables", {
-  data <- dplyr::mutate(data, id1 = id + 1)
+  data <- mutate(data, id1 = id + 1)
   expect_snapshot(preproc_data(data, switchcost, by = c("id", "id1")))
 })
 
 test_that("Works when character case is messy", {
   data_case_messy <- data %>%
-    dplyr::mutate(
-      type = dplyr::recode(type, Pure = "pure")
+    mutate(
+      type = recode(type, Pure = "pure")
     )
   expect_silent(
     case_messy <- preproc_data(data_case_messy, switchcost, by = "id")

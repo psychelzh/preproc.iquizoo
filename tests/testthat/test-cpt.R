@@ -4,15 +4,15 @@ data <- tibble::tibble(
   id = seq_len(n_subject),
   n = 300
 ) %>%
-  tidyr::uncount(n) %>%
-  dplyr::mutate(
+  uncount(n) %>%
+  mutate(
     type = sample(
       c("Random", "Aonly", "Bonly", "Target"),
-      dplyr::n(),
+      n(),
       replace = TRUE
     ),
-    acc = sample(c(0, 1), dplyr::n(), replace = TRUE),
-    rt = rexp(dplyr::n(), 0.001)
+    acc = sample(c(0, 1), n(), replace = TRUE),
+    rt = rexp(n(), 0.001)
   )
 data_perfect <- tibble::tibble(
   id = rep(1, 10),
@@ -28,15 +28,15 @@ data_dualtask <- tibble::tibble(
   id = seq_len(n_subject),
   n = 300
 ) %>%
-  tidyr::uncount(n) %>%
-  dplyr::mutate(
+  uncount(n) %>%
+  mutate(
     stimtype = sample(
       c("NonTarget", "Target"),
-      dplyr::n(),
+      n(),
       replace = TRUE
     ),
-    acc = sample(c(0, 1), dplyr::n(), replace = TRUE),
-    rt = rexp(dplyr::n(), 0.001)
+    acc = sample(c(0, 1), n(), replace = TRUE),
+    rt = rexp(n(), 0.001)
   )
 
 test_that("Default behavior works", {
@@ -52,18 +52,18 @@ test_that("Default behavior works for Cancellation Paradigm", {
     id = seq_len(n_subject),
     n = 300
   ) %>%
-    tidyr::uncount(n) %>%
-    dplyr::mutate(
+    uncount(n) %>%
+    mutate(
       cresp = sample(
         c("Left", "Right"),
-        dplyr::n(),
+        n(),
         replace = TRUE
       ),
-      acc = sample(-1:1, dplyr::n(), replace = TRUE),
-      rt = rexp(dplyr::n(), 0.001)
+      acc = sample(-1:1, n(), replace = TRUE),
+      rt = rexp(n(), 0.001)
     )
   data_clean <- data %>%
-    dplyr::filter(acc != -1)
+    filter(acc != -1)
   expect_snapshot(preproc_data(data, cpt, by = "id"))
   expect_identical(
     preproc_data(data, cpt, by = "id"),
@@ -76,14 +76,14 @@ test_that("Works on perfect accuracy data (no `NA`s)", {
 })
 
 test_that("Works with multiple grouping variables", {
-  data <- dplyr::mutate(data, id1 = id + 1)
+  data <- mutate(data, id1 = id + 1)
   expect_snapshot(preproc_data(data, cpt, by = c("id", "id1")))
 })
 
 test_that("Works when character case is messy", {
   data_case_messy <- data %>%
-    dplyr::mutate(
-      type = dplyr::recode(type, Target = "target")
+    mutate(
+      type = recode(type, Target = "target")
     )
   expect_silent(
     case_messy <- preproc_data(data_case_messy, cpt, by = "id")

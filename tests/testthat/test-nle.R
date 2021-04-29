@@ -1,12 +1,12 @@
 set.seed(1)
-data <- tidyr::expand_grid(
+data <- expand_grid(
   id = seq_len(100),
   n = 20
 ) %>%
-  tidyr::uncount(n) %>%
-  dplyr::mutate(
-    number = sample(1:99, dplyr::n(), replace = TRUE),
-    resp = sample(1:99, dplyr::n(), replace = TRUE)
+  uncount(n) %>%
+  mutate(
+    number = sample(1:99, n(), replace = TRUE),
+    resp = sample(1:99, n(), replace = TRUE)
   )
 
 test_that("Default behavior works", {
@@ -14,6 +14,6 @@ test_that("Default behavior works", {
 })
 
 test_that("Works with multiple grouping variables", {
-  data <- dplyr::mutate(data, id1 = id + 1)
+  data <- mutate(data, id1 = id + 1)
   expect_snapshot(preproc_data(data, nle, by = c("id", "id1")))
 })

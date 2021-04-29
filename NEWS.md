@@ -1,3 +1,10 @@
+# dataproc.iquizoo 1.1.0
+
+## New Features
+
+* Added a new function `wrange_data()` (originally in {tarflow.iquizoo}). Now it removes duplicates from data.
+* Added two more indices in `refframe()` of distance error aggregating both conditions.
+
 # dataproc.iquizoo 1.0.5
 
 ## New Features

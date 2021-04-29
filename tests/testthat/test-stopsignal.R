@@ -19,7 +19,7 @@
 }
 
 set.seed(1)
-data <- tidyr::expand_grid(
+data <- expand_grid(
   id = seq_len(100),
   tibble::tibble(
     trial = seq_len(160),
@@ -32,35 +32,35 @@ data <- tidyr::expand_grid(
     )
   )
 ) %>%
-  dplyr::mutate(acc = sample(c(0, 1), dplyr::n(), replace = TRUE)) %>%
-  dplyr::group_by(id, type) %>%
-  dplyr::group_modify(
+  mutate(acc = sample(c(0, 1), n(), replace = TRUE)) %>%
+  group_by(id, type) %>%
+  group_modify(
     ~ .x %>%
-      dplyr::mutate(
+      mutate(
         ssd = .prepare_ssd(
           acc, .y$type
         )
       )
   ) %>%
-  dplyr::ungroup() %>%
-  dplyr::mutate(
-    rt = ifelse(acc == 1 & type != "Go", 0, rexp(dplyr::n(), 0.001))
+  ungroup() %>%
+  mutate(
+    rt = ifelse(acc == 1 & type != "Go", 0, rexp(n(), 0.001))
   ) %>%
-  dplyr::arrange(id, trial)
+  arrange(id, trial)
 
 test_that("Default behavior works", {
   expect_snapshot(preproc_data(data, stopsignal, by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {
-  data <- dplyr::mutate(data, id1 = id + 1)
+  data <- mutate(data, id1 = id + 1)
   expect_snapshot(preproc_data(data, stopsignal, by = c("id", "id1")))
 })
 
 test_that("Works when character case is messy", {
   data_case_messy <- data %>%
-    dplyr::mutate(
-      type = dplyr::recode(type, Stop1 = "stop1")
+    mutate(
+      type = recode(type, Stop1 = "stop1")
     )
   expect_silent(
     case_messy <- preproc_data(data_case_messy, stopsignal, by = "id")

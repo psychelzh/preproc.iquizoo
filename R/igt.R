@@ -13,8 +13,8 @@
 #' @export
 igt <- function(data, by, vars_input) {
   data %>%
-    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
-    dplyr::summarise(
+    group_by(across(all_of(by))) %>%
+    summarise(
       sum_outcome = sum(.data[[vars_input[["name_outcome"]]]]),
       # good pools have label of "a" and "b"
       perc_good = mean(.data[[vars_input[["name_pool"]]]] %in% c("a", "b")),

@@ -18,13 +18,13 @@
 #' @export
 locmem <- function(data, by, vars_input) {
   data %>%
-    dplyr::mutate(
+    mutate(
       dist = parse_char_resp(.data[[vars_input[["name_dist"]]]]),
       .keep = "unused"
     ) %>%
-    tidyr::unnest(.data[["dist"]]) %>%
-    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
-    dplyr::summarise(
+    unnest(.data[["dist"]]) %>%
+    group_by(across(all_of(by))) %>%
+    summarise(
       nc_loc = sum(.data[["dist"]] == 0),
       mean_dist_err = mean(.data[["dist"]]),
       mean_log_err = mean(log(.data[["dist"]] + 1)),
@@ -37,15 +37,15 @@ locmem <- function(data, by, vars_input) {
 locmem2 <- function(data, by, vars_input) {
   loc_results <- locmem(data, by, vars_input)
   nc_order <- data %>%
-    dplyr::mutate(
+    mutate(
       acc_order = parse_char_resp(.data[[vars_input[["name_acc_order"]]]]),
       .keep = "unused"
     ) %>%
-    tidyr::unnest(.data[["acc_order"]]) %>%
-    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
-    dplyr::summarise(
+    unnest(.data[["acc_order"]]) %>%
+    group_by(across(all_of(by))) %>%
+    summarise(
       nc_order = sum(.data[["acc_order"]] == 1),
       .groups = "drop"
     )
-  dplyr::left_join(loc_results, nc_order, by = by)
+  left_join(loc_results, nc_order, by = by)
 }

@@ -22,17 +22,17 @@ calc_switch_cost <- function(data,
                              name_acc) {
   data %>%
     # remove all filler trials
-    dplyr::filter(.data[[name_type_switch]] != "filler") %>%
-    dplyr::mutate(
+    filter(.data[[name_type_switch]] != "filler") %>%
+    mutate(
       condition = factor(
         .data[[name_type_switch]],
         c("repeat", "switch")
       )
     ) %>%
-    dplyr::group_by(dplyr::across(
-      dplyr::all_of(c(by, name_type_block, name_type_switch, "condition"))
+    group_by(across(
+      all_of(c(by, name_type_block, name_type_switch, "condition"))
     )) %>%
-    dplyr::mutate(
+    mutate(
       # remove conditional reaction time outliers
       "{name_rt}" := ifelse(
         .data[[name_rt]] %in%
@@ -40,29 +40,29 @@ calc_switch_cost <- function(data,
         NA, .data[[name_rt]]
       )
     ) %>%
-    dplyr::summarise(
+    summarise(
       mrt = mean(.data[[name_rt]], na.rm = TRUE),
       pc = mean(.data[[name_acc]] == 1),
       .groups = "drop"
     ) %>%
-    tidyr::complete(.data[["condition"]], tidyr::nesting(!!!syms(by))) %>%
-    dplyr::mutate(
-      condition = tidyr::replace_na(
+    complete(.data[["condition"]], nesting(!!!syms(by))) %>%
+    mutate(
+      condition = replace_na(
         as.character(.data[["condition"]]), "pure"
       )
     ) %>%
-    dplyr::group_by(dplyr::across(dplyr::all_of(c(by, "condition")))) %>%
-    dplyr::summarise(
+    group_by(across(all_of(c(by, "condition")))) %>%
+    summarise(
       mrt = mean(.data[["mrt"]], na.rm = TRUE),
       pc = mean(.data[["pc"]], na.rm = TRUE),
       .groups = "drop"
     ) %>%
-    tidyr::pivot_wider(
-      dplyr::all_of(by),
+    pivot_wider(
+      all_of(by),
       names_from = .data[["condition"]],
       values_from = c("mrt", "pc")
     ) %>%
-    dplyr::mutate(
+    mutate(
       switch_cost_rt_gen = .data[["mrt_repeat"]] - .data[["mrt_pure"]],
       switch_cost_rt_spe = .data[["mrt_switch"]] - .data[["mrt_repeat"]],
       switch_cost_pc_gen = .data[["pc_repeat"]] - .data[["pc_pure"]],

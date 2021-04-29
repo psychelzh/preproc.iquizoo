@@ -33,8 +33,8 @@ calc_spd_acc <- function(data, by, name_acc, name_rt,
   rt_rtn <- match.arg(rt_rtn)
   acc_rtn <- match.arg(acc_rtn)
   data %>%
-    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
-    dplyr::mutate(
+    group_by(across(all_of(by))) %>%
+    mutate(
       "{name_rt}" := ifelse(
         .data[[name_rt]] %in%
           graphics::boxplot(.data[[name_rt]], plot = FALSE)$out &
@@ -42,15 +42,15 @@ calc_spd_acc <- function(data, by, name_acc, name_rt,
         NA, .data[[name_rt]]
       )
     ) %>%
-    dplyr::summarise(
+    summarise(
       nc = sum(.data[[name_acc]] == 1),
-      pc = .data[["nc"]] / dplyr::n(),
+      pc = .data[["nc"]] / n(),
       mrt = mean(.data[[name_rt]], na.rm = TRUE),
       rtsd = stats::sd(.data[[name_rt]], na.rm = TRUE),
       .groups = "drop"
     ) %>%
-    dplyr::select(
-      dplyr::all_of(
+    select(
+      all_of(
         c(
           by,
           if (acc_rtn %in% c("both", "count")) "nc",
