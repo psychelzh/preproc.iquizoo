@@ -1,5 +1,9 @@
 # dataproc.iquizoo (development version)
 
+## New Features
+
+* Added a new function `wrange_data()` (originally in {tarflow.iquizoo}). Now it removes duplicates from data.
+
 # dataproc.iquizoo 1.0.5
 
 ## New Features
