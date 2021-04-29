@@ -18,39 +18,39 @@
 #' @keywords internal
 calc_sdt <- function(data, by, name_acc, name_type, keep_counts = TRUE) {
   data %>%
-    dplyr::mutate(
+    mutate(
       "{name_type}" := factor(
         .data[[name_type]],
         c("s", "n")
       )
     ) %>%
-    dplyr::group_by(dplyr::across(dplyr::all_of(c(by, name_type)))) %>%
-    dplyr::summarise(
+    group_by(across(all_of(c(by, name_type)))) %>%
+    summarise(
       c = sum(.data[[name_acc]] == 1),
-      e = dplyr::n() - .data[["c"]],
+      e = n() - .data[["c"]],
       .groups = "drop"
     ) %>%
-    # TODO: call `tidyr::complete()` to make sure "s" and "n" both exist
-    dplyr::mutate(
-      dplyr::across(
-        dplyr::all_of(c("c", "e")),
+    # TODO: call `complete()` to make sure "s" and "n" both exist
+    mutate(
+      across(
+        all_of(c("c", "e")),
         # log-linear rule of correction extreme proportion
         ~ stats::qnorm((.x + 0.5) / (.data[["c"]] + .data[["e"]] + 1)),
         .names = "z{.col}"
       )
     ) %>%
-    tidyr::pivot_wider(
+    pivot_wider(
       names_from = .data[[name_type]],
       values_from = c("c", "e", "zc", "ze")
     ) %>%
-    dplyr::mutate(
+    mutate(
       commissions = .data[["e_n"]],
       omissions = .data[["e_s"]],
       dprime = .data[["zc_s"]] - .data[["ze_n"]],
       c = -(.data[["zc_s"]] + .data[["ze_n"]]) / 2
     ) %>%
-    dplyr::select(
-      dplyr::all_of(
+    select(
+      all_of(
         c(
           by, "dprime", "c",
           if (keep_counts) c("commissions", "omissions")

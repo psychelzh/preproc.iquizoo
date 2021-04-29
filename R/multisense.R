@@ -15,32 +15,32 @@
 #' @export
 multisense <- function(data, by, vars_input) {
   data %>%
-    dplyr::group_by(dplyr::across(
-      dplyr::all_of(c(by, vars_input[["name_type"]]))
+    group_by(across(
+      all_of(c(by, vars_input[["name_type"]]))
     )) %>%
-    dplyr::mutate(
+    mutate(
       rt_cor = ifelse(
         .data[[vars_input[["name_rt"]]]] > 100,
         .data[[vars_input[["name_rt"]]]], NA
       )
     ) %>%
-    dplyr::mutate(
+    mutate(
       rt_cor = ifelse(
         .data[["rt_cor"]] %in%
           graphics::boxplot(.data[["rt_cor"]], plot = FALSE)$out,
         NA, .data[["rt_cor"]]
       )
     ) %>%
-    dplyr::summarise(
+    summarise(
       mrt = mean(.data[["rt_cor"]], na.rm = TRUE),
       .groups = "drop"
     ) %>%
-    tidyr::pivot_wider(
+    pivot_wider(
       names_from = vars_input[["name_type"]],
       names_prefix = "mrt_",
       values_from = "mrt"
     ) %>%
-    dplyr::mutate(
+    mutate(
       mrt_mixadv = (.data[["mrt_image"]] + .data[["mrt_sound"]]) / 2 -
         .data[["mrt_mixed"]]
     )

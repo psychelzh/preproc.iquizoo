@@ -19,7 +19,7 @@ NULL
 #' @export
 crt <- function(data, by, vars_input) {
   data %>%
-    dplyr::mutate(
+    mutate(
       # remove rt of 100 or less
       rt_cor = ifelse(
         .data[[vars_input[["name_rt"]]]] > 100,
@@ -38,7 +38,7 @@ crt <- function(data, by, vars_input) {
 #' @export
 srt <- function(data, by, vars_input) {
   data %>%
-    dplyr::mutate(
+    mutate(
       # remove rt of 100 or less
       rt_cor = ifelse(
         .data[[vars_input[["name_rt"]]]] > 100,

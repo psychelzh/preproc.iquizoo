@@ -25,16 +25,16 @@ countcorrect <- function(data, by, vars_input) {
   if (is.character(data[[vars_input[["name_acc"]]]])) {
     # character input uses "-" to separate individual responses
     data <- data %>%
-      dplyr::mutate(
+      mutate(
         r"({vars_input[["name_acc"]]})" := parse_char_resp(
           .data[[vars_input[["name_acc"]]]]
         )
       ) %>%
-      tidyr::unnest(.data[[vars_input[["name_acc"]]]])
+      unnest(.data[[vars_input[["name_acc"]]]])
   }
   data %>%
-    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
-    dplyr::summarise(
+    group_by(across(all_of(by))) %>%
+    summarise(
       # NA might be produced in parsing characters
       nc = sum(.data[[vars_input[["name_acc"]]]] == 1, na.rm = TRUE),
       .groups = "drop"
@@ -45,8 +45,8 @@ countcorrect <- function(data, by, vars_input) {
 #' @export
 countcorrect2 <- function(data, by, vars_input) {
   data %>%
-    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
-    dplyr::summarise(
+    group_by(across(all_of(by))) %>%
+    summarise(
       nc_cor = sum(
         .data[[vars_input[["name_nc"]]]] - .data[[vars_input[["name_ne"]]]]
       ),
@@ -58,8 +58,8 @@ countcorrect2 <- function(data, by, vars_input) {
 #' @export
 sumweighted <- function(data, by, vars_input) {
   data %>%
-    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
-    dplyr::summarise(
+    group_by(across(all_of(by))) %>%
+    summarise(
       nc_weighted = sum(
         .data[[vars_input[["name_weight"]]]] *
           (.data[[vars_input[["name_acc"]]]] == 1)
@@ -72,8 +72,8 @@ sumweighted <- function(data, by, vars_input) {
 #' @export
 sumscore <- function(data, by, vars_input) {
   data %>%
-    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
-    dplyr::summarise(
+    group_by(across(all_of(by))) %>%
+    summarise(
       nc_score = sum(as.numeric(.data[[vars_input[["name_score"]]]])),
       .groups = "drop"
     )

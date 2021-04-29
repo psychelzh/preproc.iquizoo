@@ -13,13 +13,13 @@
 #' @export
 nsymncmp <- function(data, by, vars_input) {
   data_cor <- data %>%
-    dplyr::mutate(
+    mutate(
       rt_cor = ifelse(
         .data[[vars_input[["name_rt"]]]] > 100,
         .data[[vars_input[["name_rt"]]]], NA
       )
     ) %>%
-    dplyr::rename(
+    rename(
       b = .data[[vars_input[["name_big"]]]],
       s = .data[[vars_input[["name_small"]]]]
     )
@@ -45,13 +45,13 @@ nsymncmp <- function(data, by, vars_input) {
     otherwise = NA_real_
   )
   weber <- data_cor %>%
-    dplyr::group_nest(dplyr::across(dplyr::all_of(by))) %>%
-    dplyr::mutate(
+    group_nest(across(all_of(by))) %>%
+    mutate(
       w = purrr::map_dbl(
         .data[["data"]],
         fit_errproof
       ),
       .keep = "unused"
     )
-  dplyr::left_join(basics, weber, by = by)
+  left_join(basics, weber, by = by)
 }

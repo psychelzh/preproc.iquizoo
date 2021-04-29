@@ -15,25 +15,25 @@
 #' @export
 bps <- function(data, by, vars_input) {
   data_cor <- data %>%
-    dplyr::filter(.data[[vars_input[["name_phase"]]]] == "test")
+    filter(.data[[vars_input[["name_phase"]]]] == "test")
   pc_all <- data_cor %>%
-    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
-    dplyr::summarise(
+    group_by(across(all_of(by))) %>%
+    summarise(
       pc = mean(.data[[vars_input[["name_acc"]]]] == 1),
       .groups = "drop"
     )
   bps_score <- data_cor %>%
-    dplyr::group_by(dplyr::across(
-      dplyr::all_of(c(by, vars_input[["name_type"]]))
+    group_by(across(
+      all_of(c(by, vars_input[["name_type"]]))
     )) %>%
-    dplyr::summarise(
+    summarise(
       p_sim = mean(.data[[vars_input[["name_resp"]]]] == "similar")
     ) %>%
-    tidyr::pivot_wider(
+    pivot_wider(
       names_from = .data[[vars_input[["name_type"]]]],
       names_prefix = "p_sim_",
       values_from = "p_sim"
     ) %>%
-    dplyr::mutate(bps_score = .data[["p_sim_lure"]] - .data[["p_sim_foil"]])
-  dplyr::left_join(pc_all, bps_score, by = by)
+    mutate(bps_score = .data[["p_sim_lure"]] - .data[["p_sim_foil"]])
+  left_join(pc_all, bps_score, by = by)
 }

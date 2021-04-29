@@ -10,21 +10,21 @@
 #' @export
 driving <- function(data, by, vars_input) {
   data %>%
-    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
-    dplyr::mutate(
+    group_by(across(all_of(by))) %>%
+    mutate(
       still_dur = parse_char_resp(.data[[vars_input[["name_still_dur"]]]]),
       still_light = parse_char_resp(
         .data[[vars_input[["name_still_light"]]]],
         convert_numeric = FALSE
       )
     ) %>%
-    dplyr::mutate(
+    mutate(
       still_dur_yellow = purrr::map2_dbl(
         .data[["still_dur"]], .data[["still_light"]],
         ~ ifelse(length(.x) == length(.y), sum(.x[.y == "yellow"]), NA)
       )
     ) %>%
-    dplyr::summarise(
+    summarise(
       still_ratio = sum(.data[["still_dur_yellow"]]) /
         sum(.data[[vars_input[["name_yellow_dur"]]]]),
       .groups = "drop"

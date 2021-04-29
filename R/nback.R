@@ -14,12 +14,12 @@
 nback <- function(data, by, vars_input) {
   data_cor <- data %>%
     # type of "None" should be ignored
-    dplyr::filter(
+    filter(
       !.data[[vars_input[["name_type"]]]] %in% c("none", "filler")
     ) %>%
-    dplyr::mutate(
+    mutate(
       # standardize stimuli type
-      type_cor = dplyr::if_else(
+      type_cor = if_else(
         .data[[vars_input[["name_type"]]]] %in% c("change", "target"),
         "s", "n"
       ),
@@ -41,5 +41,5 @@ nback <- function(data, by, vars_input) {
     data_cor, by, vars_input[["name_acc"]], "type_cor",
     keep_counts = FALSE
   )
-  dplyr::left_join(basics, sdt, by = by)
+  left_join(basics, sdt, by = by)
 }

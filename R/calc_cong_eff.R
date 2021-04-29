@@ -16,15 +16,15 @@
 #' @keywords internal
 calc_cong_eff <- function(data, by, name_cong, name_acc, name_rt) {
   data %>%
-    dplyr::mutate(
+    mutate(
       "{name_cong}" := factor(
         .data[[name_cong]],
         c("incongruent", "congruent"),
         c("inc", "con")
       )
     ) %>%
-    dplyr::group_by(dplyr::across(dplyr::all_of(c(by, name_cong)))) %>%
-    dplyr::mutate(
+    group_by(across(all_of(c(by, name_cong)))) %>%
+    mutate(
       # remove conditional reaction time outliers
       "{name_rt}" := ifelse(
         .data[[name_rt]] %in%
@@ -32,18 +32,18 @@ calc_cong_eff <- function(data, by, name_cong, name_acc, name_rt) {
         NA, .data[[name_rt]]
       )
     ) %>%
-    dplyr::summarise(
+    summarise(
       pc = mean(.data[[name_acc]] == 1),
       mrt = mean(.data[[name_rt]], na.rm = TRUE),
       .groups = "drop"
     ) %>%
     # make sure each type of condition exists
-    tidyr::complete(!!sym(name_cong), tidyr::nesting(!!!syms(by))) %>%
-    tidyr::pivot_wider(
+    complete(!!sym(name_cong), nesting(!!!syms(by))) %>%
+    pivot_wider(
       names_from = .data[[name_cong]],
       values_from = c("mrt", "pc")
     ) %>%
-    dplyr::mutate(
+    mutate(
       cong_eff_rt = .data[["mrt_inc"]] - .data[["mrt_con"]],
       cong_eff_pc = .data[["pc_con"]] - .data[["pc_inc"]]
     )

@@ -11,12 +11,12 @@
 #' @export
 nle <- function(data, by, vars_input) {
   data %>%
-    dplyr::mutate(
+    mutate(
       err = abs(.data[[vars_input[["name_number"]]]] -
         .data[[vars_input[["name_resp"]]]])
     ) %>%
-    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
-    dplyr::summarise(
+    group_by(across(all_of(by))) %>%
+    summarise(
       mean_abs_err = mean(.data[["err"]]),
       mean_log_err = mean(log(.data[["err"]] + 1)),
       .groups = "drop"

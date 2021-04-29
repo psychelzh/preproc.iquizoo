@@ -42,7 +42,7 @@ preproc_data <- function(data, prep_fun_name, by = NULL, ...,
     data[[by]] <- 1
     keep_by <- FALSE
   } else {
-    if (!all(has_name(data, by))) {
+    if (!all(rlang::has_name(data, by))) {
       warn("Input `by` does not match any name of `data`.", "by_invalid")
       return()
     }
@@ -51,14 +51,14 @@ preproc_data <- function(data, prep_fun_name, by = NULL, ...,
   # call the pre-processing function
   data %>%
     # transform character values to lowercase
-    dplyr::mutate(
-      dplyr::across(
+    mutate(
+      across(
         tidyselect::vars_select_helpers$where(is.character),
         tolower
       )
     ) %>%
     prep_fun(vars_input = vars_input, by = by) %>%
-    dplyr::select(dplyr::all_of(
+    select(all_of(
       # keep grouping variable when required
       c(if (keep_by) by, .get_output_vars(prep_fun_name))
     )) %>%

@@ -14,13 +14,13 @@
 #' @export
 jlo <- function(data, by, vars_input) {
   data %>%
-    dplyr::mutate(
+    mutate(
       resp_angle = stringr::str_split(
         .data[[vars_input[["name_resp"]]]],
         "-"
       ) %>%
         purrr::map_dbl(
-          ~ sum(dplyr::recode(.x, left = 1, right = -1) * 6)
+          ~ sum(recode(.x, left = 1, right = -1) * 6)
         ),
       resp_err_raw = abs(
         .data[["resp_angle"]] - .data[[vars_input[["name_angle"]]]]
@@ -31,8 +31,8 @@ jlo <- function(data, by, vars_input) {
         .data[["resp_err_raw"]]
       )
     ) %>%
-    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
-    dplyr::summarise(
+    group_by(across(all_of(by))) %>%
+    summarise(
       nc = sum(.data[[vars_input[["name_acc"]]]] == 1),
       mean_ang_err = mean(.data[["resp_err"]]),
       # make sure it is between 0 and 1

@@ -13,7 +13,7 @@
 #' @export
 stopsignal <- function(data, by, vars_input) {
   data_cor <- data %>%
-    dplyr::mutate(
+    mutate(
       # remove rt of 100 or less for go trials
       rt_cor = ifelse(
         .data[[vars_input[["name_rt"]]]] <= 100 &
@@ -22,18 +22,18 @@ stopsignal <- function(data, by, vars_input) {
       )
     )
   indices_from_acc <- data_cor %>%
-    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
-    dplyr::summarise(
+    group_by(across(all_of(by))) %>%
+    summarise(
       pc_all = mean(.data[[vars_input[["name_acc"]]]] == 1),
       pc_go = sum(
         .data[[vars_input[["name_acc"]]]] == 1 &
           .data[[vars_input[["name_type"]]]] == "go"
       ) / sum(.data[[vars_input[["name_type"]]]] == "go")
     ) %>%
-    dplyr::ungroup()
+    ungroup()
   indices_from_rt <- data_cor %>%
-    dplyr::group_by(dplyr::across(dplyr::all_of(by))) %>%
-    dplyr::group_modify(
+    group_by(across(all_of(by))) %>%
+    group_modify(
       ~ .calc_ssrt(
         .x,
         name_type = vars_input[["name_type"]],
@@ -42,8 +42,8 @@ stopsignal <- function(data, by, vars_input) {
         name_ssd = vars_input[["name_ssd"]]
       )
     ) %>%
-    dplyr::ungroup()
-  dplyr::left_join(indices_from_acc, indices_from_rt, by = by)
+    ungroup()
+  left_join(indices_from_acc, indices_from_rt, by = by)
 }
 
 .calc_ssrt <- function(data, name_type, name_acc, name_rt, name_ssd) {
@@ -57,14 +57,14 @@ stopsignal <- function(data, by, vars_input) {
     otherwise = NA_real_
   )
   data %>%
-    dplyr::filter(.data[[name_type]] != "go") %>%
-    dplyr::group_by(.data[[name_type]]) %>%
-    dplyr::summarise(
+    filter(.data[[name_type]] != "go") %>%
+    group_by(.data[[name_type]]) %>%
+    summarise(
       ssd = calc_ssd(.data[[name_ssd]]),
       .groups = "drop"
     ) %>%
-    dplyr::summarise(mean_ssd = mean(.data[["ssd"]])) %>%
-    dplyr::transmute(
+    summarise(mean_ssd = mean(.data[["ssd"]])) %>%
+    transmute(
       medrt_go = stats::median(
         data[[name_rt]][data[[name_type]] == "go" & data[[name_acc]] == 1],
         na.rm = TRUE

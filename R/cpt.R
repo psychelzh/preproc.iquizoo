@@ -19,10 +19,10 @@
 cpt <- function(data, by, vars_input) {
   data_cor <- data %>%
     # some tests records stimuli not presented
-    dplyr::filter(.data[[vars_input[["name_acc"]]]] != -1) %>%
-    dplyr::mutate(
+    filter(.data[[vars_input[["name_acc"]]]] != -1) %>%
+    mutate(
       # standardize stimuli type
-      type_cor = dplyr::if_else(
+      type_cor = if_else(
         .data[[vars_input[["name_type"]]]] %in% c("target", "left"),
         "s", "n"
       ),
@@ -40,5 +40,5 @@ cpt <- function(data, by, vars_input) {
     acc_rtn = "count"
   )
   sdt <- calc_sdt(data_cor, by, vars_input[["name_acc"]], "type_cor")
-  dplyr::left_join(basics, sdt, by = by)
+  left_join(basics, sdt, by = by)
 }

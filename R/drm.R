@@ -14,26 +14,26 @@
 #' @export
 drm <- function(data, by, vars_input) {
   data %>%
-    dplyr::filter(.data[[vars_input[["name_type"]]]] != "filler") %>%
-    dplyr::group_by(dplyr::across(
-      dplyr::all_of(c(by, vars_input[["name_type"]]))
+    filter(.data[[vars_input[["name_type"]]]] != "filler") %>%
+    group_by(across(
+      all_of(c(by, vars_input[["name_type"]]))
     )) %>%
-    dplyr::summarise(
+    summarise(
       z_old = stats::qnorm(
         (sum(.data[[vars_input[["name_resp"]]]] == "old") + 0.5) /
-          (dplyr::n() + 1)
+          (n() + 1)
       ),
       .groups = "drop_last"
     ) %>%
-    tidyr::pivot_wider(
+    pivot_wider(
       names_from = .data[[vars_input[["name_type"]]]],
       values_from = "z_old"
     ) %>%
-    dplyr::transmute(
+    transmute(
       tm_dprime = .data[["old"]] - .data[["foil"]],
       tm_bias = -(.data[["old"]] + .data[["foil"]]) / 2,
       fm_dprime = .data[["lure"]] - .data[["foil"]],
       fm_bias = -(.data[["lure"]] + .data[["foil"]]) / 2
     ) %>%
-    dplyr::ungroup()
+    ungroup()
 }
