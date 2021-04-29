@@ -14,12 +14,16 @@
 #'     conditions respectively.}
 #' @export
 refframe <- function(data, by, vars_input) {
-  data %>%
+  bind_rows(
+    each = data,
+    both = data,
+    .id = "set"
+  ) %>%
     mutate(
-      type_cor = recode(
-        .data[[vars_input[["name_type"]]]],
-        allocentric = "allo",
-        egocentric = "ego"
+      type_cor = case_when(
+        .data[["set"]] == "both" ~ "both",
+        .data[[vars_input[["name_type"]]]] == "allocentric" ~ "allo",
+        .data[[vars_input[["name_type"]]]] == "egocentric" ~ "ego"
       )
     ) %>%
     group_by(across(all_of(c(by, "type_cor")))) %>%
