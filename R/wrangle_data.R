@@ -7,6 +7,8 @@
 #'   is typically of a vector containing `JSON` string.
 #' @param name_user The column name in the `data` that stores the identifier of
 #'   users.
+#' @param name_key The key name used to match meta data. Should be a scalar
+#'   character. Default is `".id"`, which is appropriate for most cases.
 #' @return A [tibble][tibble::tibble-package] with two pieces of meta data:
 #'   `info` and `name_key`. They stores other metadata from input raw data other
 #'   than game data from `name_datas`.

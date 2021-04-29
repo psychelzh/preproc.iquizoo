@@ -19,6 +19,9 @@ is typically of a vector containing \code{JSON} string.}
 
 \item{name_user}{The column name in the \code{data} that stores the identifier of
 users.}
+
+\item{name_key}{The key name used to match meta data. Should be a scalar
+character. Default is \code{".id"}, which is appropriate for most cases.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} with two pieces of meta data:
