@@ -1,3 +1,9 @@
+# dataproc.iquizoo 1.1.1
+
+## Miscellaneous
+
+* Added more games into the `game_info` data.
+
 # dataproc.iquizoo 1.1.0
 
 ## New Features
