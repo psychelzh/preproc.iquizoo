@@ -6,8 +6,8 @@ data <- expand_grid(
     phase = c("Learn", "Test"),
     n = c(40, 60)
   )
-) %>%
-  uncount(n, .id = "trial") %>%
+) |>
+  uncount(n, .id = "trial") |>
   mutate(
     type = case_when(
       phase == "Learn" ~ NA_character_,
@@ -40,7 +40,7 @@ test_that("Works with multiple grouping variables", {
 })
 
 test_that("Works when character case is messy", {
-  data_case_messy <- data %>%
+  data_case_messy <- data |>
     mutate(
       phase = recode(phase, Learn = "learn"),
       type = recode(type, foil = "Foil"),

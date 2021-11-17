@@ -14,32 +14,32 @@
 #'     two types of stimuli.}
 #' @export
 multisense <- function(data, by, vars_input) {
-  data %>%
+  data |>
     group_by(across(
       all_of(c(by, vars_input[["name_type"]]))
-    )) %>%
+    )) |>
     mutate(
       rt_cor = ifelse(
         .data[[vars_input[["name_rt"]]]] > 100,
         .data[[vars_input[["name_rt"]]]], NA
       )
-    ) %>%
+    ) |>
     mutate(
       rt_cor = ifelse(
         .data[["rt_cor"]] %in%
           graphics::boxplot(.data[["rt_cor"]], plot = FALSE)$out,
         NA, .data[["rt_cor"]]
       )
-    ) %>%
+    ) |>
     summarise(
       mrt = mean(.data[["rt_cor"]], na.rm = TRUE),
       .groups = "drop"
-    ) %>%
+    ) |>
     pivot_wider(
       names_from = vars_input[["name_type"]],
       names_prefix = "mrt_",
       values_from = "mrt"
-    ) %>%
+    ) |>
     mutate(
       mrt_mixadv = (.data[["mrt_image"]] + .data[["mrt_sound"]]) / 2 -
         .data[["mrt_mixed"]]

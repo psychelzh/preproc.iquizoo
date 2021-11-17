@@ -5,8 +5,8 @@ data <- expand_grid(
     type = c("None", "Change", "Stay"),
     n = c(1, 10, 10)
   )
-) %>%
-  uncount(n) %>%
+) |>
+  uncount(n) |>
   mutate(
     acc = sample(c(0, 1), n(), replace = TRUE),
     rt = rexp(n(), 0.001)
@@ -22,7 +22,7 @@ test_that("Works with multiple grouping variables", {
 })
 
 test_that("Works when character case is messy", {
-  data_case_messy <- data %>%
+  data_case_messy <- data |>
     mutate(
       type = recode(type, Change = "change")
     )
@@ -36,7 +36,7 @@ test_that("Works when character case is messy", {
 })
 
 test_that("Works when using `'filler'` or `'target'`", {
-  data_new_value <- data %>%
+  data_new_value <- data |>
     mutate(
       type = recode(type, Change = "target", None = "filler")
     )

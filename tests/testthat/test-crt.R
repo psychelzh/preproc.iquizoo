@@ -3,8 +3,8 @@ n_subject <- 100
 data <- tibble::tibble(
   id = seq_len(n_subject),
   n = sample(40:80, n_subject, replace = TRUE)
-) %>%
-  uncount(n) %>%
+) |>
+  uncount(n) |>
   mutate(
     acc = sample(c(0, 1), n(), replace = TRUE),
     rt = rexp(n(), 0.001)

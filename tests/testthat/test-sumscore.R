@@ -2,8 +2,8 @@ set.seed(1)
 data <- tibble::tibble(
   id = seq_len(100),
   n = 20
-) %>%
-  uncount(n) %>%
+) |>
+  uncount(n) |>
   mutate(
     score = sample(1:5, n(), replace = TRUE)
   )

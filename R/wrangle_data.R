@@ -25,14 +25,14 @@ wrangle_data <- function(data,
   #' `"{}"`) json string data and then remove duplicates from data. If this step
   #' produces data with no observation, following steps are skipped and `NULL`
   #' is returned.
-  data_valid <- data %>%
+  data_valid <- data |>
     filter(
       purrr::map_lgl(.data[[name_data]], jsonlite::validate),
       !stringr::str_detect(.data[[name_data]], r"(^\s*(\[\s*\]|\{\s*\})\s*$)")
-    ) %>%
-    group_by(.data[[name_user]], .data[[name_data]]) %>%
-    filter(row_number() == 1) %>%
-    ungroup() %>%
+    ) |>
+    group_by(.data[[name_user]], .data[[name_data]]) |>
+    filter(row_number() == 1) |>
+    ungroup() |>
     mutate("{name_key}" := seq_len(n()), .before = 1)
   if (nrow(data_valid) == 0) {
     return()
@@ -41,15 +41,15 @@ wrangle_data <- function(data,
   #' case and stack the parsed data. Stacking have better performances than
   #' [group_nest][group_nest()]ing.
   meta <- select(data_valid, -.data[[name_data]])
-  data_parsed <- data_valid %>%
-    select(.data[[name_key]], .data[[name_data]]) %>%
+  data_parsed <- data_valid |>
+    select(.data[[name_key]], .data[[name_data]]) |>
     mutate(
       "{name_data}" := purrr::map(
         .data[[name_data]],
-        ~ jsonlite::fromJSON(.x) %>%
+        ~ jsonlite::fromJSON(.x) |>
           rename_with(tolower)
       )
-    ) %>%
+    ) |>
     unnest(.data[[name_data]])
   structure(
     data_parsed,

@@ -16,17 +16,17 @@ span <- function(data, by, vars_input) {
   name_acc_chk <- rlang::has_name(data, name_acc_cand)
   if (any(name_acc_chk)) {
     name_acc <- name_acc_cand[name_acc_chk]
-    nc <- data %>%
-      mutate(acc = parse_char_resp(.data[[name_acc]])) %>%
-      unnest(.data[["acc"]]) %>%
-      group_by(across(all_of(by))) %>%
+    nc <- data |>
+      mutate(acc = parse_char_resp(.data[[name_acc]])) |>
+      unnest(.data[["acc"]]) |>
+      group_by(across(all_of(by))) |>
       summarise(
         nc = sum(.data[["acc"]] == 1),
         .groups = "drop"
       )
   } else {
     if (all(rlang::has_name(data, c("stim", "resp")))) {
-      nc <- data %>%
+      nc <- data |>
         mutate(
           stim = parse_char_resp(.data[["stim"]]),
           resp = parse_char_resp(.data[["resp"]]),
@@ -34,29 +34,29 @@ span <- function(data, by, vars_input) {
             .data[["stim"]], .data[["resp"]],
             ~ sum(.x == .y)
           )
-        ) %>%
-        group_by(across(all_of(by))) %>%
+        ) |>
+        group_by(across(all_of(by))) |>
         summarise(
           nc = sum(.data[["nc"]]),
           .groups = "drop"
         )
     } else {
-      nc <- data %>%
-        group_by(across(all_of(by))) %>%
+      nc <- data |>
+        group_by(across(all_of(by))) |>
         summarise(
           nc = NA_integer_,
           .groups = "drop"
         )
     }
   }
-  spans <- data %>%
+  spans <- data |>
     group_by(across(
       all_of(c(by, vars_input[["name_slen"]]))
-    )) %>%
+    )) |>
     summarise(
       pc = mean(.data[[vars_input[["name_outcome"]]]] == 1),
       .groups = "drop_last"
-    ) %>%
+    ) |>
     summarise(
       max_span = max(.data[[vars_input[["name_slen"]]]]),
       mean_span = sum(.data[["pc"]]) +

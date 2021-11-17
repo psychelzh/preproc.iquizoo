@@ -18,14 +18,14 @@ NULL
 #' @rdname rt
 #' @export
 crt <- function(data, by, vars_input) {
-  data %>%
+  data |>
     mutate(
       # remove rt of 100 or less
       rt_cor = ifelse(
         .data[[vars_input[["name_rt"]]]] > 100,
         .data[[vars_input[["name_rt"]]]], NA
       )
-    ) %>%
+    ) |>
     calc_spd_acc(
       by,
       name_acc = vars_input[["name_acc"]],
@@ -37,7 +37,7 @@ crt <- function(data, by, vars_input) {
 #' @rdname rt
 #' @export
 srt <- function(data, by, vars_input) {
-  data %>%
+  data |>
     mutate(
       # remove rt of 100 or less
       rt_cor = ifelse(
@@ -45,7 +45,7 @@ srt <- function(data, by, vars_input) {
         .data[[vars_input[["name_rt"]]]], NA
       ),
       acc_dummy = 1
-    ) %>%
+    ) |>
     calc_spd_acc(
       by,
       name_acc = "acc_dummy",

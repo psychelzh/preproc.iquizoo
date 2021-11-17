@@ -12,7 +12,7 @@
 #'   \item{ssrt}{Stop signal reaction time (ms).}
 #' @export
 stopsignal <- function(data, by, vars_input) {
-  data_cor <- data %>%
+  data_cor <- data |>
     mutate(
       # remove rt of 100 or less for go trials
       rt_cor = ifelse(
@@ -21,18 +21,18 @@ stopsignal <- function(data, by, vars_input) {
         NA, .data[[vars_input[["name_rt"]]]]
       )
     )
-  indices_from_acc <- data_cor %>%
-    group_by(across(all_of(by))) %>%
+  indices_from_acc <- data_cor |>
+    group_by(across(all_of(by))) |>
     summarise(
       pc_all = mean(.data[[vars_input[["name_acc"]]]] == 1),
       pc_go = sum(
         .data[[vars_input[["name_acc"]]]] == 1 &
           .data[[vars_input[["name_type"]]]] == "go"
       ) / sum(.data[[vars_input[["name_type"]]]] == "go")
-    ) %>%
+    ) |>
     ungroup()
-  indices_from_rt <- data_cor %>%
-    group_by(across(all_of(by))) %>%
+  indices_from_rt <- data_cor |>
+    group_by(across(all_of(by))) |>
     group_modify(
       ~ .calc_ssrt(
         .x,
@@ -41,7 +41,7 @@ stopsignal <- function(data, by, vars_input) {
         name_rt = "rt_cor",
         name_ssd = vars_input[["name_ssd"]]
       )
-    ) %>%
+    ) |>
     ungroup()
   left_join(indices_from_acc, indices_from_rt, by = by)
 }
@@ -56,14 +56,14 @@ stopsignal <- function(data, by, vars_input) {
     ),
     otherwise = NA_real_
   )
-  data %>%
-    filter(.data[[name_type]] != "go") %>%
-    group_by(.data[[name_type]]) %>%
+  data |>
+    filter(.data[[name_type]] != "go") |>
+    group_by(.data[[name_type]]) |>
     summarise(
       ssd = calc_ssd(.data[[name_ssd]]),
       .groups = "drop"
-    ) %>%
-    summarise(mean_ssd = mean(.data[["ssd"]])) %>%
+    ) |>
+    summarise(mean_ssd = mean(.data[["ssd"]])) |>
     transmute(
       medrt_go = stats::median(
         data[[name_rt]][data[[name_type]] == "go" & data[[name_acc]] == 1],

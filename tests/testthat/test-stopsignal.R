@@ -31,21 +31,21 @@ data <- expand_grid(
       )
     )
   )
-) %>%
-  mutate(acc = sample(c(0, 1), n(), replace = TRUE)) %>%
-  group_by(id, type) %>%
+) |>
+  mutate(acc = sample(c(0, 1), n(), replace = TRUE)) |>
+  group_by(id, type) |>
   group_modify(
-    ~ .x %>%
+    ~ .x |>
       mutate(
         ssd = .prepare_ssd(
           acc, .y$type
         )
       )
-  ) %>%
-  ungroup() %>%
+  ) |>
+  ungroup() |>
   mutate(
     rt = ifelse(acc == 1 & type != "Go", 0, rexp(n(), 0.001))
-  ) %>%
+  ) |>
   arrange(id, trial)
 
 test_that("Default behavior works", {
@@ -58,7 +58,7 @@ test_that("Works with multiple grouping variables", {
 })
 
 test_that("Works when character case is messy", {
-  data_case_messy <- data %>%
+  data_case_messy <- data |>
     mutate(
       type = recode(type, Stop1 = "stop1")
     )

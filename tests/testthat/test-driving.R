@@ -3,7 +3,7 @@ n_subject <- 100
 data <- expand_grid(
   id = seq_len(n_subject),
   yellowdur = runif(8, 3000, 15000)
-) %>%
+) |>
   mutate(
     stilldurlist = purrr::map(
       yellowdur,
@@ -22,16 +22,16 @@ data <- expand_grid(
     ),
     stilllight = purrr::map_chr(
       stilldurlist,
-      ~ sample(c("Yellow", "Green"), length(.x), replace = TRUE) %>%
+      ~ sample(c("Yellow", "Green"), length(.x), replace = TRUE) |>
         stringr::str_c(collapse = "-")
     )
-  ) %>%
+  ) |>
   select(-stilldurlist)
 # some rare cases produce negative durations by error
 data_negtive_dur <- tibble::tibble(
   id = 1,
   yellowdur = runif(8, 3000, 15000)
-) %>%
+) |>
   mutate(
     stilldurlist = purrr::map(
       yellowdur,
@@ -50,10 +50,10 @@ data_negtive_dur <- tibble::tibble(
     ),
     stilllight = purrr::map_chr(
       stilldurlist,
-      ~ sample(c("Yellow", "Green"), length(.x), replace = TRUE) %>%
+      ~ sample(c("Yellow", "Green"), length(.x), replace = TRUE) |>
         stringr::str_c(collapse = "-")
     )
-  ) %>%
+  ) |>
   select(-stilldurlist)
 
 
@@ -71,7 +71,7 @@ test_that("No error for negative duration case (but produces `NA`s)", {
 })
 
 test_that("Works when character case is messy", {
-  data_case_messy <- data %>%
+  data_case_messy <- data |>
     mutate(
       stilllight = recode(stilllight, Green = "green")
     )

@@ -3,8 +3,8 @@ n_subject <- 100
 data <- expand_grid(
   id = seq_len(n_subject),
   n = sample(0:60, n_subject, replace = TRUE)
-) %>%
-  uncount(n, .id = "trial") %>%
+) |>
+  uncount(n, .id = "trial") |>
   mutate(
     type = sample(
       c("Incongruent", "Congruent"),
@@ -49,7 +49,7 @@ test_that("Works with multiple grouping variables", {
 })
 
 test_that("Works when character case is messy", {
-  data_case_messy <- data %>%
+  data_case_messy <- data |>
     mutate(
       type = recode(type, Congruent = "congruent")
     )

@@ -8,9 +8,9 @@ data <- expand_grid(
     "Foil", 30,
     "Lure", 30,
     "Old", 30
-  ) %>%
+  ) |>
     uncount(n)
-) %>%
+) |>
   mutate(
     resp = sample(c("New", "Old"), n(), replace = TRUE),
     acc = ifelse(
@@ -31,7 +31,7 @@ test_that("Works with multiple grouping variables", {
 })
 
 test_that("Works when character case is messy", {
-  data_case_messy <- data %>%
+  data_case_messy <- data |>
     mutate(
       resp = recode(resp, New = "new"),
       type = recode(type, Old = "old")

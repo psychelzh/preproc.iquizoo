@@ -1,9 +1,9 @@
 set.seed(1)
 data <- tibble::tibble(
   id = seq_len(100)
-) %>%
-  mutate(n = sample(1:2, n(), replace = TRUE)) %>%
-  uncount(n) %>%
+) |>
+  mutate(n = sample(1:2, n(), replace = TRUE)) |>
+  uncount(n) |>
   mutate(
     ncorrect = sample(0:100, n(), replace = TRUE),
     nerror = sample(0:100, n(), replace = TRUE, prob = (101:1)^3)

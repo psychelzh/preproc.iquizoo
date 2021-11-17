@@ -5,8 +5,8 @@ data <- expand_grid(
     nstim = 2:4,
     n = 10
   )
-) %>%
-  uncount(n) %>%
+) |>
+  uncount(n) |>
   mutate(
     acc = sample(-1:1, n(), replace = TRUE)
   )

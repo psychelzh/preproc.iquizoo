@@ -3,8 +3,8 @@ n_subject <- 100
 data <- tibble::tibble(
   id = seq_len(n_subject),
   n = 14
-) %>%
-  uncount(n, .id = "Trial") %>%
+) |>
+  uncount(n, .id = "Trial") |>
   mutate(
     outcome = sample(
       c(0, 1),
@@ -12,10 +12,10 @@ data <- tibble::tibble(
       replace = TRUE,
       prob = c(0.2, 0.8)
     )
-  ) %>%
-  group_by(id) %>%
+  ) |>
+  group_by(id) |>
   group_modify(
-    ~ .x %>%
+    ~ .x |>
       mutate(
         slen = .prepare_level(
           outcome,
@@ -23,8 +23,8 @@ data <- tibble::tibble(
           max_level = 16,
           min_level = 2
         )
-      ) %>%
-      rowwise() %>%
+      ) |>
+      rowwise() |>
       mutate(
         correctness = ifelse(
           outcome == 1,
@@ -39,9 +39,9 @@ data <- tibble::tibble(
             collapse = "-"
           )
         )
-      ) %>%
+      ) |>
       ungroup()
-  ) %>%
+  ) |>
   ungroup()
 
 test_that("Default behavior works", {
@@ -57,8 +57,8 @@ test_that("Works when no acc column found", {
   data_no_acc <- tibble::tibble(
     id = seq_len(n_subject),
     n = 14
-  ) %>%
-    uncount(n, .id = "Trial") %>%
+  ) |>
+    uncount(n, .id = "Trial") |>
     mutate(
       outcome = sample(
         c(0, 1),
@@ -66,10 +66,10 @@ test_that("Works when no acc column found", {
         replace = TRUE,
         prob = c(0.2, 0.8)
       )
-    ) %>%
-    group_by(id) %>%
+    ) |>
+    group_by(id) |>
     group_modify(
-      ~ .x %>%
+      ~ .x |>
         mutate(
           slen = .prepare_level(
             outcome,
@@ -78,12 +78,12 @@ test_that("Works when no acc column found", {
             min_level = 2
           )
         )
-    ) %>%
+    ) |>
     ungroup()
   result_no_acc <- preproc_data(data_no_acc, span, by = "id")
   expect_snapshot(result_no_acc)
   expect_true(all(is.na(result_no_acc$nc)))
-  data_repairable <- data_no_acc %>%
+  data_repairable <- data_no_acc |>
     mutate(
       stim = purrr::map_chr(
         slen, ~ paste(seq_len(.x), collapse = "-")

@@ -3,8 +3,8 @@ n_subject <- 100
 data <- tibble::tibble(
   id = seq_len(n_subject),
   n = 300
-) %>%
-  uncount(n) %>%
+) |>
+  uncount(n) |>
   mutate(
     type = sample(
       c("Random", "Aonly", "Bonly", "Target"),
@@ -27,8 +27,8 @@ data_perfect <- tibble::tibble(
 data_dualtask <- tibble::tibble(
   id = seq_len(n_subject),
   n = 300
-) %>%
-  uncount(n) %>%
+) |>
+  uncount(n) |>
   mutate(
     stimtype = sample(
       c("NonTarget", "Target"),
@@ -51,8 +51,8 @@ test_that("Default behavior works for Cancellation Paradigm", {
   data <- tibble::tibble(
     id = seq_len(n_subject),
     n = 300
-  ) %>%
-    uncount(n) %>%
+  ) |>
+    uncount(n) |>
     mutate(
       cresp = sample(
         c("Left", "Right"),
@@ -62,7 +62,7 @@ test_that("Default behavior works for Cancellation Paradigm", {
       acc = sample(-1:1, n(), replace = TRUE),
       rt = rexp(n(), 0.001)
     )
-  data_clean <- data %>%
+  data_clean <- data |>
     filter(acc != -1)
   expect_snapshot(preproc_data(data, cpt, by = "id"))
   expect_identical(
@@ -81,7 +81,7 @@ test_that("Works with multiple grouping variables", {
 })
 
 test_that("Works when character case is messy", {
-  data_case_messy <- data %>%
+  data_case_messy <- data |>
     mutate(
       type = recode(type, Target = "target")
     )

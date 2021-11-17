@@ -10,12 +10,12 @@
 #'   \item{mean_log_err}{Mean log absolute error.}
 #' @export
 nle <- function(data, by, vars_input) {
-  data %>%
+  data |>
     mutate(
       err = abs(.data[[vars_input[["name_number"]]]] -
         .data[[vars_input[["name_resp"]]]])
-    ) %>%
-    group_by(across(all_of(by))) %>%
+    ) |>
+    group_by(across(all_of(by))) |>
     summarise(
       mean_abs_err = mean(.data[["err"]]),
       mean_log_err = mean(log(.data[["err"]] + 1)),

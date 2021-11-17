@@ -12,8 +12,8 @@ data <- expand_grid(
     7, 6, 10,
     14, 12, 10
   )
-) %>%
-  uncount(n) %>%
+) |>
+  uncount(n) |>
   mutate(
     acc = sample(c(0, 1), n(), replace = TRUE),
     rt = rexp(n(), 0.001)

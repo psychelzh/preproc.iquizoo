@@ -5,8 +5,8 @@ data <- expand_grid(
     type = c("Allocentric", "Egocentric"),
     n = 15
   )
-) %>%
-  uncount(n) %>%
+) |>
+  uncount(n) |>
   mutate(dist = runif(n(), 0, 200))
 
 test_that("Default behavior works", {
@@ -19,7 +19,7 @@ test_that("Works with multiple grouping variables", {
 })
 
 test_that("Works when character case is messy", {
-  data_case_messy <- data %>%
+  data_case_messy <- data |>
     mutate(
       type = recode(type, Allocentric = "allocentric")
     )

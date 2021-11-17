@@ -17,9 +17,9 @@
 #'   \item{omissions}{Number of errors caused by inaction.}
 #' @export
 cpt <- function(data, by, vars_input) {
-  data_cor <- data %>%
+  data_cor <- data |>
     # some tests records stimuli not presented
-    filter(.data[[vars_input[["name_acc"]]]] != -1) %>%
+    filter(.data[[vars_input[["name_acc"]]]] != -1) |>
     mutate(
       # standardize stimuli type
       type_cor = if_else(

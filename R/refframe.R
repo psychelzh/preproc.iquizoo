@@ -18,20 +18,20 @@ refframe <- function(data, by, vars_input) {
     each = data,
     both = data,
     .id = "set"
-  ) %>%
+  ) |>
     mutate(
       type_cor = case_when(
         .data[["set"]] == "both" ~ "both",
         .data[[vars_input[["name_type"]]]] == "allocentric" ~ "allo",
         .data[[vars_input[["name_type"]]]] == "egocentric" ~ "ego"
       )
-    ) %>%
-    group_by(across(all_of(c(by, "type_cor")))) %>%
+    ) |>
+    group_by(across(all_of(c(by, "type_cor")))) |>
     summarise(
       mean_dist_err = mean(.data[[vars_input[["name_dist"]]]]),
       mean_log_err = mean(log(.data[[vars_input[["name_dist"]]]] + 1)),
       .groups = "drop"
-    ) %>%
+    ) |>
     pivot_wider(
       names_from = .data[["type_cor"]],
       values_from = starts_with("mean")

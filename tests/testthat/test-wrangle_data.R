@@ -13,7 +13,7 @@ test_that("Can deal with invalid json (remove it)", {
     user_id = 1,
     game_data = jsonlite::toJSON(
       data.frame(NHit = 10, Feedback = 1)
-    ) %>%
+    ) |>
       substr(1, 5)
   )
   expect_silent(be_null <- wrangle_data(data_case_invalid))
@@ -43,7 +43,7 @@ test_that("Remove duplicates", {
       jsonlite::toJSON(data.frame(a = 2:4, b = 1:3))
     )
   )
-  data_dup <- data %>%
+  data_dup <- data |>
     slice(seq_len(nrow(data)), 1)
   parsed_dup <- wrangle_data(data_dup)
   expect_snapshot(parsed_dup)

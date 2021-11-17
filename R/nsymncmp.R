@@ -12,13 +12,13 @@
 #' @seealso [symncmp()] for symbolic number comparison.
 #' @export
 nsymncmp <- function(data, by, vars_input) {
-  data_cor <- data %>%
+  data_cor <- data |>
     mutate(
       rt_cor = ifelse(
         .data[[vars_input[["name_rt"]]]] > 100,
         .data[[vars_input[["name_rt"]]]], NA
       )
-    ) %>%
+    ) |>
     rename(
       b = .data[[vars_input[["name_big"]]]],
       s = .data[[vars_input[["name_small"]]]]
@@ -44,8 +44,8 @@ nsymncmp <- function(data, by, vars_input) {
     )),
     otherwise = NA_real_
   )
-  weber <- data_cor %>%
-    group_nest(across(all_of(by))) %>%
+  weber <- data_cor |>
+    group_nest(across(all_of(by))) |>
     mutate(
       w = purrr::map_dbl(
         .data[["data"]],

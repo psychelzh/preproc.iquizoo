@@ -5,8 +5,8 @@ data <- expand_grid(
     type = c("Image", "Sound", "Mixed"),
     n = 20
   )
-) %>%
-  uncount(n) %>%
+) |>
+  uncount(n) |>
   mutate(rt = rexp(n(), 0.001))
 
 test_that("Default behavior works", {
@@ -20,7 +20,7 @@ test_that("Works with multiple grouping variables", {
 
 
 test_that("Works when character case is messy", {
-  data_case_messy <- data %>%
+  data_case_messy <- data |>
     mutate(
       type = recode(type, Image = "image")
     )

@@ -14,7 +14,7 @@
 #' @seealso [nsymncmp()] for non-symbolic number comparison.
 #' @export
 symncmp <- function(data, by, vars_input) {
-  data_cor <- data %>%
+  data_cor <- data |>
     mutate(
       rt_cor = ifelse(
         .data[[vars_input[["name_rt"]]]] > 100,
@@ -38,19 +38,19 @@ symncmp <- function(data, by, vars_input) {
     ))[["dist"]],
     otherwise = NA_real_
   )
-  dist_eff <- data_cor %>%
+  dist_eff <- data_cor |>
     mutate(
       dist = .data[[vars_input[["name_big"]]]] -
         .data[[vars_input[["name_small"]]]]
-    ) %>%
-    group_nest(across(all_of(by))) %>%
+    ) |>
+    group_nest(across(all_of(by))) |>
     mutate(
       dist_eff = purrr::map_dbl(
         .data[["data"]],
-        ~ .x %>%
+        ~ .x |>
           filter(
             .data[[vars_input[["name_acc"]]]] == 1
-          ) %>%
+          ) |>
           fit_errproof()
       ),
       .keep = "unused"

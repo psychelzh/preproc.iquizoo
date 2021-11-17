@@ -12,14 +12,14 @@
 #'   \item{num_explosion}{Number of exploded balloons.}
 #' @export
 bart <- function(data, by, vars_input) {
-  data %>%
+  data |>
     mutate(
       nhit_cor = ifelse(
         .data[[vars_input[["name_feedback"]]]] == 1,
         .data[[vars_input[["name_nhit"]]]], NA
       )
-    ) %>%
-    group_by(across(all_of(by))) %>%
+    ) |>
+    group_by(across(all_of(by))) |>
     summarise(
       mean_pumps = mean(.data[["nhit_cor"]], na.rm = TRUE),
       mean_pumps_raw = mean(.data[[vars_input[["name_nhit"]]]]),

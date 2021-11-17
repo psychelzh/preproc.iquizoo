@@ -20,18 +20,18 @@ calc_switch_cost <- function(data,
                              name_type_switch,
                              name_rt,
                              name_acc) {
-  data %>%
+  data |>
     # remove all filler trials
-    filter(.data[[name_type_switch]] != "filler") %>%
+    filter(.data[[name_type_switch]] != "filler") |>
     mutate(
       condition = factor(
         .data[[name_type_switch]],
         c("repeat", "switch")
       )
-    ) %>%
+    ) |>
     group_by(across(
       all_of(c(by, name_type_block, name_type_switch, "condition"))
-    )) %>%
+    )) |>
     mutate(
       # remove conditional reaction time outliers
       "{name_rt}" := ifelse(
@@ -39,29 +39,29 @@ calc_switch_cost <- function(data,
           graphics::boxplot(.data[[name_rt]], plot = FALSE)$out,
         NA, .data[[name_rt]]
       )
-    ) %>%
+    ) |>
     summarise(
       mrt = mean(.data[[name_rt]], na.rm = TRUE),
       pc = mean(.data[[name_acc]] == 1),
       .groups = "drop"
-    ) %>%
-    complete(.data[["condition"]], nesting(!!!syms(by))) %>%
+    ) |>
+    complete(.data[["condition"]], nesting(!!!syms(by))) |>
     mutate(
       condition = replace_na(
         as.character(.data[["condition"]]), "pure"
       )
-    ) %>%
-    group_by(across(all_of(c(by, "condition")))) %>%
+    ) |>
+    group_by(across(all_of(c(by, "condition")))) |>
     summarise(
       mrt = mean(.data[["mrt"]], na.rm = TRUE),
       pc = mean(.data[["pc"]], na.rm = TRUE),
       .groups = "drop"
-    ) %>%
+    ) |>
     pivot_wider(
       all_of(by),
       names_from = .data[["condition"]],
       values_from = c("mrt", "pc")
-    ) %>%
+    ) |>
     mutate(
       switch_cost_rt_gen = .data[["mrt_repeat"]] - .data[["mrt_pure"]],
       switch_cost_rt_spe = .data[["mrt_switch"]] - .data[["mrt_repeat"]],
