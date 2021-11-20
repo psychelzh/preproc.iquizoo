@@ -16,7 +16,7 @@
 #'   low-level functions.
 #' @author Liang Zhang <psychelzh@outlook.com>
 #' @export
-preproc_data <- function(data, prep_fun_name, by = NULL, ...,
+preproc <- function(data, prep_fun_name, by = NULL, ...,
                          character.only = FALSE) {
   if (!missing(...)) {
     ellipsis::check_dots_empty()
@@ -63,4 +63,11 @@ preproc_data <- function(data, prep_fun_name, by = NULL, ...,
       c(if (keep_by) by, .get_output_vars(prep_fun_name))
     )) |>
     vctrs::vec_restore(data)
+}
+
+#' @describeIn preproc Obsolete API, will be removed in near future.
+#' @export
+preproc_data <- function(...) {
+  lifecycle::deprecate_warn("1.2.0", "preproc_data()", "preproc()")
+  preproc(...)
 }
