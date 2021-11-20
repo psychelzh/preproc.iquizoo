@@ -64,10 +64,3 @@ preproc <- function(data, prep_fun_name, by = NULL, ...,
     )) |>
     vctrs::vec_restore(data)
 }
-
-#' @describeIn preproc Obsolete API, will be removed in near future.
-#' @export
-preproc_data <- function(...) {
-  lifecycle::deprecate_warn("1.2.0", "preproc_data()", "preproc()")
-  preproc(...)
-}
