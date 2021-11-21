@@ -40,11 +40,11 @@ data_dualtask <- tibble::tibble(
   )
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc_data(data, cpt, by = "id"))
+  expect_snapshot(preproc(data, cpt, by = "id"))
 })
 
 test_that("Default behavior works for Dual Task Paradigm", {
-  expect_snapshot(preproc_data(data_dualtask, cpt, by = "id"))
+  expect_snapshot(preproc(data_dualtask, cpt, by = "id"))
 })
 
 test_that("Default behavior works for Cancellation Paradigm", {
@@ -64,20 +64,20 @@ test_that("Default behavior works for Cancellation Paradigm", {
     )
   data_clean <- data |>
     filter(acc != -1)
-  expect_snapshot(preproc_data(data, cpt, by = "id"))
+  expect_snapshot(preproc(data, cpt, by = "id"))
   expect_identical(
-    preproc_data(data, cpt, by = "id"),
-    preproc_data(data_clean, cpt, by = "id")
+    preproc(data, cpt, by = "id"),
+    preproc(data_clean, cpt, by = "id")
   )
 })
 
 test_that("Works on perfect accuracy data (no `NA`s)", {
-  expect_snapshot(preproc_data(data_perfect, cpt, by = "id"))
+  expect_snapshot(preproc(data_perfect, cpt, by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {
   data <- mutate(data, id1 = id + 1)
-  expect_snapshot(preproc_data(data, cpt, by = c("id", "id1")))
+  expect_snapshot(preproc(data, cpt, by = c("id", "id1")))
 })
 
 test_that("Works when character case is messy", {
@@ -86,10 +86,10 @@ test_that("Works when character case is messy", {
       type = recode(type, Target = "target")
     )
   expect_silent(
-    case_messy <- preproc_data(data_case_messy, cpt, by = "id")
+    case_messy <- preproc(data_case_messy, cpt, by = "id")
   )
   expect_identical(
     case_messy,
-    preproc_data(data, cpt, by = "id")
+    preproc(data, cpt, by = "id")
   )
 })

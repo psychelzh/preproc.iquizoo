@@ -32,20 +32,20 @@ data_part_miss_cond <- tibble::tibble(
 )
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc_data(data, congeff, by = "id"))
+  expect_snapshot(preproc(data, congeff, by = "id"))
 })
 
 test_that("All single condition", {
-  expect_snapshot(preproc_data(data_miss_cond, congeff, by = "id"))
+  expect_snapshot(preproc(data_miss_cond, congeff, by = "id"))
 })
 
 test_that("Part subject single condition", {
-  expect_snapshot(preproc_data(data_part_miss_cond, congeff, by = "id"))
+  expect_snapshot(preproc(data_part_miss_cond, congeff, by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {
   data <- mutate(data, id1 = id + 1)
-  expect_snapshot(preproc_data(data, congeff, by = c("id", "id1")))
+  expect_snapshot(preproc(data, congeff, by = c("id", "id1")))
 })
 
 test_that("Works when character case is messy", {
@@ -54,10 +54,10 @@ test_that("Works when character case is messy", {
       type = recode(type, Congruent = "congruent")
     )
   expect_silent(
-    case_messy <- preproc_data(data_case_messy, congeff, by = "id")
+    case_messy <- preproc(data_case_messy, congeff, by = "id")
   )
   expect_identical(
     case_messy,
-    preproc_data(data, congeff, by = "id")
+    preproc(data, congeff, by = "id")
   )
 })
