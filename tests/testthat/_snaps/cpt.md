@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, cpt, by = "id")
+      preproc(data, cpt, by = "id")
     Output
       # A tibble: 100 x 8
             id    nc   mrt  rtsd  dprime         c commissions omissions
@@ -21,7 +21,7 @@
 # Default behavior works for Dual Task Paradigm
 
     Code
-      preproc_data(data_dualtask, cpt, by = "id")
+      preproc(data_dualtask, cpt, by = "id")
     Output
       # A tibble: 100 x 8
             id    nc   mrt  rtsd  dprime       c commissions omissions
@@ -41,7 +41,7 @@
 # Default behavior works for Cancellation Paradigm
 
     Code
-      preproc_data(data, cpt, by = "id")
+      preproc(data, cpt, by = "id")
     Output
       # A tibble: 100 x 8
             id    nc   mrt  rtsd  dprime        c commissions omissions
@@ -61,7 +61,7 @@
 # Works on perfect accuracy data (no `NA`s)
 
     Code
-      preproc_data(data_perfect, cpt, by = "id")
+      preproc(data_perfect, cpt, by = "id")
     Output
       # A tibble: 1 x 8
            id    nc   mrt  rtsd dprime     c commissions omissions
@@ -71,7 +71,7 @@
 # Works with multiple grouping variables
 
     Code
-      preproc_data(data, cpt, by = c("id", "id1"))
+      preproc(data, cpt, by = c("id", "id1"))
     Output
       # A tibble: 100 x 9
             id   id1    nc   mrt  rtsd  dprime         c commissions omissions

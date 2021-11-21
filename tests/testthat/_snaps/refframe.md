@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, refframe, by = "id")
+      preproc(data, refframe, by = "id")
     Output
       # A tibble: 100 x 7
             id mean_dist_err_allo mean_log_err_allo mean_dist_err_ego mean_log_err_ego
@@ -22,7 +22,7 @@
 # Works with multiple grouping variables
 
     Code
-      preproc_data(data, refframe, by = c("id", "id1"))
+      preproc(data, refframe, by = c("id", "id1"))
     Output
       # A tibble: 100 x 8
             id   id1 mean_dist_err_allo mean_log_err_allo mean_dist_err_ego
