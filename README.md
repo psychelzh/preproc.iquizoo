@@ -7,7 +7,7 @@
 
 [![R-CMD-check](https://github.com/psychelzh/dataproc.iquizoo/workflows/R-CMD-check/badge.svg)](https://github.com/psychelzh/dataproc.iquizoo/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/psychelzh/dataproc.iquizoo/branch/master/graph/badge.svg)](https://codecov.io/gh/psychelzh/dataproc.iquizoo?branch=master)
+coverage](https://codecov.io/gh/psychelzh/dataproc.iquizoo/branch/main/graph/badge.svg)](https://codecov.io/gh/psychelzh/dataproc.iquizoo?branch=main)
 [![lint](https://github.com/psychelzh/dataproc.iquizoo/workflows/lint/badge.svg)](https://github.com/psychelzh/dataproc.iquizoo/actions)
 <!-- badges: end -->
 
