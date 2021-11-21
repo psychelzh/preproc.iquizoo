@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, complexswitch, by = "id")
+      preproc(data, complexswitch, by = "id")
     Output
       # A tibble: 100 x 17
             id mrt_con mrt_inc cong_eff_rt pc_con pc_inc cong_eff_pc mrt_pure
@@ -24,7 +24,7 @@
 # All single condition
 
     Code
-      preproc_data(data_miss_cond, complexswitch, by = "id")
+      preproc(data_miss_cond, complexswitch, by = "id")
     Output
       # A tibble: 2 x 17
            id mrt_con mrt_inc cong_eff_rt pc_con pc_inc cong_eff_pc mrt_pure
@@ -39,7 +39,7 @@
 # Part subject single condition
 
     Code
-      preproc_data(data_part_miss_cond, complexswitch, by = "id")
+      preproc(data_part_miss_cond, complexswitch, by = "id")
     Output
       # A tibble: 2 x 17
            id mrt_con mrt_inc cong_eff_rt pc_con pc_inc cong_eff_pc mrt_pure
@@ -54,7 +54,7 @@
 # Works with multiple grouping variables
 
     Code
-      preproc_data(data, complexswitch, by = c("id", "id1"))
+      preproc(data, complexswitch, by = c("id", "id1"))
     Output
       # A tibble: 100 x 18
             id   id1 mrt_con mrt_inc cong_eff_rt pc_con pc_inc cong_eff_pc mrt_pure

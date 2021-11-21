@@ -14,10 +14,10 @@ data <- tibble::tibble(
   ungroup()
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc_data(data, locmem2, by = "id"))
+  expect_snapshot(preproc(data, locmem2, by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {
   data <- mutate(data, id1 = id + 1)
-  expect_snapshot(preproc_data(data, locmem2, by = c("id", "id1")))
+  expect_snapshot(preproc(data, locmem2, by = c("id", "id1")))
 })

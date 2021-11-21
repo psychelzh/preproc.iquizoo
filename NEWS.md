@@ -1,5 +1,9 @@
 # dataproc.iquizoo (development version)
 
+## Breaking Changes
+
+* For integrating "{dm}" package, we moved `wrangle_data()` back to {tarflow.iquizoo}, and then renamed `preproc_data()` to `preproc()`.
+
 # dataproc.iquizoo 1.1.1
 
 ## Miscellaneous
