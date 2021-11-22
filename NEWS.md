@@ -1,5 +1,10 @@
 # preproc.iquizoo (development version)
 
+## Breaking Changes
+
+* Now the package is named as "preproc.iquizoo".
+* `game_info` data is moved to {data.iquizoo} package.
+
 # preproc.iquizoo 1.2.0
 
 ## Breaking Changes
