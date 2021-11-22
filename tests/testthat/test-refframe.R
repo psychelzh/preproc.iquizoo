@@ -5,29 +5,29 @@ data <- expand_grid(
     type = c("Allocentric", "Egocentric"),
     n = 15
   )
-) %>%
-  uncount(n) %>%
+) |>
+  uncount(n) |>
   mutate(dist = runif(n(), 0, 200))
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc_data(data, refframe, by = "id"))
+  expect_snapshot(preproc(data, refframe, by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {
   data <- mutate(data, id1 = id + 1)
-  expect_snapshot(preproc_data(data, refframe, by = c("id", "id1")))
+  expect_snapshot(preproc(data, refframe, by = c("id", "id1")))
 })
 
 test_that("Works when character case is messy", {
-  data_case_messy <- data %>%
+  data_case_messy <- data |>
     mutate(
       type = recode(type, Allocentric = "allocentric")
     )
   expect_silent(
-    case_messy <- preproc_data(data_case_messy, refframe, by = "id")
+    case_messy <- preproc(data_case_messy, refframe, by = "id")
   )
   expect_identical(
     case_messy,
-    preproc_data(data, refframe, by = "id")
+    preproc(data, refframe, by = "id")
   )
 })

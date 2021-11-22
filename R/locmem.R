@@ -17,13 +17,13 @@
 #'     only.}
 #' @export
 locmem <- function(data, by, vars_input) {
-  data %>%
+  data |>
     mutate(
       dist = parse_char_resp(.data[[vars_input[["name_dist"]]]]),
       .keep = "unused"
-    ) %>%
-    unnest(.data[["dist"]]) %>%
-    group_by(across(all_of(by))) %>%
+    ) |>
+    unnest(.data[["dist"]]) |>
+    group_by(across(all_of(by))) |>
     summarise(
       nc_loc = sum(.data[["dist"]] == 0),
       mean_dist_err = mean(.data[["dist"]]),
@@ -36,13 +36,13 @@ locmem <- function(data, by, vars_input) {
 #' @export
 locmem2 <- function(data, by, vars_input) {
   loc_results <- locmem(data, by, vars_input)
-  nc_order <- data %>%
+  nc_order <- data |>
     mutate(
       acc_order = parse_char_resp(.data[[vars_input[["name_acc_order"]]]]),
       .keep = "unused"
-    ) %>%
-    unnest(.data[["acc_order"]]) %>%
-    group_by(across(all_of(by))) %>%
+    ) |>
+    unnest(.data[["acc_order"]]) |>
+    group_by(across(all_of(by))) |>
     summarise(
       nc_order = sum(.data[["acc_order"]] == 1),
       .groups = "drop"

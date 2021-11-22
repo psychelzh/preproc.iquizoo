@@ -32,8 +32,8 @@ calc_spd_acc <- function(data, by, name_acc, name_rt,
                          acc_rtn = c("both", "count", "percent", "none")) {
   rt_rtn <- match.arg(rt_rtn)
   acc_rtn <- match.arg(acc_rtn)
-  data %>%
-    group_by(across(all_of(by))) %>%
+  data |>
+    group_by(across(all_of(by))) |>
     mutate(
       "{name_rt}" := ifelse(
         .data[[name_rt]] %in%
@@ -41,14 +41,14 @@ calc_spd_acc <- function(data, by, name_acc, name_rt,
           rm.out,
         NA, .data[[name_rt]]
       )
-    ) %>%
+    ) |>
     summarise(
       nc = sum(.data[[name_acc]] == 1),
       pc = .data[["nc"]] / n(),
       mrt = mean(.data[[name_rt]], na.rm = TRUE),
       rtsd = stats::sd(.data[[name_rt]], na.rm = TRUE),
       .groups = "drop"
-    ) %>%
+    ) |>
     select(
       all_of(
         c(

@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, span, by = "id")
+      preproc(data, span, by = "id")
     Output
       # A tibble: 100 x 4
             id    nc max_span mean_span
@@ -21,7 +21,7 @@
 # Works with multiple grouping variables
 
     Code
-      preproc_data(data, span, by = c("id", "id1"))
+      preproc(data, span, by = c("id", "id1"))
     Output
       # A tibble: 100 x 5
             id   id1    nc max_span mean_span

@@ -12,8 +12,8 @@
 #'   \item{perc_good}{The number of choices on "good" pools.}
 #' @export
 igt <- function(data, by, vars_input) {
-  data %>%
-    group_by(across(all_of(by))) %>%
+  data |>
+    group_by(across(all_of(by))) |>
     summarise(
       sum_outcome = sum(.data[[vars_input[["name_outcome"]]]]),
       # good pools have label of "a" and "b"

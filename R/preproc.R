@@ -16,7 +16,7 @@
 #'   low-level functions.
 #' @author Liang Zhang <psychelzh@outlook.com>
 #' @export
-preproc_data <- function(data, prep_fun_name, by = NULL, ...,
+preproc <- function(data, prep_fun_name, by = NULL, ...,
                          character.only = FALSE) {
   if (!missing(...)) {
     ellipsis::check_dots_empty()
@@ -49,18 +49,18 @@ preproc_data <- function(data, prep_fun_name, by = NULL, ...,
     keep_by <- TRUE
   }
   # call the pre-processing function
-  data %>%
+  data |>
     # transform character values to lowercase
     mutate(
       across(
         tidyselect::vars_select_helpers$where(is.character),
         tolower
       )
-    ) %>%
-    prep_fun(vars_input = vars_input, by = by) %>%
+    ) |>
+    prep_fun(vars_input = vars_input, by = by) |>
     select(all_of(
       # keep grouping variable when required
       c(if (keep_by) by, .get_output_vars(prep_fun_name))
-    )) %>%
+    )) |>
     vctrs::vec_restore(data)
 }

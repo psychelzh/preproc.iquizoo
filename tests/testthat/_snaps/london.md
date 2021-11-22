@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, london, by = "id")
+      preproc(data, london, by = "id")
     Output
       # A tibble: 100 x 4
             id total_score mean_level level_score
@@ -21,7 +21,7 @@
 # Works with multiple grouping variables
 
     Code
-      preproc_data(data, london, by = c("id", "id1"))
+      preproc(data, london, by = c("id", "id1"))
     Output
       # A tibble: 100 x 5
             id   id1 total_score mean_level level_score

@@ -12,11 +12,11 @@
 #'   \item{c}{Bias.}
 #' @export
 nback <- function(data, by, vars_input) {
-  data_cor <- data %>%
+  data_cor <- data |>
     # type of "None" should be ignored
     filter(
       !.data[[vars_input[["name_type"]]]] %in% c("none", "filler")
-    ) %>%
+    ) |>
     mutate(
       # standardize stimuli type
       type_cor = if_else(

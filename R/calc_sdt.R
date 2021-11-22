@@ -17,19 +17,19 @@
 #'   bias (and other counts measures)
 #' @keywords internal
 calc_sdt <- function(data, by, name_acc, name_type, keep_counts = TRUE) {
-  data %>%
+  data |>
     mutate(
       "{name_type}" := factor(
         .data[[name_type]],
         c("s", "n")
       )
-    ) %>%
-    group_by(across(all_of(c(by, name_type)))) %>%
+    ) |>
+    group_by(across(all_of(c(by, name_type)))) |>
     summarise(
       c = sum(.data[[name_acc]] == 1),
       e = n() - .data[["c"]],
       .groups = "drop"
-    ) %>%
+    ) |>
     # TODO: call `complete()` to make sure "s" and "n" both exist
     mutate(
       across(
@@ -38,17 +38,17 @@ calc_sdt <- function(data, by, name_acc, name_type, keep_counts = TRUE) {
         ~ stats::qnorm((.x + 0.5) / (.data[["c"]] + .data[["e"]] + 1)),
         .names = "z{.col}"
       )
-    ) %>%
+    ) |>
     pivot_wider(
       names_from = .data[[name_type]],
       values_from = c("c", "e", "zc", "ze")
-    ) %>%
+    ) |>
     mutate(
       commissions = .data[["e_n"]],
       omissions = .data[["e_s"]],
       dprime = .data[["zc_s"]] - .data[["ze_n"]],
       c = -(.data[["zc_s"]] + .data[["ze_n"]]) / 2
-    ) %>%
+    ) |>
     select(
       all_of(
         c(

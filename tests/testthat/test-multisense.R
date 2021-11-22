@@ -5,30 +5,30 @@ data <- expand_grid(
     type = c("Image", "Sound", "Mixed"),
     n = 20
   )
-) %>%
-  uncount(n) %>%
+) |>
+  uncount(n) |>
   mutate(rt = rexp(n(), 0.001))
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc_data(data, multisense, by = "id"))
+  expect_snapshot(preproc(data, multisense, by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {
   data <- mutate(data, id1 = id + 1)
-  expect_snapshot(preproc_data(data, multisense, by = c("id", "id1")))
+  expect_snapshot(preproc(data, multisense, by = c("id", "id1")))
 })
 
 
 test_that("Works when character case is messy", {
-  data_case_messy <- data %>%
+  data_case_messy <- data |>
     mutate(
       type = recode(type, Image = "image")
     )
   expect_silent(
-    case_messy <- preproc_data(data_case_messy, multisense, by = "id")
+    case_messy <- preproc(data_case_messy, multisense, by = "id")
   )
   expect_identical(
     case_messy,
-    preproc_data(data, multisense, by = "id")
+    preproc(data, multisense, by = "id")
   )
 })

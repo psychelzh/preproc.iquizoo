@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, bart, by = "id")
+      preproc(data, bart, by = "id")
     Output
       # A tibble: 1,000 x 4
             id mean_pumps mean_pumps_raw num_explosion
@@ -21,7 +21,7 @@
 # Works with multiple grouping variables
 
     Code
-      preproc_data(data, bart, by = c("id", "id1"))
+      preproc(data, bart, by = c("id", "id1"))
     Output
       # A tibble: 1,000 x 5
             id   id1 mean_pumps mean_pumps_raw num_explosion

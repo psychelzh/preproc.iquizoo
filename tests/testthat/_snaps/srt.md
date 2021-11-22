@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc_data(data, srt, by = "id")
+      preproc(data, srt, by = "id")
     Output
       # A tibble: 100 x 3
             id   mrt  rtsd
@@ -21,7 +21,7 @@
 # Works with multiple grouping variables
 
     Code
-      preproc_data(data, srt, by = c("id", "id1"))
+      preproc(data, srt, by = c("id", "id1"))
     Output
       # A tibble: 100 x 4
             id   id1   mrt  rtsd

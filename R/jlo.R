@@ -13,12 +13,12 @@
 #'     errors.}
 #' @export
 jlo <- function(data, by, vars_input) {
-  data %>%
+  data |>
     mutate(
       resp_angle = stringr::str_split(
         .data[[vars_input[["name_resp"]]]],
         "-"
-      ) %>%
+      ) |>
         purrr::map_dbl(
           ~ sum(recode(.x, left = 1, right = -1) * 6)
         ),
@@ -30,8 +30,8 @@ jlo <- function(data, by, vars_input) {
         180 - .data[["resp_err_raw"]],
         .data[["resp_err_raw"]]
       )
-    ) %>%
-    group_by(across(all_of(by))) %>%
+    ) |>
+    group_by(across(all_of(by))) |>
     summarise(
       nc = sum(.data[[vars_input[["name_acc"]]]] == 1),
       mean_ang_err = mean(.data[["resp_err"]]),

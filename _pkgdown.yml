@@ -4,12 +4,12 @@ reference:
   desc: >
     Functions that are typically called directly, a.k.a. high level functions.
 - contents:
-  - preproc_data
+  - preproc
 - title: Datesets
 - contents:
   - game_info
 - title: Low-level Engines
   desc: These functions do all the real calculations.
 - contents:
-  - -preproc_data
+  - -preproc
   - -game_info

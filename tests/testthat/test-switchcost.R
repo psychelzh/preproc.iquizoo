@@ -2,9 +2,9 @@ set.seed(1)
 data <- expand_grid(
   id = 1:100,
   block = 1:8
-) %>%
-  mutate(n = sample(0:50, n(), replace = TRUE)) %>%
-  uncount(n, .id = "trial") %>%
+) |>
+  mutate(n = sample(0:50, n(), replace = TRUE)) |>
+  uncount(n, .id = "trial") |>
   mutate(
     task = case_when(
       block %in% c(1, 8) ~ "T1",
@@ -13,7 +13,7 @@ data <- expand_grid(
     ),
     acc = sample(c(0, 1), n(), replace = TRUE),
     rt = rexp(n(), 0.001)
-  ) %>%
+  ) |>
   complete(
     block, nesting(id),
     fill = list(
@@ -22,7 +22,7 @@ data <- expand_grid(
       acc = -1,
       rt = 0
     )
-  ) %>%
+  ) |>
   mutate(
     type = case_when(
       block %in% c(1:2, 7:8) ~ "Pure",
@@ -52,32 +52,32 @@ data_part_miss_cond <- tibble::tibble(
 )
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc_data(data, switchcost, by = "id"))
+  expect_snapshot(preproc(data, switchcost, by = "id"))
 })
 
 test_that("All single condition", {
-  expect_snapshot(preproc_data(data_miss_cond, switchcost, by = "id"))
+  expect_snapshot(preproc(data_miss_cond, switchcost, by = "id"))
 })
 
 test_that("Part subject single condition", {
-  expect_snapshot(preproc_data(data_part_miss_cond, switchcost, by = "id"))
+  expect_snapshot(preproc(data_part_miss_cond, switchcost, by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {
   data <- mutate(data, id1 = id + 1)
-  expect_snapshot(preproc_data(data, switchcost, by = c("id", "id1")))
+  expect_snapshot(preproc(data, switchcost, by = c("id", "id1")))
 })
 
 test_that("Works when character case is messy", {
-  data_case_messy <- data %>%
+  data_case_messy <- data |>
     mutate(
       type = recode(type, Pure = "pure")
     )
   expect_silent(
-    case_messy <- preproc_data(data_case_messy, switchcost, by = "id")
+    case_messy <- preproc(data_case_messy, switchcost, by = "id")
   )
   expect_identical(
     case_messy,
-    preproc_data(data, switchcost, by = "id")
+    preproc(data, switchcost, by = "id")
   )
 })

@@ -3,9 +3,9 @@ set.seed(1)
 data <- expand_grid(
   id = 1:100,
   block = 1:8
-) %>%
-  mutate(n = sample(0:50, n(), replace = TRUE)) %>%
-  uncount(n, .id = "trial") %>%
+) |>
+  mutate(n = sample(0:50, n(), replace = TRUE)) |>
+  uncount(n, .id = "trial") |>
   mutate(
     stimtype = sample(
       c("Incongruent", "Congruent"),
@@ -19,7 +19,7 @@ data <- expand_grid(
     ),
     acc = sample(c(0, 1), n(), replace = TRUE),
     rt = rexp(n(), 0.001)
-  ) %>%
+  ) |>
   complete(
     block, nesting(id),
     fill = list(
@@ -29,7 +29,7 @@ data <- expand_grid(
       acc = -1,
       rt = 0
     )
-  ) %>%
+  ) |>
   mutate(
     tasktype = case_when(
       block %in% c(1:2, 7:8) ~ "Pure",
@@ -65,34 +65,34 @@ data_part_miss_cond <- tibble::tibble(
 )
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc_data(data, complexswitch, by = "id"))
+  expect_snapshot(preproc(data, complexswitch, by = "id"))
 })
 
 test_that("All single condition", {
-  expect_snapshot(preproc_data(data_miss_cond, complexswitch, by = "id"))
+  expect_snapshot(preproc(data_miss_cond, complexswitch, by = "id"))
 })
 
 test_that("Part subject single condition", {
-  expect_snapshot(preproc_data(data_part_miss_cond, complexswitch, by = "id"))
+  expect_snapshot(preproc(data_part_miss_cond, complexswitch, by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {
   data <- mutate(data, id1 = id + 1)
-  expect_snapshot(preproc_data(data, complexswitch, by = c("id", "id1")))
+  expect_snapshot(preproc(data, complexswitch, by = c("id", "id1")))
 })
 
 test_that("Works when character case is messy", {
-  data_case_messy <- data %>%
+  data_case_messy <- data |>
     mutate(
       stimtype = recode(stimtype, Congruent = "congruent"),
       tasktype = recode(tasktype, Pure = "pure"),
       task = recode(task, T1 = "t1")
     )
   expect_silent(
-    case_messy <- preproc_data(data_case_messy, complexswitch, by = "id")
+    case_messy <- preproc(data_case_messy, complexswitch, by = "id")
   )
   expect_identical(
     case_messy,
-    preproc_data(data, complexswitch, by = "id")
+    preproc(data, complexswitch, by = "id")
   )
 })

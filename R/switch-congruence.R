@@ -44,7 +44,7 @@ NULL
 #' @rdname switch-congruence
 #' @export
 complexswitch <- function(data, by, vars_input) {
-  data_cor <- data %>%
+  data_cor <- data |>
     mutate(
       # remove rt of 100 or less
       rt_cor = ifelse(
@@ -84,7 +84,7 @@ complexswitch <- function(data, by, vars_input) {
 #' @rdname switch-congruence
 #' @export
 congeff <- function(data, by, vars_input) {
-  data_cor <- data %>%
+  data_cor <- data |>
     mutate(
       # remove rt of 100 or less
       rt_cor = ifelse(
@@ -104,7 +104,7 @@ congeff <- function(data, by, vars_input) {
 #' @rdname switch-congruence
 #' @export
 switchcost <- function(data, by, vars_input) {
-  data_cor <- data %>%
+  data_cor <- data |>
     mutate(
       # remove rt of 100 or less
       rt_cor = ifelse(
