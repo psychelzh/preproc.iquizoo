@@ -20,10 +20,11 @@ IQUIZOO is now a developing company shipped with a bunch of games
 assessing psychological constructs. The original data from these games
 have various formats, and this package tries to provide data
 preprocessing APIs for them. The basic logic here is to use one dataset
-named `game_info`, which is exported to provide information of each game
-and its preprocessing function name, so that one can easily match the
-correct function to preprocess data for these games based on this
-dataset.
+named `game_info` (from [data.iquizoo
+package](https://github.com/psychelzh/data.iquizoo)), which provides
+information of each game and its pre-processing function name, so that
+one can easily match the correct function to preprocess data for these
+games based on this dataset.
 
 ## Installation
 
