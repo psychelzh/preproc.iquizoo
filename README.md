@@ -1,17 +1,17 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# dataproc.iquizoo
+# preproc.iquizoo
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/psychelzh/dataproc.iquizoo/workflows/R-CMD-check/badge.svg)](https://github.com/psychelzh/dataproc.iquizoo/actions)
+[![R-CMD-check](https://github.com/psychelzh/preproc.iquizoo/workflows/R-CMD-check/badge.svg)](https://github.com/psychelzh/preproc.iquizoo/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/psychelzh/dataproc.iquizoo/branch/main/graph/badge.svg)](https://codecov.io/gh/psychelzh/dataproc.iquizoo?branch=main)
-[![lint](https://github.com/psychelzh/dataproc.iquizoo/workflows/lint/badge.svg)](https://github.com/psychelzh/dataproc.iquizoo/actions)
+coverage](https://codecov.io/gh/psychelzh/preproc.iquizoo/branch/main/graph/badge.svg)](https://codecov.io/gh/psychelzh/preproc.iquizoo?branch=main)
+[![lint](https://github.com/psychelzh/preproc.iquizoo/workflows/lint/badge.svg)](https://github.com/psychelzh/preproc.iquizoo/actions)
 <!-- badges: end -->
 
-The goal of dataproc.iquizoo is to provide pre-processing functions for
+The goal of preproc.iquizoo is to provide pre-processing functions for
 IQUIZOO original data.
 
 ## Background
@@ -32,7 +32,7 @@ You can install the development version from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("psychelzh/dataproc.iquizoo")
+devtools::install_github("psychelzh/preproc.iquizoo")
 ```
 
 ## Usage
