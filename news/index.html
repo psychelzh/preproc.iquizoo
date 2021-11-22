@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">dataproc.iquizoo</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
       </span>
     </div>
 
@@ -114,6 +114,17 @@
       <small>Source: <a href='https://github.com/psychelzh/dataproc.iquizoo/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="dataprociquizoo-120" class="section level1">
+<h1 class="page-header" data-toc-text="1.2.0">
+<a href="#dataprociquizoo-120" class="anchor"></a>dataproc.iquizoo 1.2.0</h1>
+<div id="breaking-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#breaking-changes" class="anchor"></a>Breaking Changes</h2>
+<ul>
+<li>For integrating “{dm}” package, we moved <code>wrangle_data()</code> back to {tarflow.iquizoo}, and then renamed <code>preproc_data()</code> to <code><a href="../reference/preproc.html">preproc()</a></code>.</li>
+</ul>
+</div>
+</div>
     <div id="dataprociquizoo-111" class="section level1">
 <h1 class="page-header" data-toc-text="1.1.1">
 <a href="#dataprociquizoo-111" class="anchor"></a>dataproc.iquizoo 1.1.1</h1>
@@ -173,7 +184,7 @@
 <h2 class="hasAnchor">
 <a href="#new-features-3" class="anchor"></a>New Features</h2>
 <ul>
-<li>Changed the behavior of <code><a href="../reference/preproc_data.html">preproc_data()</a></code> to make sure it restores all the attributes from input <code>data</code>.</li>
+<li>Changed the behavior of <code>preproc_data()</code> to make sure it restores all the attributes from input <code>data</code>.</li>
 </ul>
 </div>
 <div id="misc-1" class="section level2">
@@ -215,7 +226,7 @@
 <h2 class="hasAnchor">
 <a href="#new-features-5" class="anchor"></a>New Features</h2>
 <ul>
-<li>Add support for group-wise calculation, and this is implemented by using a new “entry-point” function <code><a href="../reference/preproc_data.html">preproc_data()</a></code> with an input argument of <code>by</code> (<a href='https://github.com/psychelzh/dataproc.iquizoo/issues/23'>#23</a>, <a href='https://github.com/psychelzh/dataproc.iquizoo/issues/25'>#25</a>).</li>
+<li>Add support for group-wise calculation, and this is implemented by using a new “entry-point” function <code>preproc_data()</code> with an input argument of <code>by</code> (<a href='https://github.com/psychelzh/dataproc.iquizoo/issues/23'>#23</a>, <a href='https://github.com/psychelzh/dataproc.iquizoo/issues/25'>#25</a>).</li>
 </ul>
 </div>
 <div id="enhancement" class="section level2">
