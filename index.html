@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Utility Functions for Data Processing of Iquizoo Games • dataproc.iquizoo</title>
+<title>Utility Functions for Data Processing of Iquizoo Games • preproc.iquizoo</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -31,8 +31,8 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">dataproc.iquizoo</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <a class="navbar-link" href="index.html">preproc.iquizoo</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
       </span>
     </div>
 
@@ -53,7 +53,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/psychelzh/dataproc.iquizoo/">
+  <a href="https://github.com/psychelzh/preproc.iquizoo/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -70,16 +70,16 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="dataprociquizoo" class="section level1">
+<div id="preprociquizoo" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#dataprociquizoo" class="anchor"></a>dataproc.iquizoo</h1></div>
+<a href="#preprociquizoo" class="anchor"></a>preproc.iquizoo</h1></div>
 <!-- badges: start -->
 
-<p>The goal of dataproc.iquizoo is to provide pre-processing functions for IQUIZOO original data.</p>
+<p>The goal of preproc.iquizoo is to provide pre-processing functions for IQUIZOO original data.</p>
 <div id="background" class="section level2">
 <h2 class="hasAnchor">
 <a href="#background" class="anchor"></a>Background</h2>
-<p>IQUIZOO is now a developing company shipped with a bunch of games assessing psychological constructs. The original data from these games have various formats, and this package tries to provide data preprocessing APIs for them. The basic logic here is to use one dataset named <code>game_info</code>, which is exported to provide information of each game and its preprocessing function name, so that one can easily match the correct function to preprocess data for these games based on this dataset.</p>
+<p>IQUIZOO is now a developing company shipped with a bunch of games assessing psychological constructs. The original data from these games have various formats, and this package tries to provide data preprocessing APIs for them. The basic logic here is to use one dataset named <code>game_info</code> (from <a href="https://github.com/psychelzh/data.iquizoo">data.iquizoo package</a>), which provides information of each game and its pre-processing function name, so that one can easily match the correct function to preprocess data for these games based on this dataset.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -87,7 +87,7 @@
 <p>You can install the development version from <a href="https://github.com/">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"psychelzh/dataproc.iquizoo"</span><span class="op">)</span></code></pre></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"psychelzh/preproc.iquizoo"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
@@ -101,9 +101,9 @@
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/psychelzh/dataproc.iquizoo/">https://​github.com/​psychelzh/​dataproc.iquizoo/​</a>
+<li>Browse source code at <br><a href="https://github.com/psychelzh/preproc.iquizoo/">https://​github.com/​psychelzh/​preproc.iquizoo/​</a>
 </li>
-<li>Report a bug at <br><a href="https://github.com/psychelzh/dataproc.iquizoo/issues">https://​github.com/​psychelzh/​dataproc.iquizoo/​issues</a>
+<li>Report a bug at <br><a href="https://github.com/psychelzh/preproc.iquizoo/issues">https://​github.com/​psychelzh/​preproc.iquizoo/​issues</a>
 </li>
 </ul>
 </div>
@@ -125,9 +125,9 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/psychelzh/dataproc.iquizoo/actions"><img src="https://github.com/psychelzh/dataproc.iquizoo/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://codecov.io/gh/psychelzh/dataproc.iquizoo?branch=main"><img src="https://codecov.io/gh/psychelzh/dataproc.iquizoo/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://github.com/psychelzh/dataproc.iquizoo/actions"><img src="https://github.com/psychelzh/dataproc.iquizoo/workflows/lint/badge.svg" alt="lint"></a></li>
+<li><a href="https://github.com/psychelzh/preproc.iquizoo/actions"><img src="https://github.com/psychelzh/preproc.iquizoo/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://codecov.io/gh/psychelzh/preproc.iquizoo?branch=main"><img src="https://codecov.io/gh/psychelzh/preproc.iquizoo/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://github.com/psychelzh/preproc.iquizoo/actions"><img src="https://github.com/psychelzh/preproc.iquizoo/workflows/lint/badge.svg" alt="lint"></a></li>
 </ul>
 </div>
 </div>
