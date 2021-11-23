@@ -1,17 +1,17 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# dataproc.iquizoo
+# preproc.iquizoo
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/psychelzh/dataproc.iquizoo/workflows/R-CMD-check/badge.svg)](https://github.com/psychelzh/dataproc.iquizoo/actions)
+[![R-CMD-check](https://github.com/psychelzh/preproc.iquizoo/workflows/R-CMD-check/badge.svg)](https://github.com/psychelzh/preproc.iquizoo/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/psychelzh/dataproc.iquizoo/branch/main/graph/badge.svg)](https://codecov.io/gh/psychelzh/dataproc.iquizoo?branch=main)
-[![lint](https://github.com/psychelzh/dataproc.iquizoo/workflows/lint/badge.svg)](https://github.com/psychelzh/dataproc.iquizoo/actions)
+coverage](https://codecov.io/gh/psychelzh/preproc.iquizoo/branch/main/graph/badge.svg)](https://codecov.io/gh/psychelzh/preproc.iquizoo?branch=main)
+[![lint](https://github.com/psychelzh/preproc.iquizoo/workflows/lint/badge.svg)](https://github.com/psychelzh/preproc.iquizoo/actions)
 <!-- badges: end -->
 
-The goal of dataproc.iquizoo is to provide pre-processing functions for
+The goal of preproc.iquizoo is to provide pre-processing functions for
 IQUIZOO original data.
 
 ## Background
@@ -20,10 +20,11 @@ IQUIZOO is now a developing company shipped with a bunch of games
 assessing psychological constructs. The original data from these games
 have various formats, and this package tries to provide data
 preprocessing APIs for them. The basic logic here is to use one dataset
-named `game_info`, which is exported to provide information of each game
-and its preprocessing function name, so that one can easily match the
-correct function to preprocess data for these games based on this
-dataset.
+named `game_info` (from [data.iquizoo
+package](https://github.com/psychelzh/data.iquizoo)), which provides
+information of each game and its pre-processing function name, so that
+one can easily match the correct function to preprocess data for these
+games based on this dataset.
 
 ## Installation
 
@@ -32,7 +33,7 @@ You can install the development version from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("psychelzh/dataproc.iquizoo")
+devtools::install_github("psychelzh/preproc.iquizoo")
 ```
 
 ## Usage
