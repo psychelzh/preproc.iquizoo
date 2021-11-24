@@ -1,16 +1,16 @@
 #' Driving Test
 #'
-#' A test measuring impulsivity originally developed by Gardner et. al. (2005).
+#' A test measuring impulsivity originally developed .by Gardner et. al. (2005).
 #'
-#' @templateVar by low
+#' @templateVar .by low
 #' @templateVar vars_input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{still_ratio}{The ratio of still duration in yellow light state.}
 #' @export
-driving <- function(data, by, vars_input) {
+driving <- function(data, .by, vars_input) {
   data |>
-    group_by(across(all_of(by))) |>
+    group_by(across(all_of(.by))) |>
     mutate(
       still_dur = parse_char_resp(.data[[vars_input[["name_still_dur"]]]]),
       still_light = parse_char_resp(

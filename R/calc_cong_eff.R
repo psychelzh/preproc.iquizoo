@@ -2,7 +2,7 @@
 #'
 #' Utility function to calculate congruence effect sizes.
 #'
-#' @templateVar by low
+#' @templateVar .by low
 #' @templateVar name_rt TRUE
 #' @templateVar name_acc TRUE
 #' @template params-template
@@ -14,7 +14,7 @@
 #' @return A [tibble][tibble::tibble-package] contains congruence effect results
 #'   on accuracy and response time.
 #' @keywords internal
-calc_cong_eff <- function(data, by, name_cong, name_acc, name_rt) {
+calc_cong_eff <- function(data, .by, name_cong, name_acc, name_rt) {
   data |>
     mutate(
       "{name_cong}" := factor(
@@ -23,7 +23,7 @@ calc_cong_eff <- function(data, by, name_cong, name_acc, name_rt) {
         c("inc", "con")
       )
     ) |>
-    group_by(across(all_of(c(by, name_cong)))) |>
+    group_by(across(all_of(c(.by, name_cong)))) |>
     mutate(
       # remove conditional reaction time outliers
       "{name_rt}" := ifelse(
@@ -38,7 +38,7 @@ calc_cong_eff <- function(data, by, name_cong, name_acc, name_rt) {
       .groups = "drop"
     ) |>
     # make sure each type of condition exists
-    complete(!!sym(name_cong), nesting(!!!syms(by))) |>
+    complete(!!sym(name_cong), nesting(!!!syms(.by))) |>
     pivot_wider(
       names_from = .data[[name_cong]],
       values_from = c("mrt", "pc")

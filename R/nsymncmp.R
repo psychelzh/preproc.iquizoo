@@ -2,7 +2,7 @@
 #'
 #' A classical test on subject's counting estimation skills.
 #'
-#' @templateVar by low
+#' @templateVar .by low
 #' @templateVar vars_input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
@@ -11,7 +11,7 @@
 #'   \item{w}{Weber fraction.}
 #' @seealso [symncmp()] for symbolic number comparison.
 #' @export
-nsymncmp <- function(data, by, vars_input) {
+nsymncmp <- function(data, .by, vars_input) {
   data_cor <- data |>
     mutate(
       rt_cor = ifelse(
@@ -25,7 +25,7 @@ nsymncmp <- function(data, by, vars_input) {
     )
   basics <- calc_spd_acc(
     data_cor,
-    by,
+    .by,
     name_acc = vars_input[["name_acc"]],
     name_rt = "rt_cor",
     rt_rtn = "mean",
@@ -45,7 +45,7 @@ nsymncmp <- function(data, by, vars_input) {
     otherwise = NA_real_
   )
   weber <- data_cor |>
-    group_nest(across(all_of(by))) |>
+    group_nest(across(all_of(.by))) |>
     mutate(
       w = purrr::map_dbl(
         .data[["data"]],
@@ -53,5 +53,5 @@ nsymncmp <- function(data, by, vars_input) {
       ),
       .keep = "unused"
     )
-  left_join(basics, weber, by = by)
+  left_join(basics, weber, by = .by)
 }

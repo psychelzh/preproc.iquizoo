@@ -4,7 +4,7 @@
 #' time (mrt), distance effect (dist_effect) and adjusted distance effect
 #' (dist_effect_cor).
 #'
-#' @templateVar by low
+#' @templateVar .by low
 #' @templateVar vars_input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
@@ -13,7 +13,7 @@
 #'   \item{dist_eff}{Distance effect.}
 #' @seealso [nsymncmp()] for non-symbolic number comparison.
 #' @export
-symncmp <- function(data, by, vars_input) {
+symncmp <- function(data, .by, vars_input) {
   data_cor <- data |>
     mutate(
       rt_cor = ifelse(
@@ -23,7 +23,7 @@ symncmp <- function(data, by, vars_input) {
     )
   basics <- calc_spd_acc(
     data_cor,
-    by,
+    .by,
     name_acc = vars_input[["name_acc"]],
     name_rt = "rt_cor",
     rt_rtn = "mean",
@@ -43,7 +43,7 @@ symncmp <- function(data, by, vars_input) {
       dist = .data[[vars_input[["name_big"]]]] -
         .data[[vars_input[["name_small"]]]]
     ) |>
-    group_nest(across(all_of(by))) |>
+    group_nest(across(all_of(.by))) |>
     mutate(
       dist_eff = purrr::map_dbl(
         .data[["data"]],
@@ -55,5 +55,5 @@ symncmp <- function(data, by, vars_input) {
       ),
       .keep = "unused"
     )
-  left_join(basics, dist_eff, by = by)
+  left_join(basics, dist_eff, by = .by)
 }

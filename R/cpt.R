@@ -4,7 +4,7 @@
 #' are many methods used to calculate the performance index of this task, and
 #' here only includes those common ones.
 #'
-#' @templateVar by low
+#' @templateVar .by low
 #' @templateVar vars_input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
@@ -16,7 +16,7 @@
 #'   \item{commissions}{Number of errors caused by action.}
 #'   \item{omissions}{Number of errors caused by inaction.}
 #' @export
-cpt <- function(data, by, vars_input) {
+cpt <- function(data, .by, vars_input) {
   data_cor <- data |>
     # some tests records stimuli not presented
     filter(.data[[vars_input[["name_acc"]]]] != -1) |>
@@ -34,11 +34,11 @@ cpt <- function(data, by, vars_input) {
     )
   basics <- calc_spd_acc(
     data_cor,
-    by,
+    .by,
     name_acc = vars_input[["name_acc"]],
     name_rt = "rt_cor",
     acc_rtn = "count"
   )
-  sdt <- calc_sdt(data_cor, by, vars_input[["name_acc"]], "type_cor")
-  left_join(basics, sdt, by = by)
+  sdt <- calc_sdt(data_cor, .by, vars_input[["name_acc"]], "type_cor")
+  left_join(basics, sdt, by = .by)
 }

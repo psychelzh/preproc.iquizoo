@@ -12,10 +12,10 @@ data <- expand_grid(
   )
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc(data, sumweighted, by = "id"))
+  expect_snapshot(preproc(data, sumweighted, .by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {
   data <- mutate(data, id1 = id + 1)
-  expect_snapshot(preproc(data, sumweighted, by = c("id", "id1")))
+  expect_snapshot(preproc(data, sumweighted, .by = c("id", "id1")))
 })

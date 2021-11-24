@@ -9,7 +9,7 @@
 #' calculates both.
 #'
 #' @name switch-congruence
-#' @templateVar by low
+#' @templateVar .by low
 #' @templateVar vars_input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] with the following variables:
@@ -43,7 +43,7 @@ NULL
 
 #' @rdname switch-congruence
 #' @export
-complexswitch <- function(data, by, vars_input) {
+complexswitch <- function(data, .by, vars_input) {
   data_cor <- data |>
     mutate(
       # remove rt of 100 or less
@@ -64,7 +64,7 @@ complexswitch <- function(data, by, vars_input) {
   # calculate congruence effect
   cong_eff <- calc_cong_eff(
     data_cor,
-    by = by,
+    .by = .by,
     name_cong = vars_input[["name_cong"]],
     name_acc = vars_input[["name_acc"]],
     name_rt = "rt_cor"
@@ -72,18 +72,18 @@ complexswitch <- function(data, by, vars_input) {
   # calculate switch cost
   switch_cost <- calc_switch_cost(
     data_cor,
-    by = by,
+    .by = .by,
     name_type_block = "type_block",
     name_type_switch = "type_switch",
     name_acc = vars_input[["name_acc"]],
     name_rt = "rt_cor"
   )
-  left_join(cong_eff, switch_cost, by = by)
+  left_join(cong_eff, switch_cost, by = .by)
 }
 
 #' @rdname switch-congruence
 #' @export
-congeff <- function(data, by, vars_input) {
+congeff <- function(data, .by, vars_input) {
   data_cor <- data |>
     mutate(
       # remove rt of 100 or less
@@ -94,7 +94,7 @@ congeff <- function(data, by, vars_input) {
     )
   calc_cong_eff(
     data_cor,
-    by = by,
+    .by = .by,
     name_cong = vars_input[["name_cong"]],
     name_acc = vars_input[["name_acc"]],
     name_rt = "rt_cor"
@@ -103,7 +103,7 @@ congeff <- function(data, by, vars_input) {
 
 #' @rdname switch-congruence
 #' @export
-switchcost <- function(data, by, vars_input) {
+switchcost <- function(data, .by, vars_input) {
   data_cor <- data |>
     mutate(
       # remove rt of 100 or less
@@ -123,7 +123,7 @@ switchcost <- function(data, by, vars_input) {
     )
   calc_switch_cost(
     data_cor,
-    by = by,
+    .by = .by,
     name_type_block = "type_block",
     name_type_switch = "type_switch",
     name_acc = vars_input[["name_acc"]],

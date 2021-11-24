@@ -1,7 +1,7 @@
 # Default behavior works on different types of input
 
     Code
-      preproc(data_cancellation, countcorrect, by = "id")
+      preproc(data_cancellation, countcorrect, .by = "id")
     Output
       # A tibble: 100 x 2
             id    nc
@@ -21,7 +21,7 @@
 ---
 
     Code
-      preproc(data_canteen, countcorrect, by = "id")
+      preproc(data_canteen, countcorrect, .by = "id")
     Output
       # A tibble: 100 x 2
             id    nc
@@ -41,7 +41,7 @@
 ---
 
     Code
-      preproc(data_fpt, countcorrect, by = "id")
+      preproc(data_fpt, countcorrect, .by = "id")
     Output
       # A tibble: 100 x 2
             id    nc
@@ -61,7 +61,7 @@
 # Works with multiple grouping variables
 
     Code
-      preproc(data_cancellation, countcorrect, by = c("id", "id1"))
+      preproc(data_cancellation, countcorrect, .by = c("id", "id1"))
     Output
       # A tibble: 100 x 3
             id   id1    nc

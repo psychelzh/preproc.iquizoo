@@ -18,10 +18,10 @@ data <- expand_grid(
   )
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc(data, symncmp, by = "id"))
+  expect_snapshot(preproc(data, symncmp, .by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {
   data <- mutate(data, id1 = id + 1)
-  expect_snapshot(preproc(data, symncmp, by = c("id", "id1")))
+  expect_snapshot(preproc(data, symncmp, .by = c("id", "id1")))
 })

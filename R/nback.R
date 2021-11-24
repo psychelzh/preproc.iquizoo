@@ -2,7 +2,7 @@
 #'
 #' A classical working memory test.
 #'
-#' @templateVar by low
+#' @templateVar .by low
 #' @templateVar vars_input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
@@ -11,7 +11,7 @@
 #'   \item{dprime}{Sensitivity index.}
 #'   \item{c}{Bias.}
 #' @export
-nback <- function(data, by, vars_input) {
+nback <- function(data, .by, vars_input) {
   data_cor <- data |>
     # type of "None" should be ignored
     filter(
@@ -31,15 +31,15 @@ nback <- function(data, by, vars_input) {
     )
   basics <- calc_spd_acc(
     data_cor,
-    by,
+    .by,
     name_acc = vars_input[["name_acc"]],
     name_rt = "rt_cor",
     rt_rtn = "mean",
     acc_rtn = "percent"
   )
   sdt <- calc_sdt(
-    data_cor, by, vars_input[["name_acc"]], "type_cor",
+    data_cor, .by, vars_input[["name_acc"]], "type_cor",
     keep_counts = FALSE
   )
-  left_join(basics, sdt, by = by)
+  left_join(basics, sdt, by = .by)
 }

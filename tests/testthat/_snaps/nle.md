@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc(data, nle, by = "id")
+      preproc(data, nle, .by = "id")
     Output
       # A tibble: 100 x 3
             id mean_abs_err mean_log_err
@@ -21,7 +21,7 @@
 # Works with multiple grouping variables
 
     Code
-      preproc(data, nle, by = c("id", "id1"))
+      preproc(data, nle, .by = c("id", "id1"))
     Output
       # A tibble: 100 x 4
             id   id1 mean_abs_err mean_log_err

@@ -58,16 +58,16 @@ data_negtive_dur <- tibble::tibble(
 
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc(data, driving, by = "id"))
+  expect_snapshot(preproc(data, driving, .by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {
   data <- mutate(data, id1 = id + 1)
-  expect_snapshot(preproc(data, driving, by = c("id", "id1")))
+  expect_snapshot(preproc(data, driving, .by = c("id", "id1")))
 })
 
 test_that("No error for negative duration case (but produces `NA`s)", {
-  expect_snapshot(preproc(data_negtive_dur, driving, by = "id"))
+  expect_snapshot(preproc(data_negtive_dur, driving, .by = "id"))
 })
 
 test_that("Works when character case is messy", {
@@ -76,10 +76,10 @@ test_that("Works when character case is messy", {
       stilllight = recode(stilllight, Green = "green")
     )
   expect_silent(
-    case_messy <- preproc(data_case_messy, driving, by = "id")
+    case_messy <- preproc(data_case_messy, driving, .by = "id")
   )
   expect_identical(
     case_messy,
-    preproc(data, driving, by = "id")
+    preproc(data, driving, .by = "id")
   )
 })

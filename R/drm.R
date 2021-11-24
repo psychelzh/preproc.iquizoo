@@ -3,7 +3,7 @@
 #' This is a classical false memory test. Here calculates the effect size of
 #' false memory.
 #'
-#' @templateVar by low
+#' @templateVar .by low
 #' @templateVar vars_input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
@@ -12,11 +12,11 @@
 #'   \item{fm_dprime}{Sensitivity (d') of false memory.}
 #'   \item{fm_bias}{ias of false memory.}
 #' @export
-drm <- function(data, by, vars_input) {
+drm <- function(data, .by, vars_input) {
   data |>
     filter(.data[[vars_input[["name_type"]]]] != "filler") |>
     group_by(across(
-      all_of(c(by, vars_input[["name_type"]]))
+      all_of(c(.by, vars_input[["name_type"]]))
     )) |>
     summarise(
       z_old = stats::qnorm(

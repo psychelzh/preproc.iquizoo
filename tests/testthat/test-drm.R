@@ -22,12 +22,12 @@ data <- expand_grid(
   )
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc(data, drm, by = "id"))
+  expect_snapshot(preproc(data, drm, .by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {
   data <- mutate(data, id1 = id + 1)
-  expect_snapshot(preproc(data, drm, by = c("id", "id1")))
+  expect_snapshot(preproc(data, drm, .by = c("id", "id1")))
 })
 
 test_that("Works when character case is messy", {
@@ -37,10 +37,10 @@ test_that("Works when character case is messy", {
       type = recode(type, Old = "old")
     )
   expect_silent(
-    case_messy <- preproc(data_case_messy, drm, by = "id")
+    case_messy <- preproc(data_case_messy, drm, .by = "id")
   )
   expect_identical(
     case_messy,
-    preproc(data, drm, by = "id")
+    preproc(data, drm, .by = "id")
   )
 })

@@ -3,7 +3,7 @@
 #' Typically, two classes of spatial frames of reference: "egocentric" and
 #' "allocentric". The spatial acuity for both classes are calculated.
 #'
-#' @templateVar by low
+#' @templateVar .by low
 #' @templateVar vars_input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
@@ -13,7 +13,7 @@
 #'     base \eqn{e}) response distance errors for allocentric and egocentric
 #'     conditions respectively.}
 #' @export
-refframe <- function(data, by, vars_input) {
+refframe <- function(data, .by, vars_input) {
   bind_rows(
     each = data,
     both = data,
@@ -26,7 +26,7 @@ refframe <- function(data, by, vars_input) {
         .data[[vars_input[["name_type"]]]] == "egocentric" ~ "ego"
       )
     ) |>
-    group_by(across(all_of(c(by, "type_cor")))) |>
+    group_by(across(all_of(c(.by, "type_cor")))) |>
     summarise(
       mean_dist_err = mean(.data[[vars_input[["name_dist"]]]]),
       mean_log_err = mean(log(.data[[vars_input[["name_dist"]]]] + 1)),

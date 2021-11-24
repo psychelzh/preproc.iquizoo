@@ -4,7 +4,7 @@
 #' all the low-level pre-processing functions. These low-level functions are
 #' also exported and documented with the details of the returned values.
 #'
-#' @templateVar by high
+#' @templateVar .by high
 #' @template params-template
 #' @param prep_fun The name of a function, given as a [name][base::name] or
 #'   literal character string, depending on whether `character.only` is `FALSE`
@@ -20,7 +20,7 @@
 #'   low-level functions. Attributes will be the same with `data`.
 #' @author Liang Zhang <psychelzh@outlook.com>
 #' @export
-preproc <- function(data, prep_fun, by = NULL, ...,
+preproc <- function(data, prep_fun, .by = NULL, ...,
                     config_file = NULL, character.only = FALSE) {
   if (!missing(...)) {
     ellipsis::check_dots_empty()
@@ -48,13 +48,13 @@ preproc <- function(data, prep_fun, by = NULL, ...,
     return()
   }
   # checking grouping variable
-  if (is.null(by)) {
-    by <- "id"
-    data[[by]] <- 1
+  if (is.null(.by)) {
+    .by <- ".dummy_id"
+    data[[.by]] <- 1
     keep_by <- FALSE
   } else {
-    if (!all(rlang::has_name(data, by))) {
-      warn("Input `by` does not match any name of `data`.", "by_invalid")
+    if (!all(rlang::has_name(data, .by))) {
+      warn("Input `.by` does not match any name of `data`.", "by_invalid")
       return()
     }
     keep_by <- TRUE
@@ -68,10 +68,10 @@ preproc <- function(data, prep_fun, by = NULL, ...,
         tolower
       )
     ) |>
-    prep_fun(vars_input = vars_input, by = by) |>
+    prep_fun(vars_input = vars_input, .by = .by) |>
     select(all_of(
       # keep grouping variable when required
-      c(if (keep_by) by, .get_output_vars(prep_fun_name, config))
+      c(if (keep_by) .by, .get_output_vars(prep_fun_name, config))
     )) |>
     vctrs::vec_restore(data)
 }

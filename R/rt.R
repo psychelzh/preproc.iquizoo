@@ -6,7 +6,7 @@
 #' tests, so the number of correct responses is also calculated in [crt()].
 #'
 #' @name rt
-#' @templateVar by low
+#' @templateVar .by low
 #' @templateVar vars_input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
@@ -17,7 +17,7 @@ NULL
 
 #' @rdname rt
 #' @export
-crt <- function(data, by, vars_input) {
+crt <- function(data, .by, vars_input) {
   data |>
     mutate(
       # remove rt of 100 or less
@@ -27,7 +27,7 @@ crt <- function(data, by, vars_input) {
       )
     ) |>
     calc_spd_acc(
-      by,
+      .by,
       name_acc = vars_input[["name_acc"]],
       name_rt = "rt_cor",
       acc_rtn = "count"
@@ -36,7 +36,7 @@ crt <- function(data, by, vars_input) {
 
 #' @rdname rt
 #' @export
-srt <- function(data, by, vars_input) {
+srt <- function(data, .by, vars_input) {
   data |>
     mutate(
       # remove rt of 100 or less
@@ -47,7 +47,7 @@ srt <- function(data, by, vars_input) {
       acc_dummy = 1
     ) |>
     calc_spd_acc(
-      by,
+      .by,
       name_acc = "acc_dummy",
       name_rt = "rt_cor",
       acc_rtn = "none"

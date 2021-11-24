@@ -2,9 +2,9 @@
 #'
 #' Calculate sensitivity index and bias based on signal detection theory. The
 #' correction for extreme proportions of zero and one is the "log-linear" rule
-#' recommended by Hautus (1995).
+#' recommended .by Hautus (1995).
 #'
-#' @templateVar by low
+#' @templateVar .by low
 #' @templateVar name_acc TRUE
 #' @template params-template
 #' @param name_type The column name of the `data` input whose values are the
@@ -16,7 +16,7 @@
 #' @return A [tibble][tibble::tibble-package] contains sensitivity index and
 #'   bias (and other counts measures)
 #' @keywords internal
-calc_sdt <- function(data, by, name_acc, name_type, keep_counts = TRUE) {
+calc_sdt <- function(data, .by, name_acc, name_type, keep_counts = TRUE) {
   data |>
     mutate(
       "{name_type}" := factor(
@@ -24,7 +24,7 @@ calc_sdt <- function(data, by, name_acc, name_type, keep_counts = TRUE) {
         c("s", "n")
       )
     ) |>
-    group_by(across(all_of(c(by, name_type)))) |>
+    group_by(across(all_of(c(.by, name_type)))) |>
     summarise(
       c = sum(.data[[name_acc]] == 1),
       e = n() - .data[["c"]],
@@ -52,7 +52,7 @@ calc_sdt <- function(data, by, name_acc, name_type, keep_counts = TRUE) {
     select(
       all_of(
         c(
-          by, "dprime", "c",
+          .by, "dprime", "c",
           if (keep_counts) c("commissions", "omissions")
         )
       )

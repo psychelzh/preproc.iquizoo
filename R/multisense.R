@@ -3,7 +3,7 @@
 #' There will typically be some speed advantage if there are more than one
 #' sensory inputs to be employed. This function calculates this advantage.
 #'
-#' @templateVar by low
+#' @templateVar .by low
 #' @templateVar vars_input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
@@ -13,10 +13,10 @@
 #'   \item{mrt_mixadv}{Mean reaction decrease of Mixed stimuli compared to other
 #'     two types of stimuli.}
 #' @export
-multisense <- function(data, by, vars_input) {
+multisense <- function(data, .by, vars_input) {
   data |>
     group_by(across(
-      all_of(c(by, vars_input[["name_type"]]))
+      all_of(c(.by, vars_input[["name_type"]]))
     )) |>
     mutate(
       rt_cor = ifelse(

@@ -2,7 +2,7 @@
 #'
 #' A classical test on inhibition skills.
 #'
-#' @templateVar by low
+#' @templateVar .by low
 #' @templateVar vars_input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] with the following variables:
@@ -11,7 +11,7 @@
 #'   \item{medrt_go}{Median reaction time (ms) of go trials.}
 #'   \item{ssrt}{Stop signal reaction time (ms).}
 #' @export
-stopsignal <- function(data, by, vars_input) {
+stopsignal <- function(data, .by, vars_input) {
   data_cor <- data |>
     mutate(
       # remove rt of 100 or less for go trials
@@ -22,7 +22,7 @@ stopsignal <- function(data, by, vars_input) {
       )
     )
   indices_from_acc <- data_cor |>
-    group_by(across(all_of(by))) |>
+    group_by(across(all_of(.by))) |>
     summarise(
       pc_all = mean(.data[[vars_input[["name_acc"]]]] == 1),
       pc_go = sum(
@@ -32,7 +32,7 @@ stopsignal <- function(data, by, vars_input) {
     ) |>
     ungroup()
   indices_from_rt <- data_cor |>
-    group_by(across(all_of(by))) |>
+    group_by(across(all_of(.by))) |>
     group_modify(
       ~ .calc_ssrt(
         .x,
@@ -43,7 +43,7 @@ stopsignal <- function(data, by, vars_input) {
       )
     ) |>
     ungroup()
-  left_join(indices_from_acc, indices_from_rt, by = by)
+  left_join(indices_from_acc, indices_from_rt, by = .by)
 }
 
 .calc_ssrt <- function(data, name_type, name_acc, name_rt, name_ssd) {
