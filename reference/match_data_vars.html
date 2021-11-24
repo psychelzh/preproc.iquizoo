@@ -75,7 +75,7 @@ matched result (a character vector, NA means not found) will be returned." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">preproc.iquizoo</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
       </span>
     </div>
 
@@ -126,7 +126,7 @@ of the alternatives exists for each variable. If the check is passed, the
 matched result (a character vector, <code>NA</code> means not found) will be returned.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>match_data_vars</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>prep_fun_name</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>match_data_vars</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>prep_fun_name</span>, <span class='va'>config</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -139,12 +139,16 @@ matched result (a character vector, <code>NA</code> means not found) will be ret
       <th>prep_fun_name</th>
       <td><p>The name of the called pre-processing function.</p></td>
     </tr>
+    <tr>
+      <th>config</th>
+      <td><p>Configuration of data variable names to match</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>list</code> of the matched variables, using <code>NA</code> value to represent not
-found, and using the names configured in the internal data.</p>
+found, and using the names configured in <code>config</code>.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
