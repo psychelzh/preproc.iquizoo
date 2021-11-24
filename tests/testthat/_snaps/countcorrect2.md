@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc(data, countcorrect2, by = "id")
+      preproc(data, countcorrect2, .by = "id")
     Output
       # A tibble: 100 x 2
             id nc_cor
@@ -21,7 +21,7 @@
 # Works with multiple grouping variables
 
     Code
-      preproc(data, countcorrect2, by = c("id", "id1"))
+      preproc(data, countcorrect2, .by = c("id", "id1"))
     Output
       # A tibble: 100 x 3
             id   id1 nc_cor

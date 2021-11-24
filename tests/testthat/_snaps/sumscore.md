@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc(data, sumscore, by = "id")
+      preproc(data, sumscore, .by = "id")
     Output
       # A tibble: 100 x 2
             id nc_score
@@ -21,7 +21,7 @@
 # Works with multiple grouping variables
 
     Code
-      preproc(data, sumscore, by = c("id", "id1"))
+      preproc(data, sumscore, .by = c("id", "id1"))
     Output
       # A tibble: 100 x 3
             id   id1 nc_score

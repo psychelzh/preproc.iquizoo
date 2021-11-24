@@ -13,12 +13,12 @@ data <- expand_grid(
   )
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc(data, nback, by = "id"))
+  expect_snapshot(preproc(data, nback, .by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {
   data <- mutate(data, id1 = id + 1)
-  expect_snapshot(preproc(data, nback, by = c("id", "id1")))
+  expect_snapshot(preproc(data, nback, .by = c("id", "id1")))
 })
 
 test_that("Works when character case is messy", {
@@ -27,11 +27,11 @@ test_that("Works when character case is messy", {
       type = recode(type, Change = "change")
     )
   expect_silent(
-    case_messy <- preproc(data_case_messy, nback, by = "id")
+    case_messy <- preproc(data_case_messy, nback, .by = "id")
   )
   expect_identical(
     case_messy,
-    preproc(data, nback, by = "id")
+    preproc(data, nback, .by = "id")
   )
 })
 
@@ -41,10 +41,10 @@ test_that("Works when using `'filler'` or `'target'`", {
       type = recode(type, Change = "target", None = "filler")
     )
   expect_silent(
-    new_value <- preproc(data_new_value, nback, by = "id")
+    new_value <- preproc(data_new_value, nback, .by = "id")
   )
   expect_identical(
     new_value,
-    preproc(data, nback, by = "id")
+    preproc(data, nback, .by = "id")
   )
 })

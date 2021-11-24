@@ -65,20 +65,20 @@ data_part_miss_cond <- tibble::tibble(
 )
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc(data, complexswitch, by = "id"))
+  expect_snapshot(preproc(data, complexswitch, .by = "id"))
 })
 
 test_that("All single condition", {
-  expect_snapshot(preproc(data_miss_cond, complexswitch, by = "id"))
+  expect_snapshot(preproc(data_miss_cond, complexswitch, .by = "id"))
 })
 
 test_that("Part subject single condition", {
-  expect_snapshot(preproc(data_part_miss_cond, complexswitch, by = "id"))
+  expect_snapshot(preproc(data_part_miss_cond, complexswitch, .by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {
   data <- mutate(data, id1 = id + 1)
-  expect_snapshot(preproc(data, complexswitch, by = c("id", "id1")))
+  expect_snapshot(preproc(data, complexswitch, .by = c("id", "id1")))
 })
 
 test_that("Works when character case is messy", {
@@ -89,10 +89,10 @@ test_that("Works when character case is messy", {
       task = recode(task, T1 = "t1")
     )
   expect_silent(
-    case_messy <- preproc(data_case_messy, complexswitch, by = "id")
+    case_messy <- preproc(data_case_messy, complexswitch, .by = "id")
   )
   expect_identical(
     case_messy,
-    preproc(data, complexswitch, by = "id")
+    preproc(data, complexswitch, .by = "id")
   )
 })

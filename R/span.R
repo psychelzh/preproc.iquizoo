@@ -2,15 +2,15 @@
 #'
 #' There is a bunch of tests measuring working memory span or attention span.
 #'
-#' @templateVar by low
-#' @templateVar vars_input TRUE
+#' @templateVar .by low
+#' @templateVar .input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:]
 #'   \item{nc}{Count of correct responses.}
 #'   \item{max_span}{Maximal span.}
 #'   \item{mean_span}{Mean span.}
 #' @export
-span <- function(data, by, vars_input) {
+span <- function(data, .by, .input) {
   # "nc" is calculated from "correctness/accloc" column, but can be absent
   name_acc_cand <- c("correctness", "accloc")
   name_acc_chk <- rlang::has_name(data, name_acc_cand)
@@ -19,7 +19,7 @@ span <- function(data, by, vars_input) {
     nc <- data |>
       mutate(acc = parse_char_resp(.data[[name_acc]])) |>
       unnest(.data[["acc"]]) |>
-      group_by(across(all_of(by))) |>
+      group_by(across(all_of(.by))) |>
       summarise(
         nc = sum(.data[["acc"]] == 1),
         .groups = "drop"
@@ -35,14 +35,14 @@ span <- function(data, by, vars_input) {
             ~ sum(.x == .y)
           )
         ) |>
-        group_by(across(all_of(by))) |>
+        group_by(across(all_of(.by))) |>
         summarise(
           nc = sum(.data[["nc"]]),
           .groups = "drop"
         )
     } else {
       nc <- data |>
-        group_by(across(all_of(by))) |>
+        group_by(across(all_of(.by))) |>
         summarise(
           nc = NA_integer_,
           .groups = "drop"
@@ -51,17 +51,17 @@ span <- function(data, by, vars_input) {
   }
   spans <- data |>
     group_by(across(
-      all_of(c(by, vars_input[["name_slen"]]))
+      all_of(c(.by, .input[["name_slen"]]))
     )) |>
     summarise(
-      pc = mean(.data[[vars_input[["name_outcome"]]]] == 1),
+      pc = mean(.data[[.input[["name_outcome"]]]] == 1),
       .groups = "drop_last"
     ) |>
     summarise(
-      max_span = max(.data[[vars_input[["name_slen"]]]]),
+      max_span = max(.data[[.input[["name_slen"]]]]),
       mean_span = sum(.data[["pc"]]) +
-        min(.data[[vars_input[["name_slen"]]]]) - .5,
+        min(.data[[.input[["name_slen"]]]]) - .5,
       .groups = "drop"
     )
-  left_join(nc, spans, by = by)
+  left_join(nc, spans, by = .by)
 }

@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc(data, symncmp, by = "id")
+      preproc(data, symncmp, .by = "id")
     Output
       # A tibble: 100 x 4
             id    pc   mrt dist_eff
@@ -21,7 +21,7 @@
 # Works with multiple grouping variables
 
     Code
-      preproc(data, symncmp, by = c("id", "id1"))
+      preproc(data, symncmp, .by = c("id", "id1"))
     Output
       # A tibble: 100 x 5
             id   id1    pc   mrt dist_eff

@@ -3,8 +3,8 @@
 #' This is a classical false memory test. Here calculates the effect size of
 #' false memory.
 #'
-#' @templateVar by low
-#' @templateVar vars_input TRUE
+#' @templateVar .by low
+#' @templateVar .input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{tm_dprime}{Sensitivity (d') of true memory (against "foil" stimuli).}
@@ -12,21 +12,21 @@
 #'   \item{fm_dprime}{Sensitivity (d') of false memory.}
 #'   \item{fm_bias}{ias of false memory.}
 #' @export
-drm <- function(data, by, vars_input) {
+drm <- function(data, .by, .input) {
   data |>
-    filter(.data[[vars_input[["name_type"]]]] != "filler") |>
+    filter(.data[[.input[["name_type"]]]] != "filler") |>
     group_by(across(
-      all_of(c(by, vars_input[["name_type"]]))
+      all_of(c(.by, .input[["name_type"]]))
     )) |>
     summarise(
       z_old = stats::qnorm(
-        (sum(.data[[vars_input[["name_resp"]]]] == "old") + 0.5) /
+        (sum(.data[[.input[["name_resp"]]]] == "old") + 0.5) /
           (n() + 1)
       ),
       .groups = "drop_last"
     ) |>
     pivot_wider(
-      names_from = .data[[vars_input[["name_type"]]]],
+      names_from = .data[[.input[["name_type"]]]],
       values_from = "z_old"
     ) |>
     transmute(

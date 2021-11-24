@@ -2,7 +2,7 @@
 #'
 #' Utility function to calculate general and specific switch cost.
 #'
-#' @templateVar by low
+#' @templateVar .by low
 #' @templateVar name_rt TRUE
 #' @templateVar name_acc TRUE
 #' @template params-template
@@ -15,7 +15,7 @@
 #'   will be used as task names.
 #' @keywords internal
 calc_switch_cost <- function(data,
-                             by,
+                             .by,
                              name_type_block,
                              name_type_switch,
                              name_rt,
@@ -30,7 +30,7 @@ calc_switch_cost <- function(data,
       )
     ) |>
     group_by(across(
-      all_of(c(by, name_type_block, name_type_switch, "condition"))
+      all_of(c(.by, name_type_block, name_type_switch, "condition"))
     )) |>
     mutate(
       # remove conditional reaction time outliers
@@ -45,20 +45,20 @@ calc_switch_cost <- function(data,
       pc = mean(.data[[name_acc]] == 1),
       .groups = "drop"
     ) |>
-    complete(.data[["condition"]], nesting(!!!syms(by))) |>
+    complete(.data[["condition"]], nesting(!!!syms(.by))) |>
     mutate(
       condition = replace_na(
         as.character(.data[["condition"]]), "pure"
       )
     ) |>
-    group_by(across(all_of(c(by, "condition")))) |>
+    group_by(across(all_of(c(.by, "condition")))) |>
     summarise(
       mrt = mean(.data[["mrt"]], na.rm = TRUE),
       pc = mean(.data[["pc"]], na.rm = TRUE),
       .groups = "drop"
     ) |>
     pivot_wider(
-      all_of(by),
+      all_of(.by),
       names_from = .data[["condition"]],
       values_from = c("mrt", "pc")
     ) |>

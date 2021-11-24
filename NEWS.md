@@ -1,3 +1,10 @@
+# preproc.iquizoo 1.3.2
+
+## Breaking Changes
+
+* Changed argument names of `prep_fun` and `by` to `.fn` and `.by` respectively. See [here](https://adv-r.hadley.nz/functionals.html#argument-names) for the reasons.
+* And `vars_input` is also renamed as `.input`.
+
 # preproc.iquizoo 1.3.1
 
 ## Bug Fixes

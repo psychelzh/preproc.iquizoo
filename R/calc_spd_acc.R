@@ -15,7 +15,7 @@
 #'   outlier detection method used here is the "*interquantile range*" rule
 #'   suggested by Tukey (1977).
 #'
-#' @templateVar by low
+#' @templateVar .by low
 #' @templateVar name_acc TRUE
 #' @templateVar name_rt TRUE
 #' @template params-template
@@ -26,14 +26,14 @@
 #' @param acc_rtn If count or percent of correct responses should be returned.
 #' @return A [tibble][tibble::tibble-package] contains the required scores.
 #' @keywords internal
-calc_spd_acc <- function(data, by, name_acc, name_rt,
+calc_spd_acc <- function(data, .by, name_acc, name_rt,
                          rm.out = TRUE,
                          rt_rtn = c("both", "mean", "sd", "none"),
                          acc_rtn = c("both", "count", "percent", "none")) {
   rt_rtn <- match.arg(rt_rtn)
   acc_rtn <- match.arg(acc_rtn)
   data |>
-    group_by(across(all_of(by))) |>
+    group_by(across(all_of(.by))) |>
     mutate(
       "{name_rt}" := ifelse(
         .data[[name_rt]] %in%
@@ -52,7 +52,7 @@ calc_spd_acc <- function(data, by, name_acc, name_rt,
     select(
       all_of(
         c(
-          by,
+          .by,
           if (acc_rtn %in% c("both", "count")) "nc",
           if (acc_rtn %in% c("both", "percent")) "pc",
           if (rt_rtn %in% c("both", "mean")) "mrt",

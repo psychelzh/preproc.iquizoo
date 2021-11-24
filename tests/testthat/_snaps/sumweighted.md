@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc(data, sumweighted, by = "id")
+      preproc(data, sumweighted, .by = "id")
     Output
       # A tibble: 100 x 2
             id nc_weighted
@@ -21,7 +21,7 @@
 # Works with multiple grouping variables
 
     Code
-      preproc(data, sumweighted, by = c("id", "id1"))
+      preproc(data, sumweighted, .by = c("id", "id1"))
     Output
       # A tibble: 100 x 3
             id   id1 nc_weighted

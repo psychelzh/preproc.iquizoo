@@ -17,12 +17,12 @@ data <- expand_grid(
   select(-contains("_"))
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc(data, jlo, by = "id"))
+  expect_snapshot(preproc(data, jlo, .by = "id"))
 })
 
 test_that("Works with multiple grouping variables", {
   data <- mutate(data, id1 = id + 1)
-  expect_snapshot(preproc(data, jlo, by = c("id", "id1")))
+  expect_snapshot(preproc(data, jlo, .by = c("id", "id1")))
 })
 
 test_that("Works when character case is messy", {
@@ -31,10 +31,10 @@ test_that("Works when character case is messy", {
       resp = recode(resp, Left = "left")
     )
   expect_silent(
-    case_messy <- preproc(data_case_messy, jlo, by = "id")
+    case_messy <- preproc(data_case_messy, jlo, .by = "id")
   )
   expect_identical(
     case_messy,
-    preproc(data, jlo, by = "id")
+    preproc(data, jlo, .by = "id")
   )
 })

@@ -4,31 +4,25 @@
 \alias{preproc}
 \title{Call low-level functions given data}
 \usage{
-preproc(
-  data,
-  prep_fun,
-  by = NULL,
-  ...,
-  config_file = NULL,
-  character.only = FALSE
-)
+preproc(data, .fn, .by = NULL, ..., config_file = NULL, character.only = FALSE)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{prep_fun}{The name of a function, given as a \link[base:name]{name} or
+\item{.fn}{The name of a function, given as a \link[base:name]{name} or
 literal character string, depending on whether \code{character.only} is \code{FALSE}
 (default) or \code{TRUE}. Only functions from this package is supported for now.}
 
-\item{by}{The column name(s) in \code{data} used to be grouped by. If set to \code{NULL} (default), all data will be treated as from one subject and there will be no grouping columns in the value returned.}
+\item{.by}{The column name(s) in \code{data} used to be grouped by. If set to \code{NULL} (default), all data will be treated as from one subject and there will be no grouping columns in the value returned.}
 
 \item{...}{These dots are for future extensions and must be empty.}
 
 \item{config_file}{An optional json file to read configurations of data
 variable names. If set to \code{NULL}, will use the example
-\link[data.iquizoo:config_prep_fun]{config_prep_fun}.}
+\link[data.iquizoo:config_prep_fun]{config_prep_fun}. Note the example
+configurations will always be merged.}
 
-\item{character.only}{A logical indicating whether \code{prep_fun_name} can be
+\item{character.only}{A logical indicating whether \code{.fn_name} can be
 assumed to be character strings.}
 }
 \value{

@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc(data, stopsignal, by = "id")
+      preproc(data, stopsignal, .by = "id")
     Output
       # A tibble: 100 x 5
             id pc_all pc_go medrt_go  ssrt
@@ -21,7 +21,7 @@
 # Works with multiple grouping variables
 
     Code
-      preproc(data, stopsignal, by = c("id", "id1"))
+      preproc(data, stopsignal, .by = c("id", "id1"))
     Output
       # A tibble: 100 x 6
             id   id1 pc_all pc_go medrt_go  ssrt

@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc(data, congeff, by = "id")
+      preproc(data, congeff, .by = "id")
     Output
       # A tibble: 100 x 7
             id mrt_inc mrt_con cong_eff_rt pc_inc pc_con cong_eff_pc
@@ -21,7 +21,7 @@
 # All single condition
 
     Code
-      preproc(data_miss_cond, congeff, by = "id")
+      preproc(data_miss_cond, congeff, .by = "id")
     Output
       # A tibble: 2 x 7
            id mrt_inc mrt_con cong_eff_rt pc_inc pc_con cong_eff_pc
@@ -32,7 +32,7 @@
 # Part subject single condition
 
     Code
-      preproc(data_part_miss_cond, congeff, by = "id")
+      preproc(data_part_miss_cond, congeff, .by = "id")
     Output
       # A tibble: 2 x 7
            id mrt_inc mrt_con cong_eff_rt pc_inc pc_con cong_eff_pc
@@ -43,7 +43,7 @@
 # Works with multiple grouping variables
 
     Code
-      preproc(data, congeff, by = c("id", "id1"))
+      preproc(data, congeff, .by = c("id", "id1"))
     Output
       # A tibble: 100 x 8
             id   id1 mrt_inc mrt_con cong_eff_rt pc_inc pc_con cong_eff_pc

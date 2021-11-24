@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc(data, locmem2, by = "id")
+      preproc(data, locmem2, .by = "id")
     Output
       # A tibble: 100 x 5
             id nc_loc mean_dist_err mean_log_err nc_order
@@ -21,7 +21,7 @@
 # Works with multiple grouping variables
 
     Code
-      preproc(data, locmem2, by = c("id", "id1"))
+      preproc(data, locmem2, .by = c("id", "id1"))
     Output
       # A tibble: 100 x 6
             id   id1 nc_loc mean_dist_err mean_log_err nc_order

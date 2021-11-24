@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc(data, multisense, by = "id")
+      preproc(data, multisense, .by = "id")
     Output
       # A tibble: 100 x 5
             id mrt_image mrt_sound mrt_mixed mrt_mixadv
@@ -21,7 +21,7 @@
 # Works with multiple grouping variables
 
     Code
-      preproc(data, multisense, by = c("id", "id1"))
+      preproc(data, multisense, .by = c("id", "id1"))
     Output
       # A tibble: 100 x 6
             id   id1 mrt_image mrt_sound mrt_mixed mrt_mixadv

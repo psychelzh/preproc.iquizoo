@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc(data, nsymncmp, by = "id")
+      preproc(data, nsymncmp, .by = "id")
     Output
       # A tibble: 100 x 4
             id    pc   mrt     w
@@ -21,7 +21,7 @@
 # Works with multiple grouping variables
 
     Code
-      preproc(data, nsymncmp, by = c("id", "id1"))
+      preproc(data, nsymncmp, .by = c("id", "id1"))
     Output
       # A tibble: 100 x 5
             id   id1    pc   mrt     w

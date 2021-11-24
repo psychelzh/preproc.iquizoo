@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc(data, drm, by = "id")
+      preproc(data, drm, .by = "id")
     Output
       # A tibble: 100 x 5
             id tm_dprime tm_bias fm_dprime   fm_bias
@@ -21,7 +21,7 @@
 # Works with multiple grouping variables
 
     Code
-      preproc(data, drm, by = c("id", "id1"))
+      preproc(data, drm, .by = c("id", "id1"))
     Output
       # A tibble: 100 x 6
             id   id1 tm_dprime tm_bias fm_dprime   fm_bias

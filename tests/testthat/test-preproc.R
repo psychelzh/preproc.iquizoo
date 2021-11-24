@@ -1,6 +1,6 @@
 data <- data.frame(nhit = 1, feedback = 0)
 
-test_that("Default behavior (`by = NULL`) deletes group variables afterward", {
+test_that("Default behavior (`.by = NULL`) deletes group variables afterward", {
   expect_silent(
     no_grp <- preproc(data, bart)
   )
@@ -9,7 +9,7 @@ test_that("Default behavior (`by = NULL`) deletes group variables afterward", {
 
 test_that("Warns and returns `NULL` when grouping varible errored", {
   expect_warning(
-    be_null <- preproc(data, bart, by = "g"),
+    be_null <- preproc(data, bart, .by = "g"),
     class = "by_invalid"
   )
   expect_null(be_null)

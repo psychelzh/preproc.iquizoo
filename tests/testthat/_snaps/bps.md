@@ -1,7 +1,7 @@
 # Default behavior works
 
     Code
-      preproc(data, bps, by = "id")
+      preproc(data, bps, .by = "id")
     Output
       # A tibble: 1,000 x 6
             id    pc p_sim_foil p_sim_lure p_sim_target bps_score
@@ -21,7 +21,7 @@
 # Works with multiple grouping variables
 
     Code
-      preproc(data, bps, by = c("id", "id1"))
+      preproc(data, bps, .by = c("id", "id1"))
     Output
       # A tibble: 1,000 x 7
             id   id1    pc p_sim_foil p_sim_lure p_sim_target bps_score

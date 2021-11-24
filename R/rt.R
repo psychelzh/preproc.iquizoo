@@ -6,8 +6,8 @@
 #' tests, so the number of correct responses is also calculated in [crt()].
 #'
 #' @name rt
-#' @templateVar by low
-#' @templateVar vars_input TRUE
+#' @templateVar .by low
+#' @templateVar .input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mrt}{Mean reaction time.}
@@ -17,18 +17,18 @@ NULL
 
 #' @rdname rt
 #' @export
-crt <- function(data, by, vars_input) {
+crt <- function(data, .by, .input) {
   data |>
     mutate(
       # remove rt of 100 or less
       rt_cor = ifelse(
-        .data[[vars_input[["name_rt"]]]] > 100,
-        .data[[vars_input[["name_rt"]]]], NA
+        .data[[.input[["name_rt"]]]] > 100,
+        .data[[.input[["name_rt"]]]], NA
       )
     ) |>
     calc_spd_acc(
-      by,
-      name_acc = vars_input[["name_acc"]],
+      .by,
+      name_acc = .input[["name_acc"]],
       name_rt = "rt_cor",
       acc_rtn = "count"
     )
@@ -36,18 +36,18 @@ crt <- function(data, by, vars_input) {
 
 #' @rdname rt
 #' @export
-srt <- function(data, by, vars_input) {
+srt <- function(data, .by, .input) {
   data |>
     mutate(
       # remove rt of 100 or less
       rt_cor = ifelse(
-        .data[[vars_input[["name_rt"]]]] > 100,
-        .data[[vars_input[["name_rt"]]]], NA
+        .data[[.input[["name_rt"]]]] > 100,
+        .data[[.input[["name_rt"]]]], NA
       ),
       acc_dummy = 1
     ) |>
     calc_spd_acc(
-      by,
+      .by,
       name_acc = "acc_dummy",
       name_rt = "rt_cor",
       acc_rtn = "none"
