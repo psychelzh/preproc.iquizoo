@@ -1,3 +1,9 @@
+# preproc.iquizoo 1.3.1
+
+## Bug Fixes
+
+* Remove "Datasets" section from pkgdown site.
+
 # preproc.iquizoo 1.3.0
 
 ## Breaking Changes
