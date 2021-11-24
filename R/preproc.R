@@ -39,7 +39,7 @@ preproc <- function(data, prep_fun, by = NULL, ...,
   if (is.null(config_file)) {
     config <- data.iquizoo::config_prep_fun
   } else {
-    config <- jsonlite::read_json(config_file)
+    config <- jsonlite::read_json(config_file, simplifyVector = TRUE)
   }
   vars_input <- match_data_vars(data, prep_fun_name, config)
   if (anyNA(vars_input)) {
