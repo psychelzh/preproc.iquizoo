@@ -6,7 +6,7 @@
 \usage{
 calc_spd_acc(
   data,
-  by,
+  .by,
   name_acc,
   name_rt,
   rm.out = TRUE,
@@ -17,7 +17,7 @@ calc_spd_acc(
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{by}{The column name(s) in \code{data} used to be grouped by.}
+\item{.by}{The column name(s) in \code{data} used to be grouped by.}
 
 \item{name_acc}{The column name of the \code{data} input whose values are user's correctness, in which is a \code{numeric} vector so coded that 1 means scoring correct, 0 means scoring incorrect, and that -1 means no response is made.}
 

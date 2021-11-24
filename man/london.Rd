@@ -4,18 +4,18 @@
 \alias{london}
 \title{London Tower}
 \usage{
-london(data, by, vars_input)
+london(data, .by, .input)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{by}{The column name(s) in \code{data} used to be grouped by.}
+\item{.by}{The column name(s) in \code{data} used to be grouped by.}
 
-\item{vars_input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc]{preproc()}}.}
+\item{.input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc]{preproc()}}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
-\item{total_score}{Total score defined by the game itself.}
+\item{total_score}{Total score defined .by the game itself.}
 \item{mean_level}{Mean level reached.}
 \item{level_score}{Sum of mean score (a ratio) for each level.}
 }

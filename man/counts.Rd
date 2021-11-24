@@ -8,20 +8,20 @@
 \alias{sumscore}
 \title{Count Correct Responses}
 \usage{
-countcorrect(data, by, vars_input)
+countcorrect(data, .by, .input)
 
-countcorrect2(data, by, vars_input)
+countcorrect2(data, .by, .input)
 
-sumweighted(data, by, vars_input)
+sumweighted(data, .by, .input)
 
-sumscore(data, by, vars_input)
+sumscore(data, .by, .input)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{by}{The column name(s) in \code{data} used to be grouped by.}
+\item{.by}{The column name(s) in \code{data} used to be grouped by.}
 
-\item{vars_input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc]{preproc()}}.}
+\item{.input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc]{preproc()}}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
@@ -36,6 +36,6 @@ errors). For \code{\link[=countcorrect2]{countcorrect2()}}.}
 These functions count the number of correct responses. \code{\link[=countcorrect]{countcorrect()}}
 counts the correct responses regardless of errors, \code{\link[=countcorrect2]{countcorrect2()}}
 subtracts the number of errors from number of correct responses,
-\code{\link[=sumweighted]{sumweighted()}} counts the correct responses by giving a weight for different
+\code{\link[=sumweighted]{sumweighted()}} counts the correct responses .by giving a weight for different
 responses, \code{\link[=sumscore]{sumscore()}} adds up the score for each response.
 }

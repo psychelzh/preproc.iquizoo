@@ -6,7 +6,7 @@
 \usage{
 calc_switch_cost(
   data,
-  by,
+  .by,
   name_type_block,
   name_type_switch,
   name_rt,
@@ -16,7 +16,7 @@ calc_switch_cost(
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{by}{The column name(s) in \code{data} used to be grouped by.}
+\item{.by}{The column name(s) in \code{data} used to be grouped by.}
 
 \item{name_type_block}{The column name of the \code{data} input whose values are
 the block type, in which is a \code{character} vector with "pure block" (value:

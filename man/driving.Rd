@@ -4,19 +4,19 @@
 \alias{driving}
 \title{Driving Test}
 \usage{
-driving(data, by, vars_input)
+driving(data, .by, .input)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{by}{The column name(s) in \code{data} used to be grouped by.}
+\item{.by}{The column name(s) in \code{data} used to be grouped by.}
 
-\item{vars_input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc]{preproc()}}.}
+\item{.input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc]{preproc()}}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
 \item{still_ratio}{The ratio of still duration in yellow light state.}
 }
 \description{
-A test measuring impulsivity originally developed by Gardner et. al. (2005).
+A test measuring impulsivity originally developed .by Gardner et. al. (2005).
 }

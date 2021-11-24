@@ -7,18 +7,18 @@
 \alias{switchcost}
 \title{Task Switching and Stroop-like paradigm}
 \usage{
-complexswitch(data, by, vars_input)
+complexswitch(data, .by, .input)
 
-congeff(data, by, vars_input)
+congeff(data, .by, .input)
 
-switchcost(data, by, vars_input)
+switchcost(data, .by, .input)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{by}{The column name(s) in \code{data} used to be grouped by.}
+\item{.by}{The column name(s) in \code{data} used to be grouped by.}
 
-\item{vars_input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc]{preproc()}}.}
+\item{.input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc]{preproc()}}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} with the following variables:

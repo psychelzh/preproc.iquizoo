@@ -4,14 +4,14 @@
 \alias{drm}
 \title{Deese-Roediger-McDermott (DRM) paradigm}
 \usage{
-drm(data, by, vars_input)
+drm(data, .by, .input)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{by}{The column name(s) in \code{data} used to be grouped by.}
+\item{.by}{The column name(s) in \code{data} used to be grouped by.}
 
-\item{vars_input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc]{preproc()}}.}
+\item{.input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc]{preproc()}}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
