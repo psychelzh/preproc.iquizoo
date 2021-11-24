@@ -6,7 +6,7 @@
 \usage{
 preproc(
   data,
-  prep_fun_name,
+  prep_fun,
   by = NULL,
   ...,
   config_file = NULL,
@@ -16,7 +16,7 @@ preproc(
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{prep_fun_name}{The name of a function, given as a \link[base:name]{name} or
+\item{prep_fun}{The name of a function, given as a \link[base:name]{name} or
 literal character string, depending on whether \code{character.only} is \code{FALSE}
 (default) or \code{TRUE}. Only functions from this package is supported for now.}
 

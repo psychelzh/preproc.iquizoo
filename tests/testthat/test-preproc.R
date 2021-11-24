@@ -42,13 +42,11 @@ test_that("Support character function name input", {
   )
 })
 
-test_that("Can deal with name conflicts", {
-  bart <- function() stop("errored")
-  expect_silent(res_symbol <- preproc(data, bart))
-  expect_equal(
-    preproc(data, "bart", character.only = TRUE),
-    res_symbol
-  )
+test_that("Can use custom function", {
+  bart <- function(...) {
+    tibble(mean_pumps = 1, mean_pumps_raw = 1, num_explosion = 1)
+  }
+  expect_silent(preproc(data, bart))
 })
 
 test_that("Keep attributes", {

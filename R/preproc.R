@@ -6,7 +6,7 @@
 #'
 #' @templateVar by high
 #' @template params-template
-#' @param prep_fun_name The name of a function, given as a [name][base::name] or
+#' @param prep_fun The name of a function, given as a [name][base::name] or
 #'   literal character string, depending on whether `character.only` is `FALSE`
 #'   (default) or `TRUE`. Only functions from this package is supported for now.
 #' @param ... These dots are for future extensions and must be empty.
@@ -19,16 +19,18 @@
 #'   low-level functions. Attributes will be the same with `data`.
 #' @author Liang Zhang <psychelzh@outlook.com>
 #' @export
-preproc <- function(data, prep_fun_name, by = NULL, ...,
+preproc <- function(data, prep_fun, by = NULL, ...,
                     config_file = NULL, character.only = FALSE) {
   if (!missing(...)) {
     ellipsis::check_dots_empty()
   }
   # match pre-processing function
-  if (!character.only) {
-    prep_fun_name <- deparse1(substitute(prep_fun_name))
+  if (character.only) {
+    prep_fun_name <- prep_fun
+    prep_fun <- as_function(prep_fun)
+  } else {
+    prep_fun_name <- as_string(enexpr(prep_fun))
   }
-  prep_fun <- utils::getFromNamespace(prep_fun_name, utils::packageName())
   # validate data variable names
   if (is_empty(data)) {
     warn("Input `data` is empty.", "data_empty")
