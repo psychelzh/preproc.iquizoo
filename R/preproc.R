@@ -12,7 +12,8 @@
 #' @param ... These dots are for future extensions and must be empty.
 #' @param config_file An optional json file to read configurations of data
 #'   variable names. If set to `NULL`, will use the example
-#'   [config_prep_fun][data.iquizoo::config_prep_fun].
+#'   [config_prep_fun][data.iquizoo::config_prep_fun]. Note the example
+#'   configurations will always be merged.
 #' @param character.only A logical indicating whether `prep_fun_name` can be
 #'   assumed to be character strings.
 #' @return A [tibble][tibble::tibble-package] of game performances returned by
@@ -36,10 +37,10 @@ preproc <- function(data, prep_fun, by = NULL, ...,
     warn("Input `data` is empty.", "data_empty")
     return()
   }
-  if (is.null(config_file)) {
-    config <- data.iquizoo::config_prep_fun
-  } else {
-    config <- jsonlite::read_json(config_file, simplifyVector = TRUE)
+  config <- data.iquizoo::config_prep_fun
+  if (!is.null(config_file)) {
+    config_custom <- jsonlite::read_json(config_file, simplifyVector = TRUE)
+    config <- purrr::list_modify(config, !!!config_custom)
   }
   vars_input <- match_data_vars(data, prep_fun_name, config)
   if (anyNA(vars_input)) {

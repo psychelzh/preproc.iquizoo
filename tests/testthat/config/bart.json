@@ -6,8 +6,7 @@
         },
         "output": [
             "mean_pumps",
-            "mean_pumps_raw",
-            "num_explosion"
+            "mean_pumps_raw"
         ]
     }
 }
