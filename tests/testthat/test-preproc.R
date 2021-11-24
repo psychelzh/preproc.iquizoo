@@ -49,6 +49,10 @@ test_that("Can use custom function", {
   expect_silent(preproc(data, bart))
 })
 
+test_that("Can use custom config file", {
+  expect_silent(preproc(data, bart, config_file = "config/bart.json"))
+})
+
 test_that("Keep attributes", {
   data_attr <- structure(data, class = c("my_tbl", class(data)), test = "test")
   expect_silent(res_attr <- preproc(data_attr, bart))
