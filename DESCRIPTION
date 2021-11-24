@@ -1,7 +1,7 @@
 Type: Package
 Package: preproc.iquizoo
 Title: Utility Functions for Data Processing of Iquizoo Games
-Version: 1.2.1
+Version: 1.3.0
 Authors@R:
     person("Liang", "Zhang", , "psychelzh@outlook.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-9041-1150"))
@@ -14,10 +14,12 @@ BugReports: https://github.com/psychelzh/preproc.iquizoo/issues
 Depends:
     R (>= 4.1.0)
 Imports:
+    data.iquizoo (>= 0.0.3),
     dm,
     dplyr,
     ellipsis,
     graphics,
+    jsonlite,
     lifecycle,
     pracma,
     purrr,
@@ -29,11 +31,12 @@ Imports:
     vctrs
 Suggests:
     covr,
-    jsonlite,
     readr,
     roxygen2,
     testthat (>= 3.0.0),
     tibble
+Remotes: 
+    psychelzh/data.iquizoo
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true

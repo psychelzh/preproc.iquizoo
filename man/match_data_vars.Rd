@@ -4,16 +4,18 @@
 \alias{match_data_vars}
 \title{Get the matched variables for input data}
 \usage{
-match_data_vars(data, prep_fun_name)
+match_data_vars(data, prep_fun_name, config)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
 \item{prep_fun_name}{The name of the called pre-processing function.}
+
+\item{config}{Configuration of data variable names to match}
 }
 \value{
 A \code{list} of the matched variables, using \code{NA} value to represent not
-found, and using the names configured in the internal data.
+found, and using the names configured in \code{config}.
 }
 \description{
 Input data require several variables to be existed, and some variables can
