@@ -15,7 +15,6 @@ Depends:
     R (>= 4.1.0)
 Imports:
     data.iquizoo (>= 0.0.3),
-    dm,
     dplyr,
     ellipsis,
     graphics,
