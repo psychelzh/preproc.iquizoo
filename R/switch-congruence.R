@@ -10,7 +10,7 @@
 #'
 #' @name switch-congruence
 #' @templateVar .by low
-#' @templateVar vars_input TRUE
+#' @templateVar .input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] with the following variables:
 #'
@@ -43,30 +43,30 @@ NULL
 
 #' @rdname switch-congruence
 #' @export
-complexswitch <- function(data, .by, vars_input) {
+complexswitch <- function(data, .by, .input) {
   data_cor <- data |>
     mutate(
       # remove rt of 100 or less
       rt_cor = ifelse(
-        .data[[vars_input[["name_rt"]]]] > 100,
-        .data[[vars_input[["name_rt"]]]], NA
+        .data[[.input[["name_rt"]]]] > 100,
+        .data[[.input[["name_rt"]]]], NA
       ),
       type_block = ifelse(
-        .data[[vars_input[["name_switch"]]]] %in% c("", "pure"),
+        .data[[.input[["name_switch"]]]] %in% c("", "pure"),
         "pure", "mixed"
       ),
       type_switch = ifelse(
         .data[["type_block"]] == "pure",
-        .data[[vars_input[["name_task"]]]],
-        .data[[vars_input[["name_switch"]]]]
+        .data[[.input[["name_task"]]]],
+        .data[[.input[["name_switch"]]]]
       )
     )
   # calculate congruence effect
   cong_eff <- calc_cong_eff(
     data_cor,
     .by = .by,
-    name_cong = vars_input[["name_cong"]],
-    name_acc = vars_input[["name_acc"]],
+    name_cong = .input[["name_cong"]],
+    name_acc = .input[["name_acc"]],
     name_rt = "rt_cor"
   )
   # calculate switch cost
@@ -75,7 +75,7 @@ complexswitch <- function(data, .by, vars_input) {
     .by = .by,
     name_type_block = "type_block",
     name_type_switch = "type_switch",
-    name_acc = vars_input[["name_acc"]],
+    name_acc = .input[["name_acc"]],
     name_rt = "rt_cor"
   )
   left_join(cong_eff, switch_cost, by = .by)
@@ -83,42 +83,42 @@ complexswitch <- function(data, .by, vars_input) {
 
 #' @rdname switch-congruence
 #' @export
-congeff <- function(data, .by, vars_input) {
+congeff <- function(data, .by, .input) {
   data_cor <- data |>
     mutate(
       # remove rt of 100 or less
       rt_cor = ifelse(
-        .data[[vars_input[["name_rt"]]]] > 100,
-        .data[[vars_input[["name_rt"]]]], NA
+        .data[[.input[["name_rt"]]]] > 100,
+        .data[[.input[["name_rt"]]]], NA
       )
     )
   calc_cong_eff(
     data_cor,
     .by = .by,
-    name_cong = vars_input[["name_cong"]],
-    name_acc = vars_input[["name_acc"]],
+    name_cong = .input[["name_cong"]],
+    name_acc = .input[["name_acc"]],
     name_rt = "rt_cor"
   )
 }
 
 #' @rdname switch-congruence
 #' @export
-switchcost <- function(data, .by, vars_input) {
+switchcost <- function(data, .by, .input) {
   data_cor <- data |>
     mutate(
       # remove rt of 100 or less
       rt_cor = ifelse(
-        .data[[vars_input[["name_rt"]]]] > 100,
-        .data[[vars_input[["name_rt"]]]], NA
+        .data[[.input[["name_rt"]]]] > 100,
+        .data[[.input[["name_rt"]]]], NA
       ),
       type_block = ifelse(
-        .data[[vars_input[["name_switch"]]]] %in% c("", "pure"),
+        .data[[.input[["name_switch"]]]] %in% c("", "pure"),
         "pure", "mixed"
       ),
       type_switch = ifelse(
         .data[["type_block"]] == "pure",
-        .data[[vars_input[["name_task"]]]],
-        .data[[vars_input[["name_switch"]]]]
+        .data[[.input[["name_task"]]]],
+        .data[[.input[["name_switch"]]]]
       )
     )
   calc_switch_cost(
@@ -126,7 +126,7 @@ switchcost <- function(data, .by, vars_input) {
     .by = .by,
     name_type_block = "type_block",
     name_type_switch = "type_switch",
-    name_acc = vars_input[["name_acc"]],
+    name_acc = .input[["name_acc"]],
     name_rt = "rt_cor"
   )
 }

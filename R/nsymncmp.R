@@ -3,7 +3,7 @@
 #' A classical test on subject's counting estimation skills.
 #'
 #' @templateVar .by low
-#' @templateVar vars_input TRUE
+#' @templateVar .input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{pc}{Percentage of correct responses.}
@@ -11,22 +11,22 @@
 #'   \item{w}{Weber fraction.}
 #' @seealso [symncmp()] for symbolic number comparison.
 #' @export
-nsymncmp <- function(data, .by, vars_input) {
+nsymncmp <- function(data, .by, .input) {
   data_cor <- data |>
     mutate(
       rt_cor = ifelse(
-        .data[[vars_input[["name_rt"]]]] > 100,
-        .data[[vars_input[["name_rt"]]]], NA
+        .data[[.input[["name_rt"]]]] > 100,
+        .data[[.input[["name_rt"]]]], NA
       )
     ) |>
     rename(
-      b = .data[[vars_input[["name_big"]]]],
-      s = .data[[vars_input[["name_small"]]]]
+      b = .data[[.input[["name_big"]]]],
+      s = .data[[.input[["name_small"]]]]
     )
   basics <- calc_spd_acc(
     data_cor,
     .by,
-    name_acc = vars_input[["name_acc"]],
+    name_acc = .input[["name_acc"]],
     name_rt = "rt_cor",
     rt_rtn = "mean",
     acc_rtn = "percent"
@@ -35,7 +35,7 @@ nsymncmp <- function(data, .by, vars_input) {
     ~ stats::coef(stats::nls(
       as.formula(
         stringr::str_glue(
-          r"({vars_input[["name_acc"]]})",
+          r"({.input[["name_acc"]]})",
           " ~ 1 - pnorm(0, b - s, w * sqrt(b^2 + s^2))"
         )
       ),

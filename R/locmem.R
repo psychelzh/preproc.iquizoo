@@ -6,7 +6,7 @@
 #' when the response order and distance both matter.
 #'
 #' @templateVar .by low
-#' @templateVar vars_input TRUE
+#' @templateVar .input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{nc_loc}{Count of correct responses for location.}
@@ -16,10 +16,10 @@
 #'   \item{nc_order}{Count of correct responses for order. For [locmem2()]
 #'     only.}
 #' @export
-locmem <- function(data, .by, vars_input) {
+locmem <- function(data, .by, .input) {
   data |>
     mutate(
-      dist = parse_char_resp(.data[[vars_input[["name_dist"]]]]),
+      dist = parse_char_resp(.data[[.input[["name_dist"]]]]),
       .keep = "unused"
     ) |>
     unnest(.data[["dist"]]) |>
@@ -34,11 +34,11 @@ locmem <- function(data, .by, vars_input) {
 
 #' @rdname locmem
 #' @export
-locmem2 <- function(data, .by, vars_input) {
-  loc_results <- locmem(data, .by, vars_input)
+locmem2 <- function(data, .by, .input) {
+  loc_results <- locmem(data, .by, .input)
   nc_order <- data |>
     mutate(
-      acc_order = parse_char_resp(.data[[vars_input[["name_acc_order"]]]]),
+      acc_order = parse_char_resp(.data[[.input[["name_acc_order"]]]]),
       .keep = "unused"
     ) |>
     unnest(.data[["acc_order"]]) |>

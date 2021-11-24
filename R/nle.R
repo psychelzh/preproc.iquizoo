@@ -3,17 +3,17 @@
 #' A classical test on subject's numerical estimation skills.
 #'
 #' @templateVar .by low
-#' @templateVar vars_input TRUE
+#' @templateVar .input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mean_abs_err}{Mean absolute error.}
 #'   \item{mean_log_err}{Mean log absolute error.}
 #' @export
-nle <- function(data, .by, vars_input) {
+nle <- function(data, .by, .input) {
   data |>
     mutate(
-      err = abs(.data[[vars_input[["name_number"]]]] -
-        .data[[vars_input[["name_resp"]]]])
+      err = abs(.data[[.input[["name_number"]]]] -
+        .data[[.input[["name_resp"]]]])
     ) |>
     group_by(across(all_of(.by))) |>
     summarise(

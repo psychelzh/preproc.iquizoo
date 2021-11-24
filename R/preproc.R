@@ -68,7 +68,7 @@ preproc <- function(data, .fn, .by = NULL, ...,
         tolower
       )
     ) |>
-    .fn(vars_input = vars_input, .by = .by) |>
+    .fn(.input = vars_input, .by = .by) |>
     select(all_of(
       # keep grouping variable when required
       c(if (keep_by) .by, .get_output_vars(.fn_name, config))

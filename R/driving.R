@@ -3,18 +3,18 @@
 #' A test measuring impulsivity originally developed .by Gardner et. al. (2005).
 #'
 #' @templateVar .by low
-#' @templateVar vars_input TRUE
+#' @templateVar .input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{still_ratio}{The ratio of still duration in yellow light state.}
 #' @export
-driving <- function(data, .by, vars_input) {
+driving <- function(data, .by, .input) {
   data |>
     group_by(across(all_of(.by))) |>
     mutate(
-      still_dur = parse_char_resp(.data[[vars_input[["name_still_dur"]]]]),
+      still_dur = parse_char_resp(.data[[.input[["name_still_dur"]]]]),
       still_light = parse_char_resp(
-        .data[[vars_input[["name_still_light"]]]],
+        .data[[.input[["name_still_light"]]]],
         convert_numeric = FALSE
       )
     ) |>
@@ -26,7 +26,7 @@ driving <- function(data, .by, vars_input) {
     ) |>
     summarise(
       still_ratio = sum(.data[["still_dur_yellow"]]) /
-        sum(.data[[vars_input[["name_yellow_dur"]]]]),
+        sum(.data[[.input[["name_yellow_dur"]]]]),
       .groups = "drop"
     )
 }
