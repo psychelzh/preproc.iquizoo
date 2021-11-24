@@ -4,7 +4,7 @@ test_that("Default behavior (`by = NULL`) deletes group variables afterward", {
   expect_silent(
     no_grp <- preproc(data, bart)
   )
-  expect_named(no_grp, .get_output_vars("bart"))
+  expect_named(no_grp, .get_output_vars("bart", data.iquizoo::config_prep_fun))
 })
 
 test_that("Warns and returns `NULL` when grouping varible errored", {
