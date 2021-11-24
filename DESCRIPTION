@@ -19,14 +19,12 @@ Imports:
     ellipsis,
     graphics,
     jsonlite,
-    lifecycle,
     pracma,
     purrr,
     rlang (>= 0.1.2),
     stringr,
     tidyr,
     tidyselect,
-    utils,
     vctrs
 Suggests:
     covr,
