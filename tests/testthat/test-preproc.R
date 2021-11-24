@@ -4,7 +4,7 @@ test_that("Default behavior (`by = NULL`) deletes group variables afterward", {
   expect_silent(
     no_grp <- preproc(data, bart)
   )
-  expect_named(no_grp, .get_output_vars("bart"))
+  expect_named(no_grp, .get_output_vars("bart", data.iquizoo::config_prep_fun))
 })
 
 test_that("Warns and returns `NULL` when grouping varible errored", {
@@ -42,13 +42,23 @@ test_that("Support character function name input", {
   )
 })
 
-test_that("Can deal with name conflicts", {
-  bart <- function() stop("errored")
-  expect_silent(res_symbol <- preproc(data, bart))
-  expect_equal(
-    preproc(data, "bart", character.only = TRUE),
-    res_symbol
+test_that("Can use custom function", {
+  bart <- function(...) {
+    tibble(mean_pumps = 1, mean_pumps_raw = 1, num_explosion = 1)
+  }
+  expect_silent(preproc(data, bart))
+})
+
+test_that("Can use custom config file", {
+  config_file <- "config/bart.json"
+  expect_silent(out <- preproc(data, bart, config_file = config_file))
+  config <- purrr::list_modify(
+    data.iquizoo::config_prep_fun,
+    !!!jsonlite::read_json(config_file, simplifyVector = TRUE)
   )
+  expect_named(out, .get_output_vars("bart", config))
+  data <- data.frame(acc = c(0, 1))
+  expect_silent(preproc(data, countcorrect, config_file = config_file))
 })
 
 test_that("Keep attributes", {

@@ -1,5 +1,10 @@
 # preproc.iquizoo (development version)
 
+## Breaking Changes
+
+* Now internal data moved to {data.iquizoo} package.
+* Now `preproc()` accepts custom-defined functions and custom-defined configurations (input and output variable names) in a custom `.json` file.
+
 # preproc.iquizoo 1.2.1
 
 ## Breaking Changes
