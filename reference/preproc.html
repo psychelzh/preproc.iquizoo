@@ -74,7 +74,7 @@ also exported and documented with the details of the returned values." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">preproc.iquizoo</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2</span>
       </span>
     </div>
 
@@ -124,14 +124,7 @@ all the low-level pre-processing functions. These low-level functions are
 also exported and documented with the details of the returned values.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>preproc</span><span class='op'>(</span>
-  <span class='va'>data</span>,
-  <span class='va'>prep_fun</span>,
-  by <span class='op'>=</span> <span class='cn'>NULL</span>,
-  <span class='va'>...</span>,
-  config_file <span class='op'>=</span> <span class='cn'>NULL</span>,
-  character.only <span class='op'>=</span> <span class='cn'>FALSE</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>preproc</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>.fn</span>, .by <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span>, config_file <span class='op'>=</span> <span class='cn'>NULL</span>, character.only <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -141,13 +134,13 @@ also exported and documented with the details of the returned values.</p>
       <td><p>Raw data of class <code>data.frame</code>.</p></td>
     </tr>
     <tr>
-      <th>prep_fun</th>
+      <th>.fn</th>
       <td><p>The name of a function, given as a <a href='https://rdrr.io/r/base/name.html'>name</a> or
 literal character string, depending on whether <code>character.only</code> is <code>FALSE</code>
 (default) or <code>TRUE</code>. Only functions from this package is supported for now.</p></td>
     </tr>
     <tr>
-      <th>by</th>
+      <th>.by</th>
       <td><p>The column name(s) in <code>data</code> used to be grouped by. If set to <code>NULL</code> (default), all data will be treated as from one subject and there will be no grouping columns in the value returned.</p></td>
     </tr>
     <tr>
@@ -158,11 +151,12 @@ literal character string, depending on whether <code>character.only</code> is <c
       <th>config_file</th>
       <td><p>An optional json file to read configurations of data
 variable names. If set to <code>NULL</code>, will use the example
-<a href='https://rdrr.io/pkg/data.iquizoo/man/config_prep_fun.html'>config_prep_fun</a>.</p></td>
+<a href='https://rdrr.io/pkg/data.iquizoo/man/config_prep_fun.html'>config_prep_fun</a>. Note the example
+configurations will always be merged.</p></td>
     </tr>
     <tr>
       <th>character.only</th>
-      <td><p>A logical indicating whether <code>prep_fun_name</code> can be
+      <td><p>A logical indicating whether <code>.fn_name</code> can be
 assumed to be character strings.</p></td>
     </tr>
     </table>

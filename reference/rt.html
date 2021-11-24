@@ -75,7 +75,7 @@ tests, so the number of correct responses is also calculated in crt()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">preproc.iquizoo</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2</span>
       </span>
     </div>
 
@@ -126,9 +126,9 @@ deviation of reaction times. In addition, subjects can commit errors in CRT
 tests, so the number of correct responses is also calculated in <code>crt()</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>crt</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>by</span>, <span class='va'>vars_input</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>crt</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>.by</span>, <span class='va'>.input</span><span class='op'>)</span>
 
-<span class='fu'>srt</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>by</span>, <span class='va'>vars_input</span><span class='op'>)</span></pre>
+<span class='fu'>srt</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>.by</span>, <span class='va'>.input</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -138,11 +138,11 @@ tests, so the number of correct responses is also calculated in <code>crt()</cod
       <td><p>Raw data of class <code>data.frame</code>.</p></td>
     </tr>
     <tr>
-      <th>by</th>
+      <th>.by</th>
       <td><p>The column name(s) in <code>data</code> used to be grouped by.</p></td>
     </tr>
     <tr>
-      <th>vars_input</th>
+      <th>.input</th>
       <td><p>The matched variable names for further processing. Typically set by the high-level function <code><a href='preproc.html'>preproc()</a></code>.</p></td>
     </tr>
     </table>
