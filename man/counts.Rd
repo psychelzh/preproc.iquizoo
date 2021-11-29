@@ -8,20 +8,18 @@
 \alias{sumscore}
 \title{Count Correct Responses}
 \usage{
-countcorrect(data, .by, .input)
+countcorrect(data, .by)
 
-countcorrect2(data, .by, .input)
+countcorrect2(data, .by)
 
-sumweighted(data, .by, .input)
+sumweighted(data, .by)
 
-sumscore(data, .by, .input)
+sumscore(data, .by)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
 \item{.by}{The column name(s) in \code{data} used to be grouped by.}
-
-\item{.input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc]{preproc()}}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:

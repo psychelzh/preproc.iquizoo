@@ -3,14 +3,20 @@
 #' A classical test on problem solving.
 #'
 #' @templateVar .by low
-#' @templateVar .input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{total_score}{Total score defined .by the game itself.}
 #'   \item{mean_level}{Mean level reached.}
 #'   \item{level_score}{Sum of mean score (a ratio) for each level.}
 #' @export
-london <- function(data, .by, .input) {
+london <- function(data, .by) {
+  .input <- list(
+      name_level = "level",
+      name_score = "score",
+      name_outcome = "outcome",
+      name_steps = "stepsused"
+    ) |>
+    update_settings("preproc.input")
   total_score <- data |>
     group_by(across(all_of(.by))) |>
     summarise(

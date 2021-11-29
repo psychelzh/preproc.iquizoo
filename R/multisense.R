@@ -4,7 +4,6 @@
 #' sensory inputs to be employed. This function calculates this advantage.
 #'
 #' @templateVar .by low
-#' @templateVar .input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mrt_image}{Mean reaction time of Image stimuli.}
@@ -13,7 +12,15 @@
 #'   \item{mrt_mixadv}{Mean reaction decrease of Mixed stimuli compared to other
 #'     two types of stimuli.}
 #' @export
-multisense <- function(data, .by, .input) {
+multisense <- function(data, .by) {
+  .input <- list(name_type = "type", name_rt = "rt") |>
+    update_settings("preproc.input")
+  .extra <- list(
+    type_image = "image",
+    type_sound = "sound",
+    type_mixed = "mixed"
+  ) |>
+    update_settings("preproc.extra")
   data |>
     group_by(across(
       all_of(c(.by, .input[["name_type"]]))
@@ -41,7 +48,9 @@ multisense <- function(data, .by, .input) {
       values_from = "mrt"
     ) |>
     mutate(
-      mrt_mixadv = (.data[["mrt_image"]] + .data[["mrt_sound"]]) / 2 -
-        .data[["mrt_mixed"]]
+      mrt_mixadv = (
+        .data[[paste0("mrt_", .extra$type_image)]] +
+          .data[[paste0("mrt_", .extra$type_sound)]]
+      ) / 2 - .data[[paste0("mrt_", .extra$type_mixed)]]
     )
 }

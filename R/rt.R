@@ -7,7 +7,6 @@
 #'
 #' @name rt
 #' @templateVar .by low
-#' @templateVar .input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mrt}{Mean reaction time.}
@@ -17,7 +16,9 @@ NULL
 
 #' @rdname rt
 #' @export
-crt <- function(data, .by, .input) {
+crt <- function(data, .by) {
+  .input <- list(name_acc = "acc", name_rt = "rt") |>
+    update_settings("preproc.input")
   data |>
     mutate(
       # remove rt of 100 or less
@@ -36,7 +37,9 @@ crt <- function(data, .by, .input) {
 
 #' @rdname rt
 #' @export
-srt <- function(data, .by, .input) {
+srt <- function(data, .by) {
+  .input <- list(name_rt = "rt") |>
+    update_settings("preproc.input")
   data |>
     mutate(
       # remove rt of 100 or less

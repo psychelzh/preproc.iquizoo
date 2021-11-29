@@ -5,7 +5,6 @@
 #' here only includes those common ones.
 #'
 #' @templateVar .by low
-#' @templateVar .input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{nc}{Count of correct responses.}
@@ -16,14 +15,18 @@
 #'   \item{commissions}{Number of errors caused by action.}
 #'   \item{omissions}{Number of errors caused by inaction.}
 #' @export
-cpt <- function(data, .by, .input) {
+cpt <- function(data, .by) {
+  .input <- list(name_acc = "acc", name_type = "type", name_rt = "rt") |>
+    update_settings("preproc.input")
+  .extra <- list(type_signal = "target") |>
+    update_settings("preproc.extra")
   data_cor <- data |>
     # some tests records stimuli not presented
     filter(.data[[.input[["name_acc"]]]] != -1) |>
     mutate(
       # standardize stimuli type
       type_cor = if_else(
-        .data[[.input[["name_type"]]]] %in% c("target", "left"),
+        .data[[.input[["name_type"]]]] == .extra$type_signal,
         "s", "n"
       ),
       # remove rt of 100 or less and rt from non-signal trials

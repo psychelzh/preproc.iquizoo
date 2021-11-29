@@ -10,7 +10,6 @@
 #'
 #' @name switch-congruence
 #' @templateVar .by low
-#' @templateVar .input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] with the following variables:
 #'
@@ -43,7 +42,24 @@ NULL
 
 #' @rdname switch-congruence
 #' @export
-complexswitch <- function(data, .by, .input) {
+complexswitch <- function(data, .by) {
+  .input <- list(
+      name_block = "block",
+      name_cong = "stimtype",
+      name_task = "task",
+      name_switch = "tasktype",
+      name_acc = "acc",
+      name_rt = "rt"
+    ) |>
+    update_settings("preproc.input")
+  .extra <- list(
+    block_pure = "pure",
+    stim_con = "congruent",
+    stim_inc = "incongruent",
+    task_repeat = "repeat",
+    task_switch = "switch"
+  ) |>
+    update_settings("preproc.extra")
   data_cor <- data |>
     mutate(
       # remove rt of 100 or less
@@ -52,20 +68,29 @@ complexswitch <- function(data, .by, .input) {
         .data[[.input[["name_rt"]]]], NA
       ),
       type_block = ifelse(
-        .data[[.input[["name_switch"]]]] %in% c("", "pure"),
+        .data[[.input[["name_switch"]]]] == .extra$block_pure,
         "pure", "mixed"
       ),
       type_switch = ifelse(
         .data[["type_block"]] == "pure",
         .data[[.input[["name_task"]]]],
         .data[[.input[["name_switch"]]]]
+      ) |>
+        recode(
+          "{.extra$task_repeat}" := "repeat",
+          "{.extra$task_switch}" := "switch"
+        ),
+      stim_type = recode(
+        .data[[.input[["name_cong"]]]],
+        "{.extra$stim_con}" := "con",
+        "{.extra$stim_inc}" := "inc"
       )
     )
   # calculate congruence effect
   cong_eff <- calc_cong_eff(
     data_cor,
     .by = .by,
-    name_cong = .input[["name_cong"]],
+    name_cong = "stim_type",
     name_acc = .input[["name_acc"]],
     name_rt = "rt_cor"
   )
@@ -83,19 +108,34 @@ complexswitch <- function(data, .by, .input) {
 
 #' @rdname switch-congruence
 #' @export
-congeff <- function(data, .by, .input) {
+congeff <- function(data, .by) {
+  .input <- list(
+      name_cong = "type",
+      name_acc = "acc",
+      name_rt = "rt"
+    ) |>
+    update_settings("preproc.input")
+  .extra <- list(
+    stim_con = "congruent",
+    stim_inc = "incongruent"
+  ) |>
+    update_settings("preproc.extra")
   data_cor <- data |>
     mutate(
       # remove rt of 100 or less
       rt_cor = ifelse(
         .data[[.input[["name_rt"]]]] > 100,
         .data[[.input[["name_rt"]]]], NA
+      ),
+      stim_type = recode(
+        .data[[.input[["name_cong"]]]],
+        "{.extra$stim_con}" := "con", "{.extra$stim_inc}" := "inc"
       )
     )
   calc_cong_eff(
     data_cor,
     .by = .by,
-    name_cong = .input[["name_cong"]],
+    name_cong = "stim_type",
     name_acc = .input[["name_acc"]],
     name_rt = "rt_cor"
   )
@@ -103,7 +143,21 @@ congeff <- function(data, .by, .input) {
 
 #' @rdname switch-congruence
 #' @export
-switchcost <- function(data, .by, .input) {
+switchcost <- function(data, .by) {
+  .input <- list(
+      name_block = "block",
+      name_task = "task",
+      name_switch = "type",
+      name_acc = "acc",
+      name_rt = "rt"
+    ) |>
+    update_settings("preproc.input")
+  .extra <- list(
+    block_pure = "pure",
+    task_repeat = "repeat",
+    task_switch = "switch"
+  ) |>
+    update_settings("preproc.extra")
   data_cor <- data |>
     mutate(
       # remove rt of 100 or less
@@ -112,14 +166,18 @@ switchcost <- function(data, .by, .input) {
         .data[[.input[["name_rt"]]]], NA
       ),
       type_block = ifelse(
-        .data[[.input[["name_switch"]]]] %in% c("", "pure"),
+        .data[[.input[["name_switch"]]]] %in% .extra$block_pure,
         "pure", "mixed"
       ),
       type_switch = ifelse(
         .data[["type_block"]] == "pure",
         .data[[.input[["name_task"]]]],
         .data[[.input[["name_switch"]]]]
-      )
+      ) |>
+        recode(
+          "{.extra$task_repeat}" := "repeat",
+          "{.extra$task_switch}" := "switch"
+        )
     )
   calc_switch_cost(
     data_cor,

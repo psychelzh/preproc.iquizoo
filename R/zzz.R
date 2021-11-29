@@ -35,3 +35,6 @@ preproc_default_options <- list(
 
   invisible()
 }
+
+# https://github.com/r-lib/tidyselect/issues/201
+utils::globalVariables("where")

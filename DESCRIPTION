@@ -24,7 +24,6 @@ Imports:
     rlang (>= 0.1.2),
     stringr,
     tidyr,
-    tidyselect,
     vctrs
 Suggests:
     covr,
