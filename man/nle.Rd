@@ -4,14 +4,12 @@
 \alias{nle}
 \title{Number Line Estimation}
 \usage{
-nle(data, .by, .input)
+nle(data, .by)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
 \item{.by}{The column name(s) in \code{data} used to be grouped by.}
-
-\item{.input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc]{preproc()}}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:

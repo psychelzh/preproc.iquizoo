@@ -4,7 +4,6 @@
 #' introduction](https://en.wikipedia.org/wiki/Judgment_of_Line_Orientation).
 #'
 #' @templateVar .by low
-#' @templateVar .input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{nc}{Count of correct responses.}
@@ -12,7 +11,11 @@
 #'   \item{mean_log_err}{Mean of the log-transformed (of base 2) response angle
 #'     errors.}
 #' @export
-jlo <- function(data, .by, .input) {
+jlo <- function(data, .by) {
+  .input <- list(name_resp = "resp", name_angle = "angle", name_acc = "acc") |>
+    update_settings("preproc.input")
+  .extra <- list(resp_anticlock = "left", resp_clockwise = "right") |>
+    update_settings("preproc.extra")
   data |>
     mutate(
       resp_angle = stringr::str_split(
@@ -20,7 +23,13 @@ jlo <- function(data, .by, .input) {
         "-"
       ) |>
         purrr::map_dbl(
-          ~ sum(recode(.x, left = 1, right = -1) * 6)
+          ~ sum(
+            recode(
+              .x,
+              "{.extra$resp_anticlock}" := 1,
+              "{.extra$resp_clockwise}" := -1
+            ) * 6
+          )
         ),
       resp_err_raw = abs(
         .data[["resp_angle"]] - .data[[.input[["name_angle"]]]]

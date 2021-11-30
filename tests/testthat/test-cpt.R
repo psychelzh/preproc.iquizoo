@@ -44,7 +44,10 @@ test_that("Default behavior works", {
 })
 
 test_that("Default behavior works for Dual Task Paradigm", {
-  expect_snapshot(preproc(data_dualtask, cpt, .by = "id"))
+  with_options(
+    expect_snapshot(preproc(data_dualtask, cpt, .by = "id")),
+    preproc.input = list(name_type = "stimtype")
+  )
 })
 
 test_that("Default behavior works for Cancellation Paradigm", {
@@ -64,10 +67,16 @@ test_that("Default behavior works for Cancellation Paradigm", {
     )
   data_clean <- data |>
     filter(acc != -1)
-  expect_snapshot(preproc(data, cpt, .by = "id"))
-  expect_identical(
-    preproc(data, cpt, .by = "id"),
-    preproc(data_clean, cpt, .by = "id")
+  with_options(
+    {
+      expect_snapshot(preproc(data, cpt, .by = "id"))
+      expect_identical(
+        preproc(data, cpt, .by = "id"),
+        preproc(data_clean, cpt, .by = "id")
+      )
+    },
+    preproc.input = list(name_type = "cresp"),
+    preproc.extra = list(type_signal = "left")
   )
 })
 

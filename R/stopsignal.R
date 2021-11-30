@@ -3,7 +3,6 @@
 #' A classical test on inhibition skills.
 #'
 #' @templateVar .by low
-#' @templateVar .input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] with the following variables:
 #'   \item{pc_all}{Percent of correct for all the responses.}
@@ -11,13 +10,22 @@
 #'   \item{medrt_go}{Median reaction time (ms) of go trials.}
 #'   \item{ssrt}{Stop signal reaction time (ms).}
 #' @export
-stopsignal <- function(data, .by, .input) {
+stopsignal <- function(data, .by) {
+  .input <- list(
+    name_type = "type",
+    name_ssd = "ssd",
+    name_acc = "acc",
+    name_rt = "rt"
+  ) |>
+    update_settings("preproc.input")
+  .extra <- list(type_go = "go") |>
+    update_settings("preproc.extra")
   data_cor <- data |>
     mutate(
       # remove rt of 100 or less for go trials
       rt_cor = ifelse(
         .data[[.input[["name_rt"]]]] <= 100 &
-          .data[[.input[["name_type"]]]] == "go",
+          .data[[.input[["name_type"]]]] == .extra$type_go,
         NA, .data[[.input[["name_rt"]]]]
       )
     )
@@ -27,8 +35,8 @@ stopsignal <- function(data, .by, .input) {
       pc_all = mean(.data[[.input[["name_acc"]]]] == 1),
       pc_go = sum(
         .data[[.input[["name_acc"]]]] == 1 &
-          .data[[.input[["name_type"]]]] == "go"
-      ) / sum(.data[[.input[["name_type"]]]] == "go")
+          .data[[.input[["name_type"]]]] == .extra$type_go
+      ) / sum(.data[[.input[["name_type"]]]] == .extra$type_go)
     ) |>
     ungroup()
   indices_from_rt <- data_cor |>
@@ -39,14 +47,15 @@ stopsignal <- function(data, .by, .input) {
         name_type = .input[["name_type"]],
         name_acc = .input[["name_acc"]],
         name_rt = "rt_cor",
-        name_ssd = .input[["name_ssd"]]
+        name_ssd = .input[["name_ssd"]],
+        type_go = .extra$type_go
       )
     ) |>
     ungroup()
   left_join(indices_from_acc, indices_from_rt, by = .by)
 }
 
-.calc_ssrt <- function(data, name_type, name_acc, name_rt, name_ssd) {
+.calc_ssrt <- function(data, name_type, name_acc, name_rt, name_ssd, type_go) {
   calc_ssd <- purrr::possibly(
     ~ mean(
       c(
@@ -57,7 +66,7 @@ stopsignal <- function(data, .by, .input) {
     otherwise = NA_real_
   )
   data |>
-    filter(.data[[name_type]] != "go") |>
+    filter(.data[[name_type]] != type_go) |>
     group_by(.data[[name_type]]) |>
     summarise(
       ssd = calc_ssd(.data[[name_ssd]]),
@@ -66,7 +75,7 @@ stopsignal <- function(data, .by, .input) {
     summarise(mean_ssd = mean(.data[["ssd"]])) |>
     transmute(
       medrt_go = stats::median(
-        data[[name_rt]][data[[name_type]] == "go" & data[[name_acc]] == 1],
+        data[[name_rt]][data[[name_type]] == type_go & data[[name_acc]] == 1],
         na.rm = TRUE
       ),
       ssrt = .data[["medrt_go"]] - .data[["mean_ssd"]]

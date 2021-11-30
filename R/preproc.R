@@ -6,22 +6,17 @@
 #'
 #' @templateVar .by high
 #' @template params-template
-#' @param .fn The name of a function, given as a [name][base::name] or
-#'   literal character string, depending on whether `character.only` is `FALSE`
-#'   (default) or `TRUE`. Only functions from this package is supported for now.
+#' @param .fn The name of a function, given as a [name][base::name] or literal
+#'   character string, depending on whether `character.only` is `FALSE`
+#'   (default) or `TRUE`.
 #' @param ... These dots are for future extensions and must be empty.
-#' @param config_file An optional json file to read configurations of data
-#'   variable names. If set to `NULL`, will use the example
-#'   [config_prep_fun][data.iquizoo::config_prep_fun]. Note the example
-#'   configurations will always be merged.
-#' @param character.only A logical indicating whether `.fn_name` can be
-#'   assumed to be character strings.
+#' @param character.only A logical indicating whether `.fn` can be assumed to be
+#'   character strings.
 #' @return A [tibble][tibble::tibble-package] of game performances returned by
 #'   low-level functions. Attributes will be the same with `data`.
 #' @author Liang Zhang <psychelzh@outlook.com>
 #' @export
-preproc <- function(data, .fn, .by = NULL, ...,
-                    config_file = NULL, character.only = FALSE) {
+preproc <- function(data, .fn, .by = NULL, ..., character.only = FALSE) {
   if (!missing(...)) {
     ellipsis::check_dots_empty()
   }
@@ -32,25 +27,10 @@ preproc <- function(data, .fn, .by = NULL, ...,
   } else {
     .fn_name <- as_string(enexpr(.fn))
   }
-  # validate data variable names
-  if (is_empty(data)) {
-    warn("Input `data` is empty.", "data_empty")
-    return()
-  }
-  config <- data.iquizoo::config_prep_fun
-  if (!is.null(config_file)) {
-    config_custom <- jsonlite::read_json(config_file, simplifyVector = TRUE)
-    config <- purrr::list_modify(config, !!!config_custom)
-  }
-  vars_input <- match_data_vars(data, .fn_name, config)
-  if (anyNA(vars_input)) {
-    warn("Input `data` miss required variable(s).", "data_invalid")
-    return()
-  }
   # checking grouping variable
   if (is.null(.by)) {
     .by <- ".dummy_id"
-    data[[.by]] <- 1
+    data <- mutate(data, "{ .by }" := .by)
     keep_by <- FALSE
   } else {
     if (!all(rlang::has_name(data, .by))) {
@@ -60,18 +40,14 @@ preproc <- function(data, .fn, .by = NULL, ...,
     keep_by <- TRUE
   }
   # call the pre-processing function
-  data |>
+  results <- data |>
     # transform character values to lowercase
-    mutate(
-      across(
-        tidyselect::vars_select_helpers$where(is.character),
-        tolower
-      )
-    ) |>
-    .fn(.input = vars_input, .by = .by) |>
-    select(all_of(
-      # keep grouping variable when required
-      c(if (keep_by) .by, .get_output_vars(.fn_name, config))
-    )) |>
+    mutate(across(where(is.character), tolower)) |>
+    .fn(.by)
+  # default output all the computed indices
+  output_vars <- getOption("preproc.output") %||% setdiff(names(results), .by)
+  results |>
+    # keep grouping variable when required
+    select(all_of(c(if (keep_by) .by, output_vars))) |>
     vctrs::vec_restore(data)
 }

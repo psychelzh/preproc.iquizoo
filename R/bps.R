@@ -4,7 +4,6 @@
 #' (2013).
 #'
 #' @templateVar .by low
-#' @templateVar .input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{pc}{Percent of correct responses.}
@@ -13,9 +12,21 @@
 #'   \item{p_sim_target}{Percent of similar responses for "target" stimuli.}
 #'   \item{bps_score}{BPS score.}
 #' @export
-bps <- function(data, .by, .input) {
+bps <- function(data, .by) {
+  .input <- list(
+    name_phase = "phase",
+    name_acc = "acc",
+    name_type = "type",
+    name_resp = "resp"
+  ) |>
+    update_settings("preproc.input")
+  .extra <- list(
+    phase_test = "test",
+    resp_sim = "similar"
+  ) |>
+    update_settings("preproc.extra")
   data_cor <- data |>
-    filter(.data[[.input[["name_phase"]]]] == "test")
+    filter(.data[[.input[["name_phase"]]]] == .extra$phase_test)
   pc_all <- data_cor |>
     group_by(across(all_of(.by))) |>
     summarise(
@@ -27,7 +38,7 @@ bps <- function(data, .by, .input) {
       all_of(c(.by, .input[["name_type"]]))
     )) |>
     summarise(
-      p_sim = mean(.data[[.input[["name_resp"]]]] == "similar")
+      p_sim = mean(.data[[.input[["name_resp"]]]] == .extra$resp_sim)
     ) |>
     pivot_wider(
       names_from = .data[[.input[["name_type"]]]],

@@ -31,8 +31,14 @@ data_fpt <- tibble::tibble(
 test_that("Default behavior works on different types of input", {
   expect_snapshot(preproc(data_cancellation, countcorrect, .by = "id"))
   # character input of correctness
-  expect_snapshot(preproc(data_canteen, countcorrect, .by = "id"))
-  expect_snapshot(preproc(data_fpt, countcorrect, .by = "id"))
+  with_options(
+    expect_snapshot(preproc(data_canteen, countcorrect, .by = "id")),
+    preproc.input = list(name_acc = "correctness")
+  )
+  with_options(
+    expect_snapshot(preproc(data_fpt, countcorrect, .by = "id")),
+    preproc.input = list(name_acc = "repetition")
+  )
 })
 test_that("Works with multiple grouping variables", {
   data_cancellation <- mutate(data_cancellation, id1 = id + 1)

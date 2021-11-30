@@ -4,14 +4,12 @@
 \alias{span}
 \title{Span (spatial or verbal)}
 \usage{
-span(data, .by, .input)
+span(data, .by)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
 \item{.by}{The column name(s) in \code{data} used to be grouped by.}
-
-\item{.input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc]{preproc()}}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:]

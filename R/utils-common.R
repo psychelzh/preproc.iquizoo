@@ -16,3 +16,17 @@ parse_char_resp <- function(x, delim = "-", convert_numeric = TRUE) {
   }
   parsed
 }
+
+
+#' Update settings with option settings
+#'
+#' Options are set in list can be tricky to update. This function makes partly
+#' adding custom options work.
+#'
+#' @param origin The original settings.
+#' @param option The name in [options()] to read for updating.
+#' @return An update list of settings.
+#' @keywords internal
+update_settings <- function(origin, option) {
+  purrr::imap(origin, ~ getOption(option)[[.y]] %||% .x)
+}

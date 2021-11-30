@@ -4,14 +4,15 @@
 #' [this website](http://www.impulsivity.org/measurement/BART).
 #'
 #' @templateVar .by low
-#' @templateVar .input TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mean_pumps}{Mean of hits for balloons not exploded.}
 #'   \item{mean_pumps_raw}{Mean of hits for all balloons.}
 #'   \item{num_explosion}{Number of exploded balloons.}
 #' @export
-bart <- function(data, .by, .input) {
+bart <- function(data, .by) {
+  .input <- list(name_feedback = "feedback", name_nhit = "nhit") |>
+    update_settings("preproc.input")
   data |>
     mutate(
       nhit_cor = ifelse(
