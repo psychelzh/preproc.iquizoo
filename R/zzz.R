@@ -22,19 +22,5 @@ NULL
 #' @name preproc.iquizoo
 "_PACKAGE"
 
-preproc_default_options <- list(
-  preproc.input = NULL,
-  preproc.output = NULL,
-  preproc.extra = NULL
-)
-
-.onLoad <- function(libname, pkgname) {
-  op <- options()
-  toset <- !(names(preproc_default_options) %in% names(op))
-  if (any(toset)) options(preproc_default_options[toset])
-
-  invisible()
-}
-
 # https://github.com/r-lib/tidyselect/issues/201
 utils::globalVariables("where")
