@@ -34,6 +34,6 @@ errors). For \code{\link[=countcorrect2]{countcorrect2()}}.}
 These functions count the number of correct responses. \code{\link[=countcorrect]{countcorrect()}}
 counts the correct responses regardless of errors, \code{\link[=countcorrect2]{countcorrect2()}}
 subtracts the number of errors from number of correct responses,
-\code{\link[=sumweighted]{sumweighted()}} counts the correct responses .by giving a weight for different
+\code{\link[=sumweighted]{sumweighted()}} counts the correct responses by giving a weight for different
 responses, \code{\link[=sumscore]{sumscore()}} adds up the score for each response.
 }

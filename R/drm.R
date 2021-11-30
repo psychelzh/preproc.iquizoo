@@ -13,11 +13,11 @@
 #' @export
 drm <- function(data, .by) {
   .input <- list(
-      name_type = "type",
-      name_resp = "resp",
-      name_acc = "acc",
-      name_rt = "rt"
-    ) |>
+    name_type = "type",
+    name_resp = "resp",
+    name_acc = "acc",
+    name_rt = "rt"
+  ) |>
     update_settings("preproc.input")
   .extra <- list(
     type_filler = "filler",

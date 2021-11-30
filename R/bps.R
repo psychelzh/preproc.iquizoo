@@ -14,11 +14,11 @@
 #' @export
 bps <- function(data, .by) {
   .input <- list(
-      name_phase = "phase",
-      name_acc = "acc",
-      name_type = "type",
-      name_resp = "resp"
-    ) |>
+    name_phase = "phase",
+    name_acc = "acc",
+    name_type = "type",
+    name_resp = "resp"
+  ) |>
     update_settings("preproc.input")
   .extra <- list(
     phase_test = "test",

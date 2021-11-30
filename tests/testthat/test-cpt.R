@@ -78,7 +78,6 @@ test_that("Default behavior works for Cancellation Paradigm", {
     preproc.input = list(name_type = "cresp"),
     preproc.extra = list(type_signal = "left")
   )
-
 })
 
 test_that("Works on perfect accuracy data (no `NA`s)", {

@@ -11,11 +11,11 @@
 #' @export
 london <- function(data, .by) {
   .input <- list(
-      name_level = "level",
-      name_score = "score",
-      name_outcome = "outcome",
-      name_steps = "stepsused"
-    ) |>
+    name_level = "level",
+    name_score = "score",
+    name_outcome = "outcome",
+    name_steps = "stepsused"
+  ) |>
     update_settings("preproc.input")
   total_score <- data |>
     group_by(across(all_of(.by))) |>

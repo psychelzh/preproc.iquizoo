@@ -14,11 +14,11 @@
 #' @export
 symncmp <- function(data, .by) {
   .input <- list(
-      name_big = "big",
-      name_small = "small",
-      name_acc = "acc",
-      name_rt = "rt"
-    ) |>
+    name_big = "big",
+    name_small = "small",
+    name_acc = "acc",
+    name_rt = "rt"
+  ) |>
     update_settings("preproc.input")
   data_cor <- data |>
     mutate(

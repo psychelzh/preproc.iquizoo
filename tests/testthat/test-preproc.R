@@ -1,10 +1,12 @@
 data <- data.frame(nhit = 1, feedback = 0)
 
 test_that("Default behavior (`.by = NULL`) deletes group variables afterward", {
-  with_options({
-    expect_silent(no_grp <- preproc(data, bart))
-    expect_named(no_grp, "mean_pumps")
-  }, preproc.output = "mean_pumps"
+  with_options(
+    {
+      expect_silent(no_grp <- preproc(data, bart))
+      expect_named(no_grp, "mean_pumps")
+    },
+    preproc.output = "mean_pumps"
   )
 })
 

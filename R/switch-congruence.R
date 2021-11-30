@@ -44,13 +44,13 @@ NULL
 #' @export
 complexswitch <- function(data, .by) {
   .input <- list(
-      name_block = "block",
-      name_cong = "stimtype",
-      name_task = "task",
-      name_switch = "tasktype",
-      name_acc = "acc",
-      name_rt = "rt"
-    ) |>
+    name_block = "block",
+    name_cong = "stimtype",
+    name_task = "task",
+    name_switch = "tasktype",
+    name_acc = "acc",
+    name_rt = "rt"
+  ) |>
     update_settings("preproc.input")
   .extra <- list(
     block_pure = "pure",
@@ -110,10 +110,10 @@ complexswitch <- function(data, .by) {
 #' @export
 congeff <- function(data, .by) {
   .input <- list(
-      name_cong = "type",
-      name_acc = "acc",
-      name_rt = "rt"
-    ) |>
+    name_cong = "type",
+    name_acc = "acc",
+    name_rt = "rt"
+  ) |>
     update_settings("preproc.input")
   .extra <- list(
     stim_con = "congruent",
@@ -145,12 +145,12 @@ congeff <- function(data, .by) {
 #' @export
 switchcost <- function(data, .by) {
   .input <- list(
-      name_block = "block",
-      name_task = "task",
-      name_switch = "type",
-      name_acc = "acc",
-      name_rt = "rt"
-    ) |>
+    name_block = "block",
+    name_task = "task",
+    name_switch = "type",
+    name_acc = "acc",
+    name_rt = "rt"
+  ) |>
     update_settings("preproc.input")
   .extra <- list(
     block_pure = "pure",

@@ -9,10 +9,10 @@
 #' @export
 driving <- function(data, .by) {
   .input <- list(
-      name_still_dur = "stilldur",
-      name_still_light = "stilllight",
-      name_yellow_dur = "yellowdur"
-    ) |>
+    name_still_dur = "stilldur",
+    name_still_light = "stilllight",
+    name_yellow_dur = "yellowdur"
+  ) |>
     update_settings("preproc.input")
   .extra <- list(light_yellow = "yellow") |>
     update_settings("preproc.extra")

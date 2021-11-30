@@ -3,7 +3,7 @@
 #' These functions count the number of correct responses. [countcorrect()]
 #' counts the correct responses regardless of errors, [countcorrect2()]
 #' subtracts the number of errors from number of correct responses,
-#' [sumweighted()] counts the correct responses .by giving a weight for different
+#' [sumweighted()] counts the correct responses by giving a weight for different
 #' responses, [sumscore()] adds up the score for each response.
 #'
 #' @name counts
