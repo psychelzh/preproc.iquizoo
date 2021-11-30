@@ -14,11 +14,12 @@ Several couples of games are developed by IQUIZOO.COM. Here are the functions us
 Preproc.iquizoo uses the following \code{\link[=options]{options()}} to configure behaviour:
 
 \itemize{
-\item \code{preproc.input}: input variable names, usu. named character.
+\item \code{preproc.input}: input variable names, a named list of characters.
 
 \item \code{preproc.output}: output variables names.
 
-\item \code{preproc.extra}: extra options such as values for certain input.
+\item \code{preproc.extra}: extra options such as values for certain input, a
+named list of characters.
 
 }
 }

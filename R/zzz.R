@@ -10,11 +10,12 @@ NULL
 #' Preproc.iquizoo uses the following [options()] to configure behaviour:
 #'
 #' \itemize{
-#'   \item `preproc.input`: input variable names, usu. named character.
+#'   \item `preproc.input`: input variable names, a named list of characters.
 #'
 #'   \item `preproc.output`: output variables names.
 #'
-#'   \item `preproc.extra`: extra options such as values for certain input.
+#'   \item `preproc.extra`: extra options such as values for certain input, a
+#'     named list of characters.
 #'
 #' }
 #' @docType package
