@@ -1,5 +1,10 @@
 # preproc.iquizoo (development version)
 
+## Breaking Changes
+
+* Removed support for custom-defined json configuration file.
+* Added support to configure function behavior in `options()`, for now including input and output variables, and specific values for certain variables.
+
 # preproc.iquizoo 1.3.3
 
 ## Internal
