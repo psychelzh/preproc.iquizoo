@@ -2,7 +2,7 @@
 #'
 #' There is a bunch of tests measuring working memory span or attention span.
 #'
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:]
 #'   \item{nc}{Count of correct responses.}

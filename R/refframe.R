@@ -3,7 +3,7 @@
 #' Typically, two classes of spatial frames of reference: "egocentric" and
 #' "allocentric". The spatial acuity for both classes are calculated.
 #'
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mean_dist_err_allo/mean_dist_err_ego}{Mean of the response distance

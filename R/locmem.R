@@ -5,7 +5,7 @@
 #' deal with the distance condition only. [locmem2()] deals with a special case
 #' when the response order and distance both matter.
 #'
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{nc_loc}{Count of correct responses for location.}

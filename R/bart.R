@@ -3,7 +3,7 @@
 #' This task is deemed as a measure of impulsivity. Read more details on
 #' [this website](http://www.impulsivity.org/measurement/BART).
 #'
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mean_pumps}{Mean of hits for balloons not exploded.}

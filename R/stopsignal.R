@@ -2,7 +2,7 @@
 #'
 #' A classical test on inhibition skills.
 #'
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] with the following variables:
 #'   \item{pc_all}{Percent of correct for all the responses.}

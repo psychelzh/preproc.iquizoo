@@ -2,7 +2,7 @@
 #'
 #' A classical test on problem solving.
 #'
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{total_score}{Total score defined .by the game itself.}

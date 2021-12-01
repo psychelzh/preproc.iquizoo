@@ -3,7 +3,7 @@
 #' This is a classical false memory test. Here calculates the effect size of
 #' false memory.
 #'
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{tm_dprime}{Sensitivity (d') of true memory (against "foil" stimuli).}

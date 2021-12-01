@@ -15,7 +15,7 @@
 #'   outlier detection method used here is the "*interquantile range*" rule
 #'   suggested by Tukey (1977).
 #'
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @templateVar name_acc TRUE
 #' @templateVar name_rt TRUE
 #' @template params-template
@@ -68,7 +68,7 @@ calc_spd_acc <- function(data, .by, name_acc, name_rt,
 #' correction for extreme proportions of zero and one is the "log-linear" rule
 #' recommended .by Hautus (1995).
 #'
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @templateVar name_acc TRUE
 #' @template params-template
 #' @param name_type The column name of the `data` input whose values are the

@@ -9,7 +9,7 @@
 #' calculates both.
 #'
 #' @name switch-congruence
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] with the following variables:
 #'

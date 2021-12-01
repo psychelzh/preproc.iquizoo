@@ -2,7 +2,7 @@
 #'
 #' A classical test on subject's counting estimation skills.
 #'
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{pc}{Percentage of correct responses.}

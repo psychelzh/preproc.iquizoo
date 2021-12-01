@@ -2,7 +2,7 @@
 #'
 #' A classical test on subject's numerical estimation skills.
 #'
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mean_abs_err}{Mean absolute error.}

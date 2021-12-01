@@ -7,16 +7,16 @@
 \alias{switchcost}
 \title{Task Switching and Stroop-like paradigm}
 \usage{
-complexswitch(data, .by)
+complexswitch(data, .by = NULL)
 
-congeff(data, .by)
+congeff(data, .by = NULL)
 
-switchcost(data, .by)
+switchcost(data, .by = NULL)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{.by}{The column name(s) in \code{data} used to be grouped by.}
+\item{.by}{The column name(s) in \code{data} used to be grouped by. If set to \code{NULL} (default), all data will be treated as from one subject and there will be no grouping columns in the value returned.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} with the following variables:

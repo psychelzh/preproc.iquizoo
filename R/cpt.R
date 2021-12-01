@@ -4,7 +4,7 @@
 #' are many methods used to calculate the performance index of this task, and
 #' here only includes those common ones.
 #'
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{nc}{Count of correct responses.}

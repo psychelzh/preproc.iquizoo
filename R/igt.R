@@ -4,7 +4,7 @@
 #' [wikipedia](https://en.wikipedia.org/wiki/Iowa_gambling_task). This modified
 #' version uses pools to simulate cards, but the essential ideas are the same.
 #'
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{sum_outcome}{The total outcome over all trials.}

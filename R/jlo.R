@@ -3,7 +3,7 @@
 #' This test is about visuo-spatial skills. For more details, read [this
 #' introduction](https://en.wikipedia.org/wiki/Judgment_of_Line_Orientation).
 #'
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{nc}{Count of correct responses.}

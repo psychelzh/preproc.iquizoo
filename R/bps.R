@@ -3,7 +3,7 @@
 #' This function mainly calculates the "*BPS score*" developed .by Stark et. al.
 #' (2013).
 #'
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{pc}{Percent of correct responses.}

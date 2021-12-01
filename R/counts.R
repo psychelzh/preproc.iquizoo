@@ -7,7 +7,7 @@
 #' responses, [sumscore()] adds up the score for each response.
 #'
 #' @name counts
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{nc}{Count of correct responses. For [countcorrect()].}
