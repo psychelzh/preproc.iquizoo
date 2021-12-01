@@ -11,34 +11,29 @@
         "row.names": {
           "type": "integer",
           "attributes": {},
-          "value": [1, 2, 3, 4, 5]
+          "value": [1]
         },
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["id", "sum_outcome", "perc_good"]
+          "value": ["sum_outcome", "perc_good"]
         }
       },
       "value": [
         {
-          "type": "integer",
+          "type": "double",
           "attributes": {},
-          "value": [1, 2, 3, 4, 5]
+          "value": [494800]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [66800, 129000, 72000, 118600, 108400]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [0.62264151, 0.48863636, 0.48, 0.55421687, 0.54166667]
+          "value": [0.53468208]
         }
       ]
     }
 
-# Works with multiple grouping variables
+# Works with grouping variables
 
     {
       "type": "list",
@@ -56,7 +51,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["id", "id1", "sum_outcome", "perc_good"]
+          "value": ["id", "sum_outcome", "perc_good"]
         }
       },
       "value": [
@@ -64,11 +59,6 @@
           "type": "integer",
           "attributes": {},
           "value": [1, 2, 3, 4, 5]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [2, 3, 4, 5, 6]
         },
         {
           "type": "double",

@@ -8,15 +8,14 @@ data <- tibble::tibble(id = seq_len(n_users), n = 20) |>
 
 test_that("Default behavior works", {
   expect_snapshot_value(
-    sumscore(data, .by = "id"),
+    sumscore(data),
     style = "json2"
   )
 })
 
-test_that("Works with multiple grouping variables", {
-  data <- mutate(data, id1 = id + 1)
+test_that("Works with grouping variables", {
   expect_snapshot_value(
-    sumscore(data, .by = c("id", "id1")),
+    sumscore(data, .by = "id"),
     style = "json2"
   )
 })

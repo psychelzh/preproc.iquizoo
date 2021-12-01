@@ -68,18 +68,17 @@ test_that("All single condition", {
   )
 })
 
-test_that("Part subject single condition", {
+test_that("Works with grouping variables", {
   expect_snapshot_value(
-    switchcost(data_part_miss_cond, .by = "id"),
+    switchcost(data, .by = "id"),
     style = "json2",
     tolerance = 1e-5
   )
 })
 
-test_that("Works with multiple grouping variables", {
-  data <- mutate(data, id1 = id + 1)
+test_that("Part subject single condition", {
   expect_snapshot_value(
-    switchcost(data, .by = c("id", "id1")),
+    switchcost(data_part_miss_cond, .by = "id"),
     style = "json2",
     tolerance = 1e-5
   )

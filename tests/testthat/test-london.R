@@ -4,7 +4,7 @@ data <- tibble::tibble(
   id = seq_len(n_subject),
   n = 14
 ) |>
-  uncount(n, .id = "Trial") |>
+  uncount(n, .id = "trial") |>
   mutate(
     outcome = sample(c(0, 1), n(), replace = TRUE, prob = c(0.2, 0.8))
   ) |>
@@ -28,15 +28,14 @@ data <- tibble::tibble(
 
 test_that("Default behavior works", {
   expect_snapshot_value(
-    london(data, .by = "id"),
+    london(data),
     style = "json2"
   )
 })
 
-test_that("Works with multiple grouping variables", {
-  data <- mutate(data, id1 = id + 1)
+test_that("Works with grouping variables", {
   expect_snapshot_value(
-    london(data, .by = c("id", "id1")),
+    london(data, .by = "id"),
     style = "json2"
   )
 })

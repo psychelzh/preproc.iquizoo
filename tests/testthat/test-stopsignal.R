@@ -51,15 +51,14 @@ data <- expand_grid(
 
 test_that("Default behavior works", {
   expect_snapshot_value(
-    stopsignal(data, .by = "id"),
+    stopsignal(filter(data, id == 1)),
     style = "json2"
   )
 })
 
-test_that("Works with multiple grouping variables", {
-  data <- mutate(data, id1 = id + 1)
+test_that("Works with grouping variables", {
   expect_snapshot_value(
-    stopsignal(data, .by = c("id", "id1")),
+    stopsignal(data, .by = "id"),
     style = "json2"
   )
 })

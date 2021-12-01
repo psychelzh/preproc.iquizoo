@@ -41,7 +41,7 @@ data_dualtask <- tibble::tibble(
 
 test_that("Default behavior works", {
   expect_snapshot_value(
-    cpt(data, .by = "id"),
+    cpt(data),
     style = "json2",
     tolerance = 1e-5
   )
@@ -50,7 +50,7 @@ test_that("Default behavior works", {
 test_that("Default behavior works for Dual Task Paradigm", {
   with_options(
     expect_snapshot_value(
-      cpt(data_dualtask, .by = "id"),
+      cpt(data_dualtask),
       style = "json2",
       tolerance = 1e-5
     ),
@@ -78,13 +78,13 @@ test_that("Default behavior works for Cancellation Paradigm", {
   with_options(
     {
       expect_snapshot_value(
-        cpt(data, .by = "id"),
+        cpt(data),
         style = "json2",
         tolerance = 1e-5
       )
       expect_identical(
-        cpt(data, .by = "id"),
-        cpt(data_clean, .by = "id")
+        cpt(data),
+        cpt(data_clean)
       )
     },
     preproc.input = list(name_type = "cresp"),
@@ -93,15 +93,14 @@ test_that("Default behavior works for Cancellation Paradigm", {
 })
 
 test_that("Works on perfect accuracy data (no `NA`s)", {
-  anyNA(cpt(data_perfect, .by = "id")) |>
+  anyNA(cpt(data_perfect)) |>
     expect_silent() |>
     expect_false()
 })
 
-test_that("Works with multiple grouping variables", {
-  data <- mutate(data, id1 = id + 1)
+test_that("Works with grouping variables", {
   expect_snapshot_value(
-    cpt(data, .by = c("id", "id1")),
+    cpt(data, .by = "id"),
     style = "json2",
     tolerance = 1e-5
   )

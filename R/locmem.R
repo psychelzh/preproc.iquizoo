@@ -15,7 +15,7 @@
 #'   \item{nc_order}{Count of correct responses for order. For [locmem2()]
 #'     only.}
 #' @export
-locmem <- function(data, .by) {
+locmem <- function(data, .by = NULL) {
   .input <- list(name_dist = "resplocdist") |>
     update_settings("preproc.input")
   data |>
@@ -35,7 +35,7 @@ locmem <- function(data, .by) {
 
 #' @rdname locmem
 #' @export
-locmem2 <- function(data, .by) {
+locmem2 <- function(data, .by = NULL) {
   .input <- list(name_acc_order = "respaccorder") |>
     update_settings("preproc.input")
   loc_results <- locmem(data, .by)
@@ -50,5 +50,9 @@ locmem2 <- function(data, .by) {
       nc_order = sum(.data[["acc_order"]] == 1),
       .groups = "drop"
     )
-  left_join(loc_results, nc_order, by = .by)
+  if (!is.null(.by)) {
+    return(left_join(loc_results, nc_order, by = .by))
+  } else {
+    return(bind_cols(loc_results, nc_order))
+  }
 }

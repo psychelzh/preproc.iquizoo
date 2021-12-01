@@ -12,7 +12,7 @@
 #'   \item{mrt_mixadv}{Mean reaction decrease of Mixed stimuli compared to other
 #'     two types of stimuli.}
 #' @export
-multisense <- function(data, .by) {
+multisense <- function(data, .by = NULL) {
   .input <- list(name_type = "type", name_rt = "rt") |>
     update_settings("preproc.input")
   .extra <- list(

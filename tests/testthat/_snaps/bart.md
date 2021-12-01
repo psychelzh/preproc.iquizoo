@@ -11,39 +11,34 @@
         "row.names": {
           "type": "integer",
           "attributes": {},
-          "value": [1, 2, 3, 4, 5]
+          "value": [1]
         },
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["id", "mean_pumps", "mean_pumps_raw", "num_explosion"]
+          "value": ["mean_pumps", "mean_pumps_raw", "num_explosion"]
         }
       },
       "value": [
         {
-          "type": "integer",
+          "type": "double",
           "attributes": {},
-          "value": [1, 2, 3, 4, 5]
+          "value": [2.052]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [2.25, 2.09259259, 1.65306122, 2.35555556, 1.89130435]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [2.02, 2.07, 1.73, 2.07, 2.05]
+          "value": [1.988]
         },
         {
           "type": "integer",
           "attributes": {},
-          "value": [44, 46, 51, 55, 54]
+          "value": [250]
         }
       ]
     }
 
-# Works with multiple grouping variables
+# Works with grouping variables
 
     {
       "type": "list",
@@ -61,7 +56,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["id", "id1", "mean_pumps", "mean_pumps_raw", "num_explosion"]
+          "value": ["id", "mean_pumps", "mean_pumps_raw", "num_explosion"]
         }
       },
       "value": [
@@ -69,11 +64,6 @@
           "type": "integer",
           "attributes": {},
           "value": [1, 2, 3, 4, 5]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [2, 3, 4, 5, 6]
         },
         {
           "type": "double",

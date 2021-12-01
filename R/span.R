@@ -9,7 +9,7 @@
 #'   \item{max_span}{Maximal span.}
 #'   \item{mean_span}{Mean span.}
 #' @export
-span <- function(data, .by) {
+span <- function(data, .by = NULL) {
   .input <- list(name_slen = "slen", name_outcome = "outcome") |>
     update_settings("preproc.input")
   # TODO: Treat these as preproc.extra options.
@@ -65,5 +65,9 @@ span <- function(data, .by) {
         min(.data[[.input[["name_slen"]]]]) - .5,
       .groups = "drop"
     )
-  left_join(nc, spans, by = .by)
+  if (!is.null(.by)) {
+    return(left_join(nc, spans, by = .by))
+  } else {
+    return(bind_cols(nc, spans))
+  }
 }

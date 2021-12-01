@@ -10,15 +10,14 @@ data <- tibble::tibble(id = seq_len(n_users)) |>
 
 test_that("Default behavior works", {
   expect_snapshot_value(
-    igt(data, .by = "id"),
+    igt(data),
     style = "json2"
   )
 })
 
-test_that("Works with multiple grouping variables", {
-  data <- mutate(data, id1 = id + 1)
+test_that("Works with grouping variables", {
   expect_snapshot_value(
-    igt(data, .by = c("id", "id1")),
+    igt(data, .by = "id"),
     style = "json2"
   )
 })

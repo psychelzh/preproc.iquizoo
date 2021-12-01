@@ -6,6 +6,46 @@
         "names": {
           "type": "character",
           "attributes": {},
+          "value": ["pc", "mrt", "dist_eff"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1]
+        },
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        }
+      },
+      "value": [
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.50555556]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [912.05954719]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-71.67276679]
+        }
+      ]
+    }
+
+# Works with grouping variables
+
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
           "value": ["id", "pc", "mrt", "dist_eff"]
         },
         "row.names": {
@@ -24,56 +64,6 @@
           "type": "integer",
           "attributes": {},
           "value": [1, 2, 3, 4, 5]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [0.54166667, 0.47222222, 0.44444444, 0.56944444, 0.5]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [915.82433377, 910.22459947, 865.21856911, 784.53946098, 1108.45127908]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [-111.21898819, -66.27699718, -86.66171062, -92.63997343, -19.74852742]
-        }
-      ]
-    }
-
-# Works with multiple grouping variables
-
-    {
-      "type": "list",
-      "attributes": {
-        "names": {
-          "type": "character",
-          "attributes": {},
-          "value": ["id", "id1", "pc", "mrt", "dist_eff"]
-        },
-        "row.names": {
-          "type": "integer",
-          "attributes": {},
-          "value": [1, 2, 3, 4, 5]
-        },
-        "class": {
-          "type": "character",
-          "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
-        }
-      },
-      "value": [
-        {
-          "type": "integer",
-          "attributes": {},
-          "value": [1, 2, 3, 4, 5]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [2, 3, 4, 5, 6]
         },
         {
           "type": "double",

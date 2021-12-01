@@ -11,7 +11,7 @@
 #'   \item{mean_log_err}{Mean of the log-transformed (of base 2) response angle
 #'     errors.}
 #' @export
-jlo <- function(data, .by) {
+jlo <- function(data, .by = NULL) {
   .input <- list(name_resp = "resp", name_angle = "angle", name_acc = "acc") |>
     update_settings("preproc.input")
   .extra <- list(resp_anticlock = "left", resp_clockwise = "right") |>

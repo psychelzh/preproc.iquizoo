@@ -16,7 +16,7 @@ NULL
 
 #' @rdname rt
 #' @export
-crt <- function(data, .by) {
+crt <- function(data, .by = NULL) {
   .input <- list(name_acc = "acc", name_rt = "rt") |>
     update_settings("preproc.input")
   data |>
@@ -37,7 +37,7 @@ crt <- function(data, .by) {
 
 #' @rdname rt
 #' @export
-srt <- function(data, .by) {
+srt <- function(data, .by = NULL) {
   .input <- list(name_rt = "rt") |>
     update_settings("preproc.input")
   data |>

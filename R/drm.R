@@ -11,7 +11,7 @@
 #'   \item{fm_dprime}{Sensitivity (d') of false memory.}
 #'   \item{fm_bias}{ias of false memory.}
 #' @export
-drm <- function(data, .by) {
+drm <- function(data, .by = NULL) {
   .input <- list(
     name_type = "type",
     name_resp = "resp",

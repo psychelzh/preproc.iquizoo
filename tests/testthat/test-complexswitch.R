@@ -66,6 +66,14 @@ data_part_miss_cond <- tibble::tibble(
 
 test_that("Default behavior works", {
   expect_snapshot_value(
+    complexswitch(data),
+    style = "json2",
+    tolerance = 1e-5
+  )
+})
+
+test_that("Works with grouping variables", {
+  expect_snapshot_value(
     complexswitch(data, .by = "id"),
     style = "json2",
     tolerance = 1e-5
@@ -83,15 +91,6 @@ test_that("All single condition", {
 test_that("Part subject single condition", {
   expect_snapshot_value(
     complexswitch(data_part_miss_cond, .by = "id"),
-    style = "json2",
-    tolerance = 1e-5
-  )
-})
-
-test_that("Works with multiple grouping variables", {
-  data <- mutate(data, id1 = id + 1)
-  expect_snapshot_value(
-    complexswitch(data, .by = c("id", "id1")),
     style = "json2",
     tolerance = 1e-5
   )

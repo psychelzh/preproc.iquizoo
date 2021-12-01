@@ -7,7 +7,7 @@
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{still_ratio}{The ratio of still duration in yellow light state.}
 #' @export
-driving <- function(data, .by) {
+driving <- function(data, .by = NULL) {
   .input <- list(
     name_still_dur = "stilldur",
     name_still_light = "stilllight",

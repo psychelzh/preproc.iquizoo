@@ -23,16 +23,15 @@ data <- expand_grid(
 
 test_that("Default behavior works", {
   expect_snapshot_value(
-    drm(data, .by = "id"),
+    drm(data),
     style = "json2",
     tolerance = 1e-5
   )
 })
 
-test_that("Works with multiple grouping variables", {
-  data <- mutate(data, id1 = id + 1)
+test_that("Works with grouping variables", {
   expect_snapshot_value(
-    drm(data, .by = c("id", "id1")),
+    drm(data, .by = "id"),
     style = "json2",
     tolerance = 1e-5
   )

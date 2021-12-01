@@ -12,7 +12,7 @@
 #'     base \eqn{e}) response distance errors for allocentric and egocentric
 #'     conditions respectively.}
 #' @export
-refframe <- function(data, .by) {
+refframe <- function(data, .by = NULL) {
   .input <- list(name_type = "type", name_dist = "dist") |>
     update_settings("preproc.input")
   .extra <- list(type_allo = "allocentric", type_ego = "egocentric") |>

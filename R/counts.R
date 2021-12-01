@@ -20,7 +20,7 @@ NULL
 
 #' @rdname counts
 #' @export
-countcorrect <- function(data, .by) {
+countcorrect <- function(data, .by = NULL) {
   .input <- list(name_acc = "acc") |>
     update_settings("preproc.input")
   if (is.character(data[[.input[["name_acc"]]]])) {
@@ -34,7 +34,7 @@ countcorrect <- function(data, .by) {
       unnest(.data[[.input[["name_acc"]]]])
   }
   data |>
-    group_by(across(all_of(.by))) |>
+    group_by(across(.by)) |>
     summarise(
       # NA might be produced in parsing characters
       nc = sum(.data[[.input[["name_acc"]]]] == 1, na.rm = TRUE),
@@ -44,7 +44,7 @@ countcorrect <- function(data, .by) {
 
 #' @rdname counts
 #' @export
-countcorrect2 <- function(data, .by) {
+countcorrect2 <- function(data, .by = NULL) {
   .input <- list(name_nc = "ncorrect", name_ne = "nerror") |>
     update_settings("preproc.input")
   data |>
@@ -59,7 +59,7 @@ countcorrect2 <- function(data, .by) {
 
 #' @rdname counts
 #' @export
-sumweighted <- function(data, .by) {
+sumweighted <- function(data, .by = NULL) {
   .input <- list(name_weight = "nstim", name_acc = "acc") |>
     update_settings("preproc.input")
   data |>
@@ -75,7 +75,7 @@ sumweighted <- function(data, .by) {
 
 #' @rdname counts
 #' @export
-sumscore <- function(data, .by) {
+sumscore <- function(data, .by = NULL) {
   .input <- list(name_score = "score") |>
     update_settings("preproc.input")
   data |>

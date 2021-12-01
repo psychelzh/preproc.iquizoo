@@ -3,32 +3,27 @@
     {
       "type": "list",
       "attributes": {
-        "names": {
-          "type": "character",
-          "attributes": {},
-          "value": ["id", "nc"]
-        },
-        "row.names": {
-          "type": "integer",
-          "attributes": {},
-          "value": [1, 2, 3, 4, 5]
-        },
         "class": {
           "type": "character",
           "attributes": {},
           "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["nc"]
         }
       },
       "value": [
         {
           "type": "integer",
           "attributes": {},
-          "value": [1, 2, 3, 4, 5]
-        },
-        {
-          "type": "integer",
-          "attributes": {},
-          "value": [84, 131, 112, 135, 72]
+          "value": [534]
         }
       ]
     }
@@ -38,32 +33,27 @@
     {
       "type": "list",
       "attributes": {
-        "names": {
-          "type": "character",
-          "attributes": {},
-          "value": ["id", "nc"]
-        },
-        "row.names": {
-          "type": "integer",
-          "attributes": {},
-          "value": [1, 2, 3, 4, 5]
-        },
         "class": {
           "type": "character",
           "attributes": {},
           "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["nc"]
         }
       },
       "value": [
         {
           "type": "integer",
           "attributes": {},
-          "value": [1, 2, 3, 4, 5]
-        },
-        {
-          "type": "integer",
-          "attributes": {},
-          "value": [42, 42, 33, 49, 37]
+          "value": [203]
         }
       ]
     }
@@ -73,55 +63,50 @@
     {
       "type": "list",
       "attributes": {
-        "names": {
-          "type": "character",
-          "attributes": {},
-          "value": ["id", "nc"]
-        },
-        "row.names": {
-          "type": "integer",
-          "attributes": {},
-          "value": [1, 2, 3, 4, 5]
-        },
         "class": {
           "type": "character",
           "attributes": {},
           "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["nc"]
         }
       },
       "value": [
         {
           "type": "integer",
           "attributes": {},
-          "value": [1, 2, 3, 4, 5]
-        },
-        {
-          "type": "integer",
-          "attributes": {},
-          "value": [49, 34, 35, 32, 47]
+          "value": [197]
         }
       ]
     }
 
-# Works with multiple grouping variables
+# Works with grouping variables
 
     {
       "type": "list",
       "attributes": {
-        "names": {
+        "class": {
           "type": "character",
           "attributes": {},
-          "value": ["id", "id1", "nc"]
+          "value": ["tbl_df", "tbl", "data.frame"]
         },
         "row.names": {
           "type": "integer",
           "attributes": {},
           "value": [1, 2, 3, 4, 5]
         },
-        "class": {
+        "names": {
           "type": "character",
           "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
+          "value": ["id", "nc"]
         }
       },
       "value": [
@@ -129,11 +114,6 @@
           "type": "integer",
           "attributes": {},
           "value": [1, 2, 3, 4, 5]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [2, 3, 4, 5, 6]
         },
         {
           "type": "integer",

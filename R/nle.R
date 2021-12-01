@@ -8,7 +8,7 @@
 #'   \item{mean_abs_err}{Mean absolute error.}
 #'   \item{mean_log_err}{Mean log absolute error.}
 #' @export
-nle <- function(data, .by) {
+nle <- function(data, .by = NULL) {
   .input <- list(name_number = "number", name_resp = "resp") |>
     update_settings("preproc.input")
   data |>

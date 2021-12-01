@@ -12,7 +12,7 @@
 #'   \item{dist_eff}{Distance effect.}
 #' @seealso [nsymncmp()] for non-symbolic number comparison.
 #' @export
-symncmp <- function(data, .by) {
+symncmp <- function(data, .by = NULL) {
   .input <- list(
     name_big = "big",
     name_small = "small",
@@ -61,5 +61,9 @@ symncmp <- function(data, .by) {
       ),
       .keep = "unused"
     )
-  left_join(basics, dist_eff, by = .by)
+  if (!is.null(.by)) {
+    return(left_join(basics, dist_eff, by = .by))
+  } else {
+    return(bind_cols(basics, dist_eff))
+  }
 }

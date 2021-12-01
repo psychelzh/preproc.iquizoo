@@ -59,21 +59,21 @@ data_negtive_dur <- tibble::tibble(
 
 test_that("Default behavior works", {
   expect_snapshot_value(
+    driving(data),
+    style = "json2"
+  )
+})
+
+test_that("Works with grouping variables", {
+  data <- mutate(data, id1 = id + 1)
+  expect_snapshot_value(
     driving(data, .by = "id"),
     style = "json2"
   )
 })
 
-test_that("Works with multiple grouping variables", {
-  data <- mutate(data, id1 = id + 1)
-  expect_snapshot_value(
-    driving(data, .by = c("id", "id1")),
-    style = "json2"
-  )
-})
-
 test_that("No error for negative duration case (but produces `NA`s)", {
-  anyNA(driving(data_negtive_dur, .by = "id")) |>
+  anyNA(driving(data_negtive_dur)) |>
     expect_silent() |>
     expect_true()
 })
