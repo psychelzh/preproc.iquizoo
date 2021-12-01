@@ -1,6 +1,7 @@
 set.seed(1)
+n_users <- 5
 data <- expand_grid(
-  id = seq_len(100),
+  id = seq_len(n_users),
   tibble::tribble(
     ~big, ~small, ~n,
     2, 1, 12,
@@ -18,10 +19,15 @@ data <- expand_grid(
   )
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc(data, symncmp, .by = "id"))
+  expect_snapshot_value(
+    symncmp(data),
+    style = "json2"
+  )
 })
 
-test_that("Works with multiple grouping variables", {
-  data <- mutate(data, id1 = id + 1)
-  expect_snapshot(preproc(data, symncmp, .by = c("id", "id1")))
+test_that("Works with grouping variables", {
+  expect_snapshot_value(
+    symncmp(data, .by = "id"),
+    style = "json2"
+  )
 })

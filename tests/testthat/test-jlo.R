@@ -1,5 +1,5 @@
 set.seed(1)
-n_subject <- 100
+n_subject <- 5
 data <- expand_grid(
   id = seq_len(n_subject),
   angle = sample(c(6:9, -(6:9)) * 6)
@@ -7,7 +7,7 @@ data <- expand_grid(
   rowwise() |>
   mutate(
     resp_base = list(sample(c(-1, 1), sample(1:100, 1), replace = TRUE)),
-    resp = recode(resp_base, `1` = "Left", `-1` = "Right") |>
+    resp = recode(resp_base, `1` = "left", `-1` = "right") |>
       stringr::str_c(collapse = "-"),
     resp_angle = sum(resp_base) * 6,
     resp_err = abs(resp_angle - angle) %% 360,
@@ -17,24 +17,15 @@ data <- expand_grid(
   select(-contains("_"))
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc(data, jlo, .by = "id"))
-})
-
-test_that("Works with multiple grouping variables", {
-  data <- mutate(data, id1 = id + 1)
-  expect_snapshot(preproc(data, jlo, .by = c("id", "id1")))
-})
-
-test_that("Works when character case is messy", {
-  data_case_messy <- data |>
-    mutate(
-      resp = recode(resp, Left = "left")
-    )
-  expect_silent(
-    case_messy <- preproc(data_case_messy, jlo, .by = "id")
+  expect_snapshot_value(
+    jlo(data),
+    style = "json2"
   )
-  expect_identical(
-    case_messy,
-    preproc(data, jlo, .by = "id")
+})
+
+test_that("Works with grouping variables", {
+  expect_snapshot_value(
+    jlo(data, .by = "id"),
+    style = "json2"
   )
 })

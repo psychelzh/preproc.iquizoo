@@ -1,68 +1,320 @@
 # Default behavior works
 
-    Code
-      preproc(data, switchcost, .by = "id")
-    Output
-      # A tibble: 100 x 11
-            id mrt_pure mrt_repeat mrt_switch switch_cost_rt_gen switch_cost_rt_spe
-         <int>    <dbl>      <dbl>      <dbl>              <dbl>              <dbl>
-       1     1     903.       769.       802.            -134.                 32.6
-       2     2    1055.       878.       979.            -178.                102. 
-       3     3    1178.       742.       755.            -436.                 13.0
-       4     4    1040.       959.       879.             -81.3               -80.0
-       5     5     886.      1031.      1015.             145.                -16.3
-       6     6     960.      1164.      1021.             203.               -142. 
-       7     7    1018.      1017.       829.              -1.19             -188. 
-       8     8     953.      1049.       930.              96.8              -119. 
-       9     9     856.       966.       982.             110.                 16.4
-      10    10    1101.      1063.       914.             -38.0              -149. 
-      # ... with 90 more rows, and 5 more variables: pc_pure <dbl>, pc_repeat <dbl>,
-      #   pc_switch <dbl>, switch_cost_pc_gen <dbl>, switch_cost_pc_spe <dbl>
+    {
+      "type": "list",
+      "attributes": {
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["id", "mrt_pure", "mrt_repeat", "mrt_switch", "pc_pure", "pc_repeat", "pc_switch", "switch_cost_rt_gen", "switch_cost_rt_spe", "switch_cost_pc_gen", "switch_cost_pc_spe"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [936.36601911, 935.34955135, 866.41622014, 872.64978762, 897.11225902]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1245.67991876, 1300.22543836, 750.66179195, 988.09177614, 826.59734741]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [856.86031781, 871.95969076, 1103.0138547, 1130.24789119, 1183.15542589]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.52009804, 0.48083624, 0.44453005, 0.46573427, 0.50034153]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.55319149, 0.56923077, 0.4, 0.58333333, 0.53333333]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.5106383, 0.45614035, 0.37704918, 0.60344828, 0.55072464]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [309.31389965, 364.87588701, -115.75442819, 115.44198852, -70.51491161]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-388.81960095, -428.2657476, 352.35206275, 142.15611505, 356.55807848]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.03309345, 0.08839453, -0.04453005, 0.11759907, 0.0329918]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.04255319, -0.11309042, -0.02295082, 0.02011494, 0.0173913]
+        }
+      ]
+    }
 
 # All single condition
 
-    Code
-      preproc(data_miss_cond, switchcost, .by = "id")
-    Output
-      # A tibble: 2 x 11
-           id mrt_pure mrt_repeat mrt_switch switch_cost_rt_~ switch_cost_rt_~ pc_pure
-        <int>    <dbl>      <dbl>      <dbl>            <dbl>            <dbl>   <dbl>
-      1     1    1361.       260.        NaN          -1102.               NaN    0.75
-      2     2    1118.      1075.        NaN            -43.0              NaN    0.5 
-      # ... with 4 more variables: pc_repeat <dbl>, pc_switch <dbl>,
-      #   switch_cost_pc_gen <dbl>, switch_cost_pc_spe <dbl>
+    {
+      "type": "list",
+      "attributes": {
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["id", "mrt_pure", "mrt_repeat", "mrt_switch", "pc_pure", "pc_repeat", "pc_switch", "switch_cost_rt_gen", "switch_cost_rt_spe", "switch_cost_pc_gen", "switch_cost_pc_spe"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1076.99044369, 1881.8149895]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1491.43911209, 687.5225916]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NaN", "NaN"]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.5, 0.25]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.25, 0.5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NaN", "NaN"]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [414.44866841, -1194.2923979]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NaN", "NaN"]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.25, 0.25]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NaN", "NaN"]
+        }
+      ]
+    }
+
+# Works with grouping variables
+
+    {
+      "type": "list",
+      "attributes": {
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["id", "mrt_pure", "mrt_repeat", "mrt_switch", "pc_pure", "pc_repeat", "pc_switch", "switch_cost_rt_gen", "switch_cost_rt_spe", "switch_cost_pc_gen", "switch_cost_pc_spe"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [936.36601911, 935.34955135, 866.41622014, 872.64978762, 897.11225902]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1245.67991876, 1300.22543836, 750.66179195, 988.09177614, 826.59734741]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [856.86031781, 871.95969076, 1103.0138547, 1130.24789119, 1183.15542589]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.52009804, 0.48083624, 0.44453005, 0.46573427, 0.50034153]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.55319149, 0.56923077, 0.4, 0.58333333, 0.53333333]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.5106383, 0.45614035, 0.37704918, 0.60344828, 0.55072464]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [309.31389965, 364.87588701, -115.75442819, 115.44198852, -70.51491161]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-388.81960095, -428.2657476, 352.35206275, 142.15611505, 356.55807848]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.03309345, 0.08839453, -0.04453005, 0.11759907, 0.0329918]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.04255319, -0.11309042, -0.02295082, 0.02011494, 0.0173913]
+        }
+      ]
+    }
 
 # Part subject single condition
 
-    Code
-      preproc(data_part_miss_cond, switchcost, .by = "id")
-    Output
-      # A tibble: 2 x 11
-           id mrt_pure mrt_repeat mrt_switch switch_cost_rt_~ switch_cost_rt_~ pc_pure
-        <int>    <dbl>      <dbl>      <dbl>            <dbl>            <dbl>   <dbl>
-      1     1    1309.       483.       NaN             -826.             NaN     0.5 
-      2     2    1133.       457.      1731.            -676.            1274.    0.25
-      # ... with 4 more variables: pc_repeat <dbl>, pc_switch <dbl>,
-      #   switch_cost_pc_gen <dbl>, switch_cost_pc_spe <dbl>
-
-# Works with multiple grouping variables
-
-    Code
-      preproc(data, switchcost, .by = c("id", "id1"))
-    Output
-      # A tibble: 100 x 12
-            id   id1 mrt_pure mrt_repeat mrt_switch switch_cost_rt_g~ switch_cost_rt_~
-         <int> <dbl>    <dbl>      <dbl>      <dbl>             <dbl>            <dbl>
-       1     1     2     903.       769.       802.           -134.               32.6
-       2     2     3    1055.       878.       979.           -178.              102. 
-       3     3     4    1178.       742.       755.           -436.               13.0
-       4     4     5    1040.       959.       879.            -81.3             -80.0
-       5     5     6     886.      1031.      1015.            145.              -16.3
-       6     6     7     960.      1164.      1021.            203.             -142. 
-       7     7     8    1018.      1017.       829.             -1.19           -188. 
-       8     8     9     953.      1049.       930.             96.8            -119. 
-       9     9    10     856.       966.       982.            110.               16.4
-      10    10    11    1101.      1063.       914.            -38.0            -149. 
-      # ... with 90 more rows, and 5 more variables: pc_pure <dbl>, pc_repeat <dbl>,
-      #   pc_switch <dbl>, switch_cost_pc_gen <dbl>, switch_cost_pc_spe <dbl>
+    {
+      "type": "list",
+      "attributes": {
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["id", "mrt_pure", "mrt_repeat", "mrt_switch", "pc_pure", "pc_repeat", "pc_switch", "switch_cost_rt_gen", "switch_cost_rt_spe", "switch_cost_pc_gen", "switch_cost_pc_spe"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1349.24823179, 1195.36595693]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1638.22327441, 482.47219659]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NaN", 1107.83010624]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.5, 0.5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.25, 0.5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NaN", 0.5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [288.97504262, -712.89376034]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NaN", 625.35790965]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.25, 0]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NaN", 0]
+        }
+      ]
+    }
 

@@ -1,40 +1,85 @@
 # Default behavior works
 
-    Code
-      preproc(data, crt, .by = "id")
-    Output
-      # A tibble: 100 x 4
-            id   mrt  rtsd    nc
-         <int> <dbl> <dbl> <int>
-       1     1  749.  483.    19
-       2     2 1054.  856.    38
-       3     3  933.  622.    24
-       4     4  924.  537.    36
-       5     5  866.  694.    27
-       6     6  931.  710.    23
-       7     7  914.  731.    26
-       8     8  990.  672.    35
-       9     9  948.  562.    36
-      10    10  861.  704.    30
-      # ... with 90 more rows
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["nc", "mrt", "rtsd"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1]
+        },
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [152]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [887.05989224]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [631.46852806]
+        }
+      ]
+    }
 
 # Works with multiple grouping variables
 
-    Code
-      preproc(data, crt, .by = c("id", "id1"))
-    Output
-      # A tibble: 100 x 5
-            id   id1   mrt  rtsd    nc
-         <int> <dbl> <dbl> <dbl> <int>
-       1     1     2  749.  483.    19
-       2     2     3 1054.  856.    38
-       3     3     4  933.  622.    24
-       4     4     5  924.  537.    36
-       5     5     6  866.  694.    27
-       6     6     7  931.  710.    23
-       7     7     8  914.  731.    26
-       8     8     9  990.  672.    35
-       9     9    10  948.  562.    36
-      10    10    11  861.  704.    30
-      # ... with 90 more rows
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["id", "nc", "mrt", "rtsd"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [21, 42, 19, 36, 34]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [818.75313763, 880.17268286, 907.15700641, 899.66472402, 992.11720112]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [490.53860724, 624.01052673, 723.80850936, 635.747919, 816.64348878]
+        }
+      ]
+    }
 

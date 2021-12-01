@@ -1,10 +1,10 @@
 set.seed(1)
-n_subject <- 100
+n_subject <- 5
 data <- tibble::tibble(
   id = seq_len(n_subject),
   n = 14
 ) |>
-  uncount(n, .id = "Trial") |>
+  uncount(n, .id = "trial") |>
   mutate(
     outcome = sample(
       c(0, 1),
@@ -45,12 +45,17 @@ data <- tibble::tibble(
   ungroup()
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc(data, span, .by = "id"))
+  expect_snapshot_value(
+    span(data),
+    style = "json2"
+  )
 })
 
-test_that("Works with multiple grouping variables", {
-  data <- mutate(data, id1 = id + 1)
-  expect_snapshot(preproc(data, span, .by = c("id", "id1")))
+test_that("Works with grouping variables", {
+  expect_snapshot_value(
+    span(data, .by = "id"),
+    style = "json2"
+  )
 })
 
 test_that("Works when no acc column found", {
@@ -58,7 +63,7 @@ test_that("Works when no acc column found", {
     id = seq_len(n_subject),
     n = 14
   ) |>
-    uncount(n, .id = "Trial") |>
+    uncount(n, .id = "trial") |>
     mutate(
       outcome = sample(
         c(0, 1),
@@ -80,8 +85,8 @@ test_that("Works when no acc column found", {
         )
     ) |>
     ungroup()
-  result_no_acc <- preproc(data_no_acc, span, .by = "id")
-  expect_snapshot(result_no_acc)
+  result_no_acc <- span(data_no_acc, .by = "id")
+  expect_snapshot_value(result_no_acc, style = "json2")
   expect_true(all(is.na(result_no_acc$nc)))
   data_repairable <- data_no_acc |>
     mutate(
@@ -92,7 +97,7 @@ test_that("Works when no acc column found", {
         slen, ~ paste(sample(seq_len(.x)), collapse = "-")
       )
     )
-  result_repaired <- preproc(data_repairable, span, .by = "id")
-  expect_snapshot(result_repaired)
+  result_repaired <- span(data_repairable, .by = "id")
+  expect_snapshot_value(result_repaired, style = "json2")
   expect_true(all(!is.na(result_repaired$nc)))
 })

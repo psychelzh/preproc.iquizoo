@@ -1,40 +1,95 @@
 # Default behavior works
 
-    Code
-      preproc(data, multisense, .by = "id")
-    Output
-      # A tibble: 100 x 5
-            id mrt_image mrt_sound mrt_mixed mrt_mixadv
-         <int>     <dbl>     <dbl>     <dbl>      <dbl>
-       1     1      804.      767.      918.     -133. 
-       2     2     1493.      865.      980.      200. 
-       3     3      794.     1186.     1358.     -367. 
-       4     4      669.      753.      776.      -64.4
-       5     5      956.     1283.      729.      390. 
-       6     6     1312.      648.     1074.      -93.9
-       7     7      798.     1076.      668.      269. 
-       8     8      940.     1051.      827.      168. 
-       9     9      622.      920.     1821.    -1051. 
-      10    10      813.      872.      802.       41.2
-      # ... with 90 more rows
+    {
+      "type": "list",
+      "attributes": {
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["mrt_image", "mrt_mixed", "mrt_sound", "mrt_mixadv"]
+        }
+      },
+      "value": [
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [846.64668188]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [961.00923292]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [924.18689316]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-75.5924454]
+        }
+      ]
+    }
 
-# Works with multiple grouping variables
+# Works with grouping variables
 
-    Code
-      preproc(data, multisense, .by = c("id", "id1"))
-    Output
-      # A tibble: 100 x 6
-            id   id1 mrt_image mrt_sound mrt_mixed mrt_mixadv
-         <int> <dbl>     <dbl>     <dbl>     <dbl>      <dbl>
-       1     1     2      804.      767.      918.     -133. 
-       2     2     3     1493.      865.      980.      200. 
-       3     3     4      794.     1186.     1358.     -367. 
-       4     4     5      669.      753.      776.      -64.4
-       5     5     6      956.     1283.      729.      390. 
-       6     6     7     1312.      648.     1074.      -93.9
-       7     7     8      798.     1076.      668.      269. 
-       8     8     9      940.     1051.      827.      168. 
-       9     9    10      622.      920.     1821.    -1051. 
-      10    10    11      813.      872.      802.       41.2
-      # ... with 90 more rows
+    {
+      "type": "list",
+      "attributes": {
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["id", "mrt_image", "mrt_mixed", "mrt_sound", "mrt_mixadv"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [803.75579222, 1493.40897739, 794.37215649, 669.36198297, 956.38643208]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [918.38962497, 979.59330603, 1357.60902653, 775.70710718, 729.48004185]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [767.10758437, 865.00646844, 1186.16791745, 753.27390864, 1283.47942599]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-132.95793668, 199.61441689, -367.33898956, -64.38916138, 390.45288719]
+        }
+      ]
+    }
 

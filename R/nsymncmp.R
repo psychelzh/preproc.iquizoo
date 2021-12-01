@@ -2,8 +2,7 @@
 #'
 #' A classical test on subject's counting estimation skills.
 #'
-#' @templateVar .by low
-#' @templateVar .input TRUE
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{pc}{Percentage of correct responses.}
@@ -11,7 +10,14 @@
 #'   \item{w}{Weber fraction.}
 #' @seealso [symncmp()] for symbolic number comparison.
 #' @export
-nsymncmp <- function(data, .by, .input) {
+nsymncmp <- function(data, .by = NULL) {
+  .input <- list(
+    name_big = "bigsetcount",
+    name_small = "smallsetcount",
+    name_acc = "acc",
+    name_rt = "rt"
+  ) |>
+    update_settings("preproc.input")
   data_cor <- data |>
     mutate(
       rt_cor = ifelse(
@@ -53,5 +59,9 @@ nsymncmp <- function(data, .by, .input) {
       ),
       .keep = "unused"
     )
-  left_join(basics, weber, by = .by)
+  if (!is.null(.by)) {
+    return(left_join(basics, weber, by = .by))
+  } else {
+    return(bind_cols(basics, weber))
+  }
 }

@@ -1,5 +1,5 @@
 set.seed(1)
-n_subject <- 100
+n_subject <- 5
 data <- expand_grid(
   id = seq_len(n_subject),
   yellowdur = runif(8, 3000, 15000)
@@ -22,7 +22,7 @@ data <- expand_grid(
     ),
     stilllight = purrr::map_chr(
       stilldurlist,
-      ~ sample(c("Yellow", "Green"), length(.x), replace = TRUE) |>
+      ~ sample(c("yellow", "green"), length(.x), replace = TRUE) |>
         stringr::str_c(collapse = "-")
     )
   ) |>
@@ -50,7 +50,7 @@ data_negtive_dur <- tibble::tibble(
     ),
     stilllight = purrr::map_chr(
       stilldurlist,
-      ~ sample(c("Yellow", "Green"), length(.x), replace = TRUE) |>
+      ~ sample(c("yellow", "green"), length(.x), replace = TRUE) |>
         stringr::str_c(collapse = "-")
     )
   ) |>
@@ -58,28 +58,22 @@ data_negtive_dur <- tibble::tibble(
 
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc(data, driving, .by = "id"))
+  expect_snapshot_value(
+    driving(data),
+    style = "json2"
+  )
 })
 
-test_that("Works with multiple grouping variables", {
+test_that("Works with grouping variables", {
   data <- mutate(data, id1 = id + 1)
-  expect_snapshot(preproc(data, driving, .by = c("id", "id1")))
+  expect_snapshot_value(
+    driving(data, .by = "id"),
+    style = "json2"
+  )
 })
 
 test_that("No error for negative duration case (but produces `NA`s)", {
-  expect_snapshot(preproc(data_negtive_dur, driving, .by = "id"))
-})
-
-test_that("Works when character case is messy", {
-  data_case_messy <- data |>
-    mutate(
-      stilllight = recode(stilllight, Green = "green")
-    )
-  expect_silent(
-    case_messy <- preproc(data_case_messy, driving, .by = "id")
-  )
-  expect_identical(
-    case_messy,
-    preproc(data, driving, .by = "id")
-  )
+  anyNA(driving(data_negtive_dur)) |>
+    expect_silent() |>
+    expect_true()
 })

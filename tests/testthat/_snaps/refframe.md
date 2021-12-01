@@ -1,42 +1,95 @@
 # Default behavior works
 
-    Code
-      preproc(data, refframe, .by = "id")
-    Output
-      # A tibble: 100 x 7
-            id mean_dist_err_allo mean_log_err_allo mean_dist_err_ego mean_log_err_ego
-         <int>              <dbl>             <dbl>             <dbl>            <dbl>
-       1     1              103.               4.43             101.              4.32
-       2     2              115.               4.64              90.8             4.22
-       3     3               99.3              4.46             106.              4.49
-       4     4              114.               4.58              92.1             4.19
-       5     5               95.4              4.29             107.              4.54
-       6     6               93.6              4.38             117.              4.63
-       7     7              111.               4.54              83.7             4.26
-       8     8              120.               4.60              90.4             4.35
-       9     9              104.               4.50              87.3             4.24
-      10    10               63.4              3.80              66.9             3.88
-      # ... with 90 more rows, and 2 more variables: mean_dist_err_both <dbl>,
-      #   mean_log_err_both <dbl>
+    {
+      "type": "list",
+      "attributes": {
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["mean_dist_err_both", "mean_dist_err_NA", "mean_log_err_both", "mean_log_err_NA"]
+        }
+      },
+      "value": [
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [102.37794805]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [102.37794805]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [4.41610731]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [4.41610731]
+        }
+      ]
+    }
 
-# Works with multiple grouping variables
+# Works with grouping variables
 
-    Code
-      preproc(data, refframe, .by = c("id", "id1"))
-    Output
-      # A tibble: 100 x 8
-            id   id1 mean_dist_err_allo mean_log_err_allo mean_dist_err_ego
-         <int> <dbl>              <dbl>             <dbl>             <dbl>
-       1     1     2              103.               4.43             101. 
-       2     2     3              115.               4.64              90.8
-       3     3     4               99.3              4.46             106. 
-       4     4     5              114.               4.58              92.1
-       5     5     6               95.4              4.29             107. 
-       6     6     7               93.6              4.38             117. 
-       7     7     8              111.               4.54              83.7
-       8     8     9              120.               4.60              90.4
-       9     9    10              104.               4.50              87.3
-      10    10    11               63.4              3.80              66.9
-      # ... with 90 more rows, and 3 more variables: mean_log_err_ego <dbl>,
-      #   mean_dist_err_both <dbl>, mean_log_err_both <dbl>
+    {
+      "type": "list",
+      "attributes": {
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["id", "mean_dist_err_both", "mean_dist_err_NA", "mean_log_err_both", "mean_log_err_NA"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [101.91047849, 102.9245442, 102.56630821, 103.23325402, 101.25515534]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [101.91047849, 102.9245442, 102.56630821, 103.23325402, 101.25515534]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [4.37524342, 4.43191503, 4.47532532, 4.38499079, 4.41306199]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [4.37524342, 4.43191503, 4.47532532, 4.38499079, 4.41306199]
+        }
+      ]
+    }
 

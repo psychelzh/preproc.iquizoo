@@ -3,8 +3,7 @@
 #' Typically, two classes of spatial frames of reference: "egocentric" and
 #' "allocentric". The spatial acuity for both classes are calculated.
 #'
-#' @templateVar .by low
-#' @templateVar .input TRUE
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mean_dist_err_allo/mean_dist_err_ego}{Mean of the response distance
@@ -13,7 +12,11 @@
 #'     base \eqn{e}) response distance errors for allocentric and egocentric
 #'     conditions respectively.}
 #' @export
-refframe <- function(data, .by, .input) {
+refframe <- function(data, .by = NULL) {
+  .input <- list(name_type = "type", name_dist = "dist") |>
+    update_settings("preproc.input")
+  .extra <- list(type_allo = "allocentric", type_ego = "egocentric") |>
+    update_settings("preproc.extra")
   bind_rows(
     each = data,
     both = data,
@@ -22,8 +25,8 @@ refframe <- function(data, .by, .input) {
     mutate(
       type_cor = case_when(
         .data[["set"]] == "both" ~ "both",
-        .data[[.input[["name_type"]]]] == "allocentric" ~ "allo",
-        .data[[.input[["name_type"]]]] == "egocentric" ~ "ego"
+        .data[[.input[["name_type"]]]] == .extra$type_allo ~ "allo",
+        .data[[.input[["name_type"]]]] == .extra$type_ego ~ "ego"
       )
     ) |>
     group_by(across(all_of(c(.by, "type_cor")))) |>

@@ -1,40 +1,95 @@
 # Default behavior works
 
-    Code
-      preproc(data, nback, .by = "id")
-    Output
-      # A tibble: 100 x 5
-            id    pc   mrt dprime         c
-         <int> <dbl> <dbl>  <dbl>     <dbl>
-       1     1  0.4   966. -0.460 -5.55e-17
-       2     2  0.5  1313.  0      2.30e- 1
-       3     3  0.65  789.  0.703 -1.21e- 1
-       4     4  0.6  1082.  0.473 -2.36e- 1
-       5     5  0.5   971.  0      0       
-       6     6  0.5   881.  0      2.30e- 1
-       7     7  0.55 1474.  0.230  1.15e- 1
-       8     8  0.4   669. -0.460 -5.55e-17
-       9     9  0.45 1384. -0.243 -3.51e- 1
-      10    10  0.55  411.  0.230  1.15e- 1
-      # ... with 90 more rows
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["pc", "mrt", "dprime", "c"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1]
+        },
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        }
+      },
+      "value": [
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.53]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1190.81903473]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.14762737]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.02464431]
+        }
+      ]
+    }
 
-# Works with multiple grouping variables
+# Works with grouping variables
 
-    Code
-      preproc(data, nback, .by = c("id", "id1"))
-    Output
-      # A tibble: 100 x 6
-            id   id1    pc   mrt dprime         c
-         <int> <dbl> <dbl> <dbl>  <dbl>     <dbl>
-       1     1     2  0.4   966. -0.460 -5.55e-17
-       2     2     3  0.5  1313.  0      2.30e- 1
-       3     3     4  0.65  789.  0.703 -1.21e- 1
-       4     4     5  0.6  1082.  0.473 -2.36e- 1
-       5     5     6  0.5   971.  0      0       
-       6     6     7  0.5   881.  0      2.30e- 1
-       7     7     8  0.55 1474.  0.230  1.15e- 1
-       8     8     9  0.4   669. -0.460 -5.55e-17
-       9     9    10  0.45 1384. -0.243 -3.51e- 1
-      10    10    11  0.55  411.  0.230  1.15e- 1
-      # ... with 90 more rows
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["id", "pc", "mrt", "dprime", "c"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.4, 0.5, 0.65, 0.6, 0.5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [855.99832029, 1294.73293887, 1283.90868664, 715.51745684, 1286.75674691]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.45976824, 0, 0.70267324, 0.47278912, 0]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-5.55111512e-17, 0.22988412, -0.1214525, -0.23639456, -0]
+        }
+      ]
+    }
 

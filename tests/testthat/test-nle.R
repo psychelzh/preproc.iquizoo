@@ -1,6 +1,7 @@
 set.seed(1)
+n_users <- 5
 data <- expand_grid(
-  id = seq_len(100),
+  id = seq_len(n_users),
   n = 20
 ) |>
   uncount(n) |>
@@ -10,10 +11,15 @@ data <- expand_grid(
   )
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc(data, nle, .by = "id"))
+  expect_snapshot_value(
+    nle(data),
+    style = "json2"
+  )
 })
 
-test_that("Works with multiple grouping variables", {
-  data <- mutate(data, id1 = id + 1)
-  expect_snapshot(preproc(data, nle, .by = c("id", "id1")))
+test_that("Works with grouping variables", {
+  expect_snapshot_value(
+    nle(data, .by = "id"),
+    style = "json2"
+  )
 })

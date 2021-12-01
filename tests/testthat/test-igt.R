@@ -1,33 +1,23 @@
 set.seed(1)
-data <- tibble::tibble(
-  id = seq_len(100)
-) |>
+n_users <- 5
+data <- tibble::tibble(id = seq_len(n_users)) |>
   mutate(n = sample(50:100, n(), replace = TRUE)) |>
   uncount(n) |>
   mutate(
-    poolid = sample(LETTERS[1:4], n(), replace = TRUE),
+    poolid = sample(letters[1:4], n(), replace = TRUE),
     outcome = sample(c(0, 200, 400, 2000, 4000), n(), replace = TRUE)
   )
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc(data, igt, .by = "id"))
-})
-
-test_that("Works with multiple grouping variables", {
-  data <- mutate(data, id1 = id + 1)
-  expect_snapshot(preproc(data, igt, .by = c("id", "id1")))
-})
-
-test_that("Works when character case is messy", {
-  data_case_messy <- data |>
-    mutate(
-      poolid = recode(poolid, A = "a")
-    )
-  expect_silent(
-    case_messy <- preproc(data_case_messy, igt, .by = "id")
+  expect_snapshot_value(
+    igt(data),
+    style = "json2"
   )
-  expect_identical(
-    case_messy,
-    preproc(data, igt, .by = "id")
+})
+
+test_that("Works with grouping variables", {
+  expect_snapshot_value(
+    igt(data, .by = "id"),
+    style = "json2"
   )
 })

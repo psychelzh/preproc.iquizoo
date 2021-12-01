@@ -41,32 +41,9 @@ there.
 ## Advanced
 
 To deal with the various formats of datasets, some custom configurations
-are supported. There will be two basic configurations used:
+are supported. For now there are two most important `options()` used:
 
--   `game_info`: provides information of each game and its
-    pre-processing function name, so that one can easily match the
-    correct function to preprocess data for these games based on this
-    dataset. Now lives in [data.iquizoo
-    package](https://github.com/psychelzh/data.iquizoo).
--   `config_prep_fun`: provides configurations for each pre-processing
-    functions, because each lower-level pre-processing functions will
-    need pre-configured input and (optional) output variable names. Now
-    also lives in [data.iquizoo
-    package](https://github.com/psychelzh/data.iquizoo). But this
-    configuration can be partly customized with a json file. An example
-    is just as follows:
-
-``` json
-{
-    "bart": {
-        "input": {
-            "name_nhit": "nhit",
-            "name_feedback": "feedback"
-        },
-        "output": [
-            "mean_pumps",
-            "mean_pumps_raw"
-        ]
-    }
-}
-```
+-   `"preproc.input"`: input variable names in data to be used in
+    calculating the preformance indices.
+-   `"preproc.extra"`: extra values to configure certain key values for
+    variable names.

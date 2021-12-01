@@ -1,5 +1,5 @@
 set.seed(1)
-n_subject <- 100
+n_subject <- 5
 data_cancellation <- tibble::tibble(
   id = seq_len(n_subject),
   n = sample(100:300, n_subject, replace = TRUE)
@@ -29,14 +29,29 @@ data_fpt <- tibble::tibble(
   mutate(repetition = sample(c(0, 1), n(), replace = TRUE))
 
 test_that("Default behavior works on different types of input", {
-  expect_snapshot(preproc(data_cancellation, countcorrect, .by = "id"))
-  # character input of correctness
-  expect_snapshot(preproc(data_canteen, countcorrect, .by = "id"))
-  expect_snapshot(preproc(data_fpt, countcorrect, .by = "id"))
+  expect_snapshot_value(
+    countcorrect(data_cancellation),
+    style = "json2"
+  )
+  # works for other two types of accuracy variable name
+  with_options(
+    expect_snapshot_value(
+      countcorrect(data_canteen),
+      style = "json2"
+    ),
+    preproc.input = list(name_acc = "correctness")
+  )
+  with_options(
+    expect_snapshot_value(
+      countcorrect(data_fpt),
+      style = "json2"
+    ),
+    preproc.input = list(name_acc = "repetition")
+  )
 })
-test_that("Works with multiple grouping variables", {
-  data_cancellation <- mutate(data_cancellation, id1 = id + 1)
-  expect_snapshot(
-    preproc(data_cancellation, countcorrect, .by = c("id", "id1"))
+test_that("Works with grouping variables", {
+  expect_snapshot_value(
+    countcorrect(data_cancellation, .by = "id"),
+    style = "json2"
   )
 })

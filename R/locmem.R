@@ -5,8 +5,7 @@
 #' deal with the distance condition only. [locmem2()] deals with a special case
 #' when the response order and distance both matter.
 #'
-#' @templateVar .by low
-#' @templateVar .input TRUE
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{nc_loc}{Count of correct responses for location.}
@@ -16,7 +15,9 @@
 #'   \item{nc_order}{Count of correct responses for order. For [locmem2()]
 #'     only.}
 #' @export
-locmem <- function(data, .by, .input) {
+locmem <- function(data, .by = NULL) {
+  .input <- list(name_dist = "resplocdist") |>
+    update_settings("preproc.input")
   data |>
     mutate(
       dist = parse_char_resp(.data[[.input[["name_dist"]]]]),
@@ -34,8 +35,10 @@ locmem <- function(data, .by, .input) {
 
 #' @rdname locmem
 #' @export
-locmem2 <- function(data, .by, .input) {
-  loc_results <- locmem(data, .by, .input)
+locmem2 <- function(data, .by = NULL) {
+  .input <- list(name_acc_order = "respaccorder") |>
+    update_settings("preproc.input")
+  loc_results <- locmem(data, .by)
   nc_order <- data |>
     mutate(
       acc_order = parse_char_resp(.data[[.input[["name_acc_order"]]]]),
@@ -47,5 +50,9 @@ locmem2 <- function(data, .by, .input) {
       nc_order = sum(.data[["acc_order"]] == 1),
       .groups = "drop"
     )
-  left_join(loc_results, nc_order, by = .by)
+  if (!is.null(.by)) {
+    return(left_join(loc_results, nc_order, by = .by))
+  } else {
+    return(bind_cols(loc_results, nc_order))
+  }
 }

@@ -5,16 +5,14 @@
 \alias{locmem2}
 \title{Location Memory}
 \usage{
-locmem(data, .by, .input)
+locmem(data, .by = NULL)
 
-locmem2(data, .by, .input)
+locmem2(data, .by = NULL)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{.by}{The column name(s) in \code{data} used to be grouped by.}
-
-\item{.input}{The matched variable names for further processing. Typically set by the high-level function \code{\link[=preproc]{preproc()}}.}
+\item{.by}{The column name(s) in \code{data} used to be grouped by. If set to \code{NULL} (default), all data will be treated as from one subject and there will be no grouping columns in the value returned.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:

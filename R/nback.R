@@ -2,8 +2,7 @@
 #'
 #' A classical working memory test.
 #'
-#' @templateVar .by low
-#' @templateVar .input TRUE
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{pc}{Percentage of correct responses.}
@@ -11,16 +10,22 @@
 #'   \item{dprime}{Sensitivity index.}
 #'   \item{c}{Bias.}
 #' @export
-nback <- function(data, .by, .input) {
+nback <- function(data, .by = NULL) {
+  .input <- list(
+    name_type = "type",
+    name_acc = "acc",
+    name_rt = "rt"
+  ) |>
+    update_settings("preproc.input")
+  .extra <- list(type_filler = "filler", type_signal = "same") |>
+    update_settings("preproc.extra")
   data_cor <- data |>
     # type of "None" should be ignored
-    filter(
-      !.data[[.input[["name_type"]]]] %in% c("none", "filler")
-    ) |>
+    filter(!.data[[.input[["name_type"]]]] == .extra$type_filler) |>
     mutate(
       # standardize stimuli type
       type_cor = if_else(
-        .data[[.input[["name_type"]]]] %in% c("change", "target"),
+        .data[[.input[["name_type"]]]] == .extra$type_signal,
         "s", "n"
       ),
       # remove rt of 100 or less and rt from non-signal trials
@@ -41,5 +46,9 @@ nback <- function(data, .by, .input) {
     data_cor, .by, .input[["name_acc"]], "type_cor",
     keep_counts = FALSE
   )
-  left_join(basics, sdt, by = .by)
+  if (!is.null(.by)) {
+    return(left_join(basics, sdt, by = .by))
+  } else {
+    return(bind_cols(basics, sdt))
+  }
 }

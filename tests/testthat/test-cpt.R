@@ -1,5 +1,5 @@
 set.seed(1)
-n_subject <- 100
+n_subject <- 5
 data <- tibble::tibble(
   id = seq_len(n_subject),
   n = 300
@@ -7,7 +7,7 @@ data <- tibble::tibble(
   uncount(n) |>
   mutate(
     type = sample(
-      c("Random", "Aonly", "Bonly", "Target"),
+      c("random", "aonly", "bonly", "target"),
       n(),
       replace = TRUE
     ),
@@ -17,7 +17,7 @@ data <- tibble::tibble(
 data_perfect <- tibble::tibble(
   id = rep(1, 10),
   type = sample(
-    c("Random", "Aonly", "Bonly", "Target"),
+    c("random", "aonly", "bonly", "target"),
     10,
     replace = TRUE
   ),
@@ -31,7 +31,7 @@ data_dualtask <- tibble::tibble(
   uncount(n) |>
   mutate(
     stimtype = sample(
-      c("NonTarget", "Target"),
+      c("nontarget", "target"),
       n(),
       replace = TRUE
     ),
@@ -40,11 +40,22 @@ data_dualtask <- tibble::tibble(
   )
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc(data, cpt, .by = "id"))
+  expect_snapshot_value(
+    cpt(data),
+    style = "json2",
+    tolerance = 1e-5
+  )
 })
 
 test_that("Default behavior works for Dual Task Paradigm", {
-  expect_snapshot(preproc(data_dualtask, cpt, .by = "id"))
+  with_options(
+    expect_snapshot_value(
+      cpt(data_dualtask),
+      style = "json2",
+      tolerance = 1e-5
+    ),
+    preproc.input = list(name_type = "stimtype")
+  )
 })
 
 test_that("Default behavior works for Cancellation Paradigm", {
@@ -55,7 +66,7 @@ test_that("Default behavior works for Cancellation Paradigm", {
     uncount(n) |>
     mutate(
       cresp = sample(
-        c("Left", "Right"),
+        c("left", "right"),
         n(),
         replace = TRUE
       ),
@@ -64,32 +75,33 @@ test_that("Default behavior works for Cancellation Paradigm", {
     )
   data_clean <- data |>
     filter(acc != -1)
-  expect_snapshot(preproc(data, cpt, .by = "id"))
-  expect_identical(
-    preproc(data, cpt, .by = "id"),
-    preproc(data_clean, cpt, .by = "id")
+  with_options(
+    {
+      expect_snapshot_value(
+        cpt(data),
+        style = "json2",
+        tolerance = 1e-5
+      )
+      expect_identical(
+        cpt(data),
+        cpt(data_clean)
+      )
+    },
+    preproc.input = list(name_type = "cresp"),
+    preproc.extra = list(type_signal = "left")
   )
 })
 
 test_that("Works on perfect accuracy data (no `NA`s)", {
-  expect_snapshot(preproc(data_perfect, cpt, .by = "id"))
+  anyNA(cpt(data_perfect)) |>
+    expect_silent() |>
+    expect_false()
 })
 
-test_that("Works with multiple grouping variables", {
-  data <- mutate(data, id1 = id + 1)
-  expect_snapshot(preproc(data, cpt, .by = c("id", "id1")))
-})
-
-test_that("Works when character case is messy", {
-  data_case_messy <- data |>
-    mutate(
-      type = recode(type, Target = "target")
-    )
-  expect_silent(
-    case_messy <- preproc(data_case_messy, cpt, .by = "id")
-  )
-  expect_identical(
-    case_messy,
-    preproc(data, cpt, .by = "id")
+test_that("Works with grouping variables", {
+  expect_snapshot_value(
+    cpt(data, .by = "id"),
+    style = "json2",
+    tolerance = 1e-5
   )
 })
