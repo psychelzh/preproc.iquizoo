@@ -3,7 +3,8 @@
 ## Breaking Changes
 
 * Removed support for custom-defined json configuration file.
-* Added support to configure function behavior in `options()`, for now including input and output variables, and specific values for certain variables.
+* Added support to configure function behavior in `options()`, for now including input variable names in data and specific values for certain variables.
+* Now `preproc()` is removed because it is believed there is no place for it after this refactoring.
 
 # preproc.iquizoo 1.3.3
 
