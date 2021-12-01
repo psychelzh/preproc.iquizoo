@@ -1,40 +1,95 @@
 # Default behavior works
 
-    Code
-      preproc(data, symncmp, .by = "id")
-    Output
-      # A tibble: 100 x 4
-            id    pc   mrt dist_eff
-         <int> <dbl> <dbl>    <dbl>
-       1     1 0.542 1113.     19.7
-       2     2 0.472  883.    -68.5
-       3     3 0.444  793.    -45.4
-       4     4 0.569  969.    -53.5
-       5     5 0.5   1258.     35.9
-       6     6 0.389  986.    -84.4
-       7     7 0.472 1235.    284. 
-       8     8 0.486  954.    209. 
-       9     9 0.528  951.     73.0
-      10    10 0.556 1094.   -105. 
-      # ... with 90 more rows
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["id", "pc", "mrt", "dist_eff"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.54166667, 0.47222222, 0.44444444, 0.56944444, 0.5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [915.82433377, 910.22459947, 865.21856911, 784.53946098, 1108.45127908]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-111.21898819, -66.27699718, -86.66171062, -92.63997343, -19.74852742]
+        }
+      ]
+    }
 
 # Works with multiple grouping variables
 
-    Code
-      preproc(data, symncmp, .by = c("id", "id1"))
-    Output
-      # A tibble: 100 x 5
-            id   id1    pc   mrt dist_eff
-         <int> <dbl> <dbl> <dbl>    <dbl>
-       1     1     2 0.542 1113.     19.7
-       2     2     3 0.472  883.    -68.5
-       3     3     4 0.444  793.    -45.4
-       4     4     5 0.569  969.    -53.5
-       5     5     6 0.5   1258.     35.9
-       6     6     7 0.389  986.    -84.4
-       7     7     8 0.472 1235.    284. 
-       8     8     9 0.486  954.    209. 
-       9     9    10 0.528  951.     73.0
-      10    10    11 0.556 1094.   -105. 
-      # ... with 90 more rows
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["id", "id1", "pc", "mrt", "dist_eff"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [2, 3, 4, 5, 6]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.54166667, 0.47222222, 0.44444444, 0.56944444, 0.5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [915.82433377, 910.22459947, 865.21856911, 784.53946098, 1108.45127908]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-111.21898819, -66.27699718, -86.66171062, -92.63997343, -19.74852742]
+        }
+      ]
+    }
 

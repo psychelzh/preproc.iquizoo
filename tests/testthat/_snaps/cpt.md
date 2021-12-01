@@ -1,90 +1,265 @@
 # Default behavior works
 
-    Code
-      preproc(data, cpt, .by = "id")
-    Output
-      # A tibble: 100 x 8
-            id    nc   mrt  rtsd  dprime         c commissions omissions
-         <int> <int> <dbl> <dbl>   <dbl>     <dbl>       <int>     <int>
-       1     1   144  919.  788. -0.146   0.0457           116        40
-       2     2   146  814.  475. -0.0660 -0.000434         115        39
-       3     3   145  758.  478. -0.0874  0.00452          115        40
-       4     4   169  996.  819.  0.346  -0.0289           100        31
-       5     5   152  946.  745. -0.0335  0.0740           104        44
-       6     6   160 1312. 1015.  0.0682  0.0894           105        35
-       7     7   155  939.  634.  0.194  -0.114            113        32
-       8     8   160  827.  580.  0.183  -0.0182           104        36
-       9     9   133 1052.  739. -0.291   0.00758          126        41
-      10    10   137 1026.  739. -0.209  -0.00691          122        41
-      # ... with 90 more rows
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["id", "nc", "mrt", "rtsd", "dprime", "c", "commissions", "omissions"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [130, 163, 157, 148, 147]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1035.84057782, 1002.28863829, 992.9718147, 1084.27932573, 873.7722465]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [759.2079376, 690.87064533, 742.23007724, 971.93297203, 616.08731374]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.27838214, 0.16664693, -0.03734181, -0.06689328, 0.02199651]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.05440621, 0.0507641, 0.15900901, 0.03344664, -0.07972707]
+        },
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [131, 100, 99, 113, 115]
+        },
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [39, 37, 44, 39, 38]
+        }
+      ]
+    }
 
 # Default behavior works for Dual Task Paradigm
 
-    Code
-      preproc(data_dualtask, cpt, .by = "id")
-    Output
-      # A tibble: 100 x 8
-            id    nc   mrt  rtsd  dprime       c commissions omissions
-         <int> <int> <dbl> <dbl>   <dbl>   <dbl>       <int>     <int>
-       1     1   148 1037.  793. -0.0249 -0.0909          85        67
-       2     2   131 1203.  878. -0.311   0.0863          76        93
-       3     3   154  998.  721.  0.0692 -0.0346          78        68
-       4     4   139 1023.  878. -0.188   0.0467          82        79
-       5     5   162 1063.  748.  0.203   0.0374          64        74
-       6     6   142  969.  740. -0.129  -0.0177          89        69
-       7     7   153  843.  666.  0.0499 -0.0582          77        70
-       8     8   158 1170. 1018.  0.132   0.0158          71        71
-       9     9   148 1019.  795. -0.0284  0.0407          69        83
-      10    10   161  916.  799.  0.183   0.0340          67        72
-      # ... with 90 more rows
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["id", "nc", "mrt", "rtsd", "dprime", "c", "commissions", "omissions"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [166, 154, 162, 153, 143]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [788.61581459, 885.85981031, 974.25534425, 917.72534687, 972.10718704]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [533.3171288, 639.60886246, 746.63054394, 691.35260719, 706.79607264]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.27457373, 0.06565765, 0.19612797, 0.04984867, -0.15615334]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.08937118, 0.00634726, -0.12347174, 0.04152528, 0.1999109]
+        },
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [75, 77, 75, 71, 74]
+        },
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [59, 69, 63, 76, 83]
+        }
+      ]
+    }
 
 # Default behavior works for Cancellation Paradigm
 
-    Code
-      preproc(data, cpt, .by = "id")
-    Output
-      # A tibble: 100 x 8
-            id    nc   mrt  rtsd  dprime        c commissions omissions
-         <int> <int> <dbl> <dbl>   <dbl>    <dbl>       <int>     <int>
-       1     1   103 1100.  747.  0.0458  0.0780           51        47
-       2     2   106 1125.  858.  0.106   0.0907           46        51
-       3     3    94  979.  755. -0.173  -0.00510          51        57
-       4     4   119 1032.  880.  0.612   0.160            29        45
-       5     5   113  808.  508.  0.258  -0.0180           51        41
-       6     6    92 1031.  792. -0.161  -0.0263           57        48
-       7     7    98  866.  721. -0.103  -0.0514           59        48
-       8     8   113  879.  664.  0.224   0.112            39        57
-       9     9    99  827.  540. -0.135   0.141            48        63
-      10    10    89 1197.  783. -0.159  -0.0410           51        50
-      # ... with 90 more rows
-
-# Works on perfect accuracy data (no `NA`s)
-
-    Code
-      preproc(data_perfect, cpt, .by = "id")
-    Output
-      # A tibble: 1 x 8
-           id    nc   mrt  rtsd dprime     c commissions omissions
-        <dbl> <int> <dbl> <dbl>  <dbl> <dbl>       <int>     <int>
-      1     1    10  810.  849.   2.56 0.313           0         0
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["id", "nc", "mrt", "rtsd", "dprime", "c", "commissions", "omissions"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [107, 112, 102, 118, 109]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [922.74983746, 1060.55815524, 887.63693028, 889.15041428, 897.31861071]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [806.51358677, 881.60157072, 668.1865335, 640.31349294, 620.94374358]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.08567505, 0.24634926, 0.05100008, 0.15067825, 0.34506701]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.05466152, -0.02933134, 0.01367605, -0.16318396, 0.04400062]
+        },
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [47, 49, 46, 53, 43]
+        },
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [53, 43, 52, 49, 39]
+        }
+      ]
+    }
 
 # Works with multiple grouping variables
 
-    Code
-      preproc(data, cpt, .by = c("id", "id1"))
-    Output
-      # A tibble: 100 x 9
-            id   id1    nc   mrt  rtsd  dprime         c commissions omissions
-         <int> <dbl> <int> <dbl> <dbl>   <dbl>     <dbl>       <int>     <int>
-       1     1     2   144  919.  788. -0.146   0.0457           116        40
-       2     2     3   146  814.  475. -0.0660 -0.000434         115        39
-       3     3     4   145  758.  478. -0.0874  0.00452          115        40
-       4     4     5   169  996.  819.  0.346  -0.0289           100        31
-       5     5     6   152  946.  745. -0.0335  0.0740           104        44
-       6     6     7   160 1312. 1015.  0.0682  0.0894           105        35
-       7     7     8   155  939.  634.  0.194  -0.114            113        32
-       8     8     9   160  827.  580.  0.183  -0.0182           104        36
-       9     9    10   133 1052.  739. -0.291   0.00758          126        41
-      10    10    11   137 1026.  739. -0.209  -0.00691          122        41
-      # ... with 90 more rows
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["id", "id1", "nc", "mrt", "rtsd", "dprime", "c", "commissions", "omissions"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [2, 3, 4, 5, 6]
+        },
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [130, 163, 157, 148, 147]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1035.84057782, 1002.28863829, 992.9718147, 1084.27932573, 873.7722465]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [759.2079376, 690.87064533, 742.23007724, 971.93297203, 616.08731374]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.27838214, 0.16664693, -0.03734181, -0.06689328, 0.02199651]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.05440621, 0.0507641, 0.15900901, 0.03344664, -0.07972707]
+        },
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [131, 100, 99, 113, 115]
+        },
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [39, 37, 44, 39, 38]
+        }
+      ]
+    }
 

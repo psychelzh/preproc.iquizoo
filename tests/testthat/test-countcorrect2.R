@@ -1,7 +1,6 @@
 set.seed(1)
-data <- tibble::tibble(
-  id = seq_len(100)
-) |>
+n_users <- 5
+data <- tibble::tibble(id = seq_len(n_users)) |>
   mutate(n = sample(1:2, n(), replace = TRUE)) |>
   uncount(n) |>
   mutate(
@@ -10,10 +9,16 @@ data <- tibble::tibble(
   )
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc(data, countcorrect2, .by = "id"))
+  expect_snapshot_value(
+    countcorrect2(data, .by = "id"),
+    style = "json2"
+  )
 })
 
 test_that("Works with multiple grouping variables", {
   data <- mutate(data, id1 = id + 1)
-  expect_snapshot(preproc(data, countcorrect2, .by = c("id", "id1")))
+  expect_snapshot_value(
+    countcorrect2(data, .by = c("id", "id1")),
+    style = "json2"
+  )
 })

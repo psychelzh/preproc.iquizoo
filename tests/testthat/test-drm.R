@@ -1,46 +1,39 @@
 set.seed(1)
-n_subject <- 100
+n_subject <- 5
 data <- expand_grid(
   id = seq_len(n_subject),
   tibble::tribble(
     ~type, ~n,
-    "Filler", 10,
-    "Foil", 30,
-    "Lure", 30,
-    "Old", 30
+    "filler", 10,
+    "foil", 30,
+    "lure", 30,
+    "old", 30
   ) |>
     uncount(n)
 ) |>
   mutate(
-    resp = sample(c("New", "Old"), n(), replace = TRUE),
+    resp = sample(c("new", "old"), n(), replace = TRUE),
     acc = ifelse(
-      (type == "Old" & resp == "Old") |
-        (type %in% c("Foil", "Lure") & resp == "New"),
+      (type == "old" & resp == "old") |
+        (type %in% c("foil", "lure") & resp == "new"),
       1, 0
     ),
     rt = rexp(n(), 0.001)
   )
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc(data, drm, .by = "id"))
+  expect_snapshot_value(
+    drm(data, .by = "id"),
+    style = "json2",
+    tolerance = 1e-5
+  )
 })
 
 test_that("Works with multiple grouping variables", {
   data <- mutate(data, id1 = id + 1)
-  expect_snapshot(preproc(data, drm, .by = c("id", "id1")))
-})
-
-test_that("Works when character case is messy", {
-  data_case_messy <- data |>
-    mutate(
-      resp = recode(resp, New = "new"),
-      type = recode(type, Old = "old")
-    )
-  expect_silent(
-    case_messy <- preproc(data_case_messy, drm, .by = "id")
-  )
-  expect_identical(
-    case_messy,
-    preproc(data, drm, .by = "id")
+  expect_snapshot_value(
+    drm(data, .by = c("id", "id1")),
+    style = "json2",
+    tolerance = 1e-5
   )
 })

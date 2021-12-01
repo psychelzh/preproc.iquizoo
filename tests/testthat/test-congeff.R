@@ -1,5 +1,5 @@
 set.seed(1)
-n_subject <- 100
+n_subject <- 5
 data <- expand_grid(
   id = seq_len(n_subject),
   n = sample(0:60, n_subject, replace = TRUE)
@@ -7,7 +7,7 @@ data <- expand_grid(
   uncount(n, .id = "trial") |>
   mutate(
     type = sample(
-      c("Incongruent", "Congruent"),
+      c("incongruent", "congruent"),
       n(),
       replace = TRUE
     ),
@@ -16,48 +16,50 @@ data <- expand_grid(
   )
 data_miss_cond <- tibble::tibble(
   id = rep(1:2, each = 8),
-  type = "Incongruent",
+  type = "incongruent",
   acc = sample(c(0, 1), 16, replace = TRUE),
   rt = rexp(16, 0.001)
 )
 data_part_miss_cond <- tibble::tibble(
   id = rep(1:2, each = 8),
   type = c(
-    rep("Incongruent", 8),
-    rep("Incongruent", 4),
-    rep("Congruent", 4)
+    rep("incongruent", 8),
+    rep("incongruent", 4),
+    rep("congruent", 4)
   ),
   acc = sample(c(0, 1), 16, replace = TRUE),
   rt = rexp(16, 0.001)
 )
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc(data, congeff, .by = "id"))
+  expect_snapshot_value(
+    congeff(data, .by = "id"),
+    style = "json2",
+    tolerance = 1e-5
+  )
 })
 
 test_that("All single condition", {
-  expect_snapshot(preproc(data_miss_cond, congeff, .by = "id"))
+  expect_snapshot_value(
+    congeff(data_miss_cond, .by = "id"),
+    style = "json2",
+    tolerance = 1e-5
+  )
 })
 
 test_that("Part subject single condition", {
-  expect_snapshot(preproc(data_part_miss_cond, congeff, .by = "id"))
+  expect_snapshot_value(
+    congeff(data_part_miss_cond, .by = "id"),
+    style = "json2",
+    tolerance = 1e-5
+  )
 })
 
 test_that("Works with multiple grouping variables", {
   data <- mutate(data, id1 = id + 1)
-  expect_snapshot(preproc(data, congeff, .by = c("id", "id1")))
-})
-
-test_that("Works when character case is messy", {
-  data_case_messy <- data |>
-    mutate(
-      type = recode(type, Congruent = "congruent")
-    )
-  expect_silent(
-    case_messy <- preproc(data_case_messy, congeff, .by = "id")
-  )
-  expect_identical(
-    case_messy,
-    preproc(data, congeff, .by = "id")
+  expect_snapshot_value(
+    congeff(data, .by = c("id", "id1")),
+    style = "json2",
+    tolerance = 1e-5
   )
 })

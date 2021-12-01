@@ -1,40 +1,105 @@
 # Default behavior works
 
-    Code
-      preproc(data, stopsignal, .by = "id")
-    Output
-      # A tibble: 100 x 5
-            id pc_all pc_go medrt_go  ssrt
-         <int>  <dbl> <dbl>    <dbl> <dbl>
-       1     1  0.519 0.517     777.  420.
-       2     2  0.438 0.425     797.  338.
-       3     3  0.525 0.483     804.  479.
-       4     4  0.506 0.475     626.  282.
-       5     5  0.525 0.533     610.  310.
-       6     6  0.538 0.517     677.  336.
-       7     7  0.512 0.55      658.  272.
-       8     8  0.506 0.5       979.  682.
-       9     9  0.419 0.442     728.  171.
-      10    10  0.475 0.5       730.  204.
-      # ... with 90 more rows
+    {
+      "type": "list",
+      "attributes": {
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["id", "pc_all", "pc_go", "medrt_go", "ssrt"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.51875, 0.4375, 0.525, 0.50625, 0.525]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.51666667, 0.425, 0.48333333, 0.475, 0.53333333]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [781.74856824, 996.6744361, 660.24329467, 745.25551284, 777.82834289]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [340.4291238, 412.58352701, 215.99726292, 282.1144872, 352.47120003]
+        }
+      ]
+    }
 
 # Works with multiple grouping variables
 
-    Code
-      preproc(data, stopsignal, .by = c("id", "id1"))
-    Output
-      # A tibble: 100 x 6
-            id   id1 pc_all pc_go medrt_go  ssrt
-         <int> <dbl>  <dbl> <dbl>    <dbl> <dbl>
-       1     1     2  0.519 0.517     777.  420.
-       2     2     3  0.438 0.425     797.  338.
-       3     3     4  0.525 0.483     804.  479.
-       4     4     5  0.506 0.475     626.  282.
-       5     5     6  0.525 0.533     610.  310.
-       6     6     7  0.538 0.517     677.  336.
-       7     7     8  0.512 0.55      658.  272.
-       8     8     9  0.506 0.5       979.  682.
-       9     9    10  0.419 0.442     728.  171.
-      10    10    11  0.475 0.5       730.  204.
-      # ... with 90 more rows
+    {
+      "type": "list",
+      "attributes": {
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["id", "id1", "pc_all", "pc_go", "medrt_go", "ssrt"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [2, 3, 4, 5, 6]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.51875, 0.4375, 0.525, 0.50625, 0.525]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.51666667, 0.425, 0.48333333, 0.475, 0.53333333]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [781.74856824, 996.6744361, 660.24329467, 745.25551284, 777.82834289]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [340.4291238, 412.58352701, 215.99726292, 282.1144872, 352.47120003]
+        }
+      ]
+    }
 
