@@ -1,3 +1,9 @@
+# preproc.iquizoo 2.0.1
+
+## Internal
+
+* Remove `where` from global variables.
+
 # preproc.iquizoo 2.0.0
 
 ## Breaking Changes
