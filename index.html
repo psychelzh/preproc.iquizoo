@@ -20,6 +20,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -32,18 +34,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">preproc.iquizoo</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -53,7 +49,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/psychelzh/preproc.iquizoo/">
+  <a href="https://github.com/psychelzh/preproc.iquizoo/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -70,99 +66,98 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="preprociquizoo" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#preprociquizoo" class="anchor"></a>preproc.iquizoo</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="preprociquizoo">preproc.iquizoo<a class="anchor" aria-label="anchor" href="#preprociquizoo"></a>
+</h1></div>
 <!-- badges: start -->
 
 <p>The goal of preproc.iquizoo is to provide pre-processing functions for IQUIZOO original data.</p>
-<div id="background" class="section level2">
-<h2 class="hasAnchor">
-<a href="#background" class="anchor"></a>Background</h2>
+<div class="section level2">
+<h2 id="background">Background<a class="anchor" aria-label="anchor" href="#background"></a>
+</h2>
 <p>IQUIZOO is now a developing company shipped with a bunch of games assessing psychological constructs. The original data from these games have various formats, and this package tries to provide data preprocessing APIs for them.</p>
 </div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the development version from <a href="https://github.com/">GitHub</a> with:</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>You can install the development version from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"psychelzh/preproc.iquizoo"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
-<p>This package is best used in company with <a href="https://github.com/psychelzh/tarflow.iquizoo">tarflow.iquizoo</a> package. Read the <a href="https://psychelzh.github.io/tarflow.iquizoo">documentation</a> there.</p>
+<div class="section level2">
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h2>
+<p>This package is best used in company with <a href="https://github.com/psychelzh/tarflow.iquizoo" class="external-link">tarflow.iquizoo</a> package. Read the <a href="https://psychelzh.github.io/tarflow.iquizoo" class="external-link">documentation</a> there.</p>
 </div>
-<div id="advanced" class="section level2">
-<h2 class="hasAnchor">
-<a href="#advanced" class="anchor"></a>Advanced</h2>
-<p>To deal with the various formats of datasets, some custom configurations are supported. There will be two basic configurations used:</p>
+<div class="section level2">
+<h2 id="advanced">Advanced<a class="anchor" aria-label="anchor" href="#advanced"></a>
+</h2>
+<p>To deal with the various formats of datasets, some custom configurations are supported. For now there are two most important <code><a href="https://rdrr.io/r/base/options.html" class="external-link">options()</a></code> used:</p>
 <ul>
 <li>
-<code>game_info</code>: provides information of each game and its pre-processing function name, so that one can easily match the correct function to preprocess data for these games based on this dataset. Now lives in <a href="https://github.com/psychelzh/data.iquizoo">data.iquizoo package</a>.</li>
+<code>"preproc.input"</code>: input variable names in data to be used in calculating the preformance indices.</li>
 <li>
-<code>config_prep_fun</code>: provides configurations for each pre-processing functions, because each lower-level pre-processing functions will need pre-configured input and (optional) output variable names. Now also lives in <a href="https://github.com/psychelzh/data.iquizoo">data.iquizoo package</a>. But this configuration can be partly customized with a json file. An example is just as follows:</li>
+<code>"preproc.extra"</code>: extra values to configure certain key values for variable names.</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">{</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>    <span class="dt">"bart"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a>        <span class="dt">"input"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a>            <span class="dt">"name_nhit"</span><span class="fu">:</span> <span class="st">"nhit"</span><span class="fu">,</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>            <span class="dt">"name_feedback"</span><span class="fu">:</span> <span class="st">"feedback"</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a>        <span class="fu">},</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a>        <span class="dt">"output"</span><span class="fu">:</span> <span class="ot">[</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a>            <span class="st">"mean_pumps"</span><span class="ot">,</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a>            <span class="st">"mean_pumps_raw"</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a>        <span class="ot">]</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a>    <span class="fu">}</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="fu">}</span></span></code></pre></div>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/psychelzh/preproc.iquizoo/">https://​github.com/​psychelzh/​preproc.iquizoo/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/psychelzh/preproc.iquizoo/issues">https://​github.com/​psychelzh/​preproc.iquizoo/​issues</a>
-</li>
-</ul>
-</div>
-<div class="license">
-<h2>License</h2>
-<ul class="list-unstyled">
-<li>
-<a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
-</li>
-</ul>
-</div>
-<div class="developers">
-<h2>Developers</h2>
-<ul class="list-unstyled">
-<li>Liang Zhang <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-9041-1150" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="https://github.com/psychelzh/preproc.iquizoo/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/psychelzh/preproc.iquizoo/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="license">
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/psychelzh/preproc.iquizoo/actions"><img src="https://github.com/psychelzh/preproc.iquizoo/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://codecov.io/gh/psychelzh/preproc.iquizoo?branch=main"><img src="https://codecov.io/gh/psychelzh/preproc.iquizoo/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://github.com/psychelzh/preproc.iquizoo/actions"><img src="https://github.com/psychelzh/preproc.iquizoo/workflows/lint/badge.svg" alt="lint"></a></li>
+<li>
+<a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
+</li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing preproc.iquizoo</a></li>
+</ul>
 </div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>Liang Zhang <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-9041-1150" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+</ul>
+</div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/psychelzh/preproc.iquizoo/actions" class="external-link"><img src="https://github.com/psychelzh/preproc.iquizoo/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://codecov.io/gh/psychelzh/preproc.iquizoo?branch=main" class="external-link"><img src="https://codecov.io/gh/psychelzh/preproc.iquizoo/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://github.com/psychelzh/preproc.iquizoo/actions" class="external-link"><img src="https://github.com/psychelzh/preproc.iquizoo/workflows/lint/badge.svg" alt="lint"></a></li>
+</ul>
+</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Liang Zhang.</p>
+  <p></p>
+<p>Developed by Liang Zhang.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.</p>
 </div>
 
       </footer>
@@ -170,6 +165,8 @@
 
   
 
+
+  
 
   </body>
 </html>

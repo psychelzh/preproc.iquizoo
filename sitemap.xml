@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://psychelzh.github.io/preproc.iquizoo/404.html</loc>
+  </url>
+  <url>
+    <loc>https://psychelzh.github.io/preproc.iquizoo/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://psychelzh.github.io/preproc.iquizoo/authors.html</loc>
+  </url>
+  <url>
     <loc>https://psychelzh.github.io/preproc.iquizoo/index.html</loc>
+  </url>
+  <url>
+    <loc>https://psychelzh.github.io/preproc.iquizoo/news/index.html</loc>
   </url>
   <url>
     <loc>https://psychelzh.github.io/preproc.iquizoo/reference/bart.html</loc>
@@ -34,10 +46,10 @@
     <loc>https://psychelzh.github.io/preproc.iquizoo/reference/drm.html</loc>
   </url>
   <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/get_data_vars.html</loc>
+    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/igt.html</loc>
   </url>
   <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/igt.html</loc>
+    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/index.html</loc>
   </url>
   <url>
     <loc>https://psychelzh.github.io/preproc.iquizoo/reference/jlo.html</loc>
@@ -47,9 +59,6 @@
   </url>
   <url>
     <loc>https://psychelzh.github.io/preproc.iquizoo/reference/london.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/match_data_vars.html</loc>
   </url>
   <url>
     <loc>https://psychelzh.github.io/preproc.iquizoo/reference/multisense.html</loc>
@@ -67,7 +76,7 @@
     <loc>https://psychelzh.github.io/preproc.iquizoo/reference/parse_char_resp.html</loc>
   </url>
   <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/preproc.html</loc>
+    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/preproc.iquizoo.html</loc>
   </url>
   <url>
     <loc>https://psychelzh.github.io/preproc.iquizoo/reference/refframe.html</loc>
@@ -86,5 +95,8 @@
   </url>
   <url>
     <loc>https://psychelzh.github.io/preproc.iquizoo/reference/symncmp.html</loc>
+  </url>
+  <url>
+    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/update_settings.html</loc>
   </url>
 </urlset>
