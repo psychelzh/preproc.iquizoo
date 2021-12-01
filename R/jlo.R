@@ -3,7 +3,7 @@
 #' This test is about visuo-spatial skills. For more details, read [this
 #' introduction](https://en.wikipedia.org/wiki/Judgment_of_Line_Orientation).
 #'
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{nc}{Count of correct responses.}
@@ -11,7 +11,7 @@
 #'   \item{mean_log_err}{Mean of the log-transformed (of base 2) response angle
 #'     errors.}
 #' @export
-jlo <- function(data, .by) {
+jlo <- function(data, .by = NULL) {
   .input <- list(name_resp = "resp", name_angle = "angle", name_acc = "acc") |>
     update_settings("preproc.input")
   .extra <- list(resp_anticlock = "left", resp_clockwise = "right") |>

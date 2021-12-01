@@ -2,7 +2,7 @@
 #'
 #' A classical test on inhibition skills.
 #'
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] with the following variables:
 #'   \item{pc_all}{Percent of correct for all the responses.}
@@ -10,7 +10,7 @@
 #'   \item{medrt_go}{Median reaction time (ms) of go trials.}
 #'   \item{ssrt}{Stop signal reaction time (ms).}
 #' @export
-stopsignal <- function(data, .by) {
+stopsignal <- function(data, .by = NULL) {
   .input <- list(
     name_type = "type",
     name_ssd = "ssd",
@@ -52,7 +52,11 @@ stopsignal <- function(data, .by) {
       )
     ) |>
     ungroup()
-  left_join(indices_from_acc, indices_from_rt, by = .by)
+  if (!is.null(.by)) {
+    return(left_join(indices_from_acc, indices_from_rt, by = .by))
+  } else {
+    return(bind_cols(indices_from_acc, indices_from_rt))
+  }
 }
 
 .calc_ssrt <- function(data, name_type, name_acc, name_rt, name_ssd, type_go) {

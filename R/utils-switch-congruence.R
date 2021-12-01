@@ -2,7 +2,7 @@
 #'
 #' Utility function to calculate general and specific switch cost.
 #'
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @templateVar name_rt TRUE
 #' @templateVar name_acc TRUE
 #' @template params-template
@@ -74,7 +74,7 @@ calc_switch_cost <- function(data,
 #'
 #' Utility function to calculate congruence effect sizes.
 #'
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @templateVar name_rt TRUE
 #' @templateVar name_acc TRUE
 #' @template params-template

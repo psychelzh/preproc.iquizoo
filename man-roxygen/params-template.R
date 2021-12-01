@@ -1,5 +1,4 @@
 #' @param data Raw data of class `data.frame`.
-#' <%=ifelse(exists(".by"), paste("@param .by The column name(s) in `data` used to be grouped by.", switch(.by, low = "", high = "If set to `NULL` (default), all data will be treated as from one subject and there will be no grouping columns in the value returned.")), "") %>
-#' <%=ifelse(exists(".input") && .input, "@param .input The matched variable names for further processing. Typically set by the high-level function [preproc()].", "") %>
+#' <%=ifelse(exists(".by") && .by, "@param .by The column name(s) in `data` used to be grouped by. If set to `NULL` (default), all data will be treated as from one subject and there will be no grouping columns in the value returned.", "") %>
 #' <%=ifelse(exists("name_acc") && name_acc, "@param name_acc The column name of the `data` input whose values are user's correctness, in which is a `numeric` vector so coded that 1 means scoring correct, 0 means scoring incorrect, and that -1 means no response is made.", "") %>
 #' <%=ifelse(exists("name_rt") && name_rt, "@param name_rt The column name of the `data` input whose values are user's reaction time, in which is a `numeric` vector with `NA` values representing abnormal reaction times.", "") %>

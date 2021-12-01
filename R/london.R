@@ -2,14 +2,14 @@
 #'
 #' A classical test on problem solving.
 #'
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{total_score}{Total score defined .by the game itself.}
 #'   \item{mean_level}{Mean level reached.}
 #'   \item{level_score}{Sum of mean score (a ratio) for each level.}
 #' @export
-london <- function(data, .by) {
+london <- function(data, .by = NULL) {
   .input <- list(
     name_level = "level",
     name_score = "score",
@@ -46,5 +46,9 @@ london <- function(data, .by) {
       level_score = sum(.data[["score"]]),
       .groups = "drop"
     )
-  left_join(total_score, level_scores, by = .by)
+  if (!is.null(.by)) {
+    return(left_join(total_score, level_scores, by = .by))
+  } else {
+    return(bind_cols(total_score, level_scores))
+  }
 }

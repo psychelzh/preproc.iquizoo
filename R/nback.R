@@ -2,7 +2,7 @@
 #'
 #' A classical working memory test.
 #'
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{pc}{Percentage of correct responses.}
@@ -10,7 +10,7 @@
 #'   \item{dprime}{Sensitivity index.}
 #'   \item{c}{Bias.}
 #' @export
-nback <- function(data, .by) {
+nback <- function(data, .by = NULL) {
   .input <- list(
     name_type = "type",
     name_acc = "acc",
@@ -46,5 +46,9 @@ nback <- function(data, .by) {
     data_cor, .by, .input[["name_acc"]], "type_cor",
     keep_counts = FALSE
   )
-  left_join(basics, sdt, by = .by)
+  if (!is.null(.by)) {
+    return(left_join(basics, sdt, by = .by))
+  } else {
+    return(bind_cols(basics, sdt))
+  }
 }

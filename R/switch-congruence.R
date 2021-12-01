@@ -9,7 +9,7 @@
 #' calculates both.
 #'
 #' @name switch-congruence
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] with the following variables:
 #'
@@ -42,7 +42,7 @@ NULL
 
 #' @rdname switch-congruence
 #' @export
-complexswitch <- function(data, .by) {
+complexswitch <- function(data, .by = NULL) {
   .input <- list(
     name_block = "block",
     name_cong = "stimtype",
@@ -103,12 +103,16 @@ complexswitch <- function(data, .by) {
     name_acc = .input[["name_acc"]],
     name_rt = "rt_cor"
   )
-  left_join(cong_eff, switch_cost, by = .by)
+  if (!is.null(.by)) {
+    return(left_join(cong_eff, switch_cost, by = .by))
+  } else {
+    return(bind_cols(cong_eff, switch_cost))
+  }
 }
 
 #' @rdname switch-congruence
 #' @export
-congeff <- function(data, .by) {
+congeff <- function(data, .by = NULL) {
   .input <- list(
     name_cong = "type",
     name_acc = "acc",
@@ -143,7 +147,7 @@ congeff <- function(data, .by) {
 
 #' @rdname switch-congruence
 #' @export
-switchcost <- function(data, .by) {
+switchcost <- function(data, .by = NULL) {
   .input <- list(
     name_block = "block",
     name_task = "task",

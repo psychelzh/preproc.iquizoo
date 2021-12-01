@@ -1,62 +1,235 @@
 # Default behavior works
 
-    Code
-      preproc(data, congeff, .by = "id")
-    Output
-      # A tibble: 100 x 7
-            id mrt_inc mrt_con pc_inc pc_con cong_eff_rt cong_eff_pc
-         <int>   <dbl>   <dbl>  <dbl>  <dbl>       <dbl>       <dbl>
-       1     1    960.    927.  0.489  0.495       33.1     0.00533 
-       2     2    903.    998.  0.501  0.511      -95.2     0.0105  
-       3     3    959.    937.  0.483  0.490       22.6     0.00763 
-       4     4    951.    918.  0.478  0.511       33.5     0.0329  
-       5     5    963.    926.  0.498  0.499       37.3     0.00127 
-       6     6    945.    952.  0.489  0.486       -6.78   -0.00280 
-       7     7    979.    983.  0.512  0.468       -3.70   -0.0441  
-       8     8    910.    959.  0.485  0.486      -48.7     0.000999
-       9     9    975.    965.  0.505  0.496       10.1    -0.00864 
-      10    10    992.    954.  0.483  0.492       38.9     0.00963 
-      # ... with 90 more rows
+    {
+      "type": "list",
+      "attributes": {
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["mrt_inc", "mrt_con", "pc_inc", "pc_con", "cong_eff_rt", "cong_eff_pc"]
+        }
+      },
+      "value": [
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1025.12018685]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1050.72008589]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.5347432]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.49529781]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-25.59989904]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.0394454]
+        }
+      ]
+    }
+
+# Works with grouping variables
+
+    {
+      "type": "list",
+      "attributes": {
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["id", "mrt_inc", "mrt_con", "pc_inc", "pc_con", "cong_eff_rt", "cong_eff_pc"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1145.98131059, 1079.37361442, 1057.95448819, 1018.10626716, 854.95858122]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1001.84351284, 994.58091467, 983.95728312, 1101.49481704, 1059.68845325]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.5, 0.57971014, 0.50819672, 0.58441558, 0.48333333]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.51515152, 0.49180328, 0.50724638, 0.43396226, 0.51428571]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [144.13779775, 84.79269975, 73.99720507, -83.38854988, -204.72987203]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.01515152, -0.08790687, -0.00095034, -0.15045332, 0.03095238]
+        }
+      ]
+    }
 
 # All single condition
 
-    Code
-      preproc(data_miss_cond, congeff, .by = "id")
-    Output
-      # A tibble: 2 x 7
-           id mrt_inc mrt_con pc_inc pc_con cong_eff_rt cong_eff_pc
-        <int>   <dbl>   <dbl>  <dbl>  <dbl>       <dbl>       <dbl>
-      1     1    866.      NA  0.875     NA          NA          NA
-      2     2    519.      NA  0.5       NA          NA          NA
+    {
+      "type": "list",
+      "attributes": {
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["id", "mrt_inc", "mrt_con", "pc_inc", "pc_con", "cong_eff_rt", "cong_eff_pc"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [994.96498335, 2193.30584558]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NA", "NA"]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.75, 0.375]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NA", "NA"]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NA", "NA"]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NA", "NA"]
+        }
+      ]
+    }
 
 # Part subject single condition
 
-    Code
-      preproc(data_part_miss_cond, congeff, .by = "id")
-    Output
-      # A tibble: 2 x 7
-           id mrt_inc mrt_con pc_inc pc_con cong_eff_rt cong_eff_pc
-        <int>   <dbl>   <dbl>  <dbl>  <dbl>       <dbl>       <dbl>
-      1     1    845.     NA    0.25   NA           NA        NA   
-      2     2    631.    526.   0.75    0.5        105.       -0.25
-
-# Works with multiple grouping variables
-
-    Code
-      preproc(data, congeff, .by = c("id", "id1"))
-    Output
-      # A tibble: 100 x 8
-            id   id1 mrt_inc mrt_con pc_inc pc_con cong_eff_rt cong_eff_pc
-         <int> <dbl>   <dbl>   <dbl>  <dbl>  <dbl>       <dbl>       <dbl>
-       1     1     2    960.    927.  0.489  0.495       33.1     0.00533 
-       2     2     3    903.    998.  0.501  0.511      -95.2     0.0105  
-       3     3     4    959.    937.  0.483  0.490       22.6     0.00763 
-       4     4     5    951.    918.  0.478  0.511       33.5     0.0329  
-       5     5     6    963.    926.  0.498  0.499       37.3     0.00127 
-       6     6     7    945.    952.  0.489  0.486       -6.78   -0.00280 
-       7     7     8    979.    983.  0.512  0.468       -3.70   -0.0441  
-       8     8     9    910.    959.  0.485  0.486      -48.7     0.000999
-       9     9    10    975.    965.  0.505  0.496       10.1    -0.00864 
-      10    10    11    992.    954.  0.483  0.492       38.9     0.00963 
-      # ... with 90 more rows
+    {
+      "type": "list",
+      "attributes": {
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["id", "mrt_inc", "mrt_con", "pc_inc", "pc_con", "cong_eff_rt", "cong_eff_pc"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [239.78148792, 871.11469454]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NA", 908.1417966]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.375, 0.25]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NA", 0]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NA", -37.02710206]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NA", -0.25]
+        }
+      ]
+    }
 

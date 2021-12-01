@@ -1,11 +1,1 @@
 url: https://psychelzh.github.io/preproc.iquizoo
-reference:
-- title: Main Entry Point
-  desc: >
-    Functions that are typically called directly, a.k.a. high level functions.
-- contents:
-  - preproc
-- title: Low-level Engines
-  desc: These functions do all the real calculations.
-- contents:
-  - -preproc

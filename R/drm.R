@@ -3,7 +3,7 @@
 #' This is a classical false memory test. Here calculates the effect size of
 #' false memory.
 #'
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{tm_dprime}{Sensitivity (d') of true memory (against "foil" stimuli).}
@@ -11,7 +11,7 @@
 #'   \item{fm_dprime}{Sensitivity (d') of false memory.}
 #'   \item{fm_bias}{ias of false memory.}
 #' @export
-drm <- function(data, .by) {
+drm <- function(data, .by = NULL) {
   .input <- list(
     name_type = "type",
     name_resp = "resp",

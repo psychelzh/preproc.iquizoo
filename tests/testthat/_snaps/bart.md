@@ -1,40 +1,85 @@
 # Default behavior works
 
-    Code
-      preproc(data, bart, .by = "id")
-    Output
-      # A tibble: 1,000 x 4
-            id mean_pumps mean_pumps_raw num_explosion
-         <int>      <dbl>          <dbl>         <int>
-       1     1       1.96           2.02            51
-       2     2       1.93           2.07            55
-       3     3       1.69           1.73            48
-       4     4       2.23           2.07            47
-       5     5       2.08           2.05            47
-       6     6       2.13           2.09            55
-       7     7       1.93           2.01            55
-       8     8       1.76           2.04            51
-       9     9       2.04           1.96            50
-      10    10       2.21           2.07            47
-      # ... with 990 more rows
+    {
+      "type": "list",
+      "attributes": {
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["mean_pumps", "mean_pumps_raw", "num_explosion"]
+        }
+      },
+      "value": [
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [2.052]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1.988]
+        },
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [250]
+        }
+      ]
+    }
 
-# Works with multiple grouping variables
+# Works with grouping variables
 
-    Code
-      preproc(data, bart, .by = c("id", "id1"))
-    Output
-      # A tibble: 1,000 x 5
-            id   id1 mean_pumps mean_pumps_raw num_explosion
-         <int> <dbl>      <dbl>          <dbl>         <int>
-       1     1     2       1.96           2.02            51
-       2     2     3       1.93           2.07            55
-       3     3     4       1.69           1.73            48
-       4     4     5       2.23           2.07            47
-       5     5     6       2.08           2.05            47
-       6     6     7       2.13           2.09            55
-       7     7     8       1.93           2.01            55
-       8     8     9       1.76           2.04            51
-       9     9    10       2.04           1.96            50
-      10    10    11       2.21           2.07            47
-      # ... with 990 more rows
+    {
+      "type": "list",
+      "attributes": {
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["id", "mean_pumps", "mean_pumps_raw", "num_explosion"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [2.25, 2.09259259, 1.65306122, 2.35555556, 1.89130435]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [2.02, 2.07, 1.73, 2.07, 2.05]
+        },
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [44, 46, 51, 55, 54]
+        }
+      ]
+    }
 

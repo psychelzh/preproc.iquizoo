@@ -4,13 +4,13 @@
 #' [wikipedia](https://en.wikipedia.org/wiki/Iowa_gambling_task). This modified
 #' version uses pools to simulate cards, but the essential ideas are the same.
 #'
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{sum_outcome}{The total outcome over all trials.}
 #'   \item{perc_good}{The number of choices on "good" pools.}
 #' @export
-igt <- function(data, .by) {
+igt <- function(data, .by = NULL) {
   .input <- list(name_outcome = "outcome", name_pool = "poolid") |>
     update_settings("preproc.input")
   .extra <- list(pools_advantage = c("a", "b")) |>

@@ -9,7 +9,7 @@ calc_sdt(data, .by, name_acc, name_type, keep_counts = TRUE)
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{.by}{The column name(s) in \code{data} used to be grouped by.}
+\item{.by}{The column name(s) in \code{data} used to be grouped by. If set to \code{NULL} (default), all data will be treated as from one subject and there will be no grouping columns in the value returned.}
 
 \item{name_acc}{The column name of the \code{data} input whose values are user's correctness, in which is a \code{numeric} vector so coded that 1 means scoring correct, 0 means scoring incorrect, and that -1 means no response is made.}
 

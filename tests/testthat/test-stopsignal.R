@@ -19,15 +19,16 @@
 }
 
 set.seed(1)
+n_users <- 5
 data <- expand_grid(
-  id = seq_len(100),
+  id = seq_len(n_users),
   tibble::tibble(
     trial = seq_len(160),
     type = sample(
       c(
-        rep("Go", 120),
-        rep("Stop1", 20),
-        rep("Stop2", 20)
+        rep("go", 120),
+        rep("stop1", 20),
+        rep("stop2", 20)
       )
     )
   )
@@ -44,29 +45,20 @@ data <- expand_grid(
   ) |>
   ungroup() |>
   mutate(
-    rt = ifelse(acc == 1 & type != "Go", 0, rexp(n(), 0.001))
+    rt = ifelse(acc == 1 & type != "go", 0, rexp(n(), 0.001))
   ) |>
   arrange(id, trial)
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc(data, stopsignal, .by = "id"))
-})
-
-test_that("Works with multiple grouping variables", {
-  data <- mutate(data, id1 = id + 1)
-  expect_snapshot(preproc(data, stopsignal, .by = c("id", "id1")))
-})
-
-test_that("Works when character case is messy", {
-  data_case_messy <- data |>
-    mutate(
-      type = recode(type, Stop1 = "stop1")
-    )
-  expect_silent(
-    case_messy <- preproc(data_case_messy, stopsignal, .by = "id")
+  expect_snapshot_value(
+    stopsignal(filter(data, id == 1)),
+    style = "json2"
   )
-  expect_identical(
-    case_messy,
-    preproc(data, stopsignal, .by = "id")
+})
+
+test_that("Works with grouping variables", {
+  expect_snapshot_value(
+    stopsignal(data, .by = "id"),
+    style = "json2"
   )
 })

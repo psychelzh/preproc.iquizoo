@@ -1,40 +1,85 @@
 # Default behavior works
 
-    Code
-      preproc(data, nsymncmp, .by = "id")
-    Output
-      # A tibble: 100 x 4
-            id    pc   mrt     w
-         <int> <dbl> <dbl> <dbl>
-       1     1 0.525 1222. NA   
-       2     2 0.5    964. NA   
-       3     3 0.462 1096. NA   
-       4     4 0.5    773.  9.09
-       5     5 0.5   1015.  3.48
-       6     6 0.45   813. NA   
-       7     7 0.45   857. NA   
-       8     8 0.512  781.  9.45
-       9     9 0.562  745.  1.51
-      10    10 0.45   766. NA   
-      # ... with 90 more rows
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["pc", "mrt", "w"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1]
+        },
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        }
+      },
+      "value": [
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.4975]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [907.39682551]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NA"]
+        }
+      ]
+    }
 
-# Works with multiple grouping variables
+# Works with grouping variables
 
-    Code
-      preproc(data, nsymncmp, .by = c("id", "id1"))
-    Output
-      # A tibble: 100 x 5
-            id   id1    pc   mrt     w
-         <int> <dbl> <dbl> <dbl> <dbl>
-       1     1     2 0.525 1222. NA   
-       2     2     3 0.5    964. NA   
-       3     3     4 0.462 1096. NA   
-       4     4     5 0.5    773.  9.09
-       5     5     6 0.5   1015.  3.48
-       6     6     7 0.45   813. NA   
-       7     7     8 0.45   857. NA   
-       8     8     9 0.512  781.  9.45
-       9     9    10 0.562  745.  1.51
-      10    10    11 0.45   766. NA   
-      # ... with 90 more rows
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["id", "pc", "mrt", "w"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.525, 0.5, 0.4625, 0.5, 0.5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [897.61656614, 898.05717178, 956.63541716, 965.72132845, 885.25572289]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NA", "NA", "NA", 9.09482217, 3.48272068]
+        }
+      ]
+    }
 

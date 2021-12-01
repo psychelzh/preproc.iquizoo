@@ -1,14 +1,14 @@
 # prepare data
 set.seed(1)
 data <- expand_grid(
-  id = 1:100,
+  id = 1:5,
   block = 1:8
 ) |>
   mutate(n = sample(0:50, n(), replace = TRUE)) |>
   uncount(n, .id = "trial") |>
   mutate(
     stimtype = sample(
-      c("Incongruent", "Congruent"),
+      c("incongruent", "congruent"),
       n(),
       replace = TRUE
     ),
@@ -24,7 +24,7 @@ data <- expand_grid(
     block, nesting(id),
     fill = list(
       trial = 1,
-      stimtype = "Congruent",
+      stimtype = "congruent",
       task = "T1",
       acc = -1,
       rt = 0
@@ -32,18 +32,18 @@ data <- expand_grid(
   ) |>
   mutate(
     tasktype = case_when(
-      block %in% c(1:2, 7:8) ~ "Pure",
-      trial == 1 ~ "Filler",
-      task == lag(task) ~ "Repeat",
-      TRUE ~ "Switch"
+      block %in% c(1:2, 7:8) ~ "pure",
+      trial == 1 ~ "filler",
+      task == lag(task) ~ "repeat",
+      TRUE ~ "switch"
     )
   )
 data_miss_cond <- tibble::tibble(
   id = rep(1:2, each = 8),
   block = rep(1:8, 2),
-  stimtype = "Incongruent",
+  stimtype = "incongruent",
   task = "T1",
-  tasktype = rep(c(rep("Pure", 2), rep("Repeat", 4), rep("Pure", 2)), 2),
+  tasktype = rep(c(rep("pure", 2), rep("repeat", 4), rep("pure", 2)), 2),
   acc = sample(c(0, 1), 16, replace = TRUE),
   rt = rexp(16, 0.001)
 )
@@ -51,48 +51,47 @@ data_part_miss_cond <- tibble::tibble(
   id = rep(1:2, each = 8),
   block = rep(1:8, 2),
   stimtype = c(
-    rep("Incongruent", 8),
-    rep("Incongruent", 4),
-    rep("Congruent", 4)
+    rep("incongruent", 8),
+    rep("incongruent", 4),
+    rep("congruent", 4)
   ),
   task = "T1",
   tasktype = c(
-    c(rep("Pure", 2), rep("Repeat", 4), rep("Pure", 2)),
-    c(rep("Pure", 2), rep("Repeat", 2), rep("Switch", 2), rep("Pure", 2))
+    c(rep("pure", 2), rep("repeat", 4), rep("pure", 2)),
+    c(rep("pure", 2), rep("repeat", 2), rep("switch", 2), rep("pure", 2))
   ),
   acc = sample(c(0, 1), 16, replace = TRUE),
   rt = rexp(16, 0.001)
 )
 
 test_that("Default behavior works", {
-  expect_snapshot(preproc(data, complexswitch, .by = "id"))
+  expect_snapshot_value(
+    complexswitch(data),
+    style = "json2",
+    tolerance = 1e-5
+  )
+})
+
+test_that("Works with grouping variables", {
+  expect_snapshot_value(
+    complexswitch(data, .by = "id"),
+    style = "json2",
+    tolerance = 1e-5
+  )
 })
 
 test_that("All single condition", {
-  expect_snapshot(preproc(data_miss_cond, complexswitch, .by = "id"))
+  expect_snapshot_value(
+    complexswitch(data_miss_cond, .by = "id"),
+    style = "json2",
+    tolerance = 1e-5
+  )
 })
 
 test_that("Part subject single condition", {
-  expect_snapshot(preproc(data_part_miss_cond, complexswitch, .by = "id"))
-})
-
-test_that("Works with multiple grouping variables", {
-  data <- mutate(data, id1 = id + 1)
-  expect_snapshot(preproc(data, complexswitch, .by = c("id", "id1")))
-})
-
-test_that("Works when character case is messy", {
-  data_case_messy <- data |>
-    mutate(
-      stimtype = recode(stimtype, Congruent = "congruent"),
-      tasktype = recode(tasktype, Pure = "pure"),
-      task = recode(task, T1 = "t1")
-    )
-  expect_silent(
-    case_messy <- preproc(data_case_messy, complexswitch, .by = "id")
-  )
-  expect_identical(
-    case_messy,
-    preproc(data, complexswitch, .by = "id")
+  expect_snapshot_value(
+    complexswitch(data_part_miss_cond, .by = "id"),
+    style = "json2",
+    tolerance = 1e-5
   )
 })

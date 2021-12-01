@@ -3,7 +3,7 @@
 #' There will typically be some speed advantage if there are more than one
 #' sensory inputs to be employed. This function calculates this advantage.
 #'
-#' @templateVar .by low
+#' @templateVar .by TRUE
 #' @template params-template
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mrt_image}{Mean reaction time of Image stimuli.}
@@ -12,7 +12,7 @@
 #'   \item{mrt_mixadv}{Mean reaction decrease of Mixed stimuli compared to other
 #'     two types of stimuli.}
 #' @export
-multisense <- function(data, .by) {
+multisense <- function(data, .by = NULL) {
   .input <- list(name_type = "type", name_rt = "rt") |>
     update_settings("preproc.input")
   .extra <- list(
