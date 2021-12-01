@@ -34,7 +34,7 @@ countcorrect <- function(data, .by = NULL) {
       unnest(.data[[.input[["name_acc"]]]])
   }
   data |>
-    group_by(across(.by)) |>
+    group_by(across(all_of(.by))) |>
     summarise(
       # NA might be produced in parsing characters
       nc = sum(.data[[.input[["name_acc"]]]] == 1, na.rm = TRUE),
