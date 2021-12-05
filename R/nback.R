@@ -2,23 +2,23 @@
 #'
 #' A classical working memory test.
 #'
-#' @templateVar .by TRUE
-#' @template params-template
+#' @template common
+#' @template options
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{pc}{Percentage of correct responses.}
 #'   \item{mrt}{Mean reaction time.}
 #'   \item{dprime}{Sensitivity index.}
 #'   \item{c}{Bias.}
 #' @export
-nback <- function(data, .by = NULL) {
+nback <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
     name_type = "type",
     name_acc = "acc",
     name_rt = "rt"
   ) |>
-    update_settings("preproc.input")
+    update_settings(.input)
   .extra <- list(type_filler = "filler", type_signal = "same") |>
-    update_settings("preproc.extra")
+    update_settings(.extra)
   data_cor <- data |>
     # type of "None" should be ignored
     filter(!.data[[.input[["name_type"]]]] == .extra$type_filler) |>

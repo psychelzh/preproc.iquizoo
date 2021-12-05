@@ -2,24 +2,24 @@
 #'
 #' A classical test on inhibition skills.
 #'
-#' @templateVar .by TRUE
-#' @template params-template
+#' @template common
+#' @template options
 #' @return A [tibble][tibble::tibble-package] with the following variables:
 #'   \item{pc_all}{Percent of correct for all the responses.}
 #'   \item{pc_go}{Percent of correct for the go trials only.}
 #'   \item{medrt_go}{Median reaction time (ms) of go trials.}
 #'   \item{ssrt}{Stop signal reaction time (ms).}
 #' @export
-stopsignal <- function(data, .by = NULL) {
+stopsignal <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
     name_type = "type",
     name_ssd = "ssd",
     name_acc = "acc",
     name_rt = "rt"
   ) |>
-    update_settings("preproc.input")
+    update_settings(.input)
   .extra <- list(type_go = "go") |>
-    update_settings("preproc.extra")
+    update_settings(.extra)
   data_cor <- data |>
     mutate(
       # remove rt of 100 or less for go trials

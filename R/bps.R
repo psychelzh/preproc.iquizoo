@@ -3,8 +3,8 @@
 #' This function mainly calculates the "*BPS score*" developed .by Stark et. al.
 #' (2013).
 #'
-#' @templateVar .by TRUE
-#' @template params-template
+#' @template common
+#' @template options
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{pc}{Percent of correct responses.}
 #'   \item{p_sim_foil}{Percent of similar responses for "foil" stimuli.}
@@ -12,19 +12,19 @@
 #'   \item{p_sim_target}{Percent of similar responses for "target" stimuli.}
 #'   \item{bps_score}{BPS score.}
 #' @export
-bps <- function(data, .by = NULL) {
+bps <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
     name_phase = "phase",
     name_acc = "acc",
     name_type = "type",
     name_resp = "resp"
   ) |>
-    update_settings("preproc.input")
+    update_settings(.input)
   .extra <- list(
     phase_test = "test",
     resp_sim = "similar"
   ) |>
-    update_settings("preproc.extra")
+    update_settings(.extra)
   data_cor <- data |>
     filter(.data[[.input[["name_phase"]]]] == .extra$phase_test)
   pc_all <- data_cor |>

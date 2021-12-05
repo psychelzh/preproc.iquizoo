@@ -24,9 +24,12 @@ parse_char_resp <- function(x, delim = "-", convert_numeric = TRUE) {
 #' adding custom options work.
 #'
 #' @param origin The original settings.
-#' @param option The name in [options()] to read for updating.
+#' @param updates The updates to settings
 #' @return An update list of settings.
 #' @keywords internal
-update_settings <- function(origin, option) {
-  purrr::imap(origin, ~ getOption(option)[[.y]] %||% .x)
+update_settings <- function(origin, updates) {
+  if (is.null(updates)) {
+    return(origin)
+  }
+  purrr::imap(origin, ~ updates[[.y]] %||% .x)
 }

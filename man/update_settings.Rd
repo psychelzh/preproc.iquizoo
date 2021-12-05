@@ -4,12 +4,12 @@
 \alias{update_settings}
 \title{Update settings with option settings}
 \usage{
-update_settings(origin, option)
+update_settings(origin, updates)
 }
 \arguments{
 \item{origin}{The original settings.}
 
-\item{option}{The name in \code{\link[=options]{options()}} to read for updating.}
+\item{updates}{The updates to settings}
 }
 \value{
 An update list of settings.

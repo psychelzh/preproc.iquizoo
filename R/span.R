@@ -2,16 +2,16 @@
 #'
 #' There is a bunch of tests measuring working memory span or attention span.
 #'
-#' @templateVar .by TRUE
-#' @template params-template
+#' @template common
+#' @template options
 #' @return A [tibble][tibble::tibble-package] contains following values:]
 #'   \item{nc}{Count of correct responses.}
 #'   \item{max_span}{Maximal span.}
 #'   \item{mean_span}{Mean span.}
 #' @export
-span <- function(data, .by = NULL) {
+span <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_slen = "slen", name_outcome = "outcome") |>
-    update_settings("preproc.input")
+    update_settings(.input)
   # TODO: Treat these as preproc.extra options.
   # "nc" is calculated from "correctness/accloc" column, but can be absent
   name_acc_cand <- c("correctness", "accloc")

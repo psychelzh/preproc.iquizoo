@@ -6,8 +6,8 @@
 #' tests, so the number of correct responses is also calculated in [crt()].
 #'
 #' @name rt
-#' @templateVar .by TRUE
-#' @template params-template
+#' @template common
+#' @template options
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{mrt}{Mean reaction time.}
 #'   \item{rtsd}{Standard deviation of reaction times.}
@@ -16,9 +16,9 @@ NULL
 
 #' @rdname rt
 #' @export
-crt <- function(data, .by = NULL) {
+crt <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_acc = "acc", name_rt = "rt") |>
-    update_settings("preproc.input")
+    update_settings(.input)
   data |>
     mutate(
       # remove rt of 100 or less
@@ -37,9 +37,9 @@ crt <- function(data, .by = NULL) {
 
 #' @rdname rt
 #' @export
-srt <- function(data, .by = NULL) {
+srt <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_rt = "rt") |>
-    update_settings("preproc.input")
+    update_settings(.input)
   data |>
     mutate(
       # remove rt of 100 or less

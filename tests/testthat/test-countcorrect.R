@@ -34,19 +34,13 @@ test_that("Default behavior works on different types of input", {
     style = "json2"
   )
   # works for other two types of accuracy variable name
-  with_options(
-    expect_snapshot_value(
-      countcorrect(data_canteen),
-      style = "json2"
-    ),
-    preproc.input = list(name_acc = "correctness")
+  expect_snapshot_value(
+    countcorrect(data_canteen, .input = list(name_acc = "correctness")),
+    style = "json2"
   )
-  with_options(
-    expect_snapshot_value(
-      countcorrect(data_fpt),
-      style = "json2"
-    ),
-    preproc.input = list(name_acc = "repetition")
+  expect_snapshot_value(
+    countcorrect(data_fpt, .input = list(name_acc = "repetition")),
+    style = "json2"
   )
 })
 test_that("Works with grouping variables", {

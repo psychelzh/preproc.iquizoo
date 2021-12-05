@@ -7,8 +7,8 @@
 #' responses, [sumscore()] adds up the score for each response.
 #'
 #' @name counts
-#' @templateVar .by TRUE
-#' @template params-template
+#' @template common
+#' @template options
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{nc}{Count of correct responses. For [countcorrect()].}
 #'   \item{nc_cor}{Corrected count of correct responses (subtracting number of
@@ -20,9 +20,9 @@ NULL
 
 #' @rdname counts
 #' @export
-countcorrect <- function(data, .by = NULL) {
+countcorrect <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_acc = "acc") |>
-    update_settings("preproc.input")
+    update_settings(.input)
   if (is.character(data[[.input[["name_acc"]]]])) {
     # character input uses "-" to separate individual responses
     data <- data |>
@@ -44,9 +44,9 @@ countcorrect <- function(data, .by = NULL) {
 
 #' @rdname counts
 #' @export
-countcorrect2 <- function(data, .by = NULL) {
+countcorrect2 <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_nc = "ncorrect", name_ne = "nerror") |>
-    update_settings("preproc.input")
+    update_settings(.input)
   data |>
     group_by(across(all_of(.by))) |>
     summarise(
@@ -59,9 +59,9 @@ countcorrect2 <- function(data, .by = NULL) {
 
 #' @rdname counts
 #' @export
-sumweighted <- function(data, .by = NULL) {
+sumweighted <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_weight = "nstim", name_acc = "acc") |>
-    update_settings("preproc.input")
+    update_settings(.input)
   data |>
     group_by(across(all_of(.by))) |>
     summarise(
@@ -75,9 +75,9 @@ sumweighted <- function(data, .by = NULL) {
 
 #' @rdname counts
 #' @export
-sumscore <- function(data, .by = NULL) {
+sumscore <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_score = "score") |>
-    update_settings("preproc.input")
+    update_settings(.input)
   data |>
     group_by(across(all_of(.by))) |>
     summarise(

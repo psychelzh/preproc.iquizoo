@@ -4,8 +4,8 @@
 #' are many methods used to calculate the performance index of this task, and
 #' here only includes those common ones.
 #'
-#' @templateVar .by TRUE
-#' @template params-template
+#' @template common
+#' @template options
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{nc}{Count of correct responses.}
 #'   \item{mrt}{Mean reaction time of hits.}
@@ -15,11 +15,11 @@
 #'   \item{commissions}{Number of errors caused by action.}
 #'   \item{omissions}{Number of errors caused by inaction.}
 #' @export
-cpt <- function(data, .by = NULL) {
+cpt <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_acc = "acc", name_type = "type", name_rt = "rt") |>
-    update_settings("preproc.input")
+    update_settings(.input)
   .extra <- list(type_signal = "target") |>
-    update_settings("preproc.extra")
+    update_settings(.extra)
   data_cor <- data |>
     # some tests records stimuli not presented
     filter(.data[[.input[["name_acc"]]]] != -1) |>

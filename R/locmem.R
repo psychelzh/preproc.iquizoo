@@ -5,8 +5,8 @@
 #' deal with the distance condition only. [locmem2()] deals with a special case
 #' when the response order and distance both matter.
 #'
-#' @templateVar .by TRUE
-#' @template params-template
+#' @template common
+#' @template options
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{nc_loc}{Count of correct responses for location.}
 #'   \item{mean_dist_err}{Mean of the response distance errors.}
@@ -15,9 +15,9 @@
 #'   \item{nc_order}{Count of correct responses for order. For [locmem2()]
 #'     only.}
 #' @export
-locmem <- function(data, .by = NULL) {
+locmem <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_dist = "resplocdist") |>
-    update_settings("preproc.input")
+    update_settings(.input)
   data |>
     mutate(
       dist = parse_char_resp(.data[[.input[["name_dist"]]]]),
@@ -35,9 +35,9 @@ locmem <- function(data, .by = NULL) {
 
 #' @rdname locmem
 #' @export
-locmem2 <- function(data, .by = NULL) {
+locmem2 <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_acc_order = "respaccorder") |>
-    update_settings("preproc.input")
+    update_settings(.input)
   loc_results <- locmem(data, .by)
   nc_order <- data |>
     mutate(

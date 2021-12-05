@@ -3,22 +3,22 @@
 #' This is a classical false memory test. Here calculates the effect size of
 #' false memory.
 #'
-#' @templateVar .by TRUE
-#' @template params-template
+#' @template common
+#' @template options
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{tm_dprime}{Sensitivity (d') of true memory (against "foil" stimuli).}
 #'   \item{tm_bias}{Bias of true memory (against "foil" stimuli).}
 #'   \item{fm_dprime}{Sensitivity (d') of false memory.}
 #'   \item{fm_bias}{ias of false memory.}
 #' @export
-drm <- function(data, .by = NULL) {
+drm <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
     name_type = "type",
     name_resp = "resp",
     name_acc = "acc",
     name_rt = "rt"
   ) |>
-    update_settings("preproc.input")
+    update_settings(.input)
   .extra <- list(
     type_filler = "filler",
     type_old = "old",
@@ -26,7 +26,7 @@ drm <- function(data, .by = NULL) {
     type_lure = "lure",
     resp_old = "old"
   ) |>
-    update_settings("preproc.extra")
+    update_settings(.extra)
   data |>
     filter(.data[[.input[["name_type"]]]] != .extra$type_filler) |>
     group_by(across(all_of(c(.by, .input[["name_type"]])))) |>
