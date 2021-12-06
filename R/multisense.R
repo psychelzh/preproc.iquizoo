@@ -25,21 +25,13 @@ multisense <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     group_by(across(
       all_of(c(.by, .input[["name_type"]]))
     )) |>
-    mutate(
-      rt_cor = ifelse(
-        .data[[.input[["name_rt"]]]] > 100,
-        .data[[.input[["name_rt"]]]], NA
-      )
-    ) |>
-    mutate(
-      rt_cor = ifelse(
-        .data[["rt_cor"]] %in%
-          graphics::boxplot(.data[["rt_cor"]], plot = FALSE)$out,
-        NA, .data[["rt_cor"]]
-      )
+    filter(.data[[.input[["name_rt"]]]] > 100) |>
+    filter(
+      !.data[[.input[["name_rt"]]]] %in%
+        graphics::boxplot(.data[[.input[["name_rt"]]]], plot = FALSE)$out
     ) |>
     summarise(
-      mrt = mean(.data[["rt_cor"]], na.rm = TRUE),
+      mrt = mean(.data[[.input[["name_rt"]]]]),
       .groups = "drop"
     ) |>
     pivot_wider(

@@ -14,15 +14,12 @@ bart <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_feedback = "feedback", name_nhit = "nhit") |>
     update_settings(.input)
   data |>
-    mutate(
-      nhit_cor = ifelse(
-        .data[[.input[["name_feedback"]]]] == 1,
-        .data[[.input[["name_nhit"]]]], NA
-      )
-    ) |>
     group_by(across(all_of(.by))) |>
     summarise(
-      mean_pumps = mean(.data[["nhit_cor"]], na.rm = TRUE),
+      mean_pumps = weighted.mean(
+        .data[[.input[["name_nhit"]]]],
+        .data[[.input[["name_feedback"]]]] == 1
+      ),
       mean_pumps_raw = mean(.data[[.input[["name_nhit"]]]]),
       num_explosion = sum(.data[[.input[["name_feedback"]]]] == 0),
       .groups = "drop"
