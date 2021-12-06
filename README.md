@@ -40,10 +40,10 @@ there.
 
 ## Advanced
 
-To deal with the various formats of datasets, some custom configurations
-are supported. For now there are two most important `options()` used:
+To deal with the various formats of datasets, each function accepts two
+special input arguments:
 
--   `"preproc.input"`: input variable names in data to be used in
-    calculating the preformance indices.
--   `"preproc.extra"`: extra values to configure certain key values for
-    variable names.
+-   `.input`: the input variable names used in the `data.frame` typed
+    data.
+-   `.extra`: some special values for certain variable. For example, the
+    value used to indicate `"congruent"` type stimuli.
