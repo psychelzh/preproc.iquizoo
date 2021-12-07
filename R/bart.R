@@ -16,10 +16,10 @@ bart <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   data |>
     group_by(across(all_of(.by))) |>
     summarise(
-      mean_pumps = weighted.mean(
-        .data[[.input[["name_nhit"]]]],
-        .data[[.input[["name_feedback"]]]] == 1
-      ),
+      mean_pumps = .data[[.input[["name_nhit"]]]] |>
+        # keep not exploded trials only
+        .subset(.data[[.input[["name_feedback"]]]] == 1) |>
+        mean(),
       mean_pumps_raw = mean(.data[[.input[["name_nhit"]]]]),
       num_explosion = sum(.data[[.input[["name_feedback"]]]] == 0),
       .groups = "drop"
