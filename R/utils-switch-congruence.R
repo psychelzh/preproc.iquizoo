@@ -2,10 +2,10 @@
 #'
 #' Utility function to calculate general and specific switch cost.
 #'
-#' @templateVar .by TRUE
-#' @templateVar name_rt TRUE
+#' @template common
 #' @templateVar name_acc TRUE
-#' @template params-template
+#' @templateVar name_rt TRUE
+#' @template names
 #' @param name_type_block The column name of the `data` input whose values are
 #'   the block type, in which is a `character` vector with "pure block" (value:
 #'   `"pure"`) and "mixed block" (value: `"mixed"`).
@@ -74,10 +74,10 @@ calc_switch_cost <- function(data,
 #'
 #' Utility function to calculate congruence effect sizes.
 #'
-#' @templateVar .by TRUE
-#' @templateVar name_rt TRUE
+#' @template common
 #' @templateVar name_acc TRUE
-#' @template params-template
+#' @templateVar name_rt TRUE
+#' @template names
 #' @param name_cong The column name of the `data` input whose values are the
 #'   congruence information, in which is a `character` vector with "incongruent
 #'   condition" (label: `"inc"`) and "congruent condition" (label: `"con"`). It

@@ -9,8 +9,8 @@
 #' calculates both.
 #'
 #' @name switch-congruence
-#' @templateVar .by TRUE
-#' @template params-template
+#' @template common
+#' @template options
 #' @return A [tibble][tibble::tibble-package] with the following variables:
 #'
 #' For congruence effect:
@@ -42,7 +42,7 @@ NULL
 
 #' @rdname switch-congruence
 #' @export
-complexswitch <- function(data, .by = NULL) {
+complexswitch <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
     name_block = "block",
     name_cong = "stimtype",
@@ -51,7 +51,7 @@ complexswitch <- function(data, .by = NULL) {
     name_acc = "acc",
     name_rt = "rt"
   ) |>
-    update_settings("preproc.input")
+    update_settings(.input)
   .extra <- list(
     block_pure = "pure",
     stim_con = "congruent",
@@ -59,7 +59,7 @@ complexswitch <- function(data, .by = NULL) {
     task_repeat = "repeat",
     task_switch = "switch"
   ) |>
-    update_settings("preproc.extra")
+    update_settings(.extra)
   data_cor <- data |>
     mutate(
       # remove rt of 100 or less
@@ -112,18 +112,18 @@ complexswitch <- function(data, .by = NULL) {
 
 #' @rdname switch-congruence
 #' @export
-congeff <- function(data, .by = NULL) {
+congeff <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
     name_cong = "type",
     name_acc = "acc",
     name_rt = "rt"
   ) |>
-    update_settings("preproc.input")
+    update_settings(.input)
   .extra <- list(
     stim_con = "congruent",
     stim_inc = "incongruent"
   ) |>
-    update_settings("preproc.extra")
+    update_settings(.extra)
   data_cor <- data |>
     mutate(
       # remove rt of 100 or less
@@ -147,7 +147,7 @@ congeff <- function(data, .by = NULL) {
 
 #' @rdname switch-congruence
 #' @export
-switchcost <- function(data, .by = NULL) {
+switchcost <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
     name_block = "block",
     name_task = "task",
@@ -155,13 +155,13 @@ switchcost <- function(data, .by = NULL) {
     name_acc = "acc",
     name_rt = "rt"
   ) |>
-    update_settings("preproc.input")
+    update_settings(.input)
   .extra <- list(
     block_pure = "pure",
     task_repeat = "repeat",
     task_switch = "switch"
   ) |>
-    update_settings("preproc.extra")
+    update_settings(.extra)
   data_cor <- data |>
     mutate(
       # remove rt of 100 or less

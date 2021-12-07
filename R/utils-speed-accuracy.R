@@ -15,10 +15,10 @@
 #'   outlier detection method used here is the "*interquantile range*" rule
 #'   suggested by Tukey (1977).
 #'
-#' @templateVar .by TRUE
+#' @template common
 #' @templateVar name_acc TRUE
 #' @templateVar name_rt TRUE
-#' @template params-template
+#' @template names
 #' @param rm.out A logical value. Whether remove outlier or not. Default to
 #'   `TRUE.`
 #' @param rt_rtn If mean or standard deviation of response times should be
@@ -68,9 +68,9 @@ calc_spd_acc <- function(data, .by, name_acc, name_rt,
 #' correction for extreme proportions of zero and one is the "log-linear" rule
 #' recommended .by Hautus (1995).
 #'
-#' @templateVar .by TRUE
+#' @template common
 #' @templateVar name_acc TRUE
-#' @template params-template
+#' @template names
 #' @param name_type The column name of the `data` input whose values are the
 #'   stimuli types, in which is a `character` vector with value `"s"` (denoting
 #'   "*signal*") and `"n"` (denoting "*non-signal*") only. It will be coerced as

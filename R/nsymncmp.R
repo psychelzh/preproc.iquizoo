@@ -2,22 +2,22 @@
 #'
 #' A classical test on subject's counting estimation skills.
 #'
-#' @templateVar .by TRUE
-#' @template params-template
+#' @template common
+#' @template options
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{pc}{Percentage of correct responses.}
 #'   \item{mrt}{Mean reaction time.}
 #'   \item{w}{Weber fraction.}
 #' @seealso [symncmp()] for symbolic number comparison.
 #' @export
-nsymncmp <- function(data, .by = NULL) {
+nsymncmp <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
     name_big = "bigsetcount",
     name_small = "smallsetcount",
     name_acc = "acc",
     name_rt = "rt"
   ) |>
-    update_settings("preproc.input")
+    update_settings(.input)
   data_cor <- data |>
     mutate(
       rt_cor = ifelse(

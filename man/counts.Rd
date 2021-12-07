@@ -8,18 +8,24 @@
 \alias{sumscore}
 \title{Count Correct Responses}
 \usage{
-countcorrect(data, .by = NULL)
+countcorrect(data, .by = NULL, .input = NULL, .extra = NULL)
 
-countcorrect2(data, .by = NULL)
+countcorrect2(data, .by = NULL, .input = NULL, .extra = NULL)
 
-sumweighted(data, .by = NULL)
+sumweighted(data, .by = NULL, .input = NULL, .extra = NULL)
 
-sumscore(data, .by = NULL)
+sumscore(data, .by = NULL, .input = NULL, .extra = NULL)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{.by}{The column name(s) in \code{data} used to be grouped by. If set to \code{NULL} (default), all data will be treated as from one subject and there will be no grouping columns in the value returned.}
+\item{.by}{The column name(s) in \code{data} used to be grouped by. If set to
+\code{NULL} (default), all data will be treated as from one subject and there
+will be no grouping columns in the value returned.}
+
+\item{.input, .extra}{Each is a \code{\link[=list]{list()}} containing all the input variable
+names and special values for certain variables. See more in the details
+section.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:

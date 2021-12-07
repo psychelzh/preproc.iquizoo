@@ -2,20 +2,20 @@
 #'
 #' A test measuring impulsivity originally developed .by Gardner et. al. (2005).
 #'
-#' @templateVar .by TRUE
-#' @template params-template
+#' @template common
+#' @template options
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{still_ratio}{The ratio of still duration in yellow light state.}
 #' @export
-driving <- function(data, .by = NULL) {
+driving <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
     name_still_dur = "stilldur",
     name_still_light = "stilllight",
     name_yellow_dur = "yellowdur"
   ) |>
-    update_settings("preproc.input")
+    update_settings(.input)
   .extra <- list(light_yellow = "yellow") |>
-    update_settings("preproc.extra")
+    update_settings(.extra)
   data |>
     group_by(across(all_of(.by))) |>
     mutate(

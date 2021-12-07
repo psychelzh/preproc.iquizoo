@@ -48,13 +48,10 @@ test_that("Default behavior works", {
 })
 
 test_that("Default behavior works for Dual Task Paradigm", {
-  with_options(
-    expect_snapshot_value(
-      cpt(data_dualtask),
-      style = "json2",
-      tolerance = 1e-5
-    ),
-    preproc.input = list(name_type = "stimtype")
+  expect_snapshot_value(
+    cpt(data_dualtask, .input = list(name_type = "stimtype")),
+    style = "json2",
+    tolerance = 1e-5
   )
 })
 
@@ -75,20 +72,14 @@ test_that("Default behavior works for Cancellation Paradigm", {
     )
   data_clean <- data |>
     filter(acc != -1)
-  with_options(
-    {
-      expect_snapshot_value(
-        cpt(data),
-        style = "json2",
-        tolerance = 1e-5
-      )
-      expect_identical(
-        cpt(data),
-        cpt(data_clean)
-      )
-    },
-    preproc.input = list(name_type = "cresp"),
-    preproc.extra = list(type_signal = "left")
+  expect_snapshot_value(
+    cpt(
+      data,
+      .input = list(name_type = "cresp"),
+      .extra = list(type_signal = "left")
+    ),
+    style = "json2",
+    tolerance = 1e-5
   )
 })
 

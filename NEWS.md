@@ -1,3 +1,9 @@
+# preproc.iquizoo 2.1.0
+
+## Breaking Changes
+
+* Now `options()` support is removed, but accept two additional arguments `.input` and `.extra`.
+
 # preproc.iquizoo 2.0.1
 
 ## Internal
