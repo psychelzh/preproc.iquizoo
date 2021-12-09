@@ -26,7 +26,7 @@ calc_switch_cost <- function(data,
     mutate(
       condition = factor(
         .data[[name_type_switch]],
-        c("repeat", "switch")
+        c("pure", "repeat", "switch")
       )
     ) |>
     group_by(across(
@@ -46,11 +46,6 @@ calc_switch_cost <- function(data,
       .groups = "drop"
     ) |>
     complete(.data[["condition"]], nesting(!!!syms(.by))) |>
-    mutate(
-      condition = replace_na(
-        as.character(.data[["condition"]]), "pure"
-      )
-    ) |>
     group_by(across(all_of(c(.by, "condition")))) |>
     summarise(
       mrt = mean(.data[["mrt"]], na.rm = TRUE),
