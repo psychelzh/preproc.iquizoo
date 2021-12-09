@@ -38,7 +38,7 @@ locmem <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
 locmem2 <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_acc_order = "respaccorder") |>
     update_settings(.input)
-  loc_results <- locmem(data, .by)
+  loc_results <- locmem(data, .by, .input, .extra)
   nc_order <- data |>
     mutate(
       acc_order = parse_char_resp(.data[[.input[["name_acc_order"]]]]),
