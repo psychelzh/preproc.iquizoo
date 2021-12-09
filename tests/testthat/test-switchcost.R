@@ -83,3 +83,18 @@ test_that("Part subject single condition", {
     tolerance = 1e-5
   )
 })
+
+test_that("Can deal with data without 'pure' blocks", {
+  data_no_pure <- expand_grid(block = 1:2, type = c("repeat", "switch")) |>
+    mutate(n = 10) |>
+    uncount(n) |>
+    mutate(
+      acc = sample(c(0, 1), n(), replace = TRUE),
+      rt = rexp(n(), 0.001)
+    )
+  expect_snapshot_value(
+    switchcost(data_no_pure),
+    style = "json2",
+    tolerance = 1e-5
+  )
+})

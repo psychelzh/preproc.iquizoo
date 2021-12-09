@@ -318,3 +318,78 @@
       ]
     }
 
+# Can deal with data without 'pure' blocks
+
+    {
+      "type": "list",
+      "attributes": {
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["mrt_pure", "mrt_repeat", "mrt_switch", "pc_pure", "pc_repeat", "pc_switch", "switch_cost_rt_gen", "switch_cost_rt_spe", "switch_cost_pc_gen", "switch_cost_pc_spe"]
+        }
+      },
+      "value": [
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NaN"]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1143.73712021]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1455.13700958]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NaN"]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.4]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NaN"]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [311.39988937]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NaN"]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.1]
+        }
+      ]
+    }
+
