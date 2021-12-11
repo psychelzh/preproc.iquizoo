@@ -30,7 +30,9 @@ span <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     ) |>
     summarise(
       nc = sum(.data[["nc"]]),
-      max_span = max(.data[[.input[["name_slen"]]]]),
+      max_span = .data[[.input[["name_slen"]]]] |>
+        .subset(.data[["anu"]] != 0) |>
+        max(),
       mean_span_pcu = min(.data[[.input[["name_slen"]]]]) +
         sum(.data[["pcu"]]) - 1,
       mean_span_anu = min(.data[[.input[["name_slen"]]]]) +
