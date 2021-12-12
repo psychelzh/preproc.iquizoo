@@ -16,14 +16,14 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["nc", "max_span", "mean_span"]
+          "value": ["nc", "max_span", "mean_span_pcu", "mean_span_anu"]
         }
       },
       "value": [
         {
-          "type": "integer",
+          "type": "double",
           "attributes": {},
-          "value": [484]
+          "value": [466]
         },
         {
           "type": "double",
@@ -33,7 +33,12 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [12.96666667]
+          "value": [12.98183622]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [12.62449495]
         }
       ]
     }
@@ -56,7 +61,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["id", "nc", "max_span", "mean_span"]
+          "value": ["id", "nc", "max_span", "mean_span_pcu", "mean_span_anu"]
         }
       },
       "value": [
@@ -66,109 +71,24 @@
           "value": [1, 2, 3, 4, 5]
         },
         {
-          "type": "integer",
+          "type": "double",
           "attributes": {},
-          "value": [72, 90, 102, 119, 101]
+          "value": [74, 89, 79, 118, 106]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [10, 12, 12, 14, 13]
+          "value": [10, 12, 10, 14, 13]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [9.5, 11.66666667, 10.5, 14, 12.5]
-        }
-      ]
-    }
-
-# Works when no acc column found
-
-    {
-      "type": "list",
-      "attributes": {
-        "class": {
-          "type": "character",
-          "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
-        },
-        "row.names": {
-          "type": "integer",
-          "attributes": {},
-          "value": [1, 2, 3, 4, 5]
-        },
-        "names": {
-          "type": "character",
-          "attributes": {},
-          "value": ["id", "nc", "max_span", "mean_span"]
-        }
-      },
-      "value": [
-        {
-          "type": "integer",
-          "attributes": {},
-          "value": [1, 2, 3, 4, 5]
-        },
-        {
-          "type": "integer",
-          "attributes": {},
-          "value": ["NA", "NA", "NA", "NA", "NA"]
+          "value": [9.51111111, 11.38095238, 9.83549784, 13.70833333, 13.35714286]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [14, 10, 16, 14, 12]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [14, 9.33333333, 16.5, 14, 11.5]
-        }
-      ]
-    }
-
----
-
-    {
-      "type": "list",
-      "attributes": {
-        "class": {
-          "type": "character",
-          "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
-        },
-        "row.names": {
-          "type": "integer",
-          "attributes": {},
-          "value": [1, 2, 3, 4, 5]
-        },
-        "names": {
-          "type": "character",
-          "attributes": {},
-          "value": ["id", "nc", "max_span", "mean_span"]
-        }
-      },
-      "value": [
-        {
-          "type": "integer",
-          "attributes": {},
-          "value": [1, 2, 3, 4, 5]
-        },
-        {
-          "type": "integer",
-          "attributes": {},
-          "value": [16, 15, 17, 17, 11]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [14, 10, 16, 14, 12]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [14, 9.33333333, 16.5, 14, 11.5]
+          "value": [9.58333333, 11.66666667, 9.5, 14, 13]
         }
       ]
     }
