@@ -20,7 +20,7 @@ calc_switch_cost <- function(data,
                              name_type_switch,
                              name_rt,
                              name_acc) {
-  data_summary <- data |>
+  data |>
     # remove all filler trials
     filter(.data[[name_type_switch]] != "filler") |>
     mutate(
@@ -44,16 +44,8 @@ calc_switch_cost <- function(data,
       mrt = mean(.data[[name_rt]], na.rm = TRUE),
       pc = mean(.data[[name_acc]] == 1),
       .groups = "drop"
-    )
-  # weirdly, complete() does not support NULL nesting
-  # https://github.com/tidyverse/tidyr/issues/1258
-  if (is.null(.by)) {
-    data_summary <- complete(data_summary, .data[["condition"]])
-  } else {
-    data_summary <- data_summary |>
-      complete(.data[["condition"]], nesting(!!!syms(.by)))
-  }
-  data_summary |>
+    ) |>
+    complete(.data[["condition"]], nesting(!!!syms(.by))) |>
     group_by(across(all_of(c(.by, "condition")))) |>
     summarise(
       mrt = mean(.data[["mrt"]], na.rm = TRUE),
