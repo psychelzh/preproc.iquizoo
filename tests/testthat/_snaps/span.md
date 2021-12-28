@@ -93,3 +93,103 @@
       ]
     }
 
+# Works when no acc column found
+
+    {
+      "type": "list",
+      "attributes": {
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["id", "nc", "max_span", "mean_span_pcu", "mean_span_anu"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NA", "NA", "NA", "NA", "NA"]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [12, 14, 14, 12, 10]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NA", "NA", "NA", "NA", "NA"]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [11.83333333, 14, 14, 12, 9.33333333]
+        }
+      ]
+    }
+
+---
+
+    {
+      "type": "list",
+      "attributes": {
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["id", "nc", "max_span", "mean_span_pcu", "mean_span_anu"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [13, 8, 10, 19, 10]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [12, 14, 14, 12, 10]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [3.73816739, 2.3011655, 3.56176046, 3.84144328, 3.04365079]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [11.83333333, 14, 14, 12, 9.33333333]
+        }
+      ]
+    }
+

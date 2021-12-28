@@ -16,6 +16,23 @@ span <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     name_acc = "correctness"
   ) |>
     update_settings(.input)
+  .extra <- list(
+    name_stim = "stim",
+    name_resp = "resp"
+  ) |>
+    update_settings(.extra)
+  # try to restore "name_acc" from data
+  if (!has_name(data, .input$name_acc) || any(is.na(data[[.input$name_acc]]))) {
+    if (all(has_name(data, .extra))) {
+      data[[.input$name_acc]] <- purrr::map2_chr(
+        parse_char_resp(data[[.extra$name_stim]]),
+        parse_char_resp(data[[.extra$name_resp]]),
+        ~ paste(as.numeric(.x == .y), collapse = "-")
+      )
+    } else {
+      data[[.input$name_acc]] <- ""
+    }
+  }
   data |>
     mutate(
       acc = parse_char_resp(.data[[.input[["name_acc"]]]]),
