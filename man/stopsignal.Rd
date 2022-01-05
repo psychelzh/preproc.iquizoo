@@ -21,9 +21,11 @@ section.}
 A \link[tibble:tibble-package]{tibble} with the following variables:
 \item{pc_all}{Percent of correct for all the responses.}
 \item{pc_go}{Percent of correct for the go trials only.}
-\item{medrt_go}{Median reaction time (ms) of go trials.}
+\item{pc_stop}{Percent of correct for the stop trials only.}
+\item{rt_nth}{Percentile go reaction time (ms) based on \code{pc_stop}.}
 \item{ssrt}{Stop signal reaction time (ms).}
 }
 \description{
-A classical test on inhibition skills.
+A classical test on inhibition skills. The index calculation is now based on
+https://doi.org/10.7554/eLife.46323.
 }
