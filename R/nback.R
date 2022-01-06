@@ -74,7 +74,7 @@ dualnback <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     each = data_base,
     .id = "set"
   ) |>
-    mutate(dual = if_else(set == "both", "both", dual)) |>
+    mutate(dual = if_else(.data$set == "both", "both", .data$dual)) |>
     group_by(.data$dual) |>
     group_modify(
       ~ .nback_classical(
