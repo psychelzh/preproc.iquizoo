@@ -28,7 +28,8 @@ nback <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .extra <- list(type_filler = "filler", type_signal = "same") |>
     update_settings(.extra)
   .nback_classical(
-    data, .by = .by,
+    data,
+    .by = .by,
     name_type = .input$name_type,
     name_acc = .input$name_acc,
     name_rt = .input$name_rt,
