@@ -1,8 +1,8 @@
 .prepare_ssd <- function(acc, type) {
-  if (type == "Go") {
+  if (type == "go") {
     return(0)
   }
-  ssd_init <- ifelse(type == "Stop1", 250, 500)
+  ssd_init <- ifelse(type == "stop1", 250, 500)
   ssd <- numeric(length(acc))
   for (i in seq_along(acc)) {
     if (i == 1) {
