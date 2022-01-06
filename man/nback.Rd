@@ -2,9 +2,12 @@
 % Please edit documentation in R/nback.R
 \name{nback}
 \alias{nback}
+\alias{dualnback}
 \title{N Back Paradigm}
 \usage{
 nback(data, .by = NULL, .input = NULL, .extra = NULL)
+
+dualnback(data, .by = NULL, .input = NULL, .extra = NULL)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
@@ -18,7 +21,8 @@ names and special values for certain variables. See more in the details
 section.}
 }
 \value{
-A \link[tibble:tibble-package]{tibble} contains following values:
+A \link[tibble:tibble-package]{tibble} contains following values (tripled
+for dual n-back):
 \item{pc}{Percentage of correct responses.}
 \item{mrt}{Mean reaction time.}
 \item{dprime}{Sensitivity index.}
@@ -26,4 +30,8 @@ A \link[tibble:tibble-package]{tibble} contains following values:
 }
 \description{
 A classical working memory test.
+}
+\details{
+Note for dual n-back, the returned indices include those for each modal and
+both modals so they are tripled with additional suffix after each index name.
 }

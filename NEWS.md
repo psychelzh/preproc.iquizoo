@@ -1,5 +1,9 @@
 # preproc.iquizoo (development version)
 
+## New Features
+
+* Added new function `dualnback()` to support for dual n-back tests.
+
 ## Enhancement
 
 * Changed algorithm to get stop signal reaction time for Stop Signal Paradigm based on the [recent eLife publication](https://doi.org/10.7554/eLife.46323).
