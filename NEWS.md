@@ -1,5 +1,9 @@
 # preproc.iquizoo (development version)
 
+## New Features
+
+* Added new function `dualnback()` to support for dual n-back tests.
+
 # preproc.iquizoo 2.1.0
 
 ## Breaking Changes
