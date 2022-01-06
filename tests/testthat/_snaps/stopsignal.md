@@ -3,23 +3,33 @@
     {
       "type": "list",
       "attributes": {
-        "class": {
+        "names": {
           "type": "character",
           "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
+          "value": ["rt_nth", "ssrt", "pc_all", "pc_go", "pc_stop"]
         },
         "row.names": {
           "type": "integer",
           "attributes": {},
           "value": [1]
         },
-        "names": {
+        "class": {
           "type": "character",
           "attributes": {},
-          "value": ["pc_all", "pc_go", "medrt_go", "ssrt"]
+          "value": ["tbl_df", "tbl", "data.frame"]
         }
       },
       "value": [
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [569.17946129]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [212.23501685]
+        },
         {
           "type": "double",
           "attributes": {},
@@ -33,12 +43,7 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [781.74856824]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [340.4291238]
+          "value": [0.525]
         }
       ]
     }
@@ -61,7 +66,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["id", "pc_all", "pc_go", "medrt_go", "ssrt"]
+          "value": ["id", "rt_nth", "ssrt", "pc_all", "pc_go", "pc_stop"]
         }
       },
       "value": [
@@ -69,6 +74,16 @@
           "type": "integer",
           "attributes": {},
           "value": [1, 2, 3, 4, 5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [569.17946129, 711.4702006, 194.86471319, 452.37713861, 552.19243537]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [212.23501685, 252.37929151, -130.56263724, 108.62713861, 251.83529251]
         },
         {
           "type": "double",
@@ -83,12 +98,7 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [781.74856824, 996.6744361, 660.24329467, 745.25551284, 777.82834289]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [340.4291238, 412.58352701, 215.99726292, 282.1144872, 352.47120003]
+          "value": [0.525, 0.475, 0.65, 0.6, 0.5]
         }
       ]
     }
