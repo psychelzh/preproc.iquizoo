@@ -27,38 +27,14 @@ nback <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     update_settings(.input)
   .extra <- list(type_filler = "filler", type_signal = "same") |>
     update_settings(.extra)
-  data_cor <- data |>
-    # type of "None" should be ignored
-    filter(!.data[[.input[["name_type"]]]] == .extra$type_filler) |>
-    mutate(
-      # standardize stimuli type
-      type_cor = if_else(
-        .data[[.input[["name_type"]]]] == .extra$type_signal,
-        "s", "n"
-      ),
-      # remove rt of 100 or less
-      rt_cor = ifelse(
-        .data[[.input[["name_rt"]]]] > 100,
-        .data[[.input[["name_rt"]]]], NA
-      )
-    )
-  basics <- calc_spd_acc(
-    data_cor,
-    .by,
-    name_acc = .input[["name_acc"]],
-    name_rt = "rt_cor",
-    rt_rtn = "mean",
-    acc_rtn = "percent"
+  .nback_classical(
+    data, .by = .by,
+    name_type = .input$name_type,
+    name_acc = .input$name_acc,
+    name_rt = .input$name_rt,
+    type_filler = .extra$type_filler,
+    type_signal = .extra$type_signal
   )
-  sdt <- calc_sdt(
-    data_cor, .by, .input[["name_acc"]], "type_cor",
-    keep_counts = FALSE
-  )
-  if (!is.null(.by)) {
-    return(left_join(basics, sdt, by = .by))
-  } else {
-    return(bind_cols(basics, sdt))
-  }
 }
 
 #' @rdname nback
@@ -79,11 +55,6 @@ dualnback <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     dual_names = c("vis", "aud")
   ) |>
     update_settings(.extra)
-  .input_trans <- list(
-    name_type = "type",
-    name_acc = "acc",
-    name_rt = "rt"
-  )
   data_base <- data |>
     rename(!!!.input) |>
     pivot_longer(
@@ -95,11 +66,7 @@ dualnback <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     mutate(
       dual = .extra$dual_names[.data$dual],
       # remove rt of non-signal trials
-      "{.input_trans$name_rt}" := replace(
-        .data[[.input_trans$name_rt]],
-        .data[[.input_trans$name_type]] != .extra$type_signal,
-        NA
-      )
+      rt = replace(.data$rt, .data$type != .extra$type_signal, NA)
     )
   bind_rows(
     both = data_base,
@@ -109,11 +76,11 @@ dualnback <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     mutate(dual = if_else(set == "both", "both", dual)) |>
     group_by(.data$dual) |>
     group_modify(
-      ~ nback(
+      ~ .nback_classical(
         .x,
         .by = .by,
-        .input = .input_trans,
-        .extra = .extra
+        type_filler = .extra$type_filler,
+        type_signal = .extra$type_signal
       )
     ) |>
     ungroup() |>
@@ -121,4 +88,44 @@ dualnback <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       names_from = .data$dual,
       values_from = -any_of(c(.by, "dual"))
     )
+}
+
+.nback_classical <- function(data, .by = NULL,
+                             name_type = "type",
+                             name_acc = "acc",
+                             name_rt = "rt",
+                             type_filler = "filler",
+                             type_signal = "same") {
+  data_cor <- data |>
+    # filler trials should be ignored
+    filter(!.data[[name_type]] == type_filler) |>
+    mutate(
+      # standardize stimuli type
+      type_cor = if_else(
+        .data[[name_type]] == type_signal,
+        "s", "n"
+      ),
+      # remove rt of 100 or less
+      rt_cor = ifelse(
+        .data[[name_rt]] > 100,
+        .data[[name_rt]], NA
+      )
+    )
+  basics <- calc_spd_acc(
+    data_cor,
+    .by,
+    name_acc = name_acc,
+    name_rt = "rt_cor",
+    rt_rtn = "mean",
+    acc_rtn = "percent"
+  )
+  sdt <- calc_sdt(
+    data_cor, .by, name_acc, "type_cor",
+    keep_counts = FALSE
+  )
+  if (!is.null(.by)) {
+    return(left_join(basics, sdt, by = .by))
+  } else {
+    return(bind_cols(basics, sdt))
+  }
 }
