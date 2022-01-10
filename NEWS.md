@@ -3,6 +3,7 @@
 ## New Features
 
 * Added new function `dualnback()` to support for dual n-back tests.
+* Added new function `staircase()` to support for tests shipped with staircase method.
 
 ## Enhancement
 
