@@ -9,8 +9,8 @@
         out[[i]] <- if_else(next_out <= max, next_out, out[[i - 1]])
       } else {
         if (i >= 4 &&
-            (acc[[i - 2]] == 1 && out[[i - 2]] == out[[i - 1]]) &&
-            (acc[[i - 3]] == 1 && out[[i - 3]] == out[[i - 1]])) {
+          (acc[[i - 2]] == 1 && out[[i - 2]] == out[[i - 1]]) &&
+          (acc[[i - 3]] == 1 && out[[i - 3]] == out[[i - 1]])) {
           next_out <- out[[i - 1]] - step
           out[[i]] <- if_else(next_out >= min, next_out, out[[i - 1]])
         } else {
@@ -51,7 +51,8 @@ test_that("Can deal with custom input variables", {
   )
   expect_snapshot_value(
     staircase(
-      rename(data, level = xtime), .by = "id",
+      rename(data, level = xtime),
+      .by = "id",
       .input = list(name_level = "level")
     ),
     style = "json2"
