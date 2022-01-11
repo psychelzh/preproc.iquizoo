@@ -26,7 +26,8 @@ Suggests:
     readr,
     roxygen2,
     testthat (>= 3.0.0),
-    tibble
+    tibble,
+    withr
 Remotes: 
     tidyverse/tidyr
 Config/testthat/edition: 3
