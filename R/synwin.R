@@ -53,7 +53,7 @@ synwin <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
         .data$task == "aud" ~ if_else(
           .data[[.input$name_status]] == .extra$aud_low,
           0.25, 1
-        ) * (.data[[.input$name_acc]] *2 - 1)
+        ) * (.data[[.input$name_acc]] * 2 - 1)
       )
     ) |>
     group_by(across(all_of(c(.by, "task")))) |>
