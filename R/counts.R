@@ -45,8 +45,17 @@ countcorrect <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
 #' @rdname counts
 #' @export
 countcorrect2 <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
-  .input <- list(name_nc = "ncorrect", name_ne = "nerror") |>
+  .input <- list(name_nc = "ncorrect", name_ne = "nerror", name_acc = "acc") |>
     update_settings(.input)
+  if (!all(has_name(data, .input[c("name_nc", "name_ne")]))) {
+    data <- data |>
+      group_by(across(all_of(.by))) |>
+      summarise(
+        "{.input$name_nc}" := sum(.data[[.input$name_acc]] == 1),
+        "{.input$name_ne}" := sum(.data[[.input$name_acc]] == 0),
+        .groups = "drop"
+      )
+  }
   data |>
     group_by(across(all_of(.by))) |>
     summarise(
