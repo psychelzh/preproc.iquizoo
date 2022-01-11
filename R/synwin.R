@@ -57,12 +57,9 @@ synwin <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       )
     ) |>
     group_by(across(all_of(c(.by, "task")))) |>
-    summarise(score = sum(score), .groups = "drop") |>
-    mutate(score_scale = scale(score)[, 1]) |>
-    group_by(across(all_of(c(.by)))) |>
-    mutate(score_total = sum(score_scale)) |>
+    summarise(score = sum(.data$score), .groups = "drop_last") |>
+    mutate(score_total = sum(.data$score)) |>
     ungroup() |>
-    select(-score_scale) |>
     pivot_wider(
       names_from = .data$task,
       names_prefix = "score_",
