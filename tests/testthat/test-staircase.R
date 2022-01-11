@@ -45,16 +45,12 @@ test_that("Can deal with grouping", {
 })
 
 test_that("Can deal with custom input variables", {
-  expect_snapshot_value(
-    staircase(filter(data, id == 1)),
-    style = "json2"
-  )
-  expect_snapshot_value(
+  expect_identical(
+    staircase(data, .by = "id"),
     staircase(
       rename(data, level = xtime),
       .by = "id",
       .input = list(name_level = "level")
-    ),
-    style = "json2"
+    )
   )
 })
