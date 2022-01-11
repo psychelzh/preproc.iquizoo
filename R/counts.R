@@ -21,23 +21,31 @@ NULL
 #' @rdname counts
 #' @export
 countcorrect <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
-  .input <- list(name_acc = "acc") |>
+  .input <- list(name_nc = "ncorrect", name_acc = "acc") |>
     update_settings(.input)
-  if (is.character(data[[.input[["name_acc"]]]])) {
-    # character input uses "-" to separate individual responses
+  if (!has_name(data, .input$name_nc)) {
+    if (is.character(data[[.input[["name_acc"]]]])) {
+      # character input uses "-" to separate individual responses
+      data <- data |>
+        mutate(
+          "{.input$name_acc}" := parse_char_resp(
+            .data[[.input[["name_acc"]]]]
+          )
+        ) |>
+        unnest(.data[[.input[["name_acc"]]]])
+    }
     data <- data |>
-      mutate(
-        r"({.input[["name_acc"]]})" := parse_char_resp(
-          .data[[.input[["name_acc"]]]]
-        )
-      ) |>
-      unnest(.data[[.input[["name_acc"]]]])
+      group_by(across(all_of(.by))) |>
+      summarise(
+        # `NA` might be produced in parsing characters
+        "{.input$name_nc}" := sum(.data[[.input$name_acc]] == 1, na.rm = TRUE),
+        .groups = "drop"
+      )
   }
   data |>
     group_by(across(all_of(.by))) |>
     summarise(
-      # NA might be produced in parsing characters
-      nc = sum(.data[[.input[["name_acc"]]]] == 1, na.rm = TRUE),
+      nc = sum(.data[[.input$name_nc]]),
       .groups = "drop"
     )
 }
