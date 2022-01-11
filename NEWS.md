@@ -3,6 +3,7 @@
 ## New Features
 
 * Added new function `dualnback()` to support for dual n-back tests.
+* Added new function `synwin()` to support modified SynWin test.
 
 ## Enhancement
 
