@@ -9,6 +9,7 @@
 ## Enhancement
 
 * Changed algorithm to get stop signal reaction time for Stop Signal Paradigm based on the [recent eLife publication](https://doi.org/10.7554/eLife.46323).
+* Added support for ncorrect and nerror input for `countcorrect()` and `countcorrect2()`.
 
 # preproc.iquizoo 2.1.0
 
