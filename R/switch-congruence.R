@@ -44,7 +44,6 @@ NULL
 #' @export
 complexswitch <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
-    name_block = "block",
     name_cong = "stimtype",
     name_task = "task",
     name_switch = "tasktype",
@@ -108,7 +107,6 @@ congeff <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
 #' @export
 switchcost <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
-    name_block = "block",
     name_task = "task",
     name_switch = "type",
     name_acc = "acc",
@@ -117,23 +115,21 @@ switchcost <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     update_settings(.input)
   .extra <- list(
     block_pure = "pure",
+    task_filler = "filler",
     task_repeat = "repeat",
     task_switch = "switch"
   ) |>
     update_settings(.extra)
   data_cor <- data |>
+    # remove all filler trials
+    filter(.data[[.input$name_switch]] != .extra$task_filler) |>
     mutate(
-      # remove rt of 100 or less
-      rt_cor = ifelse(
-        .data[[.input[["name_rt"]]]] > 100,
-        .data[[.input[["name_rt"]]]], NA
-      ),
       type_block = ifelse(
-        .data[[.input[["name_switch"]]]] == .extra$block_pure,
-        .data[[.input[["name_task"]]]], "mixed"
+        .data[[.input$name_switch]] == .extra$block_pure,
+        .data[[.input$name_task]], "mixed"
       ),
       type_switch = recode(
-        .data[[.input[["name_switch"]]]],
+        .data[[.input$name_switch]],
         "{.extra$block_pure}" := "pure",
         "{.extra$task_repeat}" := "repeat",
         "{.extra$task_switch}" := "switch"
@@ -144,7 +140,7 @@ switchcost <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     .by = .by,
     name_type_block = "type_block",
     name_type_switch = "type_switch",
-    name_acc = .input[["name_acc"]],
-    name_rt = "rt_cor"
+    name_acc = .input$name_acc,
+    name_rt = .input$name_rt
   )
 }

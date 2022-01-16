@@ -105,18 +105,13 @@ dualnback <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       type_cor = if_else(
         .data[[name_type]] == type_signal,
         "s", "n"
-      ),
-      # remove rt of 100 or less
-      rt_cor = ifelse(
-        .data[[name_rt]] > 100,
-        .data[[name_rt]], NA
       )
     )
   basics <- calc_spd_acc(
     data_cor,
     .by,
     name_acc = name_acc,
-    name_rt = "rt_cor",
+    name_rt = name_rt,
     rt_rtn = "mean",
     acc_rtn = "percent"
   )

@@ -34,20 +34,16 @@ calc_spd_acc <- function(data, .by, name_acc, name_rt,
   acc_rtn <- match.arg(acc_rtn)
   data |>
     group_by(across(all_of(.by))) |>
-    mutate(
-      "{name_rt}" := ifelse(
-        .data[[name_rt]] %in%
-          graphics::boxplot(.data[[name_rt]], plot = FALSE)$out &
-          rm.out,
-        NA, .data[[name_rt]]
-      )
-    ) |>
+    mutate(is_outlier = check_outliers_rt(rt)) |>
     summarise(
       nc = sum(.data[[name_acc]] == 1),
       pc = .data[["nc"]] / n(),
-      mrt = mean(.data[[name_rt]], na.rm = TRUE),
-      rtsd = stats::sd(.data[[name_rt]], na.rm = TRUE),
-      .groups = "drop"
+      mrt = .data[[name_rt]] |>
+        .subset(.data[[name_acc]] == 1 & !.data$is_outlier) |>
+        mean(na.rm = TRUE),
+      rtsd = .data[[name_rt]] |>
+        .subset(.data[[name_acc]] == 1 & !.data$is_outlier) |>
+        stats::sd(na.rm = TRUE)
     ) |>
     select(
       all_of(

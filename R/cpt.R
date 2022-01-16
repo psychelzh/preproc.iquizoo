@@ -22,27 +22,24 @@ cpt <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     update_settings(.extra)
   data_cor <- data |>
     # some tests records stimuli not presented
-    filter(.data[[.input[["name_acc"]]]] != -1) |>
+    filter(.data[[.input$name_acc]] != -1) |>
     mutate(
       # standardize stimuli type
       type_cor = if_else(
-        .data[[.input[["name_type"]]]] == .extra$type_signal,
+        .data[[.input$name_type]] == .extra$type_signal,
         "s", "n"
       ),
-      # remove rt of 100 or less and rt from non-signal trials
-      rt_cor = ifelse(
-        .data[[.input[["name_rt"]]]] > 100 & .data[["type_cor"]] == "s",
-        .data[[.input[["name_rt"]]]], NA
-      )
+      # remove rt from non-signal trials
+      rt_cor = ifelse(.data$type_cor == "s", .data[[.input$name_rt]], NA)
     )
   basics <- calc_spd_acc(
     data_cor,
     .by,
-    name_acc = .input[["name_acc"]],
+    name_acc = .input$name_acc,
     name_rt = "rt_cor",
     acc_rtn = "count"
   )
-  sdt <- calc_sdt(data_cor, .by, .input[["name_acc"]], "type_cor")
+  sdt <- calc_sdt(data_cor, .by, .input$name_acc, "type_cor")
   if (!is.null(.by)) {
     return(left_join(basics, sdt, by = .by))
   } else {
