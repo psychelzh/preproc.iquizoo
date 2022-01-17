@@ -51,5 +51,5 @@ check_outliers_rt <- function(x, threshold = 2.5) {
   z_scores <- scale(
     scale(x, min(x, na.rm = TRUE), diff(range(x, na.rm = TRUE)))
   )[, 1]
-  abs(z_scores) > 2.5
+  abs(z_scores) > threshold
 }
