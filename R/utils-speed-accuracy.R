@@ -34,7 +34,7 @@ calc_spd_acc <- function(data, .by, name_acc, name_rt,
   acc_rtn <- match.arg(acc_rtn)
   data |>
     group_by(across(all_of(.by))) |>
-    mutate(is_outlier = check_outliers_rt(rt)) |>
+    mutate(is_outlier = check_outliers_rt(.data[[name_rt]])) |>
     summarise(
       nc = if (acc_rtn %in% c("both", "count")) sum(.data[[name_acc]] == 1),
       pc = if (acc_rtn %in% c("both", "percent")) {
