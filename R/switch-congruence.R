@@ -84,22 +84,18 @@ congeff <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     update_settings(.extra)
   data_cor <- data |>
     mutate(
-      # remove rt of 100 or less
-      rt_cor = ifelse(
-        .data[[.input[["name_rt"]]]] > 100,
-        .data[[.input[["name_rt"]]]], NA
-      ),
       stim_type = recode(
         .data[[.input[["name_cong"]]]],
-        "{.extra$stim_con}" := "con", "{.extra$stim_inc}" := "inc"
+        "{.extra$stim_con}" := "con",
+        "{.extra$stim_inc}" := "inc"
       )
     )
   calc_cong_eff(
     data_cor,
     .by = .by,
     name_cong = "stim_type",
-    name_acc = .input[["name_acc"]],
-    name_rt = "rt_cor"
+    name_acc = .input$name_acc,
+    name_rt = .input$name_rt
   )
 }
 
