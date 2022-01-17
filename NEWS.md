@@ -8,7 +8,8 @@
 
 ## Enhancement
 
-* Changed algorithm to get stop signal reaction time for Stop Signal Paradigm based on the [recent eLife publication](https://doi.org/10.7554/eLife.46323).
+* Added partical credit score for simple or complex span tests (#36).
+* Changed algorithm to get stop signal reaction time for Stop Signal Paradigm based on the [recent eLife publication](https://doi.org/10.7554/eLife.46323) (#56).
 * Added support for ncorrect and nerror input for `countcorrect()` and `countcorrect2()`.
 * Enhanced reaction time outlier detection (#61).
 
