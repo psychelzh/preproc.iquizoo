@@ -35,7 +35,7 @@ nsymncmp <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   )
   ensure_fit <- function(data, max_nfit = 10) {
     loglik <- function(b, s, acc, w, ...) {
-      log(pnorm(0, b - s, w^2 * (b^2 + s^2), lower.tail = !acc))
+      log(stats::pnorm(0, b - s, w^2 * (b^2 + s^2), lower.tail = !acc))
     }
     objctive_fun <- function(w, data) {
       sum(-purrr::pmap_dbl(data, loglik, w = w))
@@ -43,7 +43,7 @@ nsymncmp <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     converged <- FALSE
     for (i_fit in seq_len(max_nfit)) {
       repeat {
-        start <- c(w = runif(1))
+        start <- c(w = stats::runif(1))
         if (is.finite(objctive_fun(start, data))) {
           break
         }
