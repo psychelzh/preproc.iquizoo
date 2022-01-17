@@ -20,14 +20,14 @@ nsymncmp <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     update_settings(.input)
   data_cor <- data |>
     rename(
-      b = .data[[.input[["name_big"]]]],
-      s = .data[[.input[["name_small"]]]]
+      b = .data[[.input$name_big]],
+      s = .data[[.input$name_small]]
     )
   basics <- calc_spd_acc(
     data_cor,
     .by,
-    name_acc = .input[["name_acc"]],
-    name_rt = .input[["name_rt"]],
+    name_acc = .input$name_acc,
+    name_rt = .input$name_rt,
     rt_rtn = "mean",
     acc_rtn = "percent"
   )
