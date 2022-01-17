@@ -19,13 +19,13 @@ Imports:
     purrr,
     rlang (>= 0.1.2),
     stringr,
+    tibble,
     tidyr (>= 1.1.4.9000)
 Suggests:
     covr,
     readr,
     roxygen2,
     testthat (>= 3.0.0),
-    tibble,
     withr
 Remotes:
     tidyverse/tidyr

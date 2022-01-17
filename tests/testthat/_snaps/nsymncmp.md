@@ -1,62 +1,62 @@
-# Default behavior works
+# Can deal with grouping variables
 
     {
       "type": "list",
       "attributes": {
-        "names": {
+        "class": {
           "type": "character",
           "attributes": {},
-          "value": ["pc", "mrt", "w"]
+          "value": ["tbl_df", "tbl", "data.frame"]
         },
         "row.names": {
           "type": "integer",
           "attributes": {},
           "value": [1]
         },
-        "class": {
+        "names": {
           "type": "character",
           "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
+          "value": ["pc", "mrt", "w"]
         }
       },
       "value": [
         {
           "type": "double",
           "attributes": {},
-          "value": [0.4975]
+          "value": [0.75]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [903.23444574]
+          "value": [852.40705563]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": ["NA"]
+          "value": [0.16504968]
         }
       ]
     }
 
-# Works with grouping variables
+---
 
     {
       "type": "list",
       "attributes": {
-        "names": {
+        "class": {
           "type": "character",
           "attributes": {},
-          "value": ["id", "pc", "mrt", "w"]
+          "value": ["tbl_df", "tbl", "data.frame"]
         },
         "row.names": {
           "type": "integer",
           "attributes": {},
           "value": [1, 2, 3, 4, 5]
         },
-        "class": {
+        "names": {
           "type": "character",
           "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
+          "value": ["id", "pc", "mrt", "w"]
         }
       },
       "value": [
@@ -68,17 +68,17 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.525, 0.5, 0.4625, 0.5, 0.5]
+          "value": [0.75, 0.75, 0.75, 0.75, 0.75]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [1020.40690365, 913.13846726, 846.12430738, 1022.29940723, 719.48246116]
+          "value": [972.98127097, 830.58347945, 857.52137118, 1044.91951466, 677.24019314]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": ["NA", "NA", "NA", 9.09482217, 3.48272068]
+          "value": [0.16504968, 0.16504973, 0.16504968, 0.16504968, 0.16504968]
         }
       ]
     }
