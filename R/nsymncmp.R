@@ -48,14 +48,8 @@ nsymncmp <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
           break
         }
       }
-      fit <- tryCatch(
-        stats::nlminb(start, objctive_fun, data = data, lower = 0),
-        error = function(e) {
-          # fall back with `NA` parameter
-          list(par = c("w" = NA_real_))
-        }
-      )
-      if (!is.null(fit) && fit$convergence == 0) {
+      fit <- stats::nlminb(start, objctive_fun, data = data, lower = 0)
+      if (fit$convergence == 0) {
         converged <- TRUE
         break
       }
