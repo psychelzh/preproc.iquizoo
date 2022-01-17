@@ -1,35 +1,55 @@
-set.seed(1)
-n_users <- 5
-data <- expand_grid(
-  id = seq_len(5),
-  tibble::tribble(
-    ~bigsetcount, ~smallsetcount, ~n,
-    12, 6, 10,
-    14, 7, 10,
-    9, 6, 10,
-    12, 8, 10,
-    8, 6, 10,
-    12, 9, 10,
-    7, 6, 10,
-    14, 12, 10
-  )
-) |>
-  uncount(n) |>
-  mutate(
-    acc = sample(c(0, 1), n(), replace = TRUE),
-    rt = rexp(n(), 0.001)
-  )
+config <- tibble::tribble(
+  ~bigsetcount, ~smallsetcount, ~pc,
+  12, 6, 0.9,
+  14, 7, 0.9,
+  9, 6, 0.8,
+  12, 8, 0.8,
+  8, 6, 0.7,
+  12, 9, 0.7,
+  7, 6, 0.6,
+  14, 12, 0.6
+)
+data <- withr::with_seed(
+  1,
+  expand_grid(
+    id = seq_len(5),
+    config
+  ) |>
+    group_by(id, bigsetcount, smallsetcount, pc) |>
+    summarise(
+      tibble(
+        n = 10,
+        acc = c(rep(1, round(n * pc)), rep(0, round(n * (1 - pc)))),
+        rt = rexp(n, 0.001)
+      ),
+      .groups = "drop"
+    )
+)
 
-test_that("Default behavior works", {
+test_that("Can deal with grouping variables", {
   expect_snapshot_value(
     nsymncmp(data),
-    style = "json2"
+    style = "json2",
+    tolerance = 1e-5
+  )
+  expect_snapshot_value(
+    nsymncmp(data, .by = "id"),
+    style = "json2",
+    tolerance = 1e-5
   )
 })
 
-test_that("Works with grouping variables", {
-  expect_snapshot_value(
-    nsymncmp(data, .by = "id"),
-    style = "json2"
+test_that("Warning if not converged", {
+  data_invalid <- withr::with_seed(
+    1,
+    config |>
+      mutate(n = 10) |>
+      uncount(n) |>
+      mutate(
+        acc = sample(c(0, 1), n(), replace = TRUE),
+        rt = rexp(n(), 0.001)
+      )
   )
+  nsymncmp(data_invalid, .extra = list(max_nfit = 10)) |>
+    expect_warning(class = "fit_not_converge")
 })
