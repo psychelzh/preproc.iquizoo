@@ -21,8 +21,6 @@ calc_switch_cost <- function(data,
                              name_rt,
                              name_acc) {
   data |>
-    # remove all filler trials
-    filter(.data[[name_type_switch]] != "filler") |>
     mutate(
       condition = factor(
         .data[[name_type_switch]],
@@ -30,21 +28,19 @@ calc_switch_cost <- function(data,
       )
     ) |>
     group_by(across(
-      all_of(c(.by, name_type_block, name_type_switch, "condition"))
+      all_of(c(name_type_block, name_type_switch, "condition"))
     )) |>
-    mutate(
-      # remove conditional reaction time outliers
-      "{name_rt}" := ifelse(
-        .data[[name_rt]] %in%
-          graphics::boxplot(.data[[name_rt]], plot = FALSE)$out,
-        NA, .data[[name_rt]]
+    group_modify(
+      ~ calc_spd_acc(
+        .x,
+        .by = .by,
+        name_acc = name_acc,
+        name_rt = name_rt,
+        acc_rtn = "percent",
+        rt_rtn = "mean"
       )
     ) |>
-    summarise(
-      mrt = mean(.data[[name_rt]], na.rm = TRUE),
-      pc = mean(.data[[name_acc]] == 1),
-      .groups = "drop"
-    ) |>
+    ungroup() |>
     complete(.data[["condition"]], nesting(!!!syms(.by))) |>
     group_by(across(all_of(c(.by, "condition")))) |>
     summarise(
@@ -88,20 +84,18 @@ calc_cong_eff <- function(data, .by, name_cong, name_acc, name_rt) {
         c("inc", "con")
       )
     ) |>
-    group_by(across(all_of(c(.by, name_cong)))) |>
-    mutate(
-      # remove conditional reaction time outliers
-      "{name_rt}" := ifelse(
-        .data[[name_rt]] %in%
-          graphics::boxplot(.data[[name_rt]], plot = FALSE)$out,
-        NA, .data[[name_rt]]
+    group_by(across(all_of(name_cong))) |>
+    group_modify(
+      ~ calc_spd_acc(
+        .x,
+        .by = .by,
+        name_acc = name_acc,
+        name_rt = name_rt,
+        acc_rtn = "percent",
+        rt_rtn = "mean"
       )
     ) |>
-    summarise(
-      pc = mean(.data[[name_acc]] == 1),
-      mrt = mean(.data[[name_rt]], na.rm = TRUE),
-      .groups = "drop"
-    ) |>
+    ungroup() |>
     # make sure each type of condition exists
     complete(!!sym(name_cong), nesting(!!!syms(.by))) |>
     pivot_wider(

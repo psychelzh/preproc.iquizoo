@@ -20,17 +20,10 @@ crt <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_acc = "acc", name_rt = "rt") |>
     update_settings(.input)
   data |>
-    mutate(
-      # remove rt of 100 or less
-      rt_cor = ifelse(
-        .data[[.input[["name_rt"]]]] > 100,
-        .data[[.input[["name_rt"]]]], NA
-      )
-    ) |>
     calc_spd_acc(
       .by,
-      name_acc = .input[["name_acc"]],
-      name_rt = "rt_cor",
+      name_acc = .input$name_acc,
+      name_rt = .input$name_rt,
       acc_rtn = "count"
     )
 }
@@ -41,18 +34,11 @@ srt <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_rt = "rt") |>
     update_settings(.input)
   data |>
-    mutate(
-      # remove rt of 100 or less
-      rt_cor = ifelse(
-        .data[[.input[["name_rt"]]]] > 100,
-        .data[[.input[["name_rt"]]]], NA
-      ),
-      acc_dummy = 1
-    ) |>
+    mutate(acc_dummy = 1) |>
     calc_spd_acc(
       .by,
       name_acc = "acc_dummy",
-      name_rt = "rt_cor",
+      name_rt = .input$name_rt,
       acc_rtn = "none"
     )
 }

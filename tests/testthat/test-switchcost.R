@@ -33,24 +33,26 @@ data <- expand_grid(
     )
   )
 data_miss_cond <- tibble::tibble(
-  id = rep(1:2, each = 8),
-  block = rep(1:8, 2),
-  task = "t1",
-  type = rep(c(rep("pure", 2), rep("repeat", 4), rep("pure", 2)), 2),
-  acc = sample(c(0, 1), 16, replace = TRUE),
-  rt = rexp(16, 0.001)
-)
+  id = rep(1:2, each = 100),
+  type = rep(c(rep("pure", 20), rep("repeat", 80)), 2)
+) |>
+  mutate(
+    task = rep(c("T1", "T2"), n() / 2),
+    acc = sample(c(0, 1), n(), replace = TRUE),
+    rt = rexp(n(), 0.001)
+  )
 data_part_miss_cond <- tibble::tibble(
-  id = rep(1:2, each = 8),
-  block = rep(1:8, 2),
-  task = "t1",
+  id = rep(1:2, each = 100),
   type = c(
-    c(rep("pure", 2), rep("repeat", 4), rep("pure", 2)),
-    c(rep("pure", 2), rep("repeat", 2), rep("switch", 2), rep("pure", 2))
-  ),
-  acc = sample(c(0, 1), 16, replace = TRUE),
-  rt = rexp(16, 0.001)
-)
+    c(rep("pure", 20), rep("repeat", 80)),
+    c(rep("pure", 20), rep("repeat", 40), rep("switch", 40))
+  )
+) |>
+  mutate(
+    task = rep(c("T1", "T2"), n() / 2),
+    acc = sample(c(0, 1), n(), replace = TRUE),
+    rt = rexp(n(), 0.001)
+  )
 
 test_that("Default behavior works", {
   expect_snapshot_value(

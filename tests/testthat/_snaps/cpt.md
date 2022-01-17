@@ -3,20 +3,20 @@
     {
       "type": "list",
       "attributes": {
-        "names": {
+        "class": {
           "type": "character",
           "attributes": {},
-          "value": ["nc", "mrt", "rtsd", "dprime", "c", "commissions", "omissions"]
+          "value": ["tbl_df", "tbl", "data.frame"]
         },
         "row.names": {
           "type": "integer",
           "attributes": {},
           "value": [1]
         },
-        "class": {
+        "names": {
           "type": "character",
           "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
+          "value": ["nc", "mrt", "rtsd", "dprime", "c", "commissions", "omissions"]
         }
       },
       "value": [
@@ -28,12 +28,12 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [985.22367397]
+          "value": [981.38710346]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [742.11763473]
+          "value": [863.82329744]
         },
         {
           "type": "double",
@@ -63,20 +63,20 @@
     {
       "type": "list",
       "attributes": {
-        "names": {
+        "class": {
           "type": "character",
           "attributes": {},
-          "value": ["nc", "mrt", "rtsd", "dprime", "c", "commissions", "omissions"]
+          "value": ["tbl_df", "tbl", "data.frame"]
         },
         "row.names": {
           "type": "integer",
           "attributes": {},
           "value": [1]
         },
-        "class": {
+        "names": {
           "type": "character",
           "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
+          "value": ["nc", "mrt", "rtsd", "dprime", "c", "commissions", "omissions"]
         }
       },
       "value": [
@@ -88,12 +88,12 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [903.80491768]
+          "value": [842.99727416]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [663.49493435]
+          "value": [734.31992165]
         },
         {
           "type": "double",
@@ -123,20 +123,20 @@
     {
       "type": "list",
       "attributes": {
-        "names": {
+        "class": {
           "type": "character",
           "attributes": {},
-          "value": ["nc", "mrt", "rtsd", "dprime", "c", "commissions", "omissions"]
+          "value": ["tbl_df", "tbl", "data.frame"]
         },
         "row.names": {
           "type": "integer",
           "attributes": {},
           "value": [1]
         },
-        "class": {
+        "names": {
           "type": "character",
           "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
+          "value": ["nc", "mrt", "rtsd", "dprime", "c", "commissions", "omissions"]
         }
       },
       "value": [
@@ -148,12 +148,12 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [897.62130011]
+          "value": [849.81536211]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [680.89652647]
+          "value": [770.51707134]
         },
         {
           "type": "double",
@@ -183,20 +183,20 @@
     {
       "type": "list",
       "attributes": {
-        "names": {
+        "class": {
           "type": "character",
           "attributes": {},
-          "value": ["id", "nc", "mrt", "rtsd", "dprime", "c", "commissions", "omissions"]
+          "value": ["tbl_df", "tbl", "data.frame"]
         },
         "row.names": {
           "type": "integer",
           "attributes": {},
           "value": [1, 2, 3, 4, 5]
         },
-        "class": {
+        "names": {
           "type": "character",
           "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
+          "value": ["id", "nc", "mrt", "rtsd", "dprime", "c", "commissions", "omissions"]
         }
       },
       "value": [
@@ -213,12 +213,12 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [1035.84057782, 1002.28863829, 992.9718147, 1084.27932573, 873.7722465]
+          "value": [864.13630843, 1125.10274787, 893.39890032, 1120.01089441, 874.64315536]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [759.2079376, 690.87064533, 742.23007724, 971.93297203, 616.08731374]
+          "value": [782.85837682, 982.4917662, 824.84137279, 1079.67154026, 627.62854574]
         },
         {
           "type": "double",

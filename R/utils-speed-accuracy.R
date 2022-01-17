@@ -34,31 +34,23 @@ calc_spd_acc <- function(data, .by, name_acc, name_rt,
   acc_rtn <- match.arg(acc_rtn)
   data |>
     group_by(across(all_of(.by))) |>
-    mutate(
-      "{name_rt}" := ifelse(
-        .data[[name_rt]] %in%
-          graphics::boxplot(.data[[name_rt]], plot = FALSE)$out &
-          rm.out,
-        NA, .data[[name_rt]]
-      )
-    ) |>
+    mutate(is_outlier = check_outliers_rt(.data[[name_rt]])) |>
     summarise(
-      nc = sum(.data[[name_acc]] == 1),
-      pc = .data[["nc"]] / n(),
-      mrt = mean(.data[[name_rt]], na.rm = TRUE),
-      rtsd = stats::sd(.data[[name_rt]], na.rm = TRUE),
+      nc = if (acc_rtn %in% c("both", "count")) sum(.data[[name_acc]] == 1),
+      pc = if (acc_rtn %in% c("both", "percent")) {
+        sum(.data[[name_acc]] == 1) / n()
+      },
+      mrt = if (rt_rtn %in% c("both", "mean")) {
+        .data[[name_rt]] |>
+          .subset(.data[[name_acc]] == 1 & !.data$is_outlier) |>
+          mean(na.rm = TRUE)
+      },
+      rtsd = if (rt_rtn %in% c("both", "sd")) {
+        .data[[name_rt]] |>
+          .subset(.data[[name_acc]] == 1 & !.data$is_outlier) |>
+          stats::sd(na.rm = TRUE)
+      },
       .groups = "drop"
-    ) |>
-    select(
-      all_of(
-        c(
-          .by,
-          if (acc_rtn %in% c("both", "count")) "nc",
-          if (acc_rtn %in% c("both", "percent")) "pc",
-          if (rt_rtn %in% c("both", "mean")) "mrt",
-          if (rt_rtn %in% c("both", "sd")) "rtsd"
-        )
-      )
     )
 }
 

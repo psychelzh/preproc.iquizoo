@@ -19,12 +19,6 @@ nsymncmp <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   ) |>
     update_settings(.input)
   data_cor <- data |>
-    mutate(
-      rt_cor = ifelse(
-        .data[[.input[["name_rt"]]]] > 100,
-        .data[[.input[["name_rt"]]]], NA
-      )
-    ) |>
     rename(
       b = .data[[.input[["name_big"]]]],
       s = .data[[.input[["name_small"]]]]
@@ -33,7 +27,7 @@ nsymncmp <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     data_cor,
     .by,
     name_acc = .input[["name_acc"]],
-    name_rt = "rt_cor",
+    name_rt = .input[["name_rt"]],
     rt_rtn = "mean",
     acc_rtn = "percent"
   )
