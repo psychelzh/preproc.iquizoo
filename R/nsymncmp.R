@@ -18,7 +18,7 @@ nsymncmp <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     name_rt = "rt"
   ) |>
     update_settings(.input)
-  .extra <- list(max_nfit = 1000) |>
+  .extra <- list(max_nfit = 10) |>
     update_settings(.extra)
   data_cor <- data |>
     rename(
@@ -33,7 +33,7 @@ nsymncmp <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     rt_rtn = "mean",
     acc_rtn = "percent"
   )
-  ensure_fit <- function(data, max_nfit = 1000) {
+  ensure_fit <- function(data, max_nfit = 10) {
     loglik <- function(b, s, acc, w, ...) {
       log(pnorm(0, b - s, w^2 * (b^2 + s^2), lower.tail = !acc))
     }

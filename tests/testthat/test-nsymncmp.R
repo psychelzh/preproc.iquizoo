@@ -50,6 +50,6 @@ test_that("Warning if not converged", {
         rt = rexp(n(), 0.001)
       )
   )
-  nsymncmp(data_invalid, .extra = list(max_nfit = 10)) |>
+  nsymncmp(data_invalid) |>
     expect_warning(class = "fit_not_converge")
 })
