@@ -12,6 +12,7 @@
 * Changed algorithm to get stop signal reaction time for Stop Signal Paradigm based on the [recent eLife publication](https://doi.org/10.7554/eLife.46323) (#56).
 * Added support for ncorrect and nerror input for `countcorrect()` and `countcorrect2()`.
 * Enhanced reaction time outlier detection (#61).
+* Enhanced fitting of weber fraction for numerosity task through trial-based maximum likelihood estimation.
 
 # preproc.iquizoo 2.1.0
 
