@@ -13,8 +13,8 @@ nle <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     update_settings(.input)
   data |>
     mutate(
-      err = abs(.data[[.input[["name_number"]]]] -
-        .data[[.input[["name_resp"]]]])
+      err = abs(.data[[.input$name_number]] -
+        .data[[.input$name_resp]])
     ) |>
     group_by(across(all_of(.by))) |>
     summarise(

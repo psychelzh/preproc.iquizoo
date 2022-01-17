@@ -25,14 +25,14 @@ refframe <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     mutate(
       type_cor = case_when(
         .data[["set"]] == "both" ~ "both",
-        .data[[.input[["name_type"]]]] == .extra$type_allo ~ "allo",
-        .data[[.input[["name_type"]]]] == .extra$type_ego ~ "ego"
+        .data[[.input$name_type]] == .extra$type_allo ~ "allo",
+        .data[[.input$name_type]] == .extra$type_ego ~ "ego"
       )
     ) |>
     group_by(across(all_of(c(.by, "type_cor")))) |>
     summarise(
-      mean_dist_err = mean(.data[[.input[["name_dist"]]]]),
-      mean_log_err = mean(log(.data[[.input[["name_dist"]]]] + 1)),
+      mean_dist_err = mean(.data[[.input$name_dist]]),
+      mean_log_err = mean(log(.data[[.input$name_dist]] + 1)),
       .groups = "drop"
     ) |>
     pivot_wider(

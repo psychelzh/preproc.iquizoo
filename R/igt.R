@@ -18,9 +18,9 @@ igt <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   data |>
     group_by(across(all_of(.by))) |>
     summarise(
-      sum_outcome = sum(.data[[.input[["name_outcome"]]]]),
+      sum_outcome = sum(.data[[.input$name_outcome]]),
       perc_good = mean(
-        .data[[.input[["name_pool"]]]] %in% .extra$pools_advantage
+        .data[[.input$name_pool]] %in% .extra$pools_advantage
       ),
       .groups = "drop"
     )

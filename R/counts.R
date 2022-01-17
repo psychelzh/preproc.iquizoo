@@ -24,15 +24,15 @@ countcorrect <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_nc = "ncorrect", name_acc = "acc") |>
     update_settings(.input)
   if (!has_name(data, .input$name_nc)) {
-    if (is.character(data[[.input[["name_acc"]]]])) {
+    if (is.character(data[[.input$name_acc]])) {
       # character input uses "-" to separate individual responses
       data <- data |>
         mutate(
           "{.input$name_acc}" := parse_char_resp(
-            .data[[.input[["name_acc"]]]]
+            .data[[.input$name_acc]]
           )
         ) |>
-        unnest(.data[[.input[["name_acc"]]]])
+        unnest(.data[[.input$name_acc]])
     }
     data <- data |>
       group_by(across(all_of(.by))) |>
@@ -68,7 +68,7 @@ countcorrect2 <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     group_by(across(all_of(.by))) |>
     summarise(
       nc_cor = sum(
-        .data[[.input[["name_nc"]]]] - .data[[.input[["name_ne"]]]]
+        .data[[.input$name_nc]] - .data[[.input$name_ne]]
       ),
       .groups = "drop"
     )
@@ -83,8 +83,8 @@ sumweighted <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     group_by(across(all_of(.by))) |>
     summarise(
       nc_weighted = sum(
-        .data[[.input[["name_weight"]]]] *
-          (.data[[.input[["name_acc"]]]] == 1)
+        .data[[.input$name_weight]] *
+          (.data[[.input$name_acc]] == 1)
       ),
       .groups = "drop"
     )
@@ -98,7 +98,7 @@ sumscore <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   data |>
     group_by(across(all_of(.by))) |>
     summarise(
-      nc_score = sum(as.numeric(.data[[.input[["name_score"]]]])),
+      nc_score = sum(as.numeric(.data[[.input$name_score]])),
       .groups = "drop"
     )
 }

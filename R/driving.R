@@ -19,9 +19,9 @@ driving <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   data |>
     group_by(across(all_of(.by))) |>
     mutate(
-      still_dur = parse_char_resp(.data[[.input[["name_still_dur"]]]]),
+      still_dur = parse_char_resp(.data[[.input$name_still_dur]]),
       still_light = parse_char_resp(
-        .data[[.input[["name_still_light"]]]],
+        .data[[.input$name_still_light]],
         convert_numeric = FALSE
       )
     ) |>
@@ -37,7 +37,7 @@ driving <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     ) |>
     summarise(
       still_ratio = sum(.data[["still_dur_yellow"]]) /
-        sum(.data[[.input[["name_yellow_dur"]]]]),
+        sum(.data[[.input$name_yellow_dur]]),
       .groups = "drop"
     )
 }

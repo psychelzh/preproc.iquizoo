@@ -27,10 +27,10 @@ stopsignal <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     group_modify(
       ~ .calc_ssrt(
         .x,
-        name_type = .input[["name_type"]],
-        name_acc = .input[["name_acc"]],
-        name_rt = .input[["name_rt"]],
-        name_ssd = .input[["name_ssd"]],
+        name_type = .input$name_type,
+        name_acc = .input$name_acc,
+        name_rt = .input$name_rt,
+        name_ssd = .input$name_ssd,
         type_go = .extra[["type_go"]]
       )
     ) |>

@@ -86,7 +86,7 @@ congeff <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   data_cor <- data |>
     mutate(
       stim_type = recode(
-        .data[[.input[["name_cong"]]]],
+        .data[[.input$name_cong]],
         "{.extra$stim_con}" := "con",
         "{.extra$stim_inc}" := "inc"
       )

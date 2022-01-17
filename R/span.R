@@ -35,24 +35,24 @@ span <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   }
   data |>
     mutate(
-      acc = parse_char_resp(.data[[.input[["name_acc"]]]]),
+      acc = parse_char_resp(.data[[.input$name_acc]]),
       nc = purrr::map_dbl(.data[["acc"]], ~ sum(.x == 1))
     ) |>
-    group_by(across(all_of(c(.by, .input[["name_slen"]])))) |>
+    group_by(across(all_of(c(.by, .input$name_slen)))) |>
     summarise(
       nc = sum(.data[["nc"]]),
-      pcu = sum(.data[["nc"]]) / sum(.data[[.input[["name_slen"]]]]),
-      anu = mean(.data[[.input[["name_outcome"]]]] == 1),
+      pcu = sum(.data[["nc"]]) / sum(.data[[.input$name_slen]]),
+      anu = mean(.data[[.input$name_outcome]] == 1),
       .groups = "drop_last"
     ) |>
     summarise(
       nc = sum(.data[["nc"]]),
-      max_span = .data[[.input[["name_slen"]]]] |>
+      max_span = .data[[.input$name_slen]] |>
         .subset(.data[["anu"]] != 0) |>
         max(),
-      mean_span_pcu = min(.data[[.input[["name_slen"]]]]) +
+      mean_span_pcu = min(.data[[.input$name_slen]]) +
         sum(.data[["pcu"]]) - 1,
-      mean_span_anu = min(.data[[.input[["name_slen"]]]]) +
+      mean_span_anu = min(.data[[.input$name_slen]]) +
         sum(.data[["anu"]]) - 0.5,
       .groups = "drop"
     )

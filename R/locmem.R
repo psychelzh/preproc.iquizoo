@@ -20,7 +20,7 @@ locmem <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     update_settings(.input)
   data |>
     mutate(
-      dist = parse_char_resp(.data[[.input[["name_dist"]]]]),
+      dist = parse_char_resp(.data[[.input$name_dist]]),
       .keep = "unused"
     ) |>
     unnest(.data[["dist"]]) |>
@@ -41,7 +41,7 @@ locmem2 <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   loc_results <- locmem(data, .by, .input, .extra)
   nc_order <- data |>
     mutate(
-      acc_order = parse_char_resp(.data[[.input[["name_acc_order"]]]]),
+      acc_order = parse_char_resp(.data[[.input$name_acc_order]]),
       .keep = "unused"
     ) |>
     unnest(.data[["acc_order"]]) |>

@@ -23,15 +23,15 @@ symncmp <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   basics <- calc_spd_acc(
     data,
     .by,
-    name_acc = .input[["name_acc"]],
-    name_rt = .input[["name_rt"]],
+    name_acc = .input$name_acc,
+    name_rt = .input$name_rt,
     rt_rtn = "mean",
     acc_rtn = "percent"
   )
   fit_errproof <- purrr::possibly(
     ~ stats::coef(stats::lm(
       as.formula(
-        stringr::str_glue(r"({.input[["name_rt"]]} ~ dist)")
+        stringr::str_glue("{.input$name_rt} ~ dist")
       ),
       .x
     ))[["dist"]],
@@ -39,8 +39,8 @@ symncmp <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   )
   dist_eff <- data |>
     mutate(
-      dist = .data[[.input[["name_big"]]]] -
-        .data[[.input[["name_small"]]]]
+      dist = .data[[.input$name_big]] -
+        .data[[.input$name_small]]
     ) |>
     group_nest(across(all_of(.by))) |>
     mutate(
@@ -48,7 +48,7 @@ symncmp <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
         .data[["data"]],
         ~ .x |>
           filter(
-            .data[[.input[["name_acc"]]]] == 1
+            .data[[.input$name_acc]] == 1
           ) |>
           fit_errproof()
       ),
