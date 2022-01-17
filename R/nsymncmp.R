@@ -35,7 +35,7 @@ nsymncmp <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   )
   ensure_fit <- function(data, max_nfit = 1000) {
     loglik <- function(b, s, acc, w, ...) {
-      log(pnorm(0, b - s, w ^ 2 * (b ^ 2 + s ^ 2), lower.tail = !acc))
+      log(pnorm(0, b - s, w^2 * (b^2 + s^2), lower.tail = !acc))
     }
     objctive_fun <- function(w, data) {
       sum(-purrr::pmap_dbl(data, loglik, w = w))
@@ -48,12 +48,13 @@ nsymncmp <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
           break
         }
       }
-      fit <- tryCatch({
-        stats::nlminb(start, objctive_fun, data = data, lower = 0)
-      }, error = function(e) {
-        # fall back with `NA` parameter
-        list(par = c("w" = NA_real_))
-      })
+      fit <- tryCatch(
+        stats::nlminb(start, objctive_fun, data = data, lower = 0),
+        error = function(e) {
+          # fall back with `NA` parameter
+          list(par = c("w" = NA_real_))
+        }
+      )
       if (!is.null(fit) && fit$convergence == 0) {
         converged <- TRUE
         break
