@@ -37,16 +37,19 @@ calc_spd_acc <- function(data, .by, name_acc, name_rt,
     mutate(is_outlier = check_outliers_rt(rt)) |>
     summarise(
       nc = if (acc_rtn %in% c("both", "count")) sum(.data[[name_acc]] == 1),
-      pc = if (acc_rtn %in% c("both", "percent"))
-        sum(.data[[name_acc]] == 1) / n(),
-      mrt = if (rt_rtn %in% c("both", "mean"))
+      pc = if (acc_rtn %in% c("both", "percent")) {
+        sum(.data[[name_acc]] == 1) / n()
+      },
+      mrt = if (rt_rtn %in% c("both", "mean")) {
         .data[[name_rt]] |>
-        .subset(.data[[name_acc]] == 1 & !.data$is_outlier) |>
-        mean(na.rm = TRUE),
-      rtsd = if (rt_rtn %in% c("both", "sd"))
+          .subset(.data[[name_acc]] == 1 & !.data$is_outlier) |>
+          mean(na.rm = TRUE)
+      },
+      rtsd = if (rt_rtn %in% c("both", "sd")) {
         .data[[name_rt]] |>
-        .subset(.data[[name_acc]] == 1 & !.data$is_outlier) |>
-        stats::sd(na.rm = TRUE),
+          .subset(.data[[name_acc]] == 1 & !.data$is_outlier) |>
+          stats::sd(na.rm = TRUE)
+      },
       .groups = "drop"
     )
 }
