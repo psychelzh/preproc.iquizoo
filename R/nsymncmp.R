@@ -18,6 +18,8 @@ nsymncmp <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     name_rt = "rt"
   ) |>
     update_settings(.input)
+  .extra <- list(max_nfit = 1000) |>
+    update_settings(.extra)
   data_cor <- data |>
     rename(
       b = .data[[.input$name_big]],
@@ -31,33 +33,47 @@ nsymncmp <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     rt_rtn = "mean",
     acc_rtn = "percent"
   )
-  ensure_fit <- function(data) {
+  ensure_fit <- function(data, max_nfit = 1000) {
     loglik <- function(b, s, acc, w, ...) {
       log(pnorm(0, b - s, w ^ 2 * (b ^ 2 + s ^ 2), lower.tail = !acc))
     }
     objctive_fun <- function(w, data) {
       sum(-purrr::pmap_dbl(data, loglik, w = w))
     }
-    repeat {
+    converged <- FALSE
+    for (i_fit in seq_len(max_nfit)) {
       repeat {
         start <- c(w = runif(1))
         if (is.finite(objctive_fun(start, data))) {
           break
         }
       }
-      tryCatch({
-        fit <- stats::nlminb(start, objctive_fun, data = data, lower = 0)
-        if (fit$convergence == 0) break
+      fit <- tryCatch({
+        stats::nlminb(start, objctive_fun, data = data, lower = 0)
       }, error = function(e) {
-        invisible()
+        # fall back with `NA` parameter
+        list(par = c("w" = NA_real_))
       })
+      if (!is.null(fit) && fit$convergence == 0) {
+        converged <- TRUE
+        break
+      }
     }
-    fit
+    if (!converged) {
+      warn(
+        "Cannot find fit after the max number of iterations.",
+        "fit_not_converge"
+      )
+      # fall back with `NA` parameter
+      list(par = c("w" = NA_real_))
+    } else {
+      fit
+    }
   }
   weber <- data_cor |>
     group_by(across(all_of(.by))) |>
     group_modify(
-      ~ ensure_fit(.x)$par |>
+      ~ ensure_fit(.x, max_nfit = .extra$max_nfit)$par |>
         tibble::as_tibble_row()
     ) |>
     ungroup()
