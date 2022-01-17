@@ -55,6 +55,7 @@ complexswitch <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     block_pure = "pure",
     stim_con = "congruent",
     stim_inc = "incongruent",
+    task_filler = "filler",
     task_repeat = "repeat",
     task_switch = "switch"
   ) |>
