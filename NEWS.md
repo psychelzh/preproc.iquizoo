@@ -6,6 +6,7 @@
 * Added new function `staircase()` to support for tests shipped with staircase method.
 * Added new function `synwin()` to support modified SynWin test.
 * Now `span()` can deal with location memory test.
+* Supported new design of london tower test.
 
 ## Enhancement
 
