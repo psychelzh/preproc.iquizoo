@@ -18,16 +18,22 @@ span <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     update_settings(.input)
   .extra <- list(
     name_stim = "stim",
-    name_resp = "resp"
+    name_resp = "resp",
+    name_dist = "resplocdist"
   ) |>
     update_settings(.extra)
   # try to restore "name_acc" from data
   if (!has_name(data, .input$name_acc) || any(is.na(data[[.input$name_acc]]))) {
-    if (all(has_name(data, .extra))) {
+    if (all(has_name(data, c(.extra$name_stim, .extra$name_resp)))) {
       data[[.input$name_acc]] <- purrr::map2_chr(
         parse_char_resp(data[[.extra$name_stim]]),
         parse_char_resp(data[[.extra$name_resp]]),
         ~ paste(as.numeric(.x == .y), collapse = "-")
+      )
+    } else if (has_name(data, .extra$name_dist)) {
+      data[[.input$name_acc]] <- purrr::map_chr(
+        parse_char_resp(data[[.extra$name_dist]]),
+        ~ paste(as.numeric(.x == 0), collapse = "-")
       )
     } else {
       data[[.input$name_acc]] <- ""
