@@ -1,34 +1,16 @@
-set.seed(1)
-n_subject <- 5
-data <- tibble::tibble(
-  id = seq_len(n_subject),
-  n = 14
-) |>
-  uncount(n, .id = "trial") |>
-  mutate(
-    outcome = sample(c(0, 1), n(), replace = TRUE, prob = c(0.2, 0.8))
-  ) |>
-  group_by(id) |>
-  group_modify(
-    ~ .x |>
-      mutate(
-        level = .prepare_level(
-          outcome,
-          init_level = 3,
-          max_level = 8,
-          min_level = 2
-        ),
-        score = ifelse(outcome == 1, level * 100, 0) +
-          round(runif(n(), max = level * 100)),
-        stepsused = ifelse(outcome == 1, level, 0) +
-          sample(0:20, n(), replace = TRUE)
-      )
-  ) |>
-  ungroup()
-
+data <- withr::with_seed(
+  1,
+  expand_grid(id = seq_len(5), minmove = 4:7, n = 4) |>
+    uncount(n) |>
+    mutate(
+      stepsused = minmove + rbinom(n(), minmove, 0.1),
+      finished = sample(c(0, 1), n(), replace = TRUE),
+      timeinit = rexp(n(), 0.0001)
+    )
+)
 test_that("Default behavior works", {
   expect_snapshot_value(
-    london(data),
+    london(filter(data, id == 1)),
     style = "json2"
   )
 })

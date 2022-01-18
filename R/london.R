@@ -11,44 +11,31 @@
 #' @export
 london <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
-    name_level = "level",
-    name_score = "score",
-    name_outcome = "outcome",
-    name_steps = "stepsused"
+    name_minmove = "minmove",
+    name_timeinit = "timeinit",
+    name_stepsused = "stepsused",
+    name_finished = "finished"
   ) |>
     update_settings(.input)
-  total_score <- data |>
+  prop_perfect <- data |>
     group_by(across(all_of(.by))) |>
     summarise(
-      total_score = sum(.data[[.input$name_score]]),
-      .groups = "drop"
-    )
-  level_scores <- data |>
-    mutate(
-      score_ratio = ifelse(
-        .data[[.input$name_outcome]] == 1,
-        .data[[.input$name_level]] /
-          .data[[.input$name_steps]],
-        0
+      prop_perfect = mean(
+        .data[[.input$name_stepsused]] == .data[[.input$name_minmove]]
       )
-    ) |>
-    group_by(across(
-      all_of(c(.by, .input$name_level))
-    )) |>
-    summarise(
-      pc = mean(.data[[.input$name_outcome]] == 1),
-      score = mean(.data[["score_ratio"]]),
-      .groups = "drop_last"
-    ) |>
-    summarise(
-      mean_level = sum(.data[["pc"]]) +
-        min(.data[[.input$name_level]]) - 0.5,
-      level_score = sum(.data[["score"]]),
-      .groups = "drop"
     )
+  speed_score <- calc_spd_acc(
+    data,
+    .by = .by,
+    name_acc = .input$name_finished,
+    name_rt = .input$name_timeinit,
+    acc_rtn = "none",
+    rt_rtn = "mean"
+  ) |>
+    rename(mrt_init = .data$mrt)
   if (!is.null(.by)) {
-    return(left_join(total_score, level_scores, by = .by))
+    return(left_join(prop_perfect, speed_score, by = .by))
   } else {
-    return(bind_cols(total_score, level_scores))
+    return(bind_cols(prop_perfect, speed_score))
   }
 }

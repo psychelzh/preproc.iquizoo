@@ -16,24 +16,19 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["total_score", "mean_level", "level_score"]
+          "value": ["prop_perfect", "mrt_init"]
         }
       },
       "value": [
         {
           "type": "double",
           "attributes": {},
-          "value": [61274]
+          "value": [0.5]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [7.53838384]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [2.13625378]
+          "value": [6103.24580517]
         }
       ]
     }
@@ -56,7 +51,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["id", "total_score", "mean_level", "level_score"]
+          "value": ["id", "prop_perfect", "mrt_init"]
         }
       },
       "value": [
@@ -68,17 +63,12 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [10891, 11725, 9765, 14968, 13925]
+          "value": [0.5, 0.5, 0.375, 0.6875, 0.5625]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [7.58333333, 7.66666667, 7.41666667, 8.375, 7.85714286]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [1.85090148, 1.97169759, 2.16708353, 1.99730032, 1.79982078]
+          "value": [6103.24580517, 14984.08032395, 7408.84353434, 7304.73031148, 16296.3523567]
         }
       ]
     }
