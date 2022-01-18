@@ -33,7 +33,7 @@ data <- tibble::tibble(
             sample(
               c(
                 0,
-                sample(c(0, 1), slen, replace = TRUE)
+                sample(c(0, 1), slen - 1, replace = TRUE)
               )
             ),
             collapse = "-"
@@ -87,7 +87,6 @@ test_that("Works when no acc column found", {
     ungroup()
   result_no_acc <- span(data_no_acc, .by = "id")
   expect_snapshot_value(result_no_acc, style = "json2")
-  expect_true(all(is.na(result_no_acc$nc)))
   data_repairable <- data_no_acc |>
     mutate(
       stim = purrr::map_chr(
@@ -99,5 +98,18 @@ test_that("Works when no acc column found", {
     )
   result_repaired <- span(data_repairable, .by = "id")
   expect_snapshot_value(result_repaired, style = "json2")
-  expect_true(all(!is.na(result_repaired$nc)))
+})
+
+test_that("Works for distance input", {
+  data_dist <- data |>
+    mutate(
+      resplocdist = correctness |>
+        stringr::str_replace_all("0", "99") |>
+        stringr::str_replace_all("1", "0"),
+      .keep = "unused"
+    )
+  expect_identical(
+    span(data, .by = "id"),
+    span(data_dist, .by = "id")
+  )
 })

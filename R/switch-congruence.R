@@ -44,7 +44,6 @@ NULL
 #' @export
 complexswitch <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
-    name_block = "block",
     name_cong = "stimtype",
     name_task = "task",
     name_switch = "tasktype",
@@ -56,53 +55,13 @@ complexswitch <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     block_pure = "pure",
     stim_con = "congruent",
     stim_inc = "incongruent",
+    task_filler = "filler",
     task_repeat = "repeat",
     task_switch = "switch"
   ) |>
     update_settings(.extra)
-  data_cor <- data |>
-    mutate(
-      # remove rt of 100 or less
-      rt_cor = ifelse(
-        .data[[.input[["name_rt"]]]] > 100,
-        .data[[.input[["name_rt"]]]], NA
-      ),
-      type_block = ifelse(
-        .data[[.input[["name_switch"]]]] == .extra$block_pure,
-        "pure", "mixed"
-      ),
-      type_switch = ifelse(
-        .data[["type_block"]] == "pure",
-        .data[[.input[["name_task"]]]],
-        .data[[.input[["name_switch"]]]]
-      ) |>
-        recode(
-          "{.extra$task_repeat}" := "repeat",
-          "{.extra$task_switch}" := "switch"
-        ),
-      stim_type = recode(
-        .data[[.input[["name_cong"]]]],
-        "{.extra$stim_con}" := "con",
-        "{.extra$stim_inc}" := "inc"
-      )
-    )
-  # calculate congruence effect
-  cong_eff <- calc_cong_eff(
-    data_cor,
-    .by = .by,
-    name_cong = "stim_type",
-    name_acc = .input[["name_acc"]],
-    name_rt = "rt_cor"
-  )
-  # calculate switch cost
-  switch_cost <- calc_switch_cost(
-    data_cor,
-    .by = .by,
-    name_type_block = "type_block",
-    name_type_switch = "type_switch",
-    name_acc = .input[["name_acc"]],
-    name_rt = "rt_cor"
-  )
+  switch_cost <- switchcost(data, .by, .input, .extra)
+  cong_eff <- congeff(data, .by, .input, .extra)
   if (!is.null(.by)) {
     return(left_join(cong_eff, switch_cost, by = .by))
   } else {
@@ -126,22 +85,18 @@ congeff <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     update_settings(.extra)
   data_cor <- data |>
     mutate(
-      # remove rt of 100 or less
-      rt_cor = ifelse(
-        .data[[.input[["name_rt"]]]] > 100,
-        .data[[.input[["name_rt"]]]], NA
-      ),
       stim_type = recode(
-        .data[[.input[["name_cong"]]]],
-        "{.extra$stim_con}" := "con", "{.extra$stim_inc}" := "inc"
+        .data[[.input$name_cong]],
+        "{.extra$stim_con}" := "con",
+        "{.extra$stim_inc}" := "inc"
       )
     )
   calc_cong_eff(
     data_cor,
     .by = .by,
     name_cong = "stim_type",
-    name_acc = .input[["name_acc"]],
-    name_rt = "rt_cor"
+    name_acc = .input$name_acc,
+    name_rt = .input$name_rt
   )
 }
 
@@ -149,7 +104,6 @@ congeff <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
 #' @export
 switchcost <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
-    name_block = "block",
     name_task = "task",
     name_switch = "type",
     name_acc = "acc",
@@ -158,37 +112,32 @@ switchcost <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     update_settings(.input)
   .extra <- list(
     block_pure = "pure",
+    task_filler = "filler",
     task_repeat = "repeat",
     task_switch = "switch"
   ) |>
     update_settings(.extra)
   data_cor <- data |>
+    # remove all filler trials
+    filter(.data[[.input$name_switch]] != .extra$task_filler) |>
     mutate(
-      # remove rt of 100 or less
-      rt_cor = ifelse(
-        .data[[.input[["name_rt"]]]] > 100,
-        .data[[.input[["name_rt"]]]], NA
-      ),
       type_block = ifelse(
-        .data[[.input[["name_switch"]]]] %in% .extra$block_pure,
-        "pure", "mixed"
+        .data[[.input$name_switch]] == .extra$block_pure,
+        .data[[.input$name_task]], "mixed"
       ),
-      type_switch = ifelse(
-        .data[["type_block"]] == "pure",
-        .data[[.input[["name_task"]]]],
-        .data[[.input[["name_switch"]]]]
-      ) |>
-        recode(
-          "{.extra$task_repeat}" := "repeat",
-          "{.extra$task_switch}" := "switch"
-        )
+      type_switch = recode(
+        .data[[.input$name_switch]],
+        "{.extra$block_pure}" := "pure",
+        "{.extra$task_repeat}" := "repeat",
+        "{.extra$task_switch}" := "switch"
+      )
     )
   calc_switch_cost(
     data_cor,
     .by = .by,
     name_type_block = "type_block",
     name_type_switch = "type_switch",
-    name_acc = .input[["name_acc"]],
-    name_rt = "rt_cor"
+    name_acc = .input$name_acc,
+    name_rt = .input$name_rt
   )
 }

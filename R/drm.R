@@ -28,17 +28,17 @@ drm <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   ) |>
     update_settings(.extra)
   data |>
-    filter(.data[[.input[["name_type"]]]] != .extra$type_filler) |>
-    group_by(across(all_of(c(.by, .input[["name_type"]])))) |>
+    filter(.data[[.input$name_type]] != .extra$type_filler) |>
+    group_by(across(all_of(c(.by, .input$name_type)))) |>
     summarise(
       z_old = stats::qnorm(
-        (sum(.data[[.input[["name_resp"]]]] == .extra$resp_old) + 0.5) /
+        (sum(.data[[.input$name_resp]] == .extra$resp_old) + 0.5) /
           (n() + 1)
       ),
       .groups = "drop_last"
     ) |>
     pivot_wider(
-      names_from = .data[[.input[["name_type"]]]],
+      names_from = .data[[.input$name_type]],
       values_from = "z_old"
     ) |>
     transmute(

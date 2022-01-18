@@ -15,21 +15,25 @@ data <- expand_grid(
     rt = rexp(n(), 0.001)
   )
 data_miss_cond <- tibble::tibble(
-  id = rep(1:2, each = 8),
-  type = "incongruent",
-  acc = sample(c(0, 1), 16, replace = TRUE),
-  rt = rexp(16, 0.001)
-)
+  id = rep(1:2, each = 100),
+  type = "incongruent"
+) |>
+  mutate(
+    acc = sample(c(0, 1), n(), replace = TRUE),
+    rt = rexp(n(), 0.001)
+  )
 data_part_miss_cond <- tibble::tibble(
-  id = rep(1:2, each = 8),
+  id = rep(1:2, each = 100),
   type = c(
-    rep("incongruent", 8),
-    rep("incongruent", 4),
-    rep("congruent", 4)
-  ),
-  acc = sample(c(0, 1), 16, replace = TRUE),
-  rt = rexp(16, 0.001)
-)
+    rep("incongruent", 100),
+    rep("incongruent", 50),
+    rep("congruent", 50)
+  )
+) |>
+  mutate(
+    acc = sample(c(0, 1), n(), replace = TRUE),
+    rt = rexp(n(), 0.001)
+  )
 
 test_that("Default behavior works", {
   expect_snapshot_value(

@@ -18,10 +18,7 @@ jlo <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     update_settings(.extra)
   data |>
     mutate(
-      resp_angle = stringr::str_split(
-        .data[[.input[["name_resp"]]]],
-        "-"
-      ) |>
+      resp_angle = stringr::str_split(.data[[.input$name_resp]], "-") |>
         purrr::map_dbl(
           ~ sum(
             recode(
@@ -32,20 +29,20 @@ jlo <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
           )
         ),
       resp_err_raw = abs(
-        .data[["resp_angle"]] - .data[[.input[["name_angle"]]]]
+        .data$resp_angle - .data[[.input$name_angle]]
       ) %% 180, # ignore vector head and tail
       resp_err = ifelse(
-        .data[["resp_err_raw"]] > 90, # measure errors as acute angles
-        180 - .data[["resp_err_raw"]],
-        .data[["resp_err_raw"]]
+        .data$resp_err_raw > 90, # measure errors as acute angles
+        180 - .data$resp_err_raw,
+        .data$resp_err_raw
       )
     ) |>
     group_by(across(all_of(.by))) |>
     summarise(
-      nc = sum(.data[[.input[["name_acc"]]]] == 1),
-      mean_ang_err = mean(.data[["resp_err"]]),
+      nc = sum(.data[[.input$name_acc]] == 1),
+      mean_ang_err = mean(.data$resp_err),
       # make sure it is between 0 and 1
-      mean_log_err = mean(log2(.data[["resp_err"]] / 90 + 1)),
+      mean_log_err = mean(log2(.data$resp_err / 90 + 1)),
       .groups = "drop"
     )
 }

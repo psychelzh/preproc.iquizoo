@@ -1,4 +1,4 @@
-# Default behavior works
+# Can deal with grouping variables
 
     {
       "type": "list",
@@ -23,12 +23,12 @@
         {
           "type": "integer",
           "attributes": {},
-          "value": [228]
+          "value": [7]
         }
       ]
     }
 
-# Works with grouping variables
+---
 
     {
       "type": "list",
@@ -58,7 +58,7 @@
         {
           "type": "integer",
           "attributes": {},
-          "value": [75, 8, 54, -13, 104]
+          "value": [7, -6, 6, -7, -12]
         }
       ]
     }

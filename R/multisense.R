@@ -22,20 +22,21 @@ multisense <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   ) |>
     update_settings(.extra)
   data |>
-    group_by(across(
-      all_of(c(.by, .input[["name_type"]]))
-    )) |>
-    filter(.data[[.input[["name_rt"]]]] > 100) |>
-    filter(
-      !.data[[.input[["name_rt"]]]] %in%
-        graphics::boxplot(.data[[.input[["name_rt"]]]], plot = FALSE)$out
+    mutate(acc_dummy = 1) |>
+    group_by(across(all_of(.input$name_type))) |>
+    group_modify(
+      ~ calc_spd_acc(
+        .x,
+        .by = .by,
+        name_acc = "acc_dummy",
+        name_rt = .input$name_rt,
+        rt_rtn = "mean",
+        acc_rtn = "none"
+      )
     ) |>
-    summarise(
-      mrt = mean(.data[[.input[["name_rt"]]]]),
-      .groups = "drop"
-    ) |>
+    # `pivot_wider` will drop groups here because groups go to columns
     pivot_wider(
-      names_from = .input[["name_type"]],
+      names_from = .input$name_type,
       names_prefix = "mrt_",
       values_from = "mrt"
     ) |>

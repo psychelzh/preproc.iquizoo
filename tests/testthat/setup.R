@@ -5,7 +5,7 @@
     if (i == 1) {
       out[i] <- init_level
     } else {
-      if (outcome[i] == 1) {
+      if (outcome[i - 1] == 1) {
         out[i] <- min(max_level, out[i - 1] + 1)
       } else {
         out[i] <- max(min_level, out[i - 1] - 1)

@@ -1,7 +1,7 @@
 Type: Package
 Package: preproc.iquizoo
 Title: Utility Functions for Data Processing of Iquizoo Games
-Version: 2.1.0
+Version: 2.2.0
 Authors@R:
     person("Liang", "Zhang", , "psychelzh@outlook.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-9041-1150"))
@@ -15,18 +15,20 @@ Depends:
     R (>= 4.1.0)
 Imports:
     dplyr,
-    graphics,
     pracma,
     purrr,
     rlang (>= 0.1.2),
     stringr,
-    tidyr
+    tibble,
+    tidyr (>= 1.1.4.9000)
 Suggests:
     covr,
     readr,
     roxygen2,
     testthat (>= 3.0.0),
-    tibble
+    withr
+Remotes:
+    tidyverse/tidyr
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true

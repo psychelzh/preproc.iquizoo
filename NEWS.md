@@ -1,3 +1,21 @@
+# preproc.iquizoo 2.2.0
+
+## New Features
+
+* Added new function `dualnback()` to support for dual n-back tests.
+* Added new function `staircase()` to support for tests shipped with staircase method.
+* Added new function `synwin()` to support modified SynWin test.
+* Now `span()` can deal with location memory test.
+* Supported new design of london tower test.
+
+## Enhancement
+
+* Added partical credit score for simple or complex span tests (#36).
+* Changed algorithm to get stop signal reaction time for Stop Signal Paradigm based on the [recent eLife publication](https://doi.org/10.7554/eLife.46323) (#56).
+* Added support for ncorrect and nerror input for `countcorrect()` and `countcorrect2()`.
+* Enhanced reaction time outlier detection (#61).
+* Enhanced fitting of weber fraction for numerosity task through trial-based maximum likelihood estimation.
+
 # preproc.iquizoo 2.1.0
 
 ## Breaking Changes

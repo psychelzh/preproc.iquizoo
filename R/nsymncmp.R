@@ -18,47 +18,60 @@ nsymncmp <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     name_rt = "rt"
   ) |>
     update_settings(.input)
+  .extra <- list(max_nfit = 10) |>
+    update_settings(.extra)
   data_cor <- data |>
-    mutate(
-      rt_cor = ifelse(
-        .data[[.input[["name_rt"]]]] > 100,
-        .data[[.input[["name_rt"]]]], NA
-      )
-    ) |>
     rename(
-      b = .data[[.input[["name_big"]]]],
-      s = .data[[.input[["name_small"]]]]
+      b = .data[[.input$name_big]],
+      s = .data[[.input$name_small]]
     )
   basics <- calc_spd_acc(
     data_cor,
     .by,
-    name_acc = .input[["name_acc"]],
-    name_rt = "rt_cor",
+    name_acc = .input$name_acc,
+    name_rt = .input$name_rt,
     rt_rtn = "mean",
     acc_rtn = "percent"
   )
-  fit_errproof <- purrr::possibly(
-    ~ stats::coef(stats::nls(
-      as.formula(
-        stringr::str_glue(
-          r"({.input[["name_acc"]]})",
-          " ~ 1 - pnorm(0, b - s, w * sqrt(b^2 + s^2))"
-        )
-      ),
-      .x,
-      start = list(w = 1)
-    )),
-    otherwise = NA_real_
-  )
+  ensure_fit <- function(data, max_nfit = 10) {
+    loglik <- function(b, s, acc, w, ...) {
+      log(stats::pnorm(0, b - s, w^2 * (b^2 + s^2), lower.tail = !acc))
+    }
+    objctive_fun <- function(w, data) {
+      sum(-purrr::pmap_dbl(data, loglik, w = w))
+    }
+    converged <- FALSE
+    for (i_fit in seq_len(max_nfit)) {
+      repeat {
+        start <- c(w = stats::runif(1))
+        if (is.finite(objctive_fun(start, data))) {
+          break
+        }
+      }
+      fit <- stats::nlminb(start, objctive_fun, data = data, lower = 0)
+      if (fit$convergence == 0) {
+        converged <- TRUE
+        break
+      }
+    }
+    if (!converged) {
+      warn(
+        "Cannot find fit after the max number of iterations.",
+        "fit_not_converge"
+      )
+      # fall back with `NA` parameter
+      list(par = c("w" = NA_real_))
+    } else {
+      fit
+    }
+  }
   weber <- data_cor |>
-    group_nest(across(all_of(.by))) |>
-    mutate(
-      w = purrr::map_dbl(
-        .data[["data"]],
-        fit_errproof
-      ),
-      .keep = "unused"
-    )
+    group_by(across(all_of(.by))) |>
+    group_modify(
+      ~ ensure_fit(.x, max_nfit = .extra$max_nfit)$par |>
+        tibble::as_tibble_row()
+    ) |>
+    ungroup()
   if (!is.null(.by)) {
     return(left_join(basics, weber, by = .by))
   } else {

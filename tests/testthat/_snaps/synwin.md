@@ -1,4 +1,4 @@
-# Default behavior works
+# Can deal with grouping
 
     {
       "type": "list",
@@ -16,34 +16,34 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["mrt_image", "mrt_mixed", "mrt_sound", "mrt_mixadv"]
+          "value": ["score_total", "score_aud", "score_mem", "score_vis"]
         }
       },
       "value": [
         {
           "type": "double",
           "attributes": {},
-          "value": [891.52153593]
+          "value": [28.5]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [923.4022274]
+          "value": [3]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [874.95633315]
+          "value": [10]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [-40.16329286]
+          "value": [15.5]
         }
       ]
     }
 
-# Works with grouping variables
+---
 
     {
       "type": "list",
@@ -61,7 +61,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["id", "mrt_image", "mrt_mixed", "mrt_sound", "mrt_mixadv"]
+          "value": ["id", "score_total", "score_aud", "score_mem", "score_vis"]
         }
       },
       "value": [
@@ -73,22 +73,22 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [913.81962092, 1167.90938812, 680.00838991, 637.13260971, 859.25544565]
+          "value": [28.5, 20, 32.75, 15.75, 16.5]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [918.38962497, 886.96220644, 1357.60902653, 775.70710718, 657.40807826]
+          "value": [3, 3.5, -0.5, -0.5, -1.75]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [691.44929584, 824.7192053, 1071.94434025, 792.62296531, 1150.98272239]
+          "value": [10, 7, 8.5, 7.5, 4.5]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [-115.75516659, 109.35209027, -481.63266145, -60.82931968, 347.71100576]
+          "value": [15.5, 9.5, 24.75, 8.75, 13.75]
         }
       ]
     }
