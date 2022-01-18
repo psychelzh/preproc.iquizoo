@@ -18,8 +18,8 @@ nle <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     ) |>
     group_by(across(all_of(.by))) |>
     summarise(
-      mean_abs_err = mean(.data[["err"]]),
-      mean_log_err = mean(log(.data[["err"]] + 1)),
+      mean_abs_err = mean(.data$err),
+      mean_log_err = mean(log(.data$err + 1)),
       .groups = "drop"
     )
 }

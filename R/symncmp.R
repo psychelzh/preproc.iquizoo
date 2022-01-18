@@ -45,7 +45,7 @@ symncmp <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     group_nest(across(all_of(.by))) |>
     mutate(
       dist_eff = purrr::map_dbl(
-        .data[["data"]],
+        .data$data,
         ~ .x |>
           filter(
             .data[[.input$name_acc]] == 1

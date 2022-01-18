@@ -44,7 +44,7 @@ bps <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       names_prefix = "p_sim_",
       values_from = "p_sim"
     ) |>
-    mutate(bps_score = .data[["p_sim_lure"]] - .data[["p_sim_foil"]])
+    mutate(bps_score = .data$p_sim_lure - .data$p_sim_foil)
   if (!is.null(.by)) {
     return(left_join(pc_all, bps_score, by = .by))
   } else {

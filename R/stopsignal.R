@@ -66,10 +66,10 @@ stopsignal <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       ssd = calc_ssd(.data[[name_ssd]]),
       .groups = "drop"
     ) |>
-    summarise(mean_ssd = mean(.data[["ssd"]])) |>
+    summarise(mean_ssd = mean(.data$ssd)) |>
     transmute(
       rt_nth = stats::quantile(data[[name_rt]], 1 - pcs$pc_stop, names = FALSE),
-      ssrt = .data[["rt_nth"]] - .data[["mean_ssd"]]
+      ssrt = .data$rt_nth - .data$mean_ssd
     ) |>
     bind_cols(pcs)
 }

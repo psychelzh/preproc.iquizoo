@@ -24,7 +24,7 @@ refframe <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   ) |>
     mutate(
       type_cor = case_when(
-        .data[["set"]] == "both" ~ "both",
+        .data$set == "both" ~ "both",
         .data[[.input$name_type]] == .extra$type_allo ~ "allo",
         .data[[.input$name_type]] == .extra$type_ego ~ "ego"
       )
@@ -36,7 +36,7 @@ refframe <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       .groups = "drop"
     ) |>
     pivot_wider(
-      names_from = .data[["type_cor"]],
+      names_from = .data$type_cor,
       values_from = starts_with("mean")
     )
 }

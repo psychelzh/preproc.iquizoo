@@ -83,7 +83,7 @@ calc_sdt <- function(data, .by, name_acc, name_type, keep_counts = TRUE) {
     group_by(across(all_of(c(.by, name_type)))) |>
     summarise(
       c = sum(.data[[name_acc]] == 1),
-      e = n() - .data[["c"]],
+      e = n() - .data$c,
       .groups = "drop"
     ) |>
     # TODO: call `complete()` to make sure "s" and "n" both exist
@@ -91,7 +91,7 @@ calc_sdt <- function(data, .by, name_acc, name_type, keep_counts = TRUE) {
       across(
         all_of(c("c", "e")),
         # log-linear rule of correction extreme proportion
-        ~ stats::qnorm((.x + 0.5) / (.data[["c"]] + .data[["e"]] + 1)),
+        ~ stats::qnorm((.x + 0.5) / (.data$c + .data$e + 1)),
         .names = "z{.col}"
       )
     ) |>
@@ -100,10 +100,10 @@ calc_sdt <- function(data, .by, name_acc, name_type, keep_counts = TRUE) {
       values_from = c("c", "e", "zc", "ze")
     ) |>
     mutate(
-      commissions = .data[["e_n"]],
-      omissions = .data[["e_s"]],
-      dprime = .data[["zc_s"]] - .data[["ze_n"]],
-      c = -(.data[["zc_s"]] + .data[["ze_n"]]) / 2
+      commissions = .data$e_n,
+      omissions = .data$e_s,
+      dprime = .data$zc_s - .data$ze_n,
+      c = -(.data$zc_s + .data$ze_n) / 2
     ) |>
     select(
       all_of(
