@@ -1,5 +1,13 @@
 # preproc.iquizoo (development version)
 
+## New Features
+
+* Added new function `reinf()` to support for reinforcement learning tests.
+
+## Bug Fixes
+
+* Fixed issues for `synwin()` caused by a new design of the test.
+
 # preproc.iquizoo 2.2.0
 
 ## New Features
