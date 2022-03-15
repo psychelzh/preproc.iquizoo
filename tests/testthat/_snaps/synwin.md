@@ -23,22 +23,22 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [28.5]
+          "value": [63.55]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [3]
+          "value": [12.75]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [10]
+          "value": [13.5]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [15.5]
+          "value": [37.3]
         }
       ]
     }
@@ -73,22 +73,22 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [28.5, 20, 32.75, 15.75, 16.5]
+          "value": [63.55, 52.05, 60.9, 58.9, 65.2]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [3, 3.5, -0.5, -0.5, -1.75]
+          "value": [12.75, 11.25, 11, 15, 13]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [10, 7, 8.5, 7.5, 4.5]
+          "value": [13.5, 13, 12.5, 12.5, 11.5]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [15.5, 9.5, 24.75, 8.75, 13.75]
+          "value": [37.3, 27.8, 37.4, 31.4, 40.7]
         }
       ]
     }

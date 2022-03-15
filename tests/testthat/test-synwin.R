@@ -2,11 +2,11 @@ data <- withr::with_seed(
   1,
   expand_grid(
     id = 1:5,
-    status = c("flip", "drag", "empty", "nonempty", "depletion", "low", "high")
+    status = c("flip", "drag", as.character(0:10), "low", "high")
   ) |>
     mutate(n = sample(seq(10, 20), n(), replace = TRUE)) |>
     uncount(n) |>
-    mutate(acc = sample(c(0, 1), n(), replace = TRUE))
+    mutate(acc = sample(c(0, 1), n(), prob = c(0.2, 0.8), replace = TRUE))
 )
 test_that("Can deal with grouping", {
   expect_snapshot_value(
