@@ -18,36 +18,53 @@
   ssd
 }
 
-set.seed(1)
-n_users <- 5
-data <- expand_grid(
-  id = seq_len(n_users),
-  tibble::tibble(
-    trial = seq_len(160),
-    type = sample(
-      c(
-        rep("go", 120),
-        rep("stop1", 20),
-        rep("stop2", 20)
-      )
-    )
-  )
-) |>
-  mutate(acc = sample(c(0, 1), n(), replace = TRUE)) |>
-  group_by(id, type) |>
-  group_modify(
-    ~ .x |>
-      mutate(
-        ssd = .prepare_ssd(
-          acc, .y$type
+data <- withr::with_seed(
+  1,
+  expand_grid(
+    id = seq_len(5),
+    tibble::tibble(
+      trial = seq_len(160),
+      type = sample(
+        c(
+          rep("go", 120),
+          rep("stop1", 20),
+          rep("stop2", 20)
         )
       )
+    )
   ) |>
-  ungroup() |>
-  mutate(
-    rt = ifelse(acc == 1 & type != "go", 0, rexp(n(), 0.001))
-  ) |>
-  arrange(id, trial)
+    mutate(
+      acc = ifelse(
+        type == "go",
+        sample(
+          c(-1, 0, 1), n(),
+          prob = c(0.05, 0.25, 0.7),
+          replace = TRUE
+        ),
+        sample(
+          c(0, 1), n(),
+          replace = TRUE
+        )
+      )
+    ) |>
+    group_by(id, type) |>
+    group_modify(
+      ~ .x |>
+        mutate(
+          ssd = .prepare_ssd(
+            acc, .y$type
+          )
+        )
+    ) |>
+    ungroup() |>
+    mutate(
+      rt = ifelse(
+        (acc == 1 & type != "go") | (acc == -1 & type == "go"),
+        0, runif(n(), 150, 1000)
+      )
+    ) |>
+    arrange(id, trial)
+)
 
 test_that("Default behavior works", {
   expect_snapshot_value(
