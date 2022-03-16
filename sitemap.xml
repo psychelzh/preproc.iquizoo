@@ -31,6 +31,9 @@
     <loc>https://psychelzh.github.io/preproc.iquizoo/reference/calc_spd_acc.html</loc>
   </url>
   <url>
+    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/calc_staircase_wetherill.html</loc>
+  </url>
+  <url>
     <loc>https://psychelzh.github.io/preproc.iquizoo/reference/calc_switch_cost.html</loc>
   </url>
   <url>
@@ -83,6 +86,9 @@
   </url>
   <url>
     <loc>https://psychelzh.github.io/preproc.iquizoo/reference/refframe.html</loc>
+  </url>
+  <url>
+    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/reinf.html</loc>
   </url>
   <url>
     <loc>https://psychelzh.github.io/preproc.iquizoo/reference/rt.html</loc>
