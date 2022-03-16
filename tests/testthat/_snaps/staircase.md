@@ -16,10 +16,15 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["threshold"]
+          "value": ["thresh_peak_valley", "thresh_last_block"]
         }
       },
       "value": [
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [147.08333333]
+        },
         {
           "type": "double",
           "attributes": {},
@@ -33,20 +38,20 @@
     {
       "type": "list",
       "attributes": {
-        "row.names": {
-          "type": "integer",
-          "attributes": {},
-          "value": [1, 2, 3, 4, 5]
-        },
         "class": {
           "type": "character",
           "attributes": {},
           "value": ["tbl_df", "tbl", "data.frame"]
         },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2, 3, 4, 5]
+        },
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["id", "threshold"]
+          "value": ["id", "thresh_peak_valley", "thresh_last_block"]
         }
       },
       "value": [
@@ -54,6 +59,11 @@
           "type": "integer",
           "attributes": {},
           "value": [1, 2, 3, 4, 5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [147.08333333, 130.38461538, 101.36363636, 108.46153846, 80]
         },
         {
           "type": "double",
