@@ -20,33 +20,34 @@ stopsignal <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     name_rt = "rt"
   ) |>
     update_settings(.input)
-  .extra <- list(type_go = "go") |>
+  .extra <- list(
+    type_go = "go",
+    rt_max = 1000
+  ) |>
     update_settings(.extra)
   data |>
+    mutate(
+      rt_cor = ifelse(
+        .data[[.input$name_acc]] == -1,
+        .extra$rt_max,
+        .data[[.input$name_rt]]
+      )
+    ) |>
     group_by(across(all_of(.by))) |>
     group_modify(
       ~ .calc_ssrt(
         .x,
         name_type = .input$name_type,
         name_acc = .input$name_acc,
-        name_rt = .input$name_rt,
+        name_rt = "rt_cor",
         name_ssd = .input$name_ssd,
-        type_go = .extra[["type_go"]]
+        type_go = .extra$type_go
       )
     ) |>
     ungroup()
 }
 
 .calc_ssrt <- function(data, name_type, name_acc, name_rt, name_ssd, type_go) {
-  calc_ssd <- purrr::possibly(
-    ~ mean(
-      c(
-        pracma::findpeaks(.x)[, 1],
-        -pracma::findpeaks(-.x)[, 1]
-      )
-    ),
-    otherwise = NA_real_
-  )
   pcs <- data |>
     summarise(
       pc_all = mean(.data[[name_acc]] == 1),
@@ -63,7 +64,7 @@ stopsignal <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     filter(.data[[name_type]] != type_go) |>
     group_by(.data[[name_type]]) |>
     summarise(
-      ssd = calc_ssd(.data[[name_ssd]]),
+      ssd = calc_staircase_wetherill(.data[[name_ssd]]),
       .groups = "drop"
     ) |>
     summarise(mean_ssd = mean(.data$ssd)) |>

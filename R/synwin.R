@@ -22,38 +22,32 @@ synwin <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   ) |>
     update_settings(.input)
   .extra <- list(
-    mem_flip = "flip",
-    mem_drag = "drag",
-    vis_empty = "empty",
-    vis_nonempty = "nonempty",
-    vis_depletion = "depletion",
-    aud_low = "low",
-    aud_high = "high"
+    status_mem = c("flip", "drag"),
+    status_vis = as.character(0:10),
+    status_aud = c("low", "high"),
+    aud_target = "high"
   ) |>
     update_settings(.extra)
   data |>
     mutate(
-      task_status = names(.extra)[match(.data[[.input$name_status]], .extra)]
-    ) |>
-    separate(.data$task_status, c("task", "status")) |>
-    mutate(
+      task = case_when(
+        .data[[.input$name_status]] %in% .extra$status_mem ~ "mem",
+        .data[[.input$name_status]] %in% .extra$status_vis ~ "vis",
+        .data[[.input$name_status]] %in% .extra$status_aud ~ "aud"
+      ),
       score = case_when(
         .data$task == "mem" ~ .data[[.input$name_acc]] / 2,
-        .data$task == "vis" ~ if_else(
-          .data[[.input$name_acc]] == 1,
+        .data$task == "vis" ~
           if_else(
-            .data[[.input$name_status]] == .extra$vis_empty,
-            2, 1
+            .data[[.input$name_acc]] == 1,
+            1 - suppressWarnings(as.numeric(.data[[.input$name_status]])) / 10,
+            -1
           ),
+        .data$task == "aud" ~
           if_else(
-            .data[[.input$name_status]] == .extra$vis_depletion,
-            -0.25, -0.5
-          )
-        ),
-        .data$task == "aud" ~ if_else(
-          .data[[.input$name_status]] == .extra$aud_low,
-          0.25, 1
-        ) * (.data[[.input$name_acc]] * 2 - 1)
+            .data[[.input$name_status]] == .extra$aud_target,
+            1, 0.25
+          ) * (.data[[.input$name_acc]] * 2 - 1)
       )
     ) |>
     group_by(across(all_of(c(.by, "task")))) |>

@@ -10,7 +10,9 @@
 #' @template options
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'
-#'   \item{threshold}{The mean threshold of the last block.}
+#'   \item{thresh_peak_valley}{The mean threshold of peaks and valleys.}
+#'
+#'   \item{thresh_last_block}{The mean threshold of the last block.}
 #'
 #' @export
 staircase <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
@@ -21,11 +23,17 @@ staircase <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   ) |>
     update_settings(.input)
   data |>
-    group_by(across(all_of(.by))) |>
-    filter(.data[[.input$name_block]] == max(.data[[.input$name_block]])) |>
+    group_by(across(all_of(c(.by)))) |>
     summarise(
-      # for transformed stairs, use it only once
-      threshold = mean.default(rle(.data[[.input$name_level]])$values),
+      thresh_peak_valley = calc_staircase_wetherill(.data[[.input$name_level]]),
+      thresh_last_block = mean(
+        rle(
+          .subset(
+            .data[[.input$name_level]],
+            .data[[.input$name_block]] == max(.data[[.input$name_block]])
+          )
+        )$values
+      ),
       .groups = "drop"
     )
 }

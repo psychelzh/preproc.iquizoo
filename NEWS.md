@@ -1,3 +1,15 @@
+# preproc.iquizoo 2.2.1
+
+## New Features
+
+* Added new function `reinf()` to support for reinforcement learning tests.
+* Support threshold calculation in `staircase()` with inflection point.
+
+## Bug Fixes
+
+* Fixed issues for `synwin()` caused by a new design of the test.
+* Now response times are corrected for no-response trials in stop signal test.
+
 # preproc.iquizoo 2.2.0
 
 ## New Features
