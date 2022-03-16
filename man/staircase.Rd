@@ -20,7 +20,9 @@ section.}
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
 
-\item{threshold}{The mean threshold of the last block.}
+\item{thresh_peak_valley}{The mean threshold of peaks and valleys.}
+
+\item{thresh_last_block}{The mean threshold of the last block.}
 }
 \description{
 A very simple method is used here, i.e., averaging all the levels in the last

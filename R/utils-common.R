@@ -53,3 +53,29 @@ check_outliers_rt <- function(x, threshold = 2.5) {
   )[, 1]
   abs(z_scores) > threshold
 }
+
+#' Calculate threshold by staircase method
+#'
+#' Here we used the method suggested by Wetherill et al.(1966).
+#'
+#' @param x The levels in data.
+#' @return The mean threshold.
+#' @keywords internal
+calc_staircase_wetherill <- function(x) {
+  # use run length encoding to remove repetitions in transformed method
+  x <- rle(x)$values
+  # return `NA` if no peaks or valleys found
+  peaks_mat <- pracma::findpeaks(x)
+  if (!is.null(peaks_mat)) {
+    peaks <- peaks_mat[, 1]
+  } else {
+    peaks <- NA_real_
+  }
+  valleys_mat <- pracma::findpeaks(-x)
+  if (!is.null(valleys_mat)) {
+    valleys <- -valleys_mat[, 1]
+  } else {
+    valleys <- NA_real_
+  }
+  mean(c(peaks, valleys))
+}
