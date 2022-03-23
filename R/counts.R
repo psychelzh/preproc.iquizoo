@@ -20,7 +20,7 @@ NULL
 
 #' @rdname counts
 #' @export
-countcorrect <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+countcorrect <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(name_nc = "ncorrect", name_acc = "acc") |>
     update_settings(.input)
   if (!has_name(data, .input$name_nc)) {
@@ -34,71 +34,56 @@ countcorrect <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
         ) |>
         unnest(.data[[.input$name_acc]])
     }
-    data <- data |>
-      group_by(across(all_of(.by))) |>
-      summarise(
-        # `NA` might be produced in parsing characters
-        "{.input$name_nc}" := sum(.data[[.input$name_acc]] == 1, na.rm = TRUE),
-        .groups = "drop"
-      )
-  }
-  data |>
-    group_by(across(all_of(.by))) |>
-    summarise(
-      nc = sum(.data[[.input$name_nc]]),
-      .groups = "drop"
+    data <- summarise(
+      data,
+      # `NA` might be produced in parsing characters
+      "{.input$name_nc}" := sum(.data[[.input$name_acc]] == 1, na.rm = TRUE)
     )
+  }
+  summarise(data, nc = sum(.data[[.input$name_nc]]))
 }
 
 #' @rdname counts
 #' @export
-countcorrect2 <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+countcorrect2 <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(name_nc = "ncorrect", name_ne = "nerror", name_acc = "acc") |>
     update_settings(.input)
   if (!all(has_name(data, .input[c("name_nc", "name_ne")]))) {
-    data <- data |>
-      group_by(across(all_of(.by))) |>
-      summarise(
-        "{.input$name_nc}" := sum(.data[[.input$name_acc]] == 1),
-        "{.input$name_ne}" := sum(.data[[.input$name_acc]] == 0),
-        .groups = "drop"
-      )
-  }
-  data |>
-    group_by(across(all_of(.by))) |>
-    summarise(
-      nc_cor = sum(
-        .data[[.input$name_nc]] - .data[[.input$name_ne]]
-      ),
-      .groups = "drop"
+    data <- summarise(
+      data,
+      "{.input$name_nc}" := sum(.data[[.input$name_acc]] == 1),
+      "{.input$name_ne}" := sum(.data[[.input$name_acc]] == 0)
     )
+  }
+  summarise(
+    data,
+    nc_cor = sum(
+      .data[[.input$name_nc]] - .data[[.input$name_ne]]
+    )
+  )
 }
 
 #' @rdname counts
 #' @export
-sumweighted <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+sumweighted <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(name_weight = "nstim", name_acc = "acc") |>
     update_settings(.input)
-  data |>
-    group_by(across(all_of(.by))) |>
-    summarise(
-      nc_weighted = sum(
-        .data[[.input$name_weight]] *
-          (.data[[.input$name_acc]] == 1)
-      ),
-      .groups = "drop"
+  summarise(
+    data,
+    nc_weighted = sum(
+      .data[[.input$name_weight]] *
+        (.data[[.input$name_acc]] == 1)
     )
+  )
 }
 
 #' @rdname counts
 #' @export
-sumscore <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+sumscore <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(name_score = "score") |>
     update_settings(.input)
-  data |>
-    group_by(across(all_of(.by))) |>
-    summarise(
-      nc_score = sum(as.numeric(.data[[.input$name_score]])),
-      .groups = "drop"
-    )
+  summarise(
+    data,
+    nc_score = sum(as.numeric(.data[[.input$name_score]]))
+  )
 }

@@ -8,7 +8,7 @@
 #'   \item{mean_abs_err}{Mean absolute error.}
 #'   \item{mean_log_err}{Mean log absolute error.}
 #' @export
-nle <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+nle <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(name_number = "number", name_resp = "resp") |>
     update_settings(.input)
   data |>
@@ -16,10 +16,8 @@ nle <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       err = abs(.data[[.input$name_number]] -
         .data[[.input$name_resp]])
     ) |>
-    group_by(across(all_of(.by))) |>
     summarise(
       mean_abs_err = mean(.data$err),
-      mean_log_err = mean(log(.data$err + 1)),
-      .groups = "drop"
+      mean_log_err = mean(log(.data$err + 1))
     )
 }

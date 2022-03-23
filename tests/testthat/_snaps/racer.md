@@ -1,4 +1,4 @@
-# Default behavior works
+# Works as expected
 
     {
       "type": "list",
@@ -6,7 +6,7 @@
         "class": {
           "type": "character",
           "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
+          "value": ["data.frame"]
         },
         "row.names": {
           "type": "integer",
@@ -16,14 +16,19 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["nc_score"]
+          "value": ["mean_pro_ratio", "dprime"]
         }
       },
       "value": [
         {
           "type": "double",
           "attributes": {},
-          "value": [57]
+          "value": [0.05]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.88491814]
         }
       ]
     }

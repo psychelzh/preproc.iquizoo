@@ -10,7 +10,7 @@
 #'   \item{w}{Weber fraction.}
 #' @seealso [symncmp()] for symbolic number comparison.
 #' @export
-nsymncmp <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+nsymncmp <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(
     name_big = "bigsetcount",
     name_small = "smallsetcount",
@@ -25,56 +25,48 @@ nsymncmp <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       b = .data[[.input$name_big]],
       s = .data[[.input$name_small]]
     )
-  basics <- calc_spd_acc(
-    data_cor,
-    .by,
-    name_acc = .input$name_acc,
-    name_rt = .input$name_rt,
-    rt_rtn = "mean",
-    acc_rtn = "percent"
+  bind_cols(
+    calc_spd_acc(
+      data_cor,
+      name_acc = .input$name_acc,
+      name_rt = .input$name_rt,
+      rt_rtn = "mean",
+      acc_rtn = "percent"
+    ),
+    ensure_fit_numerosity(data_cor, max_nfit = .extra$max_nfit)$par |>
+      tibble::as_tibble_row()
   )
-  ensure_fit <- function(data, max_nfit = 10) {
-    loglik <- function(b, s, acc, w, ...) {
-      log(stats::pnorm(0, b - s, w^2 * (b^2 + s^2), lower.tail = !acc))
-    }
-    objctive_fun <- function(w, data) {
-      sum(-purrr::pmap_dbl(data, loglik, w = w))
-    }
-    converged <- FALSE
-    for (i_fit in seq_len(max_nfit)) {
-      repeat {
-        start <- c(w = stats::runif(1))
-        if (is.finite(objctive_fun(start, data))) {
-          break
-        }
-      }
-      fit <- stats::nlminb(start, objctive_fun, data = data, lower = 0)
-      if (fit$convergence == 0) {
-        converged <- TRUE
+}
+
+ensure_fit_numerosity <- function(data, max_nfit = 10) {
+  loglik <- function(b, s, acc, w, ...) {
+    log(stats::pnorm(0, b - s, w^2 * (b^2 + s^2), lower.tail = !acc))
+  }
+  objctive_fun <- function(w, data) {
+    sum(-purrr::pmap_dbl(data, loglik, w = w))
+  }
+  converged <- FALSE
+  for (i_fit in seq_len(max_nfit)) {
+    repeat {
+      start <- c(w = stats::runif(1))
+      if (is.finite(objctive_fun(start, data))) {
         break
       }
     }
-    if (!converged) {
-      warn(
-        "Cannot find fit after the max number of iterations.",
-        "fit_not_converge"
-      )
-      # fall back with `NA` parameter
-      list(par = c("w" = NA_real_))
-    } else {
-      fit
+    fit <- stats::nlminb(start, objctive_fun, data = data, lower = 0)
+    if (fit$convergence == 0) {
+      converged <- TRUE
+      break
     }
   }
-  weber <- data_cor |>
-    group_by(across(all_of(.by))) |>
-    group_modify(
-      ~ ensure_fit(.x, max_nfit = .extra$max_nfit)$par |>
-        tibble::as_tibble_row()
-    ) |>
-    ungroup()
-  if (!is.null(.by)) {
-    return(left_join(basics, weber, by = .by))
+  if (!converged) {
+    warn(
+      "Cannot find fit after the max number of iterations.",
+      "fit_not_converge"
+    )
+    # fall back with `NA` parameter
+    list(par = c("w" = NA_real_))
   } else {
-    return(bind_cols(basics, weber))
+    fit
   }
 }

@@ -9,7 +9,7 @@
 #'   \item{max_span}{Maximal span.}
 #'   \item{mean_span}{Mean span.}
 #' @export
-span <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+span <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(
     name_slen = "slen",
     name_outcome = "outcome",
@@ -44,12 +44,12 @@ span <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       acc = parse_char_resp(.data[[.input$name_acc]]),
       nc = purrr::map_dbl(.data$acc, ~ sum(.x == 1))
     ) |>
-    group_by(across(all_of(c(.by, .input$name_slen)))) |>
+    group_by(.data[[.input$name_slen]]) |>
     summarise(
       nc = sum(.data$nc),
       pcu = sum(.data$nc) / sum(.data[[.input$name_slen]]),
       anu = mean(.data[[.input$name_outcome]] == 1),
-      .groups = "drop_last"
+      .groups = "drop"
     ) |>
     summarise(
       nc = sum(.data$nc),
@@ -59,7 +59,6 @@ span <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       mean_span_pcu = min(.data[[.input$name_slen]]) +
         sum(.data$pcu) - 1,
       mean_span_anu = min(.data[[.input$name_slen]]) +
-        sum(.data$anu) - 0.5,
-      .groups = "drop"
+        sum(.data$anu) - 0.5
     )
 }

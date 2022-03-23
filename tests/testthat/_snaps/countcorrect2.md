@@ -1,4 +1,4 @@
-# Can deal with grouping variables
+# Default behavior
 
     {
       "type": "list",
@@ -23,12 +23,12 @@
         {
           "type": "integer",
           "attributes": {},
-          "value": [7]
+          "value": [-4]
         }
       ]
     }
 
----
+# Works with pre-calculated ncorrect and nerror input
 
     {
       "type": "list",
@@ -41,24 +41,19 @@
         "row.names": {
           "type": "integer",
           "attributes": {},
-          "value": [1, 2, 3, 4, 5]
+          "value": [1]
         },
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["id", "nc_cor"]
+          "value": ["nc_cor"]
         }
       },
       "value": [
         {
-          "type": "integer",
+          "type": "double",
           "attributes": {},
-          "value": [1, 2, 3, 4, 5]
-        },
-        {
-          "type": "integer",
-          "attributes": {},
-          "value": [7, -6, 6, -7, -12]
+          "value": [18]
         }
       ]
     }

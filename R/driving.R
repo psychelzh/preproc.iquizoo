@@ -7,7 +7,7 @@
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'   \item{still_ratio}{The ratio of still duration in yellow light state.}
 #' @export
-driving <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+driving <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(
     name_still_dur = "stilldur",
     name_still_light = "stilllight",
@@ -17,15 +17,12 @@ driving <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .extra <- list(light_yellow = "yellow") |>
     update_settings(.extra)
   data |>
-    group_by(across(all_of(.by))) |>
     mutate(
       still_dur = parse_char_resp(.data[[.input$name_still_dur]]),
       still_light = parse_char_resp(
         .data[[.input$name_still_light]],
         convert_numeric = FALSE
-      )
-    ) |>
-    mutate(
+      ),
       still_dur_yellow = purrr::map2_dbl(
         .data$still_dur, .data$still_light,
         ~ ifelse(

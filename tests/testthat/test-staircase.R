@@ -21,36 +21,17 @@
   }
   out
 }
-data <- withr::with_seed(
-  1,
-  expand_grid(
-    id = seq_len(5),
-    tibble(block = seq_len(3), n_trials = 20)
-  ) |>
-    uncount(n_trials) |>
-    mutate(
-      acc = sample(c(0, 1), n(), replace = TRUE, prob = c(0.2, 0.8)),
-      xtime = .prepare_steps(acc, 150, 5, min = 5)
-    )
-)
 test_that("Can deal with grouping", {
-  expect_snapshot_value(
-    staircase(filter(data, id == 1)),
-    style = "json2"
+  data <- withr::with_seed(
+    1,
+    expand_grid(block = 1:3, trial = 1:20) |>
+      mutate(
+        acc = sample(c(0, 1), n(), replace = TRUE, prob = c(0.2, 0.8)),
+        level = .prepare_steps(acc, 150, 5, min = 5)
+      )
   )
   expect_snapshot_value(
-    staircase(data, .by = "id"),
+    staircase(data),
     style = "json2"
-  )
-})
-
-test_that("Can deal with custom input variables", {
-  expect_identical(
-    staircase(data, .by = "id"),
-    staircase(
-      rename(data, level = xtime),
-      .by = "id",
-      .input = list(name_level = "level")
-    )
   )
 })

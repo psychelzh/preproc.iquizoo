@@ -5,16 +5,12 @@
 \alias{dualnback}
 \title{N Back Paradigm}
 \usage{
-nback(data, .by = NULL, .input = NULL, .extra = NULL)
+nback(data, .input = NULL, .extra = NULL)
 
-dualnback(data, .by = NULL, .input = NULL, .extra = NULL)
+dualnback(data, .input = NULL, .extra = NULL)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
-
-\item{.by}{The column name(s) in \code{data} used to be grouped by. If set to
-\code{NULL} (default), all data will be treated as from one subject and there
-will be no grouping columns in the value returned.}
 
 \item{.input, .extra}{Each is a \code{\link[=list]{list()}} containing all the input variable
 names and special values for certain variables. See more in the details
@@ -26,7 +22,6 @@ for dual n-back):
 \item{pc}{Percentage of correct responses.}
 \item{mrt}{Mean reaction time.}
 \item{dprime}{Sensitivity index.}
-\item{c}{Bias.}
 }
 \description{
 A classical working memory test.

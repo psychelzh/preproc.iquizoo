@@ -42,7 +42,7 @@ NULL
 
 #' @rdname switch-congruence
 #' @export
-complexswitch <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+complexswitch <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(
     name_cong = "stimtype",
     name_task = "task",
@@ -60,18 +60,15 @@ complexswitch <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     task_switch = "switch"
   ) |>
     update_settings(.extra)
-  switch_cost <- switchcost(data, .by, .input, .extra)
-  cong_eff <- congeff(data, .by, .input, .extra)
-  if (!is.null(.by)) {
-    return(left_join(cong_eff, switch_cost, by = .by))
-  } else {
-    return(bind_cols(cong_eff, switch_cost))
-  }
+  bind_cols(
+    switchcost(data, .input, .extra),
+    congeff(data, .input, .extra)
+  )
 }
 
 #' @rdname switch-congruence
 #' @export
-congeff <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+congeff <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(
     name_cong = "type",
     name_acc = "acc",
@@ -93,7 +90,6 @@ congeff <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     )
   calc_cong_eff(
     data_cor,
-    .by = .by,
     name_cong = "stim_type",
     name_acc = .input$name_acc,
     name_rt = .input$name_rt
@@ -102,7 +98,7 @@ congeff <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
 
 #' @rdname switch-congruence
 #' @export
-switchcost <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+switchcost <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(
     name_task = "task",
     name_switch = "type",
@@ -134,7 +130,6 @@ switchcost <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     )
   calc_switch_cost(
     data_cor,
-    .by = .by,
     name_type_block = "type_block",
     name_type_switch = "type_switch",
     name_acc = .input$name_acc,

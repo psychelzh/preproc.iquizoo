@@ -9,7 +9,7 @@
 #'   \item{mean_level}{Mean level reached.}
 #'   \item{level_score}{Sum of mean score (a ratio) for each level.}
 #' @export
-london <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+london <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(
     name_minmove = "minmove",
     name_timeinit = "timeinit",
@@ -17,25 +17,20 @@ london <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     name_finished = "finished"
   ) |>
     update_settings(.input)
-  prop_perfect <- data |>
-    group_by(across(all_of(.by))) |>
+  bind_cols(
     summarise(
+      data,
       prop_perfect = mean(
         .data[[.input$name_stepsused]] == .data[[.input$name_minmove]]
       )
-    )
-  speed_score <- calc_spd_acc(
-    data,
-    .by = .by,
-    name_acc = .input$name_finished,
-    name_rt = .input$name_timeinit,
-    acc_rtn = "none",
-    rt_rtn = "mean"
-  ) |>
-    rename(mrt_init = .data$mrt)
-  if (!is.null(.by)) {
-    return(left_join(prop_perfect, speed_score, by = .by))
-  } else {
-    return(bind_cols(prop_perfect, speed_score))
-  }
+    ),
+    calc_spd_acc(
+      data,
+      name_acc = .input$name_finished,
+      name_rt = .input$name_timeinit,
+      acc_rtn = "none",
+      rt_rtn = "mean"
+    ) |>
+      rename(mrt_init = .data$mrt)
+  )
 }

@@ -11,7 +11,7 @@
 #'   \item{fm_dprime}{Sensitivity (d') of false memory.}
 #'   \item{fm_bias}{ias of false memory.}
 #' @export
-drm <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+drm <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(
     name_type = "type",
     name_resp = "resp",
@@ -29,13 +29,13 @@ drm <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     update_settings(.extra)
   data |>
     filter(.data[[.input$name_type]] != .extra$type_filler) |>
-    group_by(across(all_of(c(.by, .input$name_type)))) |>
+    group_by(.data[[.input$name_type]]) |>
     summarise(
       z_old = stats::qnorm(
         (sum(.data[[.input$name_resp]] == .extra$resp_old) + 0.5) /
           (n() + 1)
       ),
-      .groups = "drop_last"
+      .groups = "drop"
     ) |>
     pivot_wider(
       names_from = .data[[.input$name_type]],
@@ -46,6 +46,5 @@ drm <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       tm_bias = -(.data[[.extra$type_old]] + .data[[.extra$type_foil]]) / 2,
       fm_dprime = .data[[.extra$type_lure]] - .data[[.extra$type_foil]],
       fm_bias = -(.data[[.extra$type_lure]] + .data[[.extra$type_foil]]) / 2
-    ) |>
-    ungroup()
+    )
 }

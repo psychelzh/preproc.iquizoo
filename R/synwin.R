@@ -15,7 +15,7 @@
 #'   \item{score_aud}{Score in auditory monitoring sub-test.}
 #'
 #' @export
-synwin <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+synwin <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(
     name_status = "status",
     name_acc = "acc"
@@ -50,10 +50,9 @@ synwin <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
           ) * (.data[[.input$name_acc]] * 2 - 1)
       )
     ) |>
-    group_by(across(all_of(c(.by, "task")))) |>
-    summarise(score = sum(.data$score), .groups = "drop_last") |>
+    group_by(.data$task) |>
+    summarise(score = sum(.data$score), .groups = "drop") |>
     mutate(score_total = sum(.data$score)) |>
-    ungroup() |>
     pivot_wider(
       names_from = .data$task,
       names_prefix = "score_",

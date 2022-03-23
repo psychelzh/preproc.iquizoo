@@ -15,7 +15,7 @@
 #'   \item{commissions}{Number of errors caused by action.}
 #'   \item{omissions}{Number of errors caused by inaction.}
 #' @export
-cpt <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+cpt <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(name_acc = "acc", name_type = "type", name_rt = "rt") |>
     update_settings(.input)
   .extra <- list(type_signal = "target") |>
@@ -32,17 +32,17 @@ cpt <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       # remove rt from non-signal trials
       rt_cor = ifelse(.data$type_cor == "s", .data[[.input$name_rt]], NA)
     )
-  basics <- calc_spd_acc(
-    data_cor,
-    .by,
-    name_acc = .input$name_acc,
-    name_rt = "rt_cor",
-    acc_rtn = "count"
+  bind_cols(
+    calc_spd_acc(
+      data_cor,
+      name_acc = .input$name_acc,
+      name_rt = "rt_cor",
+      acc_rtn = "count"
+    ),
+    calc_sdt(
+      data_cor,
+      name_acc = .input$name_acc,
+      name_type = "type_cor"
+    )
   )
-  sdt <- calc_sdt(data_cor, .by, .input$name_acc, "type_cor")
-  if (!is.null(.by)) {
-    return(left_join(basics, sdt, by = .by))
-  } else {
-    return(bind_cols(basics, sdt))
-  }
 }

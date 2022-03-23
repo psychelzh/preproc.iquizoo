@@ -16,27 +16,25 @@ NULL
 
 #' @rdname rt
 #' @export
-crt <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+crt <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(name_acc = "acc", name_rt = "rt") |>
     update_settings(.input)
-  data |>
-    calc_spd_acc(
-      .by,
-      name_acc = .input$name_acc,
-      name_rt = .input$name_rt,
-      acc_rtn = "count"
-    )
+  calc_spd_acc(
+    data,
+    name_acc = .input$name_acc,
+    name_rt = .input$name_rt,
+    acc_rtn = "count"
+  )
 }
 
 #' @rdname rt
 #' @export
-srt <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+srt <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(name_rt = "rt") |>
     update_settings(.input)
   data |>
     mutate(acc_dummy = 1) |>
     calc_spd_acc(
-      .by,
       name_acc = "acc_dummy",
       name_rt = .input$name_rt,
       acc_rtn = "none"

@@ -12,7 +12,7 @@
 #'     base \eqn{e}) response distance errors for allocentric and egocentric
 #'     conditions respectively.}
 #' @export
-refframe <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+refframe <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(name_type = "type", name_dist = "dist") |>
     update_settings(.input)
   .extra <- list(type_allo = "allocentric", type_ego = "egocentric") |>
@@ -29,7 +29,7 @@ refframe <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
         .data[[.input$name_type]] == .extra$type_ego ~ "ego"
       )
     ) |>
-    group_by(across(all_of(c(.by, "type_cor")))) |>
+    group_by(.data$type_cor) |>
     summarise(
       mean_dist_err = mean(.data[[.input$name_dist]]),
       mean_log_err = mean(log(.data[[.input$name_dist]] + 1)),
