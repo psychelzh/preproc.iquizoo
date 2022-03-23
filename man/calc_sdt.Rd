@@ -29,6 +29,6 @@ bias (and other counts measures)
 \description{
 Calculate sensitivity index and bias based on signal detection theory. The
 correction for extreme proportions of zero and one is the "log-linear" rule
-recommended .by Hautus (1995).
+recommended by Hautus (1995).
 }
 \keyword{internal}

@@ -56,7 +56,7 @@ check_outliers_rt <- function(x, threshold = 2.5) {
 
 #' Calculate threshold by staircase method
 #'
-#' Here we used the method suggested by Wetherill et al.(1966).
+#' Here we used the method suggested by Wetherill et al (1966).
 #'
 #' @param x The levels in data.
 #' @return The mean threshold.

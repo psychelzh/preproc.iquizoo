@@ -15,7 +15,7 @@ section.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
-\item{total_score}{Total score defined .by the game itself.}
+\item{total_score}{Total score defined by the game itself.}
 \item{mean_level}{Mean level reached.}
 \item{level_score}{Sum of mean score (a ratio) for each level.}
 }

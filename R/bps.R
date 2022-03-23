@@ -1,6 +1,6 @@
 #' Behavioral Pattern Separation (BPS) task
 #'
-#' This function mainly calculates the "*BPS score*" developed .by Stark et. al.
+#' This function mainly calculates the "*BPS score*" developed by Stark et al.
 #' (2013).
 #'
 #' @template common
