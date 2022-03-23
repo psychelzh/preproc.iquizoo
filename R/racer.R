@@ -11,7 +11,7 @@
 #'   \item{dprime}{Sensitivity index of detection task.}
 #'
 #' @export
-racer <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+racer <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(
     name_traildur = "trialdur",
     name_produr = "produr",
@@ -35,7 +35,11 @@ racer <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
           "s", "n"
         )
       ) |>
-      calc_sdt(.by = .by, name_acc = .input$name_acc, name_type = "type_cor") |>
-      select(.data$dprime)
+      calc_sdt(
+        name_acc = .input$name_acc,
+        name_type = "type_cor",
+        keep_bias = FALSE,
+        keep_counts = FALSE
+      )
   )
 }

@@ -18,10 +18,9 @@
   ssd
 }
 
-data <- withr::with_seed(
-  1,
-  expand_grid(
-    id = seq_len(5),
+test_that("Default behavior works", {
+  data <- withr::with_seed(
+    1,
     tibble::tibble(
       trial = seq_len(160),
       type = sample(
@@ -31,51 +30,40 @@ data <- withr::with_seed(
           rep("stop2", 20)
         )
       )
-    )
-  ) |>
-    mutate(
-      acc = ifelse(
-        type == "go",
-        sample(
-          c(-1, 0, 1), n(),
-          prob = c(0.05, 0.25, 0.7),
-          replace = TRUE
-        ),
-        sample(
-          c(0, 1), n(),
-          replace = TRUE
-        )
-      )
     ) |>
-    group_by(id, type) |>
-    group_modify(
-      ~ .x |>
-        mutate(
-          ssd = .prepare_ssd(
-            acc, .y$type
+      mutate(
+        acc = ifelse(
+          type == "go",
+          sample(
+            c(-1, 0, 1), n(),
+            prob = c(0.05, 0.25, 0.7),
+            replace = TRUE
+          ),
+          sample(
+            c(0, 1), n(),
+            replace = TRUE
           )
         )
-    ) |>
-    ungroup() |>
-    mutate(
-      rt = ifelse(
-        (acc == 1 & type != "go") | (acc == -1 & type == "go"),
-        0, runif(n(), 150, 1000)
+      ) |>
+      group_by(type) |>
+      group_modify(
+        ~ .x |>
+          mutate(
+            ssd = .prepare_ssd(
+              acc, .y$type
+            )
+          )
+      ) |>
+      ungroup() |>
+      mutate(
+        rt = ifelse(
+          (acc == 1 & type != "go") | (acc == -1 & type == "go"),
+          0, runif(n(), 150, 1000)
+        )
       )
-    ) |>
-    arrange(id, trial)
-)
-
-test_that("Default behavior works", {
-  expect_snapshot_value(
-    stopsignal(filter(data, id == 1)),
-    style = "json2"
   )
-})
-
-test_that("Works with grouping variables", {
   expect_snapshot_value(
-    stopsignal(data, .by = "id"),
+    stopsignal(data),
     style = "json2"
   )
 })

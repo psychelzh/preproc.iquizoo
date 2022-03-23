@@ -12,7 +12,7 @@
 #'   \item{mrt_mixadv}{Mean reaction decrease of Mixed stimuli compared to other
 #'     two types of stimuli.}
 #' @export
-multisense <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+multisense <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(name_type = "type", name_rt = "rt") |>
     update_settings(.input)
   .extra <- list(
@@ -23,11 +23,10 @@ multisense <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     update_settings(.extra)
   data |>
     mutate(acc_dummy = 1) |>
-    group_by(across(all_of(.input$name_type))) |>
+    group_by(.data[[.input$name_type]]) |>
     group_modify(
       ~ calc_spd_acc(
         .x,
-        .by = .by,
         name_acc = "acc_dummy",
         name_rt = .input$name_rt,
         rt_rtn = "mean",

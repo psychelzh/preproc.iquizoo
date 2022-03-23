@@ -26,14 +26,13 @@
 #' @param acc_rtn If count or percent of correct responses should be returned.
 #' @return A [tibble][tibble::tibble-package] contains the required scores.
 #' @keywords internal
-calc_spd_acc <- function(data, .by, name_acc, name_rt,
+calc_spd_acc <- function(data, name_acc, name_rt,
                          rm.out = TRUE,
                          rt_rtn = c("both", "mean", "sd", "none"),
                          acc_rtn = c("both", "count", "percent", "none")) {
   rt_rtn <- match.arg(rt_rtn)
   acc_rtn <- match.arg(acc_rtn)
   data |>
-    group_by(across(all_of(.by))) |>
     mutate(is_outlier = check_outliers_rt(.data[[name_rt]])) |>
     summarise(
       nc = if (acc_rtn %in% c("both", "count")) sum(.data[[name_acc]] == 1),
@@ -49,8 +48,7 @@ calc_spd_acc <- function(data, .by, name_acc, name_rt,
         .data[[name_rt]] |>
           .subset(.data[[name_acc]] == 1 & !.data$is_outlier) |>
           stats::sd(na.rm = TRUE)
-      },
-      .groups = "drop"
+      }
     )
 }
 
@@ -67,20 +65,23 @@ calc_spd_acc <- function(data, .by, name_acc, name_rt,
 #'   stimuli types, in which is a `character` vector with value `"s"` (denoting
 #'   "*signal*") and `"n"` (denoting "*non-signal*") only. It will be coerced as
 #'   a `factor` vector with these two levels.
-#' @param keep_counts A logical value. Whether the counts of correct and error
-#'   be returned. Default is `TRUE`.
+#' @param keep_bias A logical value. Whether the bias index be returned. Default
+#'   is `TRUE`.
+#' @param keep_counts A logical value. Whether the counts of errors (commissions
+#'   and omissions) be returned. Default is `TRUE`.
 #' @return A [tibble][tibble::tibble-package] contains sensitivity index and
 #'   bias (and other counts measures)
 #' @keywords internal
-calc_sdt <- function(data, .by, name_acc, name_type, keep_counts = TRUE) {
+calc_sdt <- function(data, name_acc, name_type,
+                     keep_bias = TRUE, keep_counts = TRUE) {
   data |>
     mutate(
-      "{name_type}" := factor(
+      type_fac = factor(
         .data[[name_type]],
         c("s", "n")
       )
     ) |>
-    group_by(across(all_of(c(.by, name_type)))) |>
+    group_by(.data$type_fac) |>
     summarise(
       c = sum(.data[[name_acc]] == 1),
       e = n() - .data$c,
@@ -96,21 +97,13 @@ calc_sdt <- function(data, .by, name_acc, name_type, keep_counts = TRUE) {
       )
     ) |>
     pivot_wider(
-      names_from = .data[[name_type]],
+      names_from = .data$type_fac,
       values_from = c("c", "e", "zc", "ze")
     ) |>
-    mutate(
-      commissions = .data$e_n,
-      omissions = .data$e_s,
+    transmute(
       dprime = .data$zc_s - .data$ze_n,
-      c = -(.data$zc_s + .data$ze_n) / 2
-    ) |>
-    select(
-      all_of(
-        c(
-          .by, "dprime", "c",
-          if (keep_counts) c("commissions", "omissions")
-        )
-      )
+      c = if(keep_bias) -(.data$zc_s + .data$ze_n) / 2,
+      commissions = if (keep_counts) .data$e_n,
+      omissions = if (keep_counts) .data$e_s
     )
 }

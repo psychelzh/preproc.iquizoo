@@ -12,7 +12,7 @@
 #'   \item{rt_nth}{Percentile go reaction time (ms) based on `pc_stop`.}
 #'   \item{ssrt}{Stop signal reaction time (ms).}
 #' @export
-stopsignal <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+stopsignal <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(
     name_type = "type",
     name_ssd = "ssd",
@@ -33,44 +33,40 @@ stopsignal <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
         .data[[.input$name_rt]]
       )
     ) |>
-    group_by(across(all_of(.by))) |>
-    group_modify(
-      ~ .calc_ssrt(
-        .x,
-        name_type = .input$name_type,
-        name_acc = .input$name_acc,
-        name_rt = "rt_cor",
-        name_ssd = .input$name_ssd,
-        type_go = .extra$type_go
-      )
-    ) |>
-    ungroup()
+    calc_ssrt(
+      name_type = .input$name_type,
+      name_acc = .input$name_acc,
+      name_rt = "rt_cor",
+      name_ssd = .input$name_ssd,
+      type_go = .extra$type_go
+    )
 }
 
-.calc_ssrt <- function(data, name_type, name_acc, name_rt, name_ssd, type_go) {
-  pcs <- data |>
-    summarise(
-      pc_all = mean(.data[[name_acc]] == 1),
-      pc_go = mean(.subset(
-        .data[[name_acc]] == 1,
-        .data[[name_type]] == type_go
-      )),
-      pc_stop = mean(.subset(
-        .data[[name_acc]] == 1,
-        .data[[name_type]] != type_go
-      ))
-    )
-  data |>
-    filter(.data[[name_type]] != type_go) |>
-    group_by(.data[[name_type]]) |>
-    summarise(
-      ssd = calc_staircase_wetherill(.data[[name_ssd]]),
-      .groups = "drop"
-    ) |>
-    summarise(mean_ssd = mean(.data$ssd)) |>
-    transmute(
-      rt_nth = stats::quantile(data[[name_rt]], 1 - pcs$pc_stop, names = FALSE),
-      ssrt = .data$rt_nth - .data$mean_ssd
-    ) |>
-    bind_cols(pcs)
+calc_ssrt <- function(data, name_type, name_acc, name_rt, name_ssd, type_go) {
+  bind_cols(
+    pcs <- data |>
+      summarise(
+        pc_all = mean(.data[[name_acc]] == 1),
+        pc_go = mean(.subset(
+          .data[[name_acc]] == 1,
+          .data[[name_type]] == type_go
+        )),
+        pc_stop = mean(.subset(
+          .data[[name_acc]] == 1,
+          .data[[name_type]] != type_go
+        ))
+      ),
+    data |>
+      filter(.data[[name_type]] != type_go) |>
+      group_by(.data[[name_type]]) |>
+      summarise(
+        ssd = calc_staircase_wetherill(.data[[name_ssd]]),
+        .groups = "drop"
+      ) |>
+      summarise(mean_ssd = mean(.data$ssd)) |>
+      transmute(
+        rt_nth = stats::quantile(data[[name_rt]], 1 - pcs$pc_stop, names = FALSE),
+        ssrt = .data$rt_nth - .data$mean_ssd
+      )
+  )
 }

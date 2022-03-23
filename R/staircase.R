@@ -15,15 +15,14 @@
 #'   \item{thresh_last_block}{The mean threshold of the last block.}
 #'
 #' @export
-staircase <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+staircase <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(
     name_block = "block",
-    name_level = "xtime",
+    name_level = "level",
     name_acc = "acc"
   ) |>
     update_settings(.input)
   data |>
-    group_by(across(all_of(c(.by)))) |>
     summarise(
       thresh_peak_valley = calc_staircase_wetherill(.data[[.input$name_level]]),
       thresh_last_block = mean(
@@ -33,7 +32,6 @@ staircase <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
             .data[[.input$name_block]] == max(.data[[.input$name_block]])
           )
         )$values
-      ),
-      .groups = "drop"
+      )
     )
 }

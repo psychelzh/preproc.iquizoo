@@ -4,14 +4,10 @@
 \alias{calc_sdt}
 \title{Signal Detection Theory}
 \usage{
-calc_sdt(data, .by, name_acc, name_type, keep_counts = TRUE)
+calc_sdt(data, name_acc, name_type, keep_bias = TRUE, keep_counts = TRUE)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
-
-\item{.by}{The column name(s) in \code{data} used to be grouped by. If set to
-\code{NULL} (default), all data will be treated as from one subject and there
-will be no grouping columns in the value returned.}
 
 \item{name_acc}{The column name of the \code{data} input whose values are user's correctness, in which is a \code{numeric} vector so coded that 1 means scoring correct, 0 means scoring incorrect, and that -1 means no response is made.}
 
@@ -20,8 +16,11 @@ stimuli types, in which is a \code{character} vector with value \code{"s"} (deno
 "\emph{signal}") and \code{"n"} (denoting "\emph{non-signal}") only. It will be coerced as
 a \code{factor} vector with these two levels.}
 
-\item{keep_counts}{A logical value. Whether the counts of correct and error
-be returned. Default is \code{TRUE}.}
+\item{keep_bias}{A logical value. Whether the bias index be returned. Default
+is \code{TRUE}.}
+
+\item{keep_counts}{A logical value. Whether the counts of errors (commissions
+and omissions) be returned. Default is \code{TRUE}.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains sensitivity index and

@@ -13,12 +13,11 @@
 #'   \item{pc}{Percentage of correct responses.}
 #'   \item{mrt}{Mean reaction time.}
 #'   \item{dprime}{Sensitivity index.}
-#'   \item{c}{Bias.}
 NULL
 
 #' @rdname nback
 #' @export
-nback <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+nback <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(
     name_type = "type",
     name_acc = "acc",
@@ -29,7 +28,6 @@ nback <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     update_settings(.extra)
   .nback_classical(
     data,
-    .by = .by,
     name_type = .input$name_type,
     name_acc = .input$name_acc,
     name_rt = .input$name_rt,
@@ -40,7 +38,7 @@ nback <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
 
 #' @rdname nback
 #' @export
-dualnback <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+dualnback <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(
     name_type1 = "typevis",
     name_type2 = "typeaud",
@@ -79,7 +77,6 @@ dualnback <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     group_modify(
       ~ .nback_classical(
         .x,
-        .by = .by,
         type_filler = .extra$type_filler,
         type_signal = .extra$type_signal
       )
@@ -87,11 +84,11 @@ dualnback <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     ungroup() |>
     pivot_wider(
       names_from = .data$dual,
-      values_from = -any_of(c(.by, "dual"))
+      values_from = -.data$dual
     )
 }
 
-.nback_classical <- function(data, .by = NULL,
+.nback_classical <- function(data,
                              name_type = "type",
                              name_acc = "acc",
                              name_rt = "rt",
@@ -107,21 +104,20 @@ dualnback <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
         "s", "n"
       )
     )
-  basics <- calc_spd_acc(
-    data_cor,
-    .by,
-    name_acc = name_acc,
-    name_rt = name_rt,
-    rt_rtn = "mean",
-    acc_rtn = "percent"
+  bind_cols(
+    calc_spd_acc(
+      data_cor,
+      name_acc = name_acc,
+      name_rt = name_rt,
+      rt_rtn = "mean",
+      acc_rtn = "percent"
+    ),
+    calc_sdt(
+      data_cor,
+      name_acc = name_acc,
+      name_type = "type_cor",
+      keep_bias = FALSE,
+      keep_counts = FALSE
+    )
   )
-  sdt <- calc_sdt(
-    data_cor, .by, name_acc, "type_cor",
-    keep_counts = FALSE
-  )
-  if (!is.null(.by)) {
-    return(left_join(basics, sdt, by = .by))
-  } else {
-    return(bind_cols(basics, sdt))
-  }
 }

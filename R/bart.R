@@ -10,11 +10,10 @@
 #'   \item{mean_pumps_raw}{Mean of hits for all balloons.}
 #'   \item{num_explosion}{Number of exploded balloons.}
 #' @export
-bart <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+bart <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(name_feedback = "feedback", name_nhit = "nhit") |>
     update_settings(.input)
   data |>
-    group_by(across(all_of(.by))) |>
     summarise(
       mean_pumps = .data[[.input$name_nhit]] |>
         # keep not exploded trials only

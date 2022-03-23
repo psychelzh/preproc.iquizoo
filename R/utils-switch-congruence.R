@@ -15,7 +15,6 @@
 #'   will be used as task names.
 #' @keywords internal
 calc_switch_cost <- function(data,
-                             .by,
                              name_type_block,
                              name_type_switch,
                              name_rt,
@@ -33,7 +32,6 @@ calc_switch_cost <- function(data,
     group_modify(
       ~ calc_spd_acc(
         .x,
-        .by = .by,
         name_acc = name_acc,
         name_rt = name_rt,
         acc_rtn = "percent",
@@ -41,15 +39,14 @@ calc_switch_cost <- function(data,
       )
     ) |>
     ungroup() |>
-    complete(.data$condition, nesting(!!!syms(.by))) |>
-    group_by(across(all_of(c(.by, "condition")))) |>
+    complete(.data$condition) |>
+    group_by(.data$condition) |>
     summarise(
       mrt = mean(.data$mrt, na.rm = TRUE),
       pc = mean(.data$pc, na.rm = TRUE),
       .groups = "drop"
     ) |>
     pivot_wider(
-      all_of(.by),
       names_from = .data$condition,
       values_from = c("mrt", "pc")
     ) |>
@@ -76,19 +73,18 @@ calc_switch_cost <- function(data,
 #' @return A [tibble][tibble::tibble-package] contains congruence effect results
 #'   on accuracy and response time.
 #' @keywords internal
-calc_cong_eff <- function(data, .by, name_cong, name_acc, name_rt) {
+calc_cong_eff <- function(data, name_cong, name_acc, name_rt) {
   data |>
     mutate(
-      "{name_cong}" := factor(
+      condition = factor(
         .data[[name_cong]],
         c("inc", "con")
       )
     ) |>
-    group_by(across(all_of(name_cong))) |>
+    group_by(.data$condition) |>
     group_modify(
       ~ calc_spd_acc(
         .x,
-        .by = .by,
         name_acc = name_acc,
         name_rt = name_rt,
         acc_rtn = "percent",
@@ -97,9 +93,9 @@ calc_cong_eff <- function(data, .by, name_cong, name_acc, name_rt) {
     ) |>
     ungroup() |>
     # make sure each type of condition exists
-    complete(!!sym(name_cong), nesting(!!!syms(.by))) |>
+    complete(.data$condition) |>
     pivot_wider(
-      names_from = .data[[name_cong]],
+      names_from = .data$condition,
       values_from = c("mrt", "pc")
     ) |>
     mutate(

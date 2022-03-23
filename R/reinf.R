@@ -13,7 +13,7 @@
 #'   \item{pc_avoid}{The percent of correct for avoid trials.}
 #'
 #' @export
-reinf <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+reinf <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(
     name_phase = "phase",
     name_cresp = "cresp",
@@ -39,7 +39,7 @@ reinf <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
         TRUE ~ "avoid"
       )
     ) |>
-    group_by(across(all_of(c(.by, "type")))) |>
+    group_by(.data$type) |>
     summarise(
       pc = mean(.data[[.input$name_acc]]),
       .groups = "drop"

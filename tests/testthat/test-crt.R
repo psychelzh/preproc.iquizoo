@@ -1,25 +1,14 @@
-set.seed(1)
-n_subject <- 5
-data <- tibble::tibble(
-  id = seq_len(n_subject),
-  n = sample(40:80, n_subject, replace = TRUE)
-) |>
-  uncount(n) |>
-  mutate(
-    acc = sample(c(0, 1), n(), replace = TRUE),
-    rt = rexp(n(), 0.001)
-  )
-
 test_that("Default behavior works", {
+  data <- withr::with_seed(
+    1,
+    tibble(trial = 1:40) |>
+      mutate(
+        acc = sample(c(0, 1), n(), replace = TRUE),
+        rt = rexp(n(), 0.001)
+      )
+  )
   expect_snapshot_value(
     crt(data),
-    style = "json2"
-  )
-})
-
-test_that("Works with multiple grouping variables", {
-  expect_snapshot_value(
-    crt(data, .by = "id"),
     style = "json2"
   )
 })

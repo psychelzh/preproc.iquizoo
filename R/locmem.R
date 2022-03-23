@@ -15,7 +15,7 @@
 #'   \item{nc_order}{Count of correct responses for order. For [locmem2()]
 #'     only.}
 #' @export
-locmem <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+locmem <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(name_dist = "resplocdist") |>
     update_settings(.input)
   data |>
@@ -24,7 +24,6 @@ locmem <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       .keep = "unused"
     ) |>
     unnest(.data$dist) |>
-    group_by(across(all_of(.by))) |>
     summarise(
       nc_loc = sum(.data$dist == 0),
       mean_dist_err = mean(.data$dist),
@@ -35,24 +34,20 @@ locmem <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
 
 #' @rdname locmem
 #' @export
-locmem2 <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
+locmem2 <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(name_acc_order = "respaccorder") |>
     update_settings(.input)
-  loc_results <- locmem(data, .by, .input, .extra)
-  nc_order <- data |>
-    mutate(
-      acc_order = parse_char_resp(.data[[.input$name_acc_order]]),
-      .keep = "unused"
-    ) |>
-    unnest(.data$acc_order) |>
-    group_by(across(all_of(.by))) |>
-    summarise(
-      nc_order = sum(.data$acc_order == 1),
-      .groups = "drop"
-    )
-  if (!is.null(.by)) {
-    return(left_join(loc_results, nc_order, by = .by))
-  } else {
-    return(bind_cols(loc_results, nc_order))
-  }
+  bind_cols(
+    locmem(data, .input, .extra),
+    data |>
+      mutate(
+        acc_order = parse_char_resp(.data[[.input$name_acc_order]]),
+        .keep = "unused"
+      ) |>
+      unnest(.data$acc_order) |>
+      summarise(
+        nc_order = sum(.data$acc_order == 1),
+        .groups = "drop"
+      )
+  )
 }
