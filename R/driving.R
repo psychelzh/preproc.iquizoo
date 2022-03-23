@@ -1,6 +1,6 @@
 #' Driving Test
 #'
-#' A test measuring impulsivity originally developed .by Gardner et. al. (2005).
+#' A test measuring impulsivity originally developed by Gardner et al (2005).
 #'
 #' @template common
 #' @template options

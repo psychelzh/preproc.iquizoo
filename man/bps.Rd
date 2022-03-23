@@ -22,6 +22,6 @@ A \link[tibble:tibble-package]{tibble} contains following values:
 \item{bps_score}{BPS score.}
 }
 \description{
-This function mainly calculates the "\emph{BPS score}" developed .by Stark et. al.
+This function mainly calculates the "\emph{BPS score}" developed by Stark et al.
 (2013).
 }

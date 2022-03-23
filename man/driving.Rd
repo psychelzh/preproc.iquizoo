@@ -18,5 +18,5 @@ A \link[tibble:tibble-package]{tibble} contains following values:
 \item{still_ratio}{The ratio of still duration in yellow light state.}
 }
 \description{
-A test measuring impulsivity originally developed .by Gardner et. al. (2005).
+A test measuring impulsivity originally developed by Gardner et al (2005).
 }

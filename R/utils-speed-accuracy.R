@@ -56,7 +56,7 @@ calc_spd_acc <- function(data, name_acc, name_rt,
 #'
 #' Calculate sensitivity index and bias based on signal detection theory. The
 #' correction for extreme proportions of zero and one is the "log-linear" rule
-#' recommended .by Hautus (1995).
+#' recommended by Hautus (1995).
 #'
 #' @template common
 #' @templateVar name_acc TRUE
