@@ -1,5 +1,13 @@
 # preproc.iquizoo (development version)
 
+## Breaking Changes
+
+* Now the `.by` argument from all functions is removed. The decision to include that grouping argument is now considered a redundant feature.
+
+## New Features
+
+* Added new function `racer()` to support NeuroRacer tests.
+
 # preproc.iquizoo 2.2.1
 
 ## New Features
