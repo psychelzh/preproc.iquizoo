@@ -18,7 +18,7 @@ responses, sumscore() adds up the score for each response."><!-- mathjax --><scr
     
     <a class="navbar-brand me-2" href="../index.html">preproc.iquizoo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.2.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.3.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,23 +63,19 @@ responses, <code>sumscore()</code> adds up the score for each response.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">countcorrect</span><span class="op">(</span><span class="va">data</span>, .by <span class="op">=</span> <span class="cn">NULL</span>, .input <span class="op">=</span> <span class="cn">NULL</span>, .extra <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">countcorrect</span><span class="op">(</span><span class="va">data</span>, .input <span class="op">=</span> <span class="cn">NULL</span>, .extra <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
 
-<span class="fu">countcorrect2</span><span class="op">(</span><span class="va">data</span>, .by <span class="op">=</span> <span class="cn">NULL</span>, .input <span class="op">=</span> <span class="cn">NULL</span>, .extra <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
+<span class="fu">countcorrect2</span><span class="op">(</span><span class="va">data</span>, .input <span class="op">=</span> <span class="cn">NULL</span>, .extra <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
 
-<span class="fu">sumweighted</span><span class="op">(</span><span class="va">data</span>, .by <span class="op">=</span> <span class="cn">NULL</span>, .input <span class="op">=</span> <span class="cn">NULL</span>, .extra <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
+<span class="fu">sumweighted</span><span class="op">(</span><span class="va">data</span>, .input <span class="op">=</span> <span class="cn">NULL</span>, .extra <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
 
-<span class="fu">sumscore</span><span class="op">(</span><span class="va">data</span>, .by <span class="op">=</span> <span class="cn">NULL</span>, .input <span class="op">=</span> <span class="cn">NULL</span>, .extra <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+<span class="fu">sumscore</span><span class="op">(</span><span class="va">data</span>, .input <span class="op">=</span> <span class="cn">NULL</span>, .extra <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>data</dt>
 <dd><p>Raw data of class <code>data.frame</code>.</p></dd>
-<dt>.by</dt>
-<dd><p>The column name(s) in <code>data</code> used to be grouped by. If set to
-<code>NULL</code> (default), all data will be treated as from one subject and there
-will be no grouping columns in the value returned.</p></dd>
 <dt>.input, .extra</dt>
 <dd><p>Each is a <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> containing all the input variable
 names and special values for certain variables. See more in the details
