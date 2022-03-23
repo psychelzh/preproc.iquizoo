@@ -13,6 +13,6 @@ calc_staircase_wetherill(x)
 The mean threshold.
 }
 \description{
-Here we used the method suggested by Wetherill et al.(1966).
+Here we used the method suggested by Wetherill et al (1966).
 }
 \keyword{internal}
