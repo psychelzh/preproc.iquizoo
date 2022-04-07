@@ -53,8 +53,8 @@ calc_switch_cost <- function(data,
     mutate(
       switch_cost_rt_gen = .data$mrt_repeat - .data$mrt_pure,
       switch_cost_rt_spe = .data$mrt_switch - .data$mrt_repeat,
-      switch_cost_pc_gen = .data$pc_repeat - .data$pc_pure,
-      switch_cost_pc_spe = .data$pc_switch - .data$pc_repeat
+      switch_cost_pc_gen = .data$pc_pure - .data$pc_repeat,
+      switch_cost_pc_spe = .data$pc_repeat - .data$pc_switch
     )
 }
 

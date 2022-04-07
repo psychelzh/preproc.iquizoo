@@ -63,12 +63,12 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [-0.14623656]
+          "value": [0.14623656]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.13142174]
+          "value": [-0.13142174]
         }
       ]
     }
@@ -138,7 +138,7 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.1375]
+          "value": [-0.1375]
         },
         {
           "type": "double",
@@ -218,7 +218,7 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.2]
+          "value": [-0.2]
         }
       ]
     }
