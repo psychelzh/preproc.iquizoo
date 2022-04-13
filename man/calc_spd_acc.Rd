@@ -10,7 +10,8 @@ calc_spd_acc(
   name_rt,
   rm.out = TRUE,
   rt_rtn = c("both", "mean", "sd", "none"),
-  acc_rtn = c("both", "count", "percent", "none")
+  acc_rtn = c("both", "count", "percent", "none"),
+  sat_rtn = c("all", "ies", "rcs", "lisas", "none")
 )
 }
 \arguments{
@@ -27,6 +28,9 @@ calc_spd_acc(
 returned.}
 
 \item{acc_rtn}{If count or percent of correct responses should be returned.}
+
+\item{sat_rtn}{If any of the speed-accuracy trade-off index should be
+returned. \code{"IES"}, \code{"RCS"} and \code{"LISAS"} are supported.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains the required scores.
@@ -46,8 +50,8 @@ the number and percent of correct responses.
 
 
 Outlier removal is recommended and it is set as default in here. The
-outlier detection method used here is the "\emph{interquantile range}" rule
-suggested by Tukey (1977).
+outlier detection method used here is the one recommended by Cousineau, D.,
+& Chartier, S. (2010).
 }
 
 \keyword{internal}

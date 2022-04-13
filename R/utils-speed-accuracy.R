@@ -12,8 +12,8 @@
 #' @section Note:
 #'
 #'   Outlier removal is recommended and it is set as default in here. The
-#'   outlier detection method used here is the "*interquantile range*" rule
-#'   suggested by Tukey (1977).
+#'   outlier detection method used here is the one recommended by Cousineau, D.,
+#'   & Chartier, S. (2010).
 #'
 #' @template common
 #' @templateVar name_acc TRUE
@@ -24,32 +24,55 @@
 #' @param rt_rtn If mean or standard deviation of response times should be
 #'   returned.
 #' @param acc_rtn If count or percent of correct responses should be returned.
+#' @param sat_rtn If any of the speed-accuracy trade-off index should be
+#'   returned. `"IES"`, `"RCS"` and `"LISAS"` are supported.
 #' @return A [tibble][tibble::tibble-package] contains the required scores.
 #' @keywords internal
 calc_spd_acc <- function(data, name_acc, name_rt,
                          rm.out = TRUE,
                          rt_rtn = c("both", "mean", "sd", "none"),
-                         acc_rtn = c("both", "count", "percent", "none")) {
+                         acc_rtn = c("both", "count", "percent", "none"),
+                         sat_rtn = c("all", "ies", "rcs", "lisas", "none")) {
   rt_rtn <- match.arg(rt_rtn)
   acc_rtn <- match.arg(acc_rtn)
-  data |>
-    mutate(is_outlier = check_outliers_rt(.data[[name_rt]])) |>
-    summarise(
-      nc = if (acc_rtn %in% c("both", "count")) sum(.data[[name_acc]] == 1),
-      pc = if (acc_rtn %in% c("both", "percent")) {
-        sum(.data[[name_acc]] == 1) / n()
-      },
-      mrt = if (rt_rtn %in% c("both", "mean")) {
-        .data[[name_rt]] |>
-          .subset(.data[[name_acc]] == 1 & !.data$is_outlier) |>
-          mean(na.rm = TRUE)
-      },
-      rtsd = if (rt_rtn %in% c("both", "sd")) {
-        .data[[name_rt]] |>
-          .subset(.data[[name_acc]] == 1 & !.data$is_outlier) |>
-          stats::sd(na.rm = TRUE)
-      }
+  sat_rtn <- match.arg(sat_rtn)
+  nc <- sum(data[[name_acc]] == 1)
+  pc <- nc / nrow(data)
+  pcsd <- sd(data[[name_acc]] == 1)
+  if (rm.out) {
+    rts <- data[[name_rt]]
+    is_outlier <- check_outliers_rt(rts)
+    rt_all <- .subset(rts, !is_outlier)
+    rt_correct <- .subset(
+      rts,
+      data[[name_acc]] == 1 & !is_outlier
     )
+  } else {
+    rt_all <- data[[name_rt]]
+    rt_correct <- data[[name_rt]] |>
+      .subset(data[[name_acc]] == 1)
+  }
+  mrt <- mean(rt_correct)
+  rtsd <- sd(rt_correct)
+  # set reaction time unit to seconds for better value range
+  ies <- (mrt / 1000) / pc
+  rcs <- pc / (mean(rt_all) / 1000)
+  lisas <- if (pc == 1) {
+    mrt / 1000
+  } else if (pc == 0) {
+    0
+  } else {
+    mrt / 1000 + (1 - pc) / pcsd * (rtsd / 1000)
+  }
+  tibble(
+    nc = if (acc_rtn %in% c("both", "count")) nc,
+    pc = if (acc_rtn %in% c("both", "percent")) pc,
+    mrt = if (rt_rtn %in% c("both", "mean")) mrt,
+    rtsd = if (rt_rtn %in% c("both", "sd")) rtsd,
+    ies = if (sat_rtn %in% c("all", "ies")) ies,
+    rcs = if (sat_rtn %in% c("all", "rcs")) rcs,
+    lisas = if (sat_rtn %in% c("all", "lisas")) lisas
+  )
 }
 
 #' Signal Detection Theory
