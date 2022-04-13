@@ -130,3 +130,36 @@ calc_sdt <- function(data, name_acc, name_type,
       omissions = if (keep_counts) .data$e_s
     )
 }
+
+#' Calculate DDM indices
+#'
+#' There are a lot of papers proposed to use drift-diffusion model to model
+#' speed accuracy data. Here we mainly focused on the drifting rate (v),
+#' decision boundary (a) and non-decision time (t0).
+#'
+#' @template common
+#' @templateVar name_acc TRUE
+#' @templateVar name_rt TRUE
+#' @template names
+#' @param name_truth The condition which is depended upon to calculate different
+#'   drifting rates. Default is `NULL`. Must be a [factor()].
+#' @param rt_unit The unit of response time in `data`.
+#' @return A [tibble][tibble::tibble-package] contains drifting rate for
+#'   different conditions, decision boundary and non-decision time.
+#' @keywords internal
+calc_ddm <- function(data, name_rt = "rt", name_acc = "acc", name_truth = NULL,
+                     rt_unit = c("ms", "s")) {
+  rt_unit <- match.arg(rt_unit)
+  fit <- fit_ddm(data, name_rt, name_acc, name_truth, rt_unit)
+  pars <- fit$par
+  if (fit$convergence != 0) {
+    warn(
+      "Cannot find fit after the max number of fitting.",
+      "fit_not_converge"
+    )
+    pars <- replace(pars, TRUE, NA_real_)
+  }
+  pars |>
+    tibble::as_tibble_row() |>
+    select(starts_with("v"), .data$a, .data$t0)
+}
