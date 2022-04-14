@@ -53,12 +53,12 @@ fit_ddm <- function(data,
         w = stats::runif(1, min = 0, max = 1),
         sv = stats::runif(1, min = 0, max = 5)
       )
-      if (ll_fun(init, rt, resp, truth) < 1e6) {
+      if (ll_ddm(init, rt, resp, truth) < 1e6) {
         break
       }
     }
     fit <- stats::optim(
-      init, ll_fun,
+      init, ll_ddm,
       method = "L-BFGS-B",
       rt = rt, resp = resp, truth = truth,
       lower = c(rep(-Inf, length(names_drift)), .01, 0, 0, 0),
@@ -77,7 +77,7 @@ fit_ddm <- function(data,
   best_fit
 }
 
-ll_fun <- function(pars, rt, resp, truth = NULL) {
+ll_ddm <- function(pars, rt, resp, truth = NULL) {
   if (is.null(truth)) {
     v <- pars["v"]
   } else {
