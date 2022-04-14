@@ -68,6 +68,12 @@ fit_ddm <- function(data,
       best_fit <- fit
     }
   }
+  # check truth to exclude unused parameters
+  for (lvl in levels(truth)) {
+    if (!any(truth == lvl)) {
+      best_fit$par[paste0("v_", lvl)] <- NA_real_
+    }
+  }
   best_fit
 }
 
