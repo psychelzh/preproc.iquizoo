@@ -21,7 +21,7 @@ test_that("Default behavior works", {
   expect_snapshot_value(
     switchcost(data),
     style = "json2",
-    tolerance = 1e-5
+    tolerance = 1e-3
   )
 })
 
@@ -38,6 +38,6 @@ test_that("Works when condition missing", {
   expect_snapshot_value(
     switchcost(data_miss_switch),
     style = "json2",
-    tolerance = 1e-5
+    tolerance = 1e-3
   )
 })
