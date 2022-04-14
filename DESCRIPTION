@@ -24,6 +24,7 @@ Imports:
     tidyr (>= 1.2.0)
 Suggests:
     covr,
+    mockery,
     readr,
     roxygen2,
     testthat (>= 3.0.0),

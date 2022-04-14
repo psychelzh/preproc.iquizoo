@@ -9,21 +9,21 @@ config <- tibble::tribble(
   7, 6, 0.6,
   14, 12, 0.6
 )
+data <- withr::with_seed(
+  1,
+  config |>
+    group_by(bigsetcount, smallsetcount, pc) |>
+    summarise(
+      tibble(
+        n = 10,
+        acc = c(rep(1, round(n * pc)), rep(0, round(n * (1 - pc)))),
+        rt = rexp(n, 0.001)
+      ),
+      .groups = "drop"
+    )
+)
 
 test_that("Can deal with grouping variables", {
-  data <- withr::with_seed(
-    1,
-    config |>
-      group_by(bigsetcount, smallsetcount, pc) |>
-      summarise(
-        tibble(
-          n = 10,
-          acc = c(rep(1, round(n * pc)), rep(0, round(n * (1 - pc)))),
-          rt = rexp(n, 0.001)
-        ),
-        .groups = "drop"
-      )
-  )
   expect_snapshot_value(
     nsymncmp(data),
     style = "json2",
@@ -32,16 +32,12 @@ test_that("Can deal with grouping variables", {
 })
 
 test_that("Warning if not converged", {
-  data_invalid <- withr::with_seed(
-    1,
-    config |>
-      mutate(n = 10) |>
-      uncount(n) |>
-      mutate(
-        acc = sample(c(0, 1), n(), replace = TRUE),
-        rt = rexp(n(), 0.001)
-      )
+  mockery::stub(
+    nsymncmp,
+    "fit_numerosity",
+    function(...) list(par = c(w = 1), convergence = -1),
+    depth = 2
   )
-  nsymncmp(data_invalid) |>
+  nsymncmp(data) |>
     expect_warning(class = "fit_not_converge")
 })

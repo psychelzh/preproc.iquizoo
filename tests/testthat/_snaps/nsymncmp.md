@@ -33,7 +33,7 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.16504968]
+          "value": [0.16505674]
         }
       ]
     }
