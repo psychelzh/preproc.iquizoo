@@ -23,11 +23,11 @@ data <- withr::with_seed(
     )
 )
 
-test_that("Can deal with grouping variables", {
+test_that("Default behavior works", {
   expect_snapshot_value(
     nsymncmp(data),
     style = "json2",
-    tolerance = 1e-5
+    tolerance = 1e-3
   )
 })
 
