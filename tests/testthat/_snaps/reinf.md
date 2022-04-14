@@ -16,10 +16,15 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["pc_approach", "pc_avoid", "pc_test"]
+          "value": ["pc_approach", "pc_avoid", "pc_learn", "pc_test"]
         }
       },
       "value": [
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.4]
+        },
         {
           "type": "double",
           "attributes": {},
