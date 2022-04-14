@@ -31,7 +31,8 @@ nsymncmp <- function(data, .input = NULL, .extra = NULL) {
       name_acc = .input$name_acc,
       name_rt = .input$name_rt,
       rt_rtn = "mean",
-      acc_rtn = "percent"
+      acc_rtn = "percent",
+      sat_rtn = "none"
     ),
     ensure_fit_numerosity(data_cor, max_nfit = .extra$max_nfit)$par |>
       tibble::as_tibble_row()

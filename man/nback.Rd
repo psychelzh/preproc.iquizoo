@@ -19,9 +19,24 @@ section.}
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values (tripled
 for dual n-back):
+
 \item{pc}{Percentage of correct responses.}
+
 \item{mrt}{Mean reaction time.}
+
+\item{ies}{Inverse efficiency score.}
+
+\item{rcs}{Rate correct score.}
+
+\item{lisas}{Linear integrated speed-accuracy score.}
+
 \item{dprime}{Sensitivity index.}
+
+\item{v}{Drifting rate of ddm model. Not included in \code{dualnback()}.}
+
+\item{a}{Threshold separation of ddm model. Not included in \code{dualnback()}.}
+
+\item{t0}{Non-decision time of ddm model. Not included in \code{dualnback()}.}
 }
 \description{
 A classical working memory test.

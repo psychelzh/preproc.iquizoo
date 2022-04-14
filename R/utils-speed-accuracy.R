@@ -38,22 +38,24 @@ calc_spd_acc <- function(data, name_acc, name_rt,
   sat_rtn <- match.arg(sat_rtn)
   nc <- sum(data[[name_acc]] == 1)
   pc <- nc / nrow(data)
-  pcsd <- sd(data[[name_acc]] == 1)
+  pcsd <- stats::sd(data[[name_acc]] == 1)
+  rt_all <- data[[name_rt]]
+  # rt of 0 or `NA` means no response or irrelavant response
+  keep_rows <- rt_all != 0 & !is.na(rt_all)
+  rt_all <- rt_all[keep_rows]
   if (rm.out) {
-    rts <- data[[name_rt]]
-    is_outlier <- check_outliers_rt(rts)
-    rt_all <- .subset(rts, !is_outlier)
+    is_outlier <- check_outliers_rt(rt_all)
     rt_correct <- .subset(
-      rts,
-      data[[name_acc]] == 1 & !is_outlier
+      rt_all,
+      data[[name_acc]][keep_rows] == 1 & !is_outlier
     )
+    rt_all <- .subset(rt_all, !is_outlier)
   } else {
-    rt_all <- data[[name_rt]]
-    rt_correct <- data[[name_rt]] |>
-      .subset(data[[name_acc]] == 1)
+    rt_correct <-rt_all |>
+      .subset(data[[name_acc]][keep_rows] == 1)
   }
   mrt <- mean(rt_correct)
-  rtsd <- sd(rt_correct)
+  rtsd <- stats::sd(rt_correct)
   # set reaction time unit to seconds for better value range
   ies <- (mrt / 1000) / pc
   rcs <- pc / (mean(rt_all) / 1000)

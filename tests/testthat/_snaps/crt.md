@@ -16,7 +16,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["nc", "mrt", "rtsd"]
+          "value": ["nc", "mrt", "rtsd", "ies", "rcs", "lisas", "v", "a", "t0"]
         }
       },
       "value": [
@@ -34,6 +34,36 @@
           "type": "double",
           "attributes": {},
           "value": [564.84094741]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1.69378023]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.53687296]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1.36059609]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.21715921]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1.96918298]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0]
         }
       ]
     }

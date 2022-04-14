@@ -14,7 +14,10 @@ test_that("Default behavior works", {
       ungroup() |>
       mutate(
         acc = sample(c(0, 1), n(), replace = TRUE),
-        rt = rexp(n(), 0.001)
+        rt = if_else(
+          type == "filler" | xor(type == "same", acc == 1),
+          0, rexp(n(), 0.001)
+        )
       ) |>
       pivot_wider(
         names_from = dual,

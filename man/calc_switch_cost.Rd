@@ -4,19 +4,14 @@
 \alias{calc_switch_cost}
 \title{Switch cost}
 \usage{
-calc_switch_cost(data, name_type_block, name_type_switch, name_rt, name_acc)
+calc_switch_cost(data, name_switch, name_rt, name_acc)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
-\item{name_type_block}{The column name of the \code{data} input whose values are
-the block type, in which is a \code{character} vector with "pure block" (value:
-\code{"pure"}) and "mixed block" (value: \code{"mixed"}).}
-
-\item{name_type_switch}{The column name of the \code{data} input whose values are
+\item{name_switch}{The column name of the \code{data} input whose values are
 the switch type, in which is a \code{character} vector with at least \code{"switch"}
-and \code{"repeat"} values. Other values if corresponding to \code{"pure"} block,
-will be used as task names.}
+and \code{"repeat"} values.}
 
 \item{name_rt}{The column name of the \code{data} input whose values are user's reaction time, in which is a \code{numeric} vector with \code{NA} values representing abnormal reaction times.}
 

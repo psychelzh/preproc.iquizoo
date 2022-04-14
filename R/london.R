@@ -29,7 +29,8 @@ london <- function(data, .input = NULL, .extra = NULL) {
       name_acc = .input$name_finished,
       name_rt = .input$name_timeinit,
       acc_rtn = "none",
-      rt_rtn = "mean"
+      rt_rtn = "mean",
+      sat_rtn = "none"
     ) |>
       rename(mrt_init = .data$mrt)
   )

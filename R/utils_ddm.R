@@ -45,19 +45,19 @@ fit_ddm <- function(data,
   best_fit <- NULL
   for (j in seq_len(n_fit)) {
     repeat {
-      v <- rnorm(length(names_drift), 2, 2) |> setNames(names_drift)
+      v <- stats::rnorm(length(names_drift), 2, 2) |> set_names(names_drift)
       init <- c(
         v,
-        a = runif(1, min = 0.5, max = 5),
-        t0 = runif(1, min = 0, max = min_rt),
-        w = runif(1, min = 0, max = 1),
-        sv = runif(1, min = 0, max = 5)
+        a = stats::runif(1, min = 0.5, max = 5),
+        t0 = stats::runif(1, min = 0, max = min_rt),
+        w = stats::runif(1, min = 0, max = 1),
+        sv = stats::runif(1, min = 0, max = 5)
       )
       if (ll_fun(init, rt, resp, truth) < 1e6) {
         break
       }
     }
-    fit <- optim(
+    fit <- stats::optim(
       init, ll_fun,
       method = "L-BFGS-B",
       rt = rt, resp = resp, truth = truth,

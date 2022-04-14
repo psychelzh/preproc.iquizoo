@@ -16,7 +16,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["nc", "mrt", "rtsd", "dprime", "c", "commissions", "omissions"]
+          "value": ["nc", "mrt", "rtsd", "ies", "rcs", "lisas", "dprime", "c", "commissions", "omissions"]
         }
       },
       "value": [
@@ -34,6 +34,21 @@
           "type": "double",
           "attributes": {},
           "value": [603.47646194]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1.99627258]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.66678013]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1.51889919]
         },
         {
           "type": "double",
@@ -76,7 +91,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["nc", "mrt", "rtsd", "dprime", "c", "commissions", "omissions"]
+          "value": ["nc", "mrt", "rtsd", "ies", "rcs", "lisas", "dprime", "c", "commissions", "omissions"]
         }
       },
       "value": [
@@ -94,6 +109,21 @@
           "type": "double",
           "attributes": {},
           "value": [1753.03022103]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1.43868832]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.69507758]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1.43868832]
         },
         {
           "type": "double",

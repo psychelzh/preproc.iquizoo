@@ -35,7 +35,8 @@ symncmp <- function(data, .input = NULL, .extra = NULL) {
       name_acc = .input$name_acc,
       name_rt = .input$name_rt,
       rt_rtn = "mean",
-      acc_rtn = "percent"
+      acc_rtn = "percent",
+      sat_rtn = "none"
     ),
     data |>
       mutate(

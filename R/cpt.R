@@ -7,12 +7,25 @@
 #' @template common
 #' @template options
 #' @return A [tibble][tibble::tibble-package] contains following values:
+#'
 #'   \item{nc}{Count of correct responses.}
+#'
 #'   \item{mrt}{Mean reaction time of hits.}
+#'
 #'   \item{rtsd}{Standard deviation of reaction times of hits.}
+#'
 #'   \item{dprime}{Sensitivity (d').}
+#'
 #'   \item{c}{Bias index.}
+#'
+#'   \item{ies}{Inverse efficiency score.}
+#'
+#'   \item{rcs}{Rate correct score.}
+#'
+#'   \item{lisas}{Linear integrated speed-accuracy score.}
+#'
 #'   \item{commissions}{Number of errors caused by action.}
+#'
 #'   \item{omissions}{Number of errors caused by inaction.}
 #' @export
 cpt <- function(data, .input = NULL, .extra = NULL) {

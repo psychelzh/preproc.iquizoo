@@ -1,7 +1,7 @@
 test_that("Default behavior works", {
   data <- withr::with_seed(
     1,
-    tibble(block = 1:8) |>
+    tibble(block = 1:4) |>
       mutate(n = sample(0:50, n(), replace = TRUE)) |>
       uncount(n, .id = "trial") |>
       mutate(
@@ -10,11 +10,7 @@ test_that("Default behavior works", {
           n(),
           replace = TRUE
         ),
-        task = case_when(
-          block %in% c(1, 8) ~ "T1",
-          block %in% c(2, 7) ~ "T2",
-          TRUE ~ sample(c("T1", "T2"), n(), replace = TRUE)
-        ),
+        task = sample(c("T1", "T2"), n(), replace = TRUE),
         acc = sample(c(0, 1), n(), replace = TRUE),
         rt = rexp(n(), 0.001)
       ) |>
@@ -30,7 +26,6 @@ test_that("Default behavior works", {
       ) |>
       mutate(
         tasktype = case_when(
-          block %in% c(1:2, 7:8) ~ "pure",
           trial == 1 ~ "filler",
           task == lag(task) ~ "repeat",
           TRUE ~ "switch"
@@ -49,7 +44,7 @@ test_that("Works when condition missing", {
     1,
     tibble::tibble(
       stimtype = "incongruent",
-      tasktype = c(rep("pure", 20), rep("repeat", 80))
+      tasktype = rep("repeat", 80)
     ) |>
       mutate(
         task = rep(c("T1", "T2"), n() / 2),
