@@ -16,7 +16,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["pc", "mrt", "switch_cost_pc", "switch_cost_mrt", "switch_cost_ies", "switch_cost_rcs", "switch_cost_lisas", "switch_cost_v", "pc_switch", "pc_repeat", "mrt_switch", "mrt_repeat", "ies_switch", "ies_repeat", "rcs_switch", "rcs_repeat", "lisas_switch", "lisas_repeat", "v_switch", "v_repeat", "cong_eff_pc", "cong_eff_mrt", "cong_eff_ies", "cong_eff_rcs", "cong_eff_lisas", "cong_eff_v", "pc_inc", "pc_con", "mrt_inc", "mrt_con", "ies_inc", "ies_con", "rcs_inc", "rcs_con", "lisas_inc", "lisas_con", "v_inc", "v_con"]
+          "value": ["pc", "mrt", "switch_cost_pc", "switch_cost_mrt", "switch_cost_ies", "switch_cost_rcs", "switch_cost_lisas", "pc_switch", "pc_repeat", "mrt_switch", "mrt_repeat", "ies_switch", "ies_repeat", "rcs_switch", "rcs_repeat", "lisas_switch", "lisas_repeat", "cong_eff_pc", "cong_eff_mrt", "cong_eff_ies", "cong_eff_rcs", "cong_eff_lisas", "pc_inc", "pc_con", "mrt_inc", "mrt_con", "ies_inc", "ies_con", "rcs_inc", "rcs_con", "lisas_inc", "lisas_con"]
         }
       },
       "value": [
@@ -54,11 +54,6 @@
           "type": "double",
           "attributes": {},
           "value": [-0.27964963]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [0.43627129]
         },
         {
           "type": "double",
@@ -113,16 +108,6 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [-0.28457231]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [0.15169898]
-        },
-        {
-          "type": "double",
-          "attributes": {},
           "value": [0.10989011]
         },
         {
@@ -144,11 +129,6 @@
           "type": "double",
           "attributes": {},
           "value": [0.55800818]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [0.25670192]
         },
         {
           "type": "double",
@@ -199,16 +179,6 @@
           "type": "double",
           "attributes": {},
           "value": [1.56564623]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [-0.11015492]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [0.14654701]
         }
       ]
     }
@@ -231,7 +201,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["pc", "mrt", "switch_cost_pc", "switch_cost_mrt", "switch_cost_ies", "switch_cost_rcs", "switch_cost_lisas", "switch_cost_v", "pc_switch", "pc_repeat", "mrt_switch", "mrt_repeat", "ies_switch", "ies_repeat", "rcs_switch", "rcs_repeat", "lisas_switch", "lisas_repeat", "v_switch", "v_repeat", "cong_eff_pc", "cong_eff_mrt", "cong_eff_ies", "cong_eff_rcs", "cong_eff_lisas", "cong_eff_v", "pc_inc", "pc_con", "mrt_inc", "mrt_con", "ies_inc", "ies_con", "rcs_inc", "rcs_con", "lisas_inc", "lisas_con", "v_inc", "v_con"]
+          "value": ["pc", "mrt", "switch_cost_pc", "switch_cost_mrt", "switch_cost_ies", "switch_cost_rcs", "switch_cost_lisas", "pc_switch", "pc_repeat", "mrt_switch", "mrt_repeat", "ies_switch", "ies_repeat", "rcs_switch", "rcs_repeat", "lisas_switch", "lisas_repeat", "cong_eff_pc", "cong_eff_mrt", "cong_eff_ies", "cong_eff_rcs", "cong_eff_lisas", "pc_inc", "pc_con", "mrt_inc", "mrt_con", "ies_inc", "ies_con", "rcs_inc", "rcs_con", "lisas_inc", "lisas_con"]
         }
       },
       "value": [
@@ -278,11 +248,6 @@
         {
           "type": "double",
           "attributes": {},
-          "value": ["NA"]
-        },
-        {
-          "type": "double",
-          "attributes": {},
           "value": [0.525]
         },
         {
@@ -333,21 +298,6 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.1404763]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": ["NA"]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": ["NA"]
-        },
-        {
-          "type": "double",
-          "attributes": {},
           "value": ["NA"]
         },
         {
@@ -409,16 +359,6 @@
           "type": "double",
           "attributes": {},
           "value": [1.70138519]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": ["NA"]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [0.14047983]
         },
         {
           "type": "double",

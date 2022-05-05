@@ -50,7 +50,7 @@ calc_cong_eff <- function(data, name_cong, name_acc, name_rt) {
 calc_cond_diff <- function(data, name_acc, name_rt,
                            name_cond, name_diff_prefix) {
   conds <- levels(data[[name_cond]])
-  spd_acc_cond <- data |>
+  index_each_cond <- data |>
     group_by(.data[[name_cond]]) |>
     group_modify(
       ~ calc_spd_acc(
@@ -63,20 +63,6 @@ calc_cond_diff <- function(data, name_acc, name_rt,
     ) |>
     ungroup() |>
     complete(.data[[name_cond]])
-  ddm_cond <- calc_ddm(
-    data,
-    name_rt = name_rt,
-    name_acc = name_acc,
-    name_truth = name_cond,
-    rt_unit = "ms"
-  ) |>
-    select(starts_with("v")) |>
-    pivot_longer(
-      everything(),
-      names_to = c(".value", name_cond),
-      names_pattern = "(.*)_(.*)"
-    )
-  index_each_cond <- full_join(spd_acc_cond, ddm_cond, by = name_cond)
   index_each_cond |>
     pivot_longer(
       cols = -any_of(name_cond),
@@ -94,7 +80,7 @@ calc_cond_diff <- function(data, name_acc, name_rt,
     # make sure larger values correspond to larger switch cost
     mutate(
       diff = if_else(
-        .data$index_name %in% c("pc", "rcs", "v"),
+        .data$index_name %in% c("pc", "rcs"),
         -diff, diff
       )
     ) |>

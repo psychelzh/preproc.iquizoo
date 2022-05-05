@@ -31,12 +31,6 @@ A \link[tibble:tibble-package]{tibble} contains following values:
 \item{rcs}{Rate correct score. Only for \code{\link[=crt]{crt()}}.}
 
 \item{lisas}{Linear integrated speed-accuracy score. Only for \code{\link[=crt]{crt()}}.}
-
-\item{v}{Drifting rate of ddm model. Only for \code{\link[=crt]{crt()}}.}
-
-\item{a}{Threshold separation of ddm model. Only for \code{\link[=crt]{crt()}}.}
-
-\item{t0}{Non-decision time of ddm model. Only for \code{\link[=crt]{crt()}}.}
 }
 \description{
 Choice Reaction Time (CRT) and Simple Reaction Time (SRT) are classical tests

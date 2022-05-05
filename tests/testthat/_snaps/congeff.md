@@ -16,7 +16,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["pc", "mrt", "cong_eff_pc", "cong_eff_mrt", "cong_eff_ies", "cong_eff_rcs", "cong_eff_lisas", "cong_eff_v", "pc_inc", "pc_con", "mrt_inc", "mrt_con", "ies_inc", "ies_con", "rcs_inc", "rcs_con", "lisas_inc", "lisas_con", "v_inc", "v_con"]
+          "value": ["pc", "mrt", "cong_eff_pc", "cong_eff_mrt", "cong_eff_ies", "cong_eff_rcs", "cong_eff_lisas", "pc_inc", "pc_con", "mrt_inc", "mrt_con", "ies_inc", "ies_con", "rcs_inc", "rcs_con", "lisas_inc", "lisas_con"]
         }
       },
       "value": [
@@ -54,11 +54,6 @@
           "type": "double",
           "attributes": {},
           "value": [-0.59381334]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [0.100926]
         },
         {
           "type": "double",
@@ -109,16 +104,6 @@
           "type": "double",
           "attributes": {},
           "value": [1.5272761]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [-0.33887564]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [-0.23794964]
         }
       ]
     }
@@ -141,7 +126,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["pc", "mrt", "cong_eff_pc", "cong_eff_mrt", "cong_eff_ies", "cong_eff_rcs", "cong_eff_lisas", "cong_eff_v", "pc_inc", "pc_con", "mrt_inc", "mrt_con", "ies_inc", "ies_con", "rcs_inc", "rcs_con", "lisas_inc", "lisas_con", "v_inc", "v_con"]
+          "value": ["pc", "mrt", "cong_eff_pc", "cong_eff_mrt", "cong_eff_ies", "cong_eff_rcs", "cong_eff_lisas", "pc_inc", "pc_con", "mrt_inc", "mrt_con", "ies_inc", "ies_con", "rcs_inc", "rcs_con", "lisas_inc", "lisas_con"]
         }
       },
       "value": [
@@ -154,11 +139,6 @@
           "type": "double",
           "attributes": {},
           "value": [883.87183146]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": ["NA"]
         },
         {
           "type": "double",
@@ -229,16 +209,6 @@
           "type": "double",
           "attributes": {},
           "value": [1.63753333]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": ["NA"]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [-0.080637]
         },
         {
           "type": "double",

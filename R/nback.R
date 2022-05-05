@@ -22,12 +22,6 @@
 #'   \item{lisas}{Linear integrated speed-accuracy score.}
 #'
 #'   \item{dprime}{Sensitivity index.}
-#'
-#'   \item{v}{Drifting rate of ddm model. Not included in `dualnback()`.}
-#'
-#'   \item{a}{Threshold separation of ddm model. Not included in `dualnback()`.}
-#'
-#'   \item{t0}{Non-decision time of ddm model. Not included in `dualnback()`.}
 NULL
 
 #' @rdname nback
@@ -89,8 +83,7 @@ dualnback <- function(data, .input = NULL, .extra = NULL) {
       ~ .calc_nback(
         .x,
         type_filler = .extra$type_filler,
-        type_signal = .extra$type_signal,
-        calc_ddm = FALSE
+        type_signal = .extra$type_signal
       )
     ) |>
     ungroup() |>
@@ -105,8 +98,7 @@ dualnback <- function(data, .input = NULL, .extra = NULL) {
                         name_acc = "acc",
                         name_rt = "rt",
                         type_filler = "filler",
-                        type_signal = "same",
-                        calc_ddm = TRUE) {
+                        type_signal = "same") {
   data_cor <- data |>
     # filler trials should be ignored
     filter(!.data[[name_type]] == type_filler) |>
@@ -132,14 +124,6 @@ dualnback <- function(data, .input = NULL, .extra = NULL) {
       name_type = "type_cor",
       keep_bias = FALSE,
       keep_counts = FALSE
-    ),
-    if (calc_ddm) {
-      calc_ddm(
-        data_cor,
-        name_rt = name_rt,
-        name_acc = name_acc,
-        rt_unit = "ms"
-      )
-    }
+    )
   )
 }

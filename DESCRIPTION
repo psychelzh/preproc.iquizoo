@@ -15,7 +15,6 @@ Depends:
     R (>= 4.1.0)
 Imports:
     dplyr,
-    fddm,
     pracma,
     purrr,
     rlang (>= 0.1.2),

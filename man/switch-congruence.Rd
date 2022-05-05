@@ -41,8 +41,6 @@ included (including diffs and value for each condition):
 \item{rcs}{Rate correct score.}
 
 \item{lisas}{Linear integrated speed-accuracy score.}
-
-\item{v}{Drifting rate of ddm model.}
 }
 \description{
 In task switching paradigms, two types of tasks switch between each other, so

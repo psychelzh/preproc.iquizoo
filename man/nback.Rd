@@ -31,12 +31,6 @@ for dual n-back):
 \item{lisas}{Linear integrated speed-accuracy score.}
 
 \item{dprime}{Sensitivity index.}
-
-\item{v}{Drifting rate of ddm model. Not included in \code{dualnback()}.}
-
-\item{a}{Threshold separation of ddm model. Not included in \code{dualnback()}.}
-
-\item{t0}{Non-decision time of ddm model. Not included in \code{dualnback()}.}
 }
 \description{
 A classical working memory test.

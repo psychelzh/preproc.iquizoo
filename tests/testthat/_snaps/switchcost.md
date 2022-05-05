@@ -16,7 +16,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["pc", "mrt", "switch_cost_pc", "switch_cost_mrt", "switch_cost_ies", "switch_cost_rcs", "switch_cost_lisas", "switch_cost_v", "pc_switch", "pc_repeat", "mrt_switch", "mrt_repeat", "ies_switch", "ies_repeat", "rcs_switch", "rcs_repeat", "lisas_switch", "lisas_repeat", "v_switch", "v_repeat"]
+          "value": ["pc", "mrt", "switch_cost_pc", "switch_cost_mrt", "switch_cost_ies", "switch_cost_rcs", "switch_cost_lisas", "pc_switch", "pc_repeat", "mrt_switch", "mrt_repeat", "ies_switch", "ies_repeat", "rcs_switch", "rcs_repeat", "lisas_switch", "lisas_repeat"]
         }
       },
       "value": [
@@ -54,11 +54,6 @@
           "type": "double",
           "attributes": {},
           "value": [-0.14990089]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [0.2733133]
         },
         {
           "type": "double",
@@ -109,16 +104,6 @@
           "type": "double",
           "attributes": {},
           "value": [1.6247146]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [-0.26599355]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [0.00731975]
         }
       ]
     }
@@ -141,7 +126,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["pc", "mrt", "switch_cost_pc", "switch_cost_mrt", "switch_cost_ies", "switch_cost_rcs", "switch_cost_lisas", "switch_cost_v", "pc_switch", "pc_repeat", "mrt_switch", "mrt_repeat", "ies_switch", "ies_repeat", "rcs_switch", "rcs_repeat", "lisas_switch", "lisas_repeat", "v_switch", "v_repeat"]
+          "value": ["pc", "mrt", "switch_cost_pc", "switch_cost_mrt", "switch_cost_ies", "switch_cost_rcs", "switch_cost_lisas", "pc_switch", "pc_repeat", "mrt_switch", "mrt_repeat", "ies_switch", "ies_repeat", "rcs_switch", "rcs_repeat", "lisas_switch", "lisas_repeat"]
         }
       },
       "value": [
@@ -154,11 +139,6 @@
           "type": "double",
           "attributes": {},
           "value": [988.30672808]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": ["NA"]
         },
         {
           "type": "double",
@@ -234,16 +214,6 @@
           "type": "double",
           "attributes": {},
           "value": [1.70138519]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": ["NA"]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [0.1404763]
         }
       ]
     }

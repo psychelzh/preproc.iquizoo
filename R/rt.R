@@ -21,12 +21,6 @@
 #'   \item{rcs}{Rate correct score. Only for [crt()].}
 #'
 #'   \item{lisas}{Linear integrated speed-accuracy score. Only for [crt()].}
-#'
-#'   \item{v}{Drifting rate of ddm model. Only for [crt()].}
-#'
-#'   \item{a}{Threshold separation of ddm model. Only for [crt()].}
-#'
-#'   \item{t0}{Non-decision time of ddm model. Only for [crt()].}
 NULL
 
 #' @rdname rt
@@ -34,19 +28,11 @@ NULL
 crt <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(name_acc = "acc", name_rt = "rt") |>
     update_settings(.input)
-  bind_cols(
-    calc_spd_acc(
-      data,
-      name_acc = .input$name_acc,
-      name_rt = .input$name_rt,
-      acc_rtn = "count"
-    ),
-   calc_ddm(
-     data,
-     name_rt = .input$name_rt,
-     name_acc = .input$name_acc,
-     rt_unit = "ms"
-   )
+  calc_spd_acc(
+    data,
+    name_acc = .input$name_acc,
+    name_rt = .input$name_rt,
+    acc_rtn = "count"
   )
 }
 

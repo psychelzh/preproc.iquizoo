@@ -31,8 +31,6 @@
 #'   \item{rcs}{Rate correct score.}
 #'
 #'   \item{lisas}{Linear integrated speed-accuracy score.}
-#'
-#'   \item{v}{Drifting rate of ddm model.}
 NULL
 
 #' @rdname switch-congruence
