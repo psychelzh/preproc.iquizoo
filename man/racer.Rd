@@ -16,7 +16,7 @@ section.}
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
 
-\item{mean_pro_ratio}{Mean protection duration ratio.}
+\item{mean_score}{Mean overlap score.}
 
 \item{dprime}{Sensitivity index of detection task.}
 }
