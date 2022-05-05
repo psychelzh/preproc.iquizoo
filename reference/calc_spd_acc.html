@@ -12,7 +12,7 @@ basic to most tests."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/
     
     <a class="navbar-brand me-2" href="../index.html">preproc.iquizoo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.3.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.3.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,9 +58,11 @@ basic to most tests.</p>
   <span class="va">data</span>,
   <span class="va">name_acc</span>,
   <span class="va">name_rt</span>,
-  rm.out <span class="op">=</span> <span class="cn">TRUE</span>,
+  rt_rm_out <span class="op">=</span> <span class="cn">TRUE</span>,
+  rt_unit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ms"</span>, <span class="st">"s"</span><span class="op">)</span>,
   rt_rtn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"both"</span>, <span class="st">"mean"</span>, <span class="st">"sd"</span>, <span class="st">"none"</span><span class="op">)</span>,
-  acc_rtn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"both"</span>, <span class="st">"count"</span>, <span class="st">"percent"</span>, <span class="st">"none"</span><span class="op">)</span>
+  acc_rtn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"both"</span>, <span class="st">"count"</span>, <span class="st">"percent"</span>, <span class="st">"none"</span><span class="op">)</span>,
+  sat_rtn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"ies"</span>, <span class="st">"rcs"</span>, <span class="st">"lisas"</span>, <span class="st">"none"</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -72,14 +74,19 @@ basic to most tests.</p>
 <dd><p>The column name of the <code>data</code> input whose values are user's correctness, in which is a <code>numeric</code> vector so coded that 1 means scoring correct, 0 means scoring incorrect, and that -1 means no response is made.</p></dd>
 <dt>name_rt</dt>
 <dd><p>The column name of the <code>data</code> input whose values are user's reaction time, in which is a <code>numeric</code> vector with <code>NA</code> values representing abnormal reaction times.</p></dd>
-<dt>rm.out</dt>
-<dd><p>A logical value. Whether remove outlier or not. Default to
-<code>TRUE.</code></p></dd>
+<dt>rt_rm_out</dt>
+<dd><p>A logical value. Whether remove response time outlier or
+not. Default to <code>TRUE.</code></p></dd>
+<dt>rt_unit</dt>
+<dd><p>The unit of response time in <code>data</code>.</p></dd>
 <dt>rt_rtn</dt>
 <dd><p>If mean or standard deviation of response times should be
 returned.</p></dd>
 <dt>acc_rtn</dt>
 <dd><p>If count or percent of correct responses should be returned.</p></dd>
+<dt>sat_rtn</dt>
+<dd><p>If any of the speed-accuracy trade-off index should be
+returned. <code>"IES"</code>, <code>"RCS"</code> and <code>"LISAS"</code> are supported.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -99,8 +106,8 @@ the number and percent of correct responses.</p>
 
 
 <p>Outlier removal is recommended and it is set as default in here. The
-outlier detection method used here is the "<em>interquantile range</em>" rule
-suggested by Tukey (1977).</p>
+outlier detection method used here is the one recommended by Cousineau, D.,
+&amp; Chartier, S. (2010).</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -112,7 +119,7 @@ suggested by Tukey (1977).</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
     </footer></div>
