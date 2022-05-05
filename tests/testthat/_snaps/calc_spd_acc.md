@@ -1,4 +1,4 @@
-# Default behavior works
+# `rt_rm_out` works as expected
 
     {
       "type": "list",
@@ -16,64 +16,49 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["nc", "mrt", "rtsd", "ies", "rcs", "lisas", "dprime", "c", "commissions", "omissions"]
+          "value": ["nc", "pc", "mrt", "rtsd", "ies", "rcs", "lisas"]
         }
       },
       "value": [
         {
           "type": "integer",
           "attributes": {},
-          "value": [8]
+          "value": [10]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.79850903]
+          "value": [0.5]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.60347646]
+          "value": [2.44307232]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [1.99627258]
+          "value": [3.99091085]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.66678013]
+          "value": [4.88614463]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [1.51889919]
+          "value": [0.33393596]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [-0.47624429]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [0.044094]
-        },
-        {
-          "type": "integer",
-          "attributes": {},
-          "value": [7]
-        },
-        {
-          "type": "integer",
-          "attributes": {},
-          "value": [5]
+          "value": [6.33293105]
         }
       ]
     }
 
-# Works on perfect accuracy data (no `NA`s)
+# No error when acc is perfect
 
     {
       "type": "list",
@@ -91,59 +76,104 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["nc", "mrt", "rtsd", "ies", "rcs", "lisas", "dprime", "c", "commissions", "omissions"]
+          "value": ["nc", "pc", "mrt", "rtsd", "ies", "rcs", "lisas"]
         }
       },
       "value": [
         {
           "type": "integer",
           "attributes": {},
-          "value": [20]
+          "value": [0]
         },
         {
           "type": "double",
-          "attributes": {},
-          "value": [1.43868832]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [1.75303022]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [1.43868832]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [0.69507758]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [1.43868832]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [3.36204386]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [0.08780311]
-        },
-        {
-          "type": "integer",
           "attributes": {},
           "value": [0]
         },
         {
-          "type": "integer",
+          "type": "double",
+          "attributes": {},
+          "value": ["NaN"]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NA"]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": ["NaN"]
+        },
+        {
+          "type": "double",
           "attributes": {},
           "value": [0]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0]
+        }
+      ]
+    }
+
+---
+
+    {
+      "type": "list",
+      "attributes": {
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1]
+        },
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["nc", "pc", "mrt", "rtsd", "ies", "rcs", "lisas"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [10]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [2.44307232]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [3.99091085]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [2.44307232]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.40932067]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [2.44307232]
         }
       ]
     }

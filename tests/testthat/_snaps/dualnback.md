@@ -38,17 +38,17 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [155.7837675]
+          "value": [0.15578377]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [977.91710417]
+          "value": [0.9779171]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [1594.51710667]
+          "value": [1.59451711]
         },
         {
           "type": "double",
