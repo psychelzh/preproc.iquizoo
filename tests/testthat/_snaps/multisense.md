@@ -23,22 +23,22 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [913.81962092]
+          "value": [0.91381962]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [918.38962497]
+          "value": [0.91838962]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [691.44929584]
+          "value": [0.6914493]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [-115.75516659]
+          "value": [-0.11575517]
         }
       ]
     }

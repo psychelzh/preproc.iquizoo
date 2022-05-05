@@ -6,56 +6,19 @@
 #' @templateVar name_acc TRUE
 #' @templateVar name_rt TRUE
 #' @template names
-#' @param name_type_block The column name of the `data` input whose values are
-#'   the block type, in which is a `character` vector with "pure block" (value:
-#'   `"pure"`) and "mixed block" (value: `"mixed"`).
-#' @param name_type_switch The column name of the `data` input whose values are
+#' @param name_switch The column name of the `data` input whose values are
 #'   the switch type, in which is a `character` vector with at least `"switch"`
-#'   and `"repeat"` values. Other values if corresponding to `"pure"` block,
-#'   will be used as task names.
+#'   and `"repeat"` values.
 #' @keywords internal
-calc_switch_cost <- function(data,
-                             name_type_block,
-                             name_type_switch,
-                             name_rt,
-                             name_acc) {
-  data |>
-    mutate(
-      condition = factor(
-        .data[[name_type_switch]],
-        c("pure", "repeat", "switch")
-      )
-    ) |>
-    group_by(across(
-      all_of(c(name_type_block, name_type_switch, "condition"))
-    )) |>
-    group_modify(
-      ~ calc_spd_acc(
-        .x,
-        name_acc = name_acc,
-        name_rt = name_rt,
-        acc_rtn = "percent",
-        rt_rtn = "mean"
-      )
-    ) |>
-    ungroup() |>
-    complete(.data$condition) |>
-    group_by(.data$condition) |>
-    summarise(
-      mrt = mean(.data$mrt, na.rm = TRUE),
-      pc = mean(.data$pc, na.rm = TRUE),
-      .groups = "drop"
-    ) |>
-    pivot_wider(
-      names_from = .data$condition,
-      values_from = c("mrt", "pc")
-    ) |>
-    mutate(
-      switch_cost_rt_gen = .data$mrt_repeat - .data$mrt_pure,
-      switch_cost_rt_spe = .data$mrt_switch - .data$mrt_repeat,
-      switch_cost_pc_gen = .data$pc_repeat - .data$pc_pure,
-      switch_cost_pc_spe = .data$pc_switch - .data$pc_repeat
-    )
+calc_switch_cost <- function(data, name_switch, name_rt, name_acc) {
+  data[[name_switch]] <- factor(data[[name_switch]], c("switch", "repeat"))
+  calc_cond_diff(
+    data,
+    name_cond = name_switch,
+    name_diff_prefix = "switch_cost_",
+    name_acc = name_acc,
+    name_rt = name_rt
+  )
 }
 
 #' Congruence effect
@@ -74,14 +37,21 @@ calc_switch_cost <- function(data,
 #'   on accuracy and response time.
 #' @keywords internal
 calc_cong_eff <- function(data, name_cong, name_acc, name_rt) {
-  data |>
-    mutate(
-      condition = factor(
-        .data[[name_cong]],
-        c("inc", "con")
-      )
-    ) |>
-    group_by(.data$condition) |>
+  data[[name_cong]] <- factor(data[[name_cong]], c("inc", "con"))
+  calc_cond_diff(
+    data,
+    name_cond = name_cong,
+    name_diff_prefix = "cong_eff_",
+    name_acc = name_acc,
+    name_rt = name_rt
+  )
+}
+
+calc_cond_diff <- function(data, name_acc, name_rt,
+                           name_cond, name_diff_prefix) {
+  conds <- levels(data[[name_cond]])
+  index_each_cond <- data |>
+    group_by(.data[[name_cond]]) |>
     group_modify(
       ~ calc_spd_acc(
         .x,
@@ -92,14 +62,38 @@ calc_cong_eff <- function(data, name_cong, name_acc, name_rt) {
       )
     ) |>
     ungroup() |>
-    # make sure each type of condition exists
-    complete(.data$condition) |>
+    complete(.data[[name_cond]])
+  index_each_cond |>
+    pivot_longer(
+      cols = -any_of(name_cond),
+      names_to = "index_name",
+      values_to = "score"
+    ) |>
     pivot_wider(
-      names_from = .data$condition,
-      values_from = c("mrt", "pc")
+      names_from = .data[[name_cond]],
+      values_from = "score"
     ) |>
     mutate(
-      cong_eff_rt = .data$mrt_inc - .data$mrt_con,
-      cong_eff_pc = .data$pc_con - .data$pc_inc
+      diff = .data[[conds[[1]]]] - .data[[conds[[2]]]],
+      .keep = "unused"
+    ) |>
+    # make sure larger values correspond to larger switch cost
+    mutate(
+      diff = if_else(
+        .data$index_name %in% c("pc", "rcs"),
+        -diff, diff
+      )
+    ) |>
+    pivot_wider(
+      names_from = .data$index_name,
+      values_from = .data$diff,
+      names_prefix = name_diff_prefix
+    ) |>
+    bind_cols(
+      index_each_cond |>
+        pivot_wider(
+          names_from = all_of(name_cond),
+          values_from = -any_of(name_cond)
+        )
     )
 }

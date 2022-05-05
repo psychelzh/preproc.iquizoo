@@ -1,3 +1,18 @@
+# preproc.iquizoo 2.3.2
+
+## New Features
+
+* Added `rapm()` for Raven's Advanced Progressive Matrices test.
+* Exported `fit_numerosity()`.
+* Added basic support for indices combining speed and accuracy performances in `calc_spd_acc()`.
+* Supported new version of Racer test in `racer()`.
+* Added index of percent correct for learning phase for reinforcemnet test in `reinf()`.
+
+## Bug Fixes
+
+* Fixed bug of switch cost for percent correct (#68).
+* Fixed docstring of `span()` (#65).
+
 # preproc.iquizoo 2.3.1
 
 * Correct spellings.

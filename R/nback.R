@@ -10,8 +10,17 @@
 #' @template options
 #' @return A [tibble][tibble::tibble-package] contains following values (tripled
 #'   for dual n-back):
+#'
 #'   \item{pc}{Percentage of correct responses.}
+#'
 #'   \item{mrt}{Mean reaction time.}
+#'
+#'   \item{ies}{Inverse efficiency score.}
+#'
+#'   \item{rcs}{Rate correct score.}
+#'
+#'   \item{lisas}{Linear integrated speed-accuracy score.}
+#'
 #'   \item{dprime}{Sensitivity index.}
 NULL
 
@@ -26,7 +35,7 @@ nback <- function(data, .input = NULL, .extra = NULL) {
     update_settings(.input)
   .extra <- list(type_filler = "filler", type_signal = "same") |>
     update_settings(.extra)
-  .nback_classical(
+  .calc_nback(
     data,
     name_type = .input$name_type,
     name_acc = .input$name_acc,
@@ -62,11 +71,7 @@ dualnback <- function(data, .input = NULL, .extra = NULL) {
       names_pattern = "name_(.*)(\\d)",
       names_transform = list(dual = as.integer)
     ) |>
-    mutate(
-      dual = .extra$dual_names[.data$dual],
-      # remove rt of non-signal trials
-      rt = replace(.data$rt, .data$type != .extra$type_signal, NA)
-    )
+    mutate(dual = .extra$dual_names[.data$dual])
   bind_rows(
     both = data_base,
     each = data_base,
@@ -75,7 +80,7 @@ dualnback <- function(data, .input = NULL, .extra = NULL) {
     mutate(dual = if_else(.data$set == "both", "both", .data$dual)) |>
     group_by(.data$dual) |>
     group_modify(
-      ~ .nback_classical(
+      ~ .calc_nback(
         .x,
         type_filler = .extra$type_filler,
         type_signal = .extra$type_signal
@@ -88,12 +93,12 @@ dualnback <- function(data, .input = NULL, .extra = NULL) {
     )
 }
 
-.nback_classical <- function(data,
-                             name_type = "type",
-                             name_acc = "acc",
-                             name_rt = "rt",
-                             type_filler = "filler",
-                             type_signal = "same") {
+.calc_nback <- function(data,
+                        name_type = "type",
+                        name_acc = "acc",
+                        name_rt = "rt",
+                        type_filler = "filler",
+                        type_signal = "same") {
   data_cor <- data |>
     # filler trials should be ignored
     filter(!.data[[name_type]] == type_filler) |>
@@ -110,7 +115,8 @@ dualnback <- function(data, .input = NULL, .extra = NULL) {
       name_acc = name_acc,
       name_rt = name_rt,
       rt_rtn = "mean",
-      acc_rtn = "percent"
+      acc_rtn = "percent",
+      sat_rtn = "all"
     ),
     calc_sdt(
       data_cor,

@@ -19,8 +19,17 @@ section.}
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values (tripled
 for dual n-back):
+
 \item{pc}{Percentage of correct responses.}
+
 \item{mrt}{Mean reaction time.}
+
+\item{ies}{Inverse efficiency score.}
+
+\item{rcs}{Rate correct score.}
+
+\item{lisas}{Linear integrated speed-accuracy score.}
+
 \item{dprime}{Sensitivity index.}
 }
 \description{

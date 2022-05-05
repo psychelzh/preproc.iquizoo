@@ -16,11 +16,13 @@ section.}
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
 
-\item{pc_test}{The total percent of correct in the test phase.}
-
 \item{pc_approach}{The percent of correct for approach trials.}
 
 \item{pc_avoid}{The percent of correct for avoid trials.}
+
+\item{pc_learn}{The total percent of correct in the learn phase.}
+
+\item{pc_test}{The total percent of correct in the test phase.}
 }
 \description{
 A classical reinforcement learning test.

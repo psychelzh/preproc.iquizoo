@@ -28,7 +28,7 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [1007.50003532]
+          "value": [1.00750004]
         },
         {
           "type": "double",

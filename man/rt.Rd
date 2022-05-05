@@ -19,9 +19,18 @@ section.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains following values:
+
 \item{mrt}{Mean reaction time.}
+
 \item{rtsd}{Standard deviation of reaction times.}
+
 \item{nc}{Count of correct responses. Only for \code{\link[=crt]{crt()}}.}
+
+\item{ies}{Inverse efficiency score. Only for \code{\link[=crt]{crt()}}.}
+
+\item{rcs}{Rate correct score. Only for \code{\link[=crt]{crt()}}.}
+
+\item{lisas}{Linear integrated speed-accuracy score. Only for \code{\link[=crt]{crt()}}.}
 }
 \description{
 Choice Reaction Time (CRT) and Simple Reaction Time (SRT) are classical tests

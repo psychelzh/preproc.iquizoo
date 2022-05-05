@@ -30,7 +30,8 @@ multisense <- function(data, .input = NULL, .extra = NULL) {
         name_acc = "acc_dummy",
         name_rt = .input$name_rt,
         rt_rtn = "mean",
-        acc_rtn = "none"
+        acc_rtn = "none",
+        sat_rtn = "none"
       )
     ) |>
     # `pivot_wider` will drop groups here because groups go to columns

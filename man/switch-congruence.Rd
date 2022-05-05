@@ -23,31 +23,24 @@ section.}
 \value{
 A \link[tibble:tibble-package]{tibble} with the following variables:
 
-For congruence effect:
-\item{mrt_con}{Mean reaction time for congruent trials.}
-\item{mrt_inc}{Mean reaction time for incogruent trials.}
-\item{cong_eff_rt}{Congruence effect of reaction time (RT), i.e.,
-incongruent RT - congruent RT.}
-\item{pc_con}{Percent of correct for congruent trials.}
-\item{pc_inc}{Percent of correct for incogruent trials.}
-\item{cong_eff_pc}{Congruency effect of percent of correct (PC), i.e.,
-congruent PC - incongruent PC.}
+For the total task:
 
-For switch cost:
-\item{mrt_pure}{Mean reaction time for non-mixed blocks.}
-\item{mrt_repeat}{Mean reaction time for repeat trials.}
-\item{mrt_switch}{Mean reaction time for switch trials.}
-\item{switch_cost_rt_gen}{General switch cost (based on mean reaction
-times).}
-\item{switch_cost_rt_spe}{Specific switch cost (based on mean reaction
-times).}
-\item{pc_pure}{Percent of correct for non-mixed blocks.}
-\item{pc_repeat}{Percent of correct for repeat trials.}
-\item{pc_switch}{Percent of correct for switch trials.}
-\item{switch_cost_pc_gen}{General switch cost (based on percent of
-correct).}
-\item{switch_cost_pc_spe}{Specific switch cost (based on percent of
-correct).}
+\item{pc}{Percent of correct}.
+
+\item{mrt}{Mean reaction time.}
+
+For congruence effect and switch cost, the following indices will be
+included (including diffs and value for each condition):
+
+\item{pc}{Percent of correct}.
+
+\item{mrt}{Mean reaction time.}
+
+\item{ies}{Inverse efficiency score.}
+
+\item{rcs}{Rate correct score.}
+
+\item{lisas}{Linear integrated speed-accuracy score.}
 }
 \description{
 In task switching paradigms, two types of tasks switch between each other, so

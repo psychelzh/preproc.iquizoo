@@ -13,31 +13,24 @@
 #' @template options
 #' @return A [tibble][tibble::tibble-package] with the following variables:
 #'
-#' For congruence effect:
-#'   \item{mrt_con}{Mean reaction time for congruent trials.}
-#'   \item{mrt_inc}{Mean reaction time for incogruent trials.}
-#'   \item{cong_eff_rt}{Congruence effect of reaction time (RT), i.e.,
-#'     incongruent RT - congruent RT.}
-#'   \item{pc_con}{Percent of correct for congruent trials.}
-#'   \item{pc_inc}{Percent of correct for incogruent trials.}
-#'   \item{cong_eff_pc}{Congruency effect of percent of correct (PC), i.e.,
-#'     congruent PC - incongruent PC.}
+#'   For the total task:
 #'
-#' For switch cost:
-#'   \item{mrt_pure}{Mean reaction time for non-mixed blocks.}
-#'   \item{mrt_repeat}{Mean reaction time for repeat trials.}
-#'   \item{mrt_switch}{Mean reaction time for switch trials.}
-#'   \item{switch_cost_rt_gen}{General switch cost (based on mean reaction
-#'     times).}
-#'   \item{switch_cost_rt_spe}{Specific switch cost (based on mean reaction
-#'     times).}
-#'   \item{pc_pure}{Percent of correct for non-mixed blocks.}
-#'   \item{pc_repeat}{Percent of correct for repeat trials.}
-#'   \item{pc_switch}{Percent of correct for switch trials.}
-#'   \item{switch_cost_pc_gen}{General switch cost (based on percent of
-#'     correct).}
-#'   \item{switch_cost_pc_spe}{Specific switch cost (based on percent of
-#'     correct).}
+#'   \item{pc}{Percent of correct}.
+#'
+#'   \item{mrt}{Mean reaction time.}
+#'
+#'   For congruence effect and switch cost, the following indices will be
+#'   included (including diffs and value for each condition):
+#'
+#'   \item{pc}{Percent of correct}.
+#'
+#'   \item{mrt}{Mean reaction time.}
+#'
+#'   \item{ies}{Inverse efficiency score.}
+#'
+#'   \item{rcs}{Rate correct score.}
+#'
+#'   \item{lisas}{Linear integrated speed-accuracy score.}
 NULL
 
 #' @rdname switch-congruence
@@ -52,7 +45,6 @@ complexswitch <- function(data, .input = NULL, .extra = NULL) {
   ) |>
     update_settings(.input)
   .extra <- list(
-    block_pure = "pure",
     stim_con = "congruent",
     stim_inc = "incongruent",
     task_filler = "filler",
@@ -60,10 +52,42 @@ complexswitch <- function(data, .input = NULL, .extra = NULL) {
     task_switch = "switch"
   ) |>
     update_settings(.extra)
-  bind_cols(
-    switchcost(data, .input, .extra),
-    congeff(data, .input, .extra)
+  spd_acc <- calc_spd_acc(
+    data,
+    name_acc = .input$name_acc,
+    name_rt = .input$name_rt,
+    acc_rtn = "percent",
+    rt_rtn = "mean",
+    sat_rtn = "none"
   )
+  switch_cost <- data |>
+    filter(.data[[.input$name_switch]] != .extra$task_filler) |>
+    mutate(
+      switch = recode(
+        .data[[.input$name_switch]],
+        "{.extra$task_repeat}" := "repeat",
+        "{.extra$task_switch}" := "switch"
+      )
+    ) |>
+    calc_switch_cost(
+      name_switch = "switch",
+      name_acc = .input$name_acc,
+      name_rt = .input$name_rt
+    )
+  cong_eff <- data |>
+    mutate(
+      stim_type = recode(
+        .data[[.input$name_cong]],
+        "{.extra$stim_con}" := "con",
+        "{.extra$stim_inc}" := "inc"
+      )
+    ) |>
+    calc_cong_eff(
+      name_cong = "stim_type",
+      name_acc = .input$name_acc,
+      name_rt = .input$name_rt
+    )
+  bind_cols(spd_acc, switch_cost, cong_eff)
 }
 
 #' @rdname switch-congruence
@@ -80,59 +104,66 @@ congeff <- function(data, .input = NULL, .extra = NULL) {
     stim_inc = "incongruent"
   ) |>
     update_settings(.extra)
-  data_cor <- data |>
+  spd_acc <- calc_spd_acc(
+    data,
+    name_acc = .input$name_acc,
+    name_rt = .input$name_rt,
+    acc_rtn = "percent",
+    rt_rtn = "mean",
+    sat_rtn = "none"
+  )
+  cong_eff <- data |>
     mutate(
       stim_type = recode(
         .data[[.input$name_cong]],
         "{.extra$stim_con}" := "con",
         "{.extra$stim_inc}" := "inc"
       )
+    ) |>
+    calc_cong_eff(
+      name_cong = "stim_type",
+      name_acc = .input$name_acc,
+      name_rt = .input$name_rt
     )
-  calc_cong_eff(
-    data_cor,
-    name_cong = "stim_type",
-    name_acc = .input$name_acc,
-    name_rt = .input$name_rt
-  )
+  bind_cols(spd_acc, cong_eff)
 }
 
 #' @rdname switch-congruence
 #' @export
 switchcost <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(
-    name_task = "task",
     name_switch = "type",
     name_acc = "acc",
     name_rt = "rt"
   ) |>
     update_settings(.input)
   .extra <- list(
-    block_pure = "pure",
     task_filler = "filler",
     task_repeat = "repeat",
     task_switch = "switch"
   ) |>
     update_settings(.extra)
-  data_cor <- data |>
-    # remove all filler trials
+  spd_acc <- calc_spd_acc(
+    data,
+    name_acc = .input$name_acc,
+    name_rt = .input$name_rt,
+    acc_rtn = "percent",
+    rt_rtn = "mean",
+    sat_rtn = "none"
+  )
+  switch_cost <- data |>
     filter(.data[[.input$name_switch]] != .extra$task_filler) |>
     mutate(
-      type_block = ifelse(
-        .data[[.input$name_switch]] == .extra$block_pure,
-        .data[[.input$name_task]], "mixed"
-      ),
-      type_switch = recode(
+      switch = recode(
         .data[[.input$name_switch]],
-        "{.extra$block_pure}" := "pure",
         "{.extra$task_repeat}" := "repeat",
         "{.extra$task_switch}" := "switch"
       )
+    ) |>
+    calc_switch_cost(
+      name_switch = "switch",
+      name_acc = .input$name_acc,
+      name_rt = .input$name_rt
     )
-  calc_switch_cost(
-    data_cor,
-    name_type_block = "type_block",
-    name_type_switch = "type_switch",
-    name_acc = .input$name_acc,
-    name_rt = .input$name_rt
-  )
+  bind_cols(spd_acc, switch_cost)
 }

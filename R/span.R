@@ -4,10 +4,16 @@
 #'
 #' @template common
 #' @template options
-#' @return A [tibble][tibble::tibble-package] contains following values:]
+#' @return A [tibble][tibble::tibble-package] contains following values:
+#'
 #'   \item{nc}{Count of correct responses.}
+#'
 #'   \item{max_span}{Maximal span.}
-#'   \item{mean_span}{Mean span.}
+#'
+#'   \item{mean_span_pcu}{Mean span using partial credit unit score.}
+#'
+#'   \item{mean_span_anu}{Mean span using all-or-nothing unit score.}
+#'
 #' @export
 span <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(

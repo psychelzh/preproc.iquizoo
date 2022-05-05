@@ -10,6 +10,7 @@ test_that("Default behavior works", {
   )
   expect_snapshot_value(
     multisense(data),
-    style = "json2"
+    style = "json2",
+    tolerance = 1e-5
   )
 })

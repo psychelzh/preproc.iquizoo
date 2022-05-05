@@ -16,7 +16,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["mean_pro_ratio", "dprime"]
+          "value": ["mean_score", "dprime"]
         }
       },
       "value": [

@@ -9,9 +9,18 @@
 #' @template common
 #' @template options
 #' @return A [tibble][tibble::tibble-package] contains following values:
+#'
 #'   \item{mrt}{Mean reaction time.}
+#'
 #'   \item{rtsd}{Standard deviation of reaction times.}
+#'
 #'   \item{nc}{Count of correct responses. Only for [crt()].}
+#'
+#'   \item{ies}{Inverse efficiency score. Only for [crt()].}
+#'
+#'   \item{rcs}{Rate correct score. Only for [crt()].}
+#'
+#'   \item{lisas}{Linear integrated speed-accuracy score. Only for [crt()].}
 NULL
 
 #' @rdname rt
@@ -37,6 +46,7 @@ srt <- function(data, .input = NULL, .extra = NULL) {
     calc_spd_acc(
       name_acc = "acc_dummy",
       name_rt = .input$name_rt,
-      acc_rtn = "none"
+      acc_rtn = "none",
+      sat_rtn = "none"
     )
 }

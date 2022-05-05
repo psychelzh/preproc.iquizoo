@@ -8,9 +8,11 @@ calc_spd_acc(
   data,
   name_acc,
   name_rt,
-  rm.out = TRUE,
+  rt_rm_out = TRUE,
+  rt_unit = c("ms", "s"),
   rt_rtn = c("both", "mean", "sd", "none"),
-  acc_rtn = c("both", "count", "percent", "none")
+  acc_rtn = c("both", "count", "percent", "none"),
+  sat_rtn = c("all", "ies", "rcs", "lisas", "none")
 )
 }
 \arguments{
@@ -20,13 +22,18 @@ calc_spd_acc(
 
 \item{name_rt}{The column name of the \code{data} input whose values are user's reaction time, in which is a \code{numeric} vector with \code{NA} values representing abnormal reaction times.}
 
-\item{rm.out}{A logical value. Whether remove outlier or not. Default to
-\code{TRUE.}}
+\item{rt_rm_out}{A logical value. Whether remove response time outlier or
+not. Default to \code{TRUE.}}
+
+\item{rt_unit}{The unit of response time in \code{data}.}
 
 \item{rt_rtn}{If mean or standard deviation of response times should be
 returned.}
 
 \item{acc_rtn}{If count or percent of correct responses should be returned.}
+
+\item{sat_rtn}{If any of the speed-accuracy trade-off index should be
+returned. \code{"IES"}, \code{"RCS"} and \code{"LISAS"} are supported.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains the required scores.
@@ -46,8 +53,8 @@ the number and percent of correct responses.
 
 
 Outlier removal is recommended and it is set as default in here. The
-outlier detection method used here is the "\emph{interquantile range}" rule
-suggested by Tukey (1977).
+outlier detection method used here is the one recommended by Cousineau, D.,
+& Chartier, S. (2010).
 }
 
 \keyword{internal}

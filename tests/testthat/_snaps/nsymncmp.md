@@ -1,4 +1,4 @@
-# Can deal with grouping variables
+# Default behavior works
 
     {
       "type": "list",
@@ -28,12 +28,12 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [972.98127097]
+          "value": [0.97298127]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.16504968]
+          "value": [0.16505778]
         }
       ]
     }

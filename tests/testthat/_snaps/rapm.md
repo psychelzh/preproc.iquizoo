@@ -3,32 +3,37 @@
     {
       "type": "list",
       "attributes": {
-        "class": {
+        "names": {
           "type": "character",
           "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
+          "value": ["nc_prac", "nc_test", "nc_total"]
         },
         "row.names": {
           "type": "integer",
           "attributes": {},
           "value": [1]
         },
-        "names": {
+        "class": {
           "type": "character",
           "attributes": {},
-          "value": ["mrt", "rtsd"]
+          "value": ["tbl_df", "tbl", "data.frame"]
         }
       },
       "value": [
         {
-          "type": "double",
+          "type": "integer",
           "attributes": {},
-          "value": [0.84262221]
+          "value": [9]
         },
         {
-          "type": "double",
+          "type": "integer",
           "attributes": {},
-          "value": [0.83119415]
+          "value": [31]
+        },
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [40]
         }
       ]
     }

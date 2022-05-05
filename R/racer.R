@@ -6,15 +6,15 @@
 #' @template options
 #' @return A [tibble][tibble::tibble-package] contains following values:
 #'
-#'   \item{mean_pro_ratio}{Mean protection duration ratio.}
+#'   \item{mean_score}{Mean overlap score.}
 #'
 #'   \item{dprime}{Sensitivity index of detection task.}
 #'
 #' @export
 racer <- function(data, .input = NULL, .extra = NULL) {
   .input <- list(
-    name_traildur = "trialdur",
-    name_produr = "produr",
+    name_trialdur = "trialdur",
+    name_score = "escortscore",
     name_type = "type",
     name_acc = "acc"
   ) |>
@@ -23,11 +23,11 @@ racer <- function(data, .input = NULL, .extra = NULL) {
     update_settings(.extra)
   bind_cols(
     data |>
-      mutate(
-        pro_ratio = .data[[.input$name_produr]] /
-          .data[[.input$name_traildur]]
-      ) |>
-      summarise(mean_pro_ratio = mean(.data$pro_ratio)),
+      summarise(
+        mean_score = sum(
+          .data[[.input$name_trialdur]] * .data[[.input$name_score]]
+        ) / sum(.data[[.input$name_trialdur]])
+      ),
     data |>
       mutate(
         type_cor = if_else(
