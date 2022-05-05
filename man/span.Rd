@@ -14,10 +14,15 @@ names and special values for certain variables. See more in the details
 section.}
 }
 \value{
-A \link[tibble:tibble-package]{tibble} contains following values:]
+A \link[tibble:tibble-package]{tibble} contains following values:
+
 \item{nc}{Count of correct responses.}
+
 \item{max_span}{Maximal span.}
-\item{mean_span}{Mean span.}
+
+\item{mean_span_pcu}{Mean span using partial credit unit score.}
+
+\item{mean_span_anu}{Mean span using all-or-nothing unit score.}
 }
 \description{
 There is a bunch of tests measuring working memory span or attention span.
