@@ -8,14 +8,14 @@
 #'
 #' @template common
 #' @template options
-#' @return A [tibble][tibble::tibble-package] contains following values:
+#' @return An object with the same class as `data` contains following values:
 #'
 #'   \item{thresh_peak_valley}{The mean threshold of peaks and valleys.}
 #'
 #'   \item{thresh_last_block}{The mean threshold of the last block.}
 #'
 #' @export
-staircase <- function(data, .input = NULL, .extra = NULL) {
+staircase <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
     name_block = "block",
     name_level = "level",
@@ -23,6 +23,7 @@ staircase <- function(data, .input = NULL, .extra = NULL) {
   ) |>
     update_settings(.input)
   data |>
+    group_by(across(all_of(.by))) |>
     summarise(
       thresh_peak_valley = calc_staircase_wetherill(.data[[.input$name_level]]),
       thresh_last_block = mean(
@@ -32,6 +33,8 @@ staircase <- function(data, .input = NULL, .extra = NULL) {
             .data[[.input$name_block]] == max(.data[[.input$name_block]])
           )
         )$values
-      )
-    )
+      ),
+      .groups = "drop"
+    ) |>
+    vctrs::vec_restore(data)
 }

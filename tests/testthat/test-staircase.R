@@ -21,17 +21,31 @@
   }
   out
 }
-test_that("Can deal with grouping", {
-  data <- withr::with_seed(
-    1,
-    expand_grid(block = 1:3, trial = 1:20) |>
-      mutate(
-        acc = sample(c(0, 1), n(), replace = TRUE, prob = c(0.2, 0.8)),
-        level = .prepare_steps(acc, 150, 5, min = 5)
-      )
-  )
+data <- withr::with_seed(
+  1,
+  expand_grid(
+    id = 1:2,
+    block = 1:3,
+    trial = 1:20
+  ) |>
+    group_by(id) |>
+    mutate(
+      acc = sample(c(0, 1), n(), replace = TRUE, prob = c(0.2, 0.8)),
+      level = .prepare_steps(acc, 150, 5, min = 5)
+    ) |>
+    ungroup()
+)
+
+test_that("Default behavior works", {
   expect_snapshot_value(
-    staircase(data),
+    staircase(filter(data, id == 1)),
+    style = "json2"
+  )
+})
+
+test_that("Works with grouping variable", {
+  expect_snapshot_value(
+    staircase(data, .by = "id"),
     style = "json2"
   )
 })

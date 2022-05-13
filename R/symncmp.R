@@ -6,13 +6,16 @@
 #'
 #' @template common
 #' @template options
-#' @return A [tibble][tibble::tibble-package] contains following values:
+#' @return An object with the same class as `data` contains following values:
+#'
 #'   \item{pc}{Percentage of correct responses.}
+#'
 #'   \item{mrt}{Mean reaction time.}
+#'
 #'   \item{dist_eff}{Distance effect.}
 #' @seealso [nsymncmp()] for non-symbolic number comparison.
 #' @export
-symncmp <- function(data, .input = NULL, .extra = NULL) {
+symncmp <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
     name_big = "big",
     name_small = "small",
@@ -29,22 +32,27 @@ symncmp <- function(data, .input = NULL, .extra = NULL) {
     ))[["dist"]],
     otherwise = NA_real_
   )
-  bind_cols(
+  merge(
     calc_spd_acc(
       data,
+      by = .by,
       name_acc = .input$name_acc,
-      name_rt = .input$name_rt,
-      rt_rtn = "mean",
-      acc_rtn = "percent",
-      sat_rtn = "none"
-    ),
+      name_rt = .input$name_rt
+    ) |>
+      select(all_of(c(.by, "pc", "mrt"))),
     data |>
       mutate(
         dist = .data[[.input$name_big]] -
           .data[[.input$name_small]]
       ) |>
       filter(.data[[.input$name_acc]] == 1) |>
-      fit_errproof() |>
-      tibble::as_tibble_col(column_name = "dist_eff")
-  )
+      group_by(across(all_of(.by))) |>
+      group_modify(
+        ~ fit_errproof(.) |>
+          tibble::as_tibble_col(column_name = "dist_eff")
+      ) |>
+      ungroup(),
+    by = .by
+  ) |>
+    vctrs::vec_restore(data)
 }

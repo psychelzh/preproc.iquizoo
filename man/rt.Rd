@@ -6,25 +6,29 @@
 \alias{srt}
 \title{Reaction Times}
 \usage{
-crt(data, .input = NULL, .extra = NULL)
+crt(data, .by = NULL, .input = NULL, .extra = NULL)
 
-srt(data, .input = NULL, .extra = NULL)
+srt(data, .by = NULL, .input = NULL, .extra = NULL)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
+
+\item{.by}{The column name(s) in \code{data} used to be grouped by. If set to
+\code{NULL} (default), all data will be treated as from one subject and there
+will be no grouping columns in the value returned.}
 
 \item{.input, .extra}{Each is a \code{\link[=list]{list()}} containing all the input variable
 names and special values for certain variables. See more in the details
 section.}
 }
 \value{
-A \link[tibble:tibble-package]{tibble} contains following values:
+An object with the same class as \code{data} contains following values:
+
+\item{nc}{Count of correct responses. Only for \code{\link[=crt]{crt()}}.}
 
 \item{mrt}{Mean reaction time.}
 
 \item{rtsd}{Standard deviation of reaction times.}
-
-\item{nc}{Count of correct responses. Only for \code{\link[=crt]{crt()}}.}
 
 \item{ies}{Inverse efficiency score. Only for \code{\link[=crt]{crt()}}.}
 

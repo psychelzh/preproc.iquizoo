@@ -8,13 +8,13 @@
 #' @name rt
 #' @template common
 #' @template options
-#' @return A [tibble][tibble::tibble-package] contains following values:
+#' @return An object with the same class as `data` contains following values:
+#'
+#'   \item{nc}{Count of correct responses. Only for [crt()].}
 #'
 #'   \item{mrt}{Mean reaction time.}
 #'
 #'   \item{rtsd}{Standard deviation of reaction times.}
-#'
-#'   \item{nc}{Count of correct responses. Only for [crt()].}
 #'
 #'   \item{ies}{Inverse efficiency score. Only for [crt()].}
 #'
@@ -25,28 +25,39 @@ NULL
 
 #' @rdname rt
 #' @export
-crt <- function(data, .input = NULL, .extra = NULL) {
+crt <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_acc = "acc", name_rt = "rt") |>
     update_settings(.input)
   calc_spd_acc(
     data,
+    by = .by,
     name_acc = .input$name_acc,
-    name_rt = .input$name_rt,
-    acc_rtn = "count"
-  )
+    name_rt = .input$name_rt
+  ) |>
+    select(
+      all_of(
+        c(
+          .by,
+          "nc", "mrt", "rtsd",
+          "ies", "rcs", "lisas"
+        )
+      )
+    ) |>
+    vctrs::vec_restore(data)
 }
 
 #' @rdname rt
 #' @export
-srt <- function(data, .input = NULL, .extra = NULL) {
+srt <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_rt = "rt") |>
     update_settings(.input)
   data |>
     mutate(acc_dummy = 1) |>
     calc_spd_acc(
+      by = .by,
       name_acc = "acc_dummy",
-      name_rt = .input$name_rt,
-      acc_rtn = "none",
-      sat_rtn = "none"
-    )
+      name_rt = .input$name_rt
+    ) |>
+    select(all_of(c(.by, "mrt", "rtsd"))) |>
+    vctrs::vec_restore(data)
 }

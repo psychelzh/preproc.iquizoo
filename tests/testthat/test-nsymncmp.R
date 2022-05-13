@@ -11,8 +11,11 @@ config <- tibble::tribble(
 )
 data <- withr::with_seed(
   1,
-  config |>
-    group_by(bigsetcount, smallsetcount, pc) |>
+  expand_grid(
+    id = 1:2,
+    config
+  ) |>
+    group_by(id, bigsetcount, smallsetcount, pc) |>
     summarise(
       tibble(
         n = 10,
@@ -25,9 +28,17 @@ data <- withr::with_seed(
 
 test_that("Default behavior works", {
   expect_snapshot_value(
-    nsymncmp(data),
+    nsymncmp(filter(data, id == 1)),
     style = "json2",
     tolerance = 1e-3
+  )
+})
+
+test_that("Works with grouping variable", {
+  expect_snapshot_value(
+    nsymncmp(data, .by = "id"),
+    style = "json2",
+    tolerance = 1e-5
   )
 })
 

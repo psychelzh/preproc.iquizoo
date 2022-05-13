@@ -5,14 +5,18 @@
 #'
 #' @template common
 #' @template options
-#' @return A [tibble][tibble::tibble-package] contains following values:
+#' @return An object with the same class as `data` contains following values:
+#'
 #'   \item{mrt_image}{Mean reaction time of Image stimuli.}
+#'
 #'   \item{mrt_sound}{Mean reaction time of Sound stimuli.}
+#'
 #'   \item{mrt_mixed}{Mean reaction time of Mixed stimuli.}
+#'
 #'   \item{mrt_mixadv}{Mean reaction decrease of Mixed stimuli compared to other
 #'     two types of stimuli.}
 #' @export
-multisense <- function(data, .input = NULL, .extra = NULL) {
+multisense <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_type = "type", name_rt = "rt") |>
     update_settings(.input)
   .extra <- list(
@@ -23,19 +27,13 @@ multisense <- function(data, .input = NULL, .extra = NULL) {
     update_settings(.extra)
   data |>
     mutate(acc_dummy = 1) |>
-    group_by(.data[[.input$name_type]]) |>
-    group_modify(
-      ~ calc_spd_acc(
-        .x,
-        name_acc = "acc_dummy",
-        name_rt = .input$name_rt,
-        rt_rtn = "mean",
-        acc_rtn = "none",
-        sat_rtn = "none"
-      )
+    calc_spd_acc(
+      by = c(.by, .input$name_type),
+      name_acc = "acc_dummy",
+      name_rt = .input$name_rt
     ) |>
-    # `pivot_wider` will drop groups here because groups go to columns
     pivot_wider(
+      id_cols = all_of(.by),
       names_from = .input$name_type,
       names_prefix = "mrt_",
       values_from = "mrt"

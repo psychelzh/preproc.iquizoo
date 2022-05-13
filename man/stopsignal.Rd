@@ -4,10 +4,14 @@
 \alias{stopsignal}
 \title{Stop Signal Paradigm}
 \usage{
-stopsignal(data, .input = NULL, .extra = NULL)
+stopsignal(data, .by = NULL, .input = NULL, .extra = NULL)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
+
+\item{.by}{The column name(s) in \code{data} used to be grouped by. If set to
+\code{NULL} (default), all data will be treated as from one subject and there
+will be no grouping columns in the value returned.}
 
 \item{.input, .extra}{Each is a \code{\link[=list]{list()}} containing all the input variable
 names and special values for certain variables. See more in the details
@@ -15,10 +19,17 @@ section.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} with the following variables:
+
 \item{pc_all}{Percent of correct for all the responses.}
+
 \item{pc_go}{Percent of correct for the go trials only.}
+
 \item{pc_stop}{Percent of correct for the stop trials only.}
+
 \item{rt_nth}{Percentile go reaction time (ms) based on \code{pc_stop}.}
+
+\item{mean_ssd}{Mean of stop signal delay (ms).}
+
 \item{ssrt}{Stop signal reaction time (ms).}
 }
 \description{

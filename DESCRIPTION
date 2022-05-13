@@ -20,7 +20,8 @@ Imports:
     rlang (>= 0.1.2),
     stringr,
     tibble,
-    tidyr (>= 1.2.0)
+    tidyr (>= 1.2.0),
+    vctrs
 Suggests:
     covr,
     mockery,

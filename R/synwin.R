@@ -4,7 +4,7 @@
 #'
 #' @template common
 #' @template options
-#' @return A [tibble][tibble::tibble-package] contains following values:
+#' @return An object with the same class as `data` contains following values:
 #'
 #'   \item{score_total}{Total score. Sum of the three sub-tests.}
 #'
@@ -15,7 +15,7 @@
 #'   \item{score_aud}{Score in auditory monitoring sub-test.}
 #'
 #' @export
-synwin <- function(data, .input = NULL, .extra = NULL) {
+synwin <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
     name_status = "status",
     name_acc = "acc"
@@ -50,12 +50,14 @@ synwin <- function(data, .input = NULL, .extra = NULL) {
           ) * (.data[[.input$name_acc]] * 2 - 1)
       )
     ) |>
-    group_by(.data$task) |>
-    summarise(score = sum(.data$score), .groups = "drop") |>
+    group_by(across(all_of(c(.by, "task")))) |>
+    summarise(score = sum(.data$score), .groups = "drop_last") |>
     mutate(score_total = sum(.data$score)) |>
+    ungroup() |>
     pivot_wider(
       names_from = .data$task,
       names_prefix = "score_",
       values_from = .data$score
-    )
+    ) |>
+    vctrs::vec_restore(data)
 }

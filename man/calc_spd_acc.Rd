@@ -6,17 +6,18 @@
 \usage{
 calc_spd_acc(
   data,
+  by,
   name_acc,
   name_rt,
   rt_rm_out = TRUE,
-  rt_unit = c("ms", "s"),
-  rt_rtn = c("both", "mean", "sd", "none"),
-  acc_rtn = c("both", "count", "percent", "none"),
-  sat_rtn = c("all", "ies", "rcs", "lisas", "none")
+  rt_unit = c("ms", "s")
 )
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
+
+\item{by}{The column name(s) in \code{data} used to be grouped by. If set to
+\code{NULL}, all data will be treated as from one subject.}
 
 \item{name_acc}{The column name of the \code{data} input whose values are user's correctness, in which is a \code{numeric} vector so coded that 1 means scoring correct, 0 means scoring incorrect, and that -1 means no response is made.}
 
@@ -26,14 +27,6 @@ calc_spd_acc(
 not. Default to \code{TRUE.}}
 
 \item{rt_unit}{The unit of response time in \code{data}.}
-
-\item{rt_rtn}{If mean or standard deviation of response times should be
-returned.}
-
-\item{acc_rtn}{If count or percent of correct responses should be returned.}
-
-\item{sat_rtn}{If any of the speed-accuracy trade-off index should be
-returned. \code{"IES"}, \code{"RCS"} and \code{"LISAS"} are supported.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains the required scores.

@@ -4,20 +4,25 @@
 \alias{london}
 \title{London Tower}
 \usage{
-london(data, .input = NULL, .extra = NULL)
+london(data, .by = NULL, .input = NULL, .extra = NULL)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
+
+\item{.by}{The column name(s) in \code{data} used to be grouped by. If set to
+\code{NULL} (default), all data will be treated as from one subject and there
+will be no grouping columns in the value returned.}
 
 \item{.input, .extra}{Each is a \code{\link[=list]{list()}} containing all the input variable
 names and special values for certain variables. See more in the details
 section.}
 }
 \value{
-A \link[tibble:tibble-package]{tibble} contains following values:
-\item{total_score}{Total score defined by the game itself.}
-\item{mean_level}{Mean level reached.}
-\item{level_score}{Sum of mean score (a ratio) for each level.}
+An object with the same class as \code{data} contains following values:
+
+\item{prop_perfect}{Proportion of responses with minimal moves.}
+
+\item{mrt_init}{Mean initial response time.}
 }
 \description{
 A classical test on problem solving.
