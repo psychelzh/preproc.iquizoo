@@ -38,7 +38,7 @@ test_that("Works with grouping variable", {
   expect_snapshot_value(
     nsymncmp(data, .by = "id"),
     style = "json2",
-    tolerance = 1e-5
+    tolerance = 1e-3
   )
 })
 
