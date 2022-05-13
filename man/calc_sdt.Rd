@@ -4,7 +4,7 @@
 \alias{calc_sdt}
 \title{Signal Detection Theory}
 \usage{
-calc_sdt(data, by, name_acc, name_type)
+calc_sdt(data, by = NULL, name_acc = "acc", name_type = "type")
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}

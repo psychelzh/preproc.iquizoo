@@ -26,7 +26,7 @@
 #' @param rt_unit The unit of response time in `data`.
 #' @return A [tibble][tibble::tibble-package] contains the required scores.
 #' @keywords internal
-calc_spd_acc <- function(data, by, name_acc, name_rt,
+calc_spd_acc <- function(data, by = NULL, name_acc = "acc", name_rt = "rt",
                          rt_rm_out = TRUE, rt_unit = c("ms", "s")) {
   rt_unit <- match.arg(rt_unit)
   # set reaction time unit to seconds for better value range
@@ -95,7 +95,7 @@ calc_spd_acc <- function(data, by, name_acc, name_rt,
 #' @return A [tibble][tibble::tibble-package] contains sensitivity index and
 #'   bias (and other counts measures)
 #' @keywords internal
-calc_sdt <- function(data, by, name_acc, name_type) {
+calc_sdt <- function(data, by = NULL, name_acc = "acc", name_type = "type") {
   data |>
     mutate(
       type_fac = factor(

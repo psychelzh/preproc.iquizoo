@@ -6,9 +6,9 @@
 \usage{
 calc_spd_acc(
   data,
-  by,
-  name_acc,
-  name_rt,
+  by = NULL,
+  name_acc = "acc",
+  name_rt = "rt",
   rt_rm_out = TRUE,
   rt_unit = c("ms", "s")
 )
