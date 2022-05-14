@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">preproc.iquizoo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.3.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.4.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,13 +51,16 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">calc_switch_cost</span><span class="op">(</span><span class="va">data</span>, <span class="va">name_switch</span>, <span class="va">name_rt</span>, <span class="va">name_acc</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">calc_switch_cost</span><span class="op">(</span><span class="va">data</span>, <span class="va">by</span>, <span class="va">name_switch</span>, <span class="va">name_rt</span>, <span class="va">name_acc</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>data</dt>
 <dd><p>Raw data of class <code>data.frame</code>.</p></dd>
+<dt>by</dt>
+<dd><p>The column name(s) in <code>data</code> used to be grouped by. If set to
+<code>NULL</code>, all data will be treated as from one subject.</p></dd>
 <dt>name_switch</dt>
 <dd><p>The column name of the <code>data</code> input whose values are
 the switch type, in which is a <code>character</code> vector with at least <code>"switch"</code>
