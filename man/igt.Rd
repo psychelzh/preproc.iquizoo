@@ -4,18 +4,24 @@
 \alias{igt}
 \title{Iowa Gambling Task (modified)}
 \usage{
-igt(data, .input = NULL, .extra = NULL)
+igt(data, .by = NULL, .input = NULL, .extra = NULL)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
+
+\item{.by}{The column name(s) in \code{data} used to be grouped by. If set to
+\code{NULL} (default), all data will be treated as from one subject and there
+will be no grouping columns in the value returned.}
 
 \item{.input, .extra}{Each is a \code{\link[=list]{list()}} containing all the input variable
 names and special values for certain variables. See more in the details
 section.}
 }
 \value{
-A \link[tibble:tibble-package]{tibble} contains following values:
+An object with the same class as \code{data} contains following values:
+
 \item{sum_outcome}{The total outcome over all trials.}
+
 \item{perc_good}{The number of choices on "good" pools.}
 }
 \description{

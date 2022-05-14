@@ -3,6 +3,8 @@
 #' Utility function to calculate general and specific switch cost.
 #'
 #' @template common
+#' @param by The column name(s) in `data` used to be grouped by. If set to
+#'   `NULL`, all data will be treated as from one subject.
 #' @templateVar name_acc TRUE
 #' @templateVar name_rt TRUE
 #' @template names
@@ -10,10 +12,11 @@
 #'   the switch type, in which is a `character` vector with at least `"switch"`
 #'   and `"repeat"` values.
 #' @keywords internal
-calc_switch_cost <- function(data, name_switch, name_rt, name_acc) {
+calc_switch_cost <- function(data, by, name_switch, name_rt, name_acc) {
   data[[name_switch]] <- factor(data[[name_switch]], c("switch", "repeat"))
   calc_cond_diff(
     data,
+    by,
     name_cond = name_switch,
     name_diff_prefix = "switch_cost_",
     name_acc = name_acc,
@@ -26,6 +29,8 @@ calc_switch_cost <- function(data, name_switch, name_rt, name_acc) {
 #' Utility function to calculate congruence effect sizes.
 #'
 #' @template common
+#' @param by The column name(s) in `data` used to be grouped by. If set to
+#'   `NULL`, all data will be treated as from one subject.
 #' @templateVar name_acc TRUE
 #' @templateVar name_rt TRUE
 #' @template names
@@ -36,10 +41,11 @@ calc_switch_cost <- function(data, name_switch, name_rt, name_acc) {
 #' @return A [tibble][tibble::tibble-package] contains congruence effect results
 #'   on accuracy and response time.
 #' @keywords internal
-calc_cong_eff <- function(data, name_cong, name_acc, name_rt) {
+calc_cong_eff <- function(data, by, name_cong, name_acc, name_rt) {
   data[[name_cong]] <- factor(data[[name_cong]], c("inc", "con"))
   calc_cond_diff(
     data,
+    by,
     name_cond = name_cong,
     name_diff_prefix = "cong_eff_",
     name_acc = name_acc,
@@ -47,25 +53,20 @@ calc_cong_eff <- function(data, name_cong, name_acc, name_rt) {
   )
 }
 
-calc_cond_diff <- function(data, name_acc, name_rt,
+calc_cond_diff <- function(data, by, name_acc, name_rt,
                            name_cond, name_diff_prefix) {
   conds <- levels(data[[name_cond]])
   index_each_cond <- data |>
-    group_by(.data[[name_cond]]) |>
-    group_modify(
-      ~ calc_spd_acc(
-        .x,
-        name_acc = name_acc,
-        name_rt = name_rt,
-        acc_rtn = "percent",
-        rt_rtn = "mean"
-      )
+    calc_spd_acc(
+      by = c(by, name_cond),
+      name_acc = name_acc,
+      name_rt = name_rt
     ) |>
-    ungroup() |>
-    complete(.data[[name_cond]])
+    complete(.data[[name_cond]]) |>
+    select(all_of(c(by, name_cond, "pc", "mrt", "ies", "rcs", "lisas")))
   index_each_cond |>
     pivot_longer(
-      cols = -any_of(name_cond),
+      cols = -any_of(c(by, name_cond)),
       names_to = "index_name",
       values_to = "score"
     ) |>
@@ -89,11 +90,12 @@ calc_cond_diff <- function(data, name_acc, name_rt,
       values_from = .data$diff,
       names_prefix = name_diff_prefix
     ) |>
-    bind_cols(
+    merge(
       index_each_cond |>
         pivot_wider(
           names_from = all_of(name_cond),
-          values_from = -any_of(name_cond)
-        )
+          values_from = -any_of(c(by, name_cond))
+        ),
+      by = by
     )
 }

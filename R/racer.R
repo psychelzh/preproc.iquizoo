@@ -4,14 +4,14 @@
 #'
 #' @template common
 #' @template options
-#' @return A [tibble][tibble::tibble-package] contains following values:
+#' @return An object with the same class as `data` contains following values:
 #'
 #'   \item{mean_score}{Mean overlap score.}
 #'
 #'   \item{dprime}{Sensitivity index of detection task.}
 #'
 #' @export
-racer <- function(data, .input = NULL, .extra = NULL) {
+racer <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
     name_trialdur = "trialdur",
     name_score = "escortscore",
@@ -21,12 +21,14 @@ racer <- function(data, .input = NULL, .extra = NULL) {
     update_settings(.input)
   .extra <- list(type_signal = "target") |>
     update_settings(.extra)
-  bind_cols(
+  merge(
     data |>
+      group_by(across(all_of(.by))) |>
       summarise(
         mean_score = sum(
           .data[[.input$name_trialdur]] * .data[[.input$name_score]]
-        ) / sum(.data[[.input$name_trialdur]])
+        ) / sum(.data[[.input$name_trialdur]]),
+        .groups = "drop"
       ),
     data |>
       mutate(
@@ -36,10 +38,12 @@ racer <- function(data, .input = NULL, .extra = NULL) {
         )
       ) |>
       calc_sdt(
+        by = .by,
         name_acc = .input$name_acc,
-        name_type = "type_cor",
-        keep_bias = FALSE,
-        keep_counts = FALSE
-      )
-  )
+        name_type = "type_cor"
+      ),
+    by = .by
+  ) |>
+    select(all_of(c(.by, "mean_score", "dprime"))) |>
+    vctrs::vec_restore(data)
 }

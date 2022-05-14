@@ -3,32 +3,32 @@
     {
       "type": "list",
       "attributes": {
-        "class": {
+        "names": {
           "type": "character",
           "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
+          "value": ["pc", "mrt", "cong_eff_pc", "cong_eff_mrt", "cong_eff_ies", "cong_eff_rcs", "cong_eff_lisas", "pc_inc", "pc_con", "mrt_inc", "mrt_con", "ies_inc", "ies_con", "rcs_inc", "rcs_con", "lisas_inc", "lisas_con"]
         },
         "row.names": {
           "type": "integer",
           "attributes": {},
           "value": [1]
         },
-        "names": {
+        "class": {
           "type": "character",
           "attributes": {},
-          "value": ["pc", "mrt", "cong_eff_pc", "cong_eff_mrt", "cong_eff_ies", "cong_eff_rcs", "cong_eff_lisas", "pc_inc", "pc_con", "mrt_inc", "mrt_con", "ies_inc", "ies_con", "rcs_inc", "rcs_con", "lisas_inc", "lisas_con"]
+          "value": ["tbl_df", "tbl", "data.frame"]
         }
       },
       "value": [
         {
           "type": "double",
           "attributes": {},
-          "value": [0.4]
+          "value": [0.65]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.57717104]
+          "value": [1.18822212]
         },
         {
           "type": "double",
@@ -38,72 +38,187 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [-0.38734149]
+          "value": [-0.2359454]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [-1.14255532]
+          "value": [-0.51529535]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [-0.02466904]
+          "value": [-0.18172322]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [-0.59381334]
+          "value": [-0.91303287]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.41666667]
+          "value": [0.66666667]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.375]
+          "value": [0.625]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.41116754]
+          "value": [1.37782701]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.79850903]
+          "value": [1.61377242]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.9868021]
+          "value": [2.06674052]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [2.12935742]
+          "value": [2.58203586]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.64977541]
+          "value": [0.64688051]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.62510637]
+          "value": [0.46515729]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.93346276]
+          "value": [2.05795214]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [1.5272761]
+          "value": [2.97098502]
+        }
+      ]
+    }
+
+# Works with grouping variable
+
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["id", "pc", "mrt", "cong_eff_pc", "cong_eff_mrt", "cong_eff_ies", "cong_eff_rcs", "cong_eff_lisas", "pc_inc", "pc_con", "mrt_inc", "mrt_con", "ies_inc", "ies_con", "rcs_inc", "rcs_con", "lisas_inc", "lisas_con"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2]
+        },
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.65, 0.65]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1.18822212, 1.13717124]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.04166667, 0.16666667]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.2359454, 0.09944621]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.51529535, 0.58328809]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.18172322, -0.03772485]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.91303287, 0.07092664]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.66666667, 0.58333333]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.625, 0.75]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1.37782701, 1.18306949]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1.61377242, 1.08362328]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [2.06674052, 2.02811912]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [2.58203586, 1.44483104]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.64688051, 0.55743769]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.46515729, 0.51971284]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [2.05795214, 1.71137251]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [2.97098502, 1.64044587]
         }
       ]
     }

@@ -4,10 +4,13 @@
 \alias{calc_switch_cost}
 \title{Switch cost}
 \usage{
-calc_switch_cost(data, name_switch, name_rt, name_acc)
+calc_switch_cost(data, by, name_switch, name_rt, name_acc)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
+
+\item{by}{The column name(s) in \code{data} used to be grouped by. If set to
+\code{NULL}, all data will be treated as from one subject.}
 
 \item{name_switch}{The column name of the \code{data} input whose values are
 the switch type, in which is a \code{character} vector with at least \code{"switch"}

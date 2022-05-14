@@ -35,7 +35,7 @@ NULL
 
 #' @rdname switch-congruence
 #' @export
-complexswitch <- function(data, .input = NULL, .extra = NULL) {
+complexswitch <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
     name_cong = "stimtype",
     name_task = "task",
@@ -54,12 +54,11 @@ complexswitch <- function(data, .input = NULL, .extra = NULL) {
     update_settings(.extra)
   spd_acc <- calc_spd_acc(
     data,
+    by = .by,
     name_acc = .input$name_acc,
-    name_rt = .input$name_rt,
-    acc_rtn = "percent",
-    rt_rtn = "mean",
-    sat_rtn = "none"
-  )
+    name_rt = .input$name_rt
+  ) |>
+    select(all_of(c(.by, "pc", "mrt")))
   switch_cost <- data |>
     filter(.data[[.input$name_switch]] != .extra$task_filler) |>
     mutate(
@@ -70,6 +69,7 @@ complexswitch <- function(data, .input = NULL, .extra = NULL) {
       )
     ) |>
     calc_switch_cost(
+      by = .by,
       name_switch = "switch",
       name_acc = .input$name_acc,
       name_rt = .input$name_rt
@@ -83,16 +83,20 @@ complexswitch <- function(data, .input = NULL, .extra = NULL) {
       )
     ) |>
     calc_cong_eff(
+      by = .by,
       name_cong = "stim_type",
       name_acc = .input$name_acc,
       name_rt = .input$name_rt
     )
-  bind_cols(spd_acc, switch_cost, cong_eff)
+  spd_acc |>
+    merge(switch_cost, by = .by) |>
+    merge(cong_eff, by = .by) |>
+    vctrs::vec_restore(data)
 }
 
 #' @rdname switch-congruence
 #' @export
-congeff <- function(data, .input = NULL, .extra = NULL) {
+congeff <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
     name_cong = "type",
     name_acc = "acc",
@@ -106,12 +110,11 @@ congeff <- function(data, .input = NULL, .extra = NULL) {
     update_settings(.extra)
   spd_acc <- calc_spd_acc(
     data,
+    by = .by,
     name_acc = .input$name_acc,
-    name_rt = .input$name_rt,
-    acc_rtn = "percent",
-    rt_rtn = "mean",
-    sat_rtn = "none"
-  )
+    name_rt = .input$name_rt
+  ) |>
+    select(all_of(c(.by, "pc", "mrt")))
   cong_eff <- data |>
     mutate(
       stim_type = recode(
@@ -121,16 +124,18 @@ congeff <- function(data, .input = NULL, .extra = NULL) {
       )
     ) |>
     calc_cong_eff(
+      by = .by,
       name_cong = "stim_type",
       name_acc = .input$name_acc,
       name_rt = .input$name_rt
     )
-  bind_cols(spd_acc, cong_eff)
+  merge(spd_acc, cong_eff, by = .by) |>
+    vctrs::vec_restore(data)
 }
 
 #' @rdname switch-congruence
 #' @export
-switchcost <- function(data, .input = NULL, .extra = NULL) {
+switchcost <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
     name_switch = "type",
     name_acc = "acc",
@@ -145,12 +150,11 @@ switchcost <- function(data, .input = NULL, .extra = NULL) {
     update_settings(.extra)
   spd_acc <- calc_spd_acc(
     data,
+    by = .by,
     name_acc = .input$name_acc,
-    name_rt = .input$name_rt,
-    acc_rtn = "percent",
-    rt_rtn = "mean",
-    sat_rtn = "none"
-  )
+    name_rt = .input$name_rt
+  ) |>
+    select(all_of(c(.by, "pc", "mrt")))
   switch_cost <- data |>
     filter(.data[[.input$name_switch]] != .extra$task_filler) |>
     mutate(
@@ -161,9 +165,11 @@ switchcost <- function(data, .input = NULL, .extra = NULL) {
       )
     ) |>
     calc_switch_cost(
+      by = .by,
       name_switch = "switch",
       name_acc = .input$name_acc,
       name_rt = .input$name_rt
     )
-  bind_cols(spd_acc, switch_cost)
+  merge(spd_acc, switch_cost, by = .by) |>
+    vctrs::vec_restore(data)
 }

@@ -4,17 +4,21 @@
 \alias{bps}
 \title{Behavioral Pattern Separation (BPS) task}
 \usage{
-bps(data, .input = NULL, .extra = NULL)
+bps(data, .by = NULL, .input = NULL, .extra = NULL)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
+
+\item{.by}{The column name(s) in \code{data} used to be grouped by. If set to
+\code{NULL} (default), all data will be treated as from one subject and there
+will be no grouping columns in the value returned.}
 
 \item{.input, .extra}{Each is a \code{\link[=list]{list()}} containing all the input variable
 names and special values for certain variables. See more in the details
 section.}
 }
 \value{
-A \link[tibble:tibble-package]{tibble} contains following values:
+An object with the same class as \code{data} contains following values:
 \item{pc}{Percent of correct responses.}
 \item{p_sim_foil}{Percent of similar responses for "foil" stimuli.}
 \item{p_sim_lure}{Percent of similar responses for "lure" stimuli.}

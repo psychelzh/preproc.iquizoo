@@ -4,7 +4,7 @@
 #'
 #' @template common
 #' @template options
-#' @return A [tibble][tibble::tibble-package] contains following values:
+#' @return An object with the same class as `data` contains following values:
 #'
 #'   \item{pc_approach}{The percent of correct for approach trials.}
 #'
@@ -14,7 +14,7 @@
 #'
 #'   \item{pc_test}{The total percent of correct in the test phase.}
 #' @export
-reinf <- function(data, .input = NULL, .extra = NULL) {
+reinf <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
     name_phase = "phase",
     name_cresp = "cresp",
@@ -43,14 +43,16 @@ reinf <- function(data, .input = NULL, .extra = NULL) {
         .data$set
       )
     ) |>
-    group_by(.data$set) |>
+    group_by(across(all_of(c(.by, "set")))) |>
     summarise(
       pc = mean(.data[[.input$name_acc]]),
       .groups = "drop"
     ) |>
     pivot_wider(
+      id_cols = all_of(.by),
       names_from = "set",
       values_from = "pc",
       names_prefix = "pc_"
-    )
+    ) |>
+    vctrs::vec_restore(data)
 }

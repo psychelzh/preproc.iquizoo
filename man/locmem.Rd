@@ -5,23 +5,31 @@
 \alias{locmem2}
 \title{Location Memory}
 \usage{
-locmem(data, .input = NULL, .extra = NULL)
+locmem(data, .by = NULL, .input = NULL, .extra = NULL)
 
-locmem2(data, .input = NULL, .extra = NULL)
+locmem2(data, .by = NULL, .input = NULL, .extra = NULL)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
+
+\item{.by}{The column name(s) in \code{data} used to be grouped by. If set to
+\code{NULL} (default), all data will be treated as from one subject and there
+will be no grouping columns in the value returned.}
 
 \item{.input, .extra}{Each is a \code{\link[=list]{list()}} containing all the input variable
 names and special values for certain variables. See more in the details
 section.}
 }
 \value{
-A \link[tibble:tibble-package]{tibble} contains following values:
+An object with the same class as \code{data} contains following values:
+
 \item{nc_loc}{Count of correct responses for location.}
+
 \item{mean_dist_err}{Mean of the response distance errors.}
+
 \item{mean_log_err}{Mean of the log-transformed (of base \eqn{e}) response
 distance errors.}
+
 \item{nc_order}{Count of correct responses for order. For \code{\link[=locmem2]{locmem2()}}
 only.}
 }

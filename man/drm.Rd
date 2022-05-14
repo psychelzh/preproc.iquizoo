@@ -4,20 +4,28 @@
 \alias{drm}
 \title{Deese-Roediger-McDermott (DRM) paradigm}
 \usage{
-drm(data, .input = NULL, .extra = NULL)
+drm(data, .by = NULL, .input = NULL, .extra = NULL)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
+
+\item{.by}{The column name(s) in \code{data} used to be grouped by. If set to
+\code{NULL} (default), all data will be treated as from one subject and there
+will be no grouping columns in the value returned.}
 
 \item{.input, .extra}{Each is a \code{\link[=list]{list()}} containing all the input variable
 names and special values for certain variables. See more in the details
 section.}
 }
 \value{
-A \link[tibble:tibble-package]{tibble} contains following values:
+An object with the same class as \code{data} contains following values:
+
 \item{tm_dprime}{Sensitivity (d') of true memory (against "foil" stimuli).}
+
 \item{tm_bias}{Bias of true memory (against "foil" stimuli).}
+
 \item{fm_dprime}{Sensitivity (d') of false memory.}
+
 \item{fm_bias}{ias of false memory.}
 }
 \description{

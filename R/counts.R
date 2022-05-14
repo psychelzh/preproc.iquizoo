@@ -9,7 +9,7 @@
 #' @name counts
 #' @template common
 #' @template options
-#' @return A [tibble][tibble::tibble-package] contains following values:
+#' @return An object with the same class as `data` contains following values:
 #'   \item{nc}{Count of correct responses. For [countcorrect()].}
 #'   \item{nc_cor}{Corrected count of correct responses (subtracting number of
 #'     errors). For [countcorrect2()].}
@@ -20,7 +20,7 @@ NULL
 
 #' @rdname counts
 #' @export
-countcorrect <- function(data, .input = NULL, .extra = NULL) {
+countcorrect <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_nc = "ncorrect", name_acc = "acc") |>
     update_settings(.input)
   if (!has_name(data, .input$name_nc)) {
@@ -34,56 +34,72 @@ countcorrect <- function(data, .input = NULL, .extra = NULL) {
         ) |>
         unnest(.data[[.input$name_acc]])
     }
-    data <- summarise(
-      data,
-      # `NA` might be produced in parsing characters
-      "{.input$name_nc}" := sum(.data[[.input$name_acc]] == 1, na.rm = TRUE)
-    )
+    data <- data |>
+      group_by(across(all_of(.by))) |>
+      summarise(
+        # `NA` might be produced in parsing characters and should be ignored
+        "{.input$name_nc}" := sum(.data[[.input$name_acc]] == 1, na.rm = TRUE),
+        .groups = "drop"
+      )
   }
-  summarise(data, nc = sum(.data[[.input$name_nc]]))
+  data |>
+    group_by(across(all_of(.by))) |>
+    summarise(nc = sum(.data[[.input$name_nc]]), .groups = "drop") |>
+    vctrs::vec_restore(data)
 }
 
 #' @rdname counts
 #' @export
-countcorrect2 <- function(data, .input = NULL, .extra = NULL) {
+countcorrect2 <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_nc = "ncorrect", name_ne = "nerror", name_acc = "acc") |>
     update_settings(.input)
   if (!all(has_name(data, .input[c("name_nc", "name_ne")]))) {
-    data <- summarise(
-      data,
-      "{.input$name_nc}" := sum(.data[[.input$name_acc]] == 1),
-      "{.input$name_ne}" := sum(.data[[.input$name_acc]] == 0)
-    )
+    data <- data |>
+      group_by(across(all_of(.by))) |>
+      summarise(
+        "{.input$name_nc}" := sum(.data[[.input$name_acc]] == 1),
+        "{.input$name_ne}" := sum(.data[[.input$name_acc]] == 0),
+        .groups = "drop"
+      )
   }
-  summarise(
-    data,
-    nc_cor = sum(
-      .data[[.input$name_nc]] - .data[[.input$name_ne]]
-    )
-  )
+  data |>
+    group_by(across(all_of(.by))) |>
+    summarise(
+      nc_cor = sum(
+        .data[[.input$name_nc]] - .data[[.input$name_ne]]
+      ),
+      .groups = "drop"
+    ) |>
+    vctrs::vec_restore(data)
 }
 
 #' @rdname counts
 #' @export
-sumweighted <- function(data, .input = NULL, .extra = NULL) {
+sumweighted <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_weight = "nstim", name_acc = "acc") |>
     update_settings(.input)
-  summarise(
-    data,
-    nc_weighted = sum(
-      .data[[.input$name_weight]] *
-        (.data[[.input$name_acc]] == 1)
-    )
-  )
+  data |>
+    group_by(across(all_of(.by))) |>
+    summarise(
+      nc_weighted = sum(
+        .data[[.input$name_weight]] *
+          (.data[[.input$name_acc]] == 1)
+      ),
+      .groups = "drop"
+    ) |>
+    vctrs::vec_restore(data)
 }
 
 #' @rdname counts
 #' @export
-sumscore <- function(data, .input = NULL, .extra = NULL) {
+sumscore <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_score = "score") |>
     update_settings(.input)
-  summarise(
-    data,
-    nc_score = sum(as.numeric(.data[[.input$name_score]]))
-  )
+  data |>
+    group_by(across(all_of(.by))) |>
+    summarise(
+      nc_score = sum(as.numeric(.data[[.input$name_score]])),
+      .groups = "drop"
+    ) |>
+    vctrs::vec_restore(data)
 }
