@@ -1,5 +1,13 @@
 # preproc.iquizoo (development version)
 
+## Breaking Changes
+
+* Added `.by` argument back to all functions for speed improvement.
+
+## Minor Improvements
+
+* Ensured all the functions return data with the same `class` as input `data`. This is somewhat so-called class invariant.
+
 # preproc.iquizoo 2.3.2
 
 ## New Features
