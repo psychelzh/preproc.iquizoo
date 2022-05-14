@@ -5,14 +5,14 @@
 #'
 #' @template common
 #' @template options
-#' @return A [tibble][tibble::tibble-package] contains following values:
+#' @return An object with the same class as `data` contains following values:
 #'   \item{mean_dist_err_allo/mean_dist_err_ego}{Mean of the response distance
 #'     errors for allocentric and egocentric conditions respectively.}
 #'   \item{mean_log_err_allo/mean_log_err_ego}{Mean of the log-transformed (of
 #'     base \eqn{e}) response distance errors for allocentric and egocentric
 #'     conditions respectively.}
 #' @export
-refframe <- function(data, .input = NULL, .extra = NULL) {
+refframe <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_type = "type", name_dist = "dist") |>
     update_settings(.input)
   .extra <- list(type_allo = "allocentric", type_ego = "egocentric") |>
@@ -29,14 +29,16 @@ refframe <- function(data, .input = NULL, .extra = NULL) {
         .data[[.input$name_type]] == .extra$type_ego ~ "ego"
       )
     ) |>
-    group_by(.data$type_cor) |>
+    group_by(across(all_of(c(.by, "type_cor")))) |>
     summarise(
       mean_dist_err = mean(.data[[.input$name_dist]]),
       mean_log_err = mean(log(.data[[.input$name_dist]] + 1)),
       .groups = "drop"
     ) |>
     pivot_wider(
+      id_cols = all_of(.by),
       names_from = .data$type_cor,
       values_from = starts_with("mean")
-    )
+    ) |>
+    vctrs::vec_restore(data)
 }

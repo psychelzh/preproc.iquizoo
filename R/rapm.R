@@ -6,7 +6,7 @@
 #'
 #' @template common
 #' @template options
-#' @return A [tibble][tibble::tibble-package] contains following values:
+#' @return An object with the same class as `data` contains following values:
 #'
 #'   \item{nc_prac}{Number of correct items for set I.}
 #'
@@ -15,7 +15,7 @@
 #'   \item{nc_total}{Number of correct items for whole set.}
 #'
 #' @export
-rapm <- function(data, .input = NULL, .extra = NULL) {
+rapm <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_block = "block", name_acc = "acc") |>
     update_settings(.input)
   .extra <- list(block_prac = 1, block_test = 2) |>
@@ -27,13 +27,17 @@ rapm <- function(data, .input = NULL, .extra = NULL) {
         .data[[.input$name_block]] %in% .extra$block_test ~ "test"
       )
     ) |>
-    group_by(.data$block) |>
-    group_modify(~ countcorrect(.x, .input = .input, .extra = .extra)) |>
-    ungroup() |>
+    countcorrect(
+      .by = c("block", .by),
+      .input = .input,
+      .extra = .extra
+    ) |>
     pivot_wider(
+      id_cols = all_of(.by),
       names_from = .data$block,
       values_from = .data$nc,
       names_prefix = "nc_"
     ) |>
-    mutate(nc_total = .data$nc_prac + .data$nc_test)
+    mutate(nc_total = .data$nc_prac + .data$nc_test) |>
+    vctrs::vec_restore(data)
 }

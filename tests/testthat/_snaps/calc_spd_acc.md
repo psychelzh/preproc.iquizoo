@@ -16,7 +16,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["nc", "pc", "mrt", "rtsd", "ies", "rcs", "lisas"]
+          "value": ["nc", "pc", "pcsd", "mrt", "mrt_all", "rtsd", "ies", "rcs", "lisas"]
         }
       },
       "value": [
@@ -33,7 +33,17 @@
         {
           "type": "double",
           "attributes": {},
+          "value": [0.51298918]
+        },
+        {
+          "type": "double",
+          "attributes": {},
           "value": [2.44307232]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1.49729309]
         },
         {
           "type": "double",
@@ -76,7 +86,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["nc", "pc", "mrt", "rtsd", "ies", "rcs", "lisas"]
+          "value": ["nc", "pc", "pcsd", "mrt", "mrt_all", "rtsd", "ies", "rcs", "lisas"]
         }
       },
       "value": [
@@ -93,7 +103,17 @@
         {
           "type": "double",
           "attributes": {},
+          "value": [0]
+        },
+        {
+          "type": "double",
+          "attributes": {},
           "value": ["NaN"]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.55151387]
         },
         {
           "type": "double",
@@ -136,7 +156,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["nc", "pc", "mrt", "rtsd", "ies", "rcs", "lisas"]
+          "value": ["nc", "pc", "pcsd", "mrt", "mrt_all", "rtsd", "ies", "rcs", "lisas"]
         }
       },
       "value": [
@@ -149,6 +169,16 @@
           "type": "double",
           "attributes": {},
           "value": [1]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [2.44307232]
         },
         {
           "type": "double",

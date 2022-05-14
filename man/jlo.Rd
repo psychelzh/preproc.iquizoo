@@ -4,19 +4,26 @@
 \alias{jlo}
 \title{Judgment of Line Orientation}
 \usage{
-jlo(data, .input = NULL, .extra = NULL)
+jlo(data, .by = NULL, .input = NULL, .extra = NULL)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
+
+\item{.by}{The column name(s) in \code{data} used to be grouped by. If set to
+\code{NULL} (default), all data will be treated as from one subject and there
+will be no grouping columns in the value returned.}
 
 \item{.input, .extra}{Each is a \code{\link[=list]{list()}} containing all the input variable
 names and special values for certain variables. See more in the details
 section.}
 }
 \value{
-A \link[tibble:tibble-package]{tibble} contains following values:
+An object with the same class as \code{data} contains following values:
+
 \item{nc}{Count of correct responses.}
+
 \item{mean_ang_err}{Mean of the response angle errors.}
+
 \item{mean_log_err}{Mean of the log-transformed (of base 2) response angle
 errors.}
 }

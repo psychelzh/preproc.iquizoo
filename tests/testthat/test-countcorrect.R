@@ -1,12 +1,12 @@
-n_subject <- 5
-data <- withr::with_seed(
+n_subject <- 2
+data_acc <- withr::with_seed(
   1,
   tibble::tibble(
     id = seq_len(n_subject),
-    n = sample(100:300, n_subject, replace = TRUE)
+    n = sample(10:20, n_subject, replace = TRUE)
   ) |>
     uncount(n, .id = "trial") |>
-    mutate(acc = sample(c(0, 1), n(), replace = TRUE))
+    mutate(acc = sample(c(0, 1), n(), replace = TRUE, prob = c(0.1, 0.9)))
 )
 data_chr_acc <- withr::with_seed(
   1,
@@ -21,50 +21,44 @@ data_chr_acc <- withr::with_seed(
         trial %% 2 == 0, NA,
         replicate(
           n(),
-          sample(c(0, 1, 99), 3, replace = TRUE) |>
+          sample(c(0, 1, 99), 3, replace = TRUE, prob = c(0.1, 0.85, 0.05)) |>
             stringr::str_c(collapse = "-")
         )
       )
     )
 )
+data_ncorrect <- withr::with_seed(
+  1,
+  tibble(id = seq_len(n_subject)) |>
+    mutate(ncorrect = 10)
+)
 
-test_that("Default behavior", {
-  data <- withr::with_seed(
-    1,
-    tibble(trial = 1:20) |>
-      mutate(acc = sample(c(0, 1), n(), replace = TRUE))
+test_that("Works for different types of input", {
+  expect_snapshot_value(
+    countcorrect(filter(data_acc, id == 1)),
+    style = "json2"
   )
   expect_snapshot_value(
-    countcorrect(data),
+    countcorrect(filter(data_chr_acc, id == 1)),
+    style = "json2"
+  )
+  expect_snapshot_value(
+    countcorrect(filter(data_ncorrect, id == 1)),
     style = "json2"
   )
 })
 
-test_that("Works for character acc input", {
-  data_chr_acc <- withr::with_seed(
-    1,
-    tibble(trial = 1:20) |>
-      mutate(
-        acc = if_else(
-          trial %% 2 == 0, NA_character_,
-          replicate(
-            n(),
-            sample(c(0, 1, 99), 3, replace = TRUE) |>
-              stringr::str_c(collapse = "-")
-          )
-        )
-      )
-  )
+test_that("Works with grouping variable", {
   expect_snapshot_value(
-    countcorrect(data_chr_acc),
+    countcorrect(data_acc, .by = "id"),
     style = "json2"
   )
-})
-
-test_that("Works with pre-calculated ncorrect input", {
-  data_pre <- withr::with_seed(
-    1,
-    tibble(ncorrect = 10)
+  expect_snapshot_value(
+    countcorrect(data_chr_acc, .by = "id"),
+    style = "json2"
   )
-  expect_snapshot_value(countcorrect(data_pre), style = "json2")
+  expect_snapshot_value(
+    countcorrect(data_ncorrect, .by = "id"),
+    style = "json2"
+  )
 })

@@ -17,7 +17,11 @@
 
 data <- withr::with_seed(
   1,
-  tibble(trial = 1:14) |>
+  expand_grid(
+    id = 1:2,
+    trial = 1:14
+  ) |>
+    group_by(id) |>
     mutate(
       outcome = sample(
         c(0, 1),
@@ -48,7 +52,14 @@ data <- withr::with_seed(
 
 test_that("Default behavior works", {
   expect_snapshot_value(
-    span(data),
+    span(filter(data, id == 1)),
+    style = "json2"
+  )
+})
+
+test_that("Works with grouping variable", {
+  expect_snapshot_value(
+    span(data, .by = "id"),
     style = "json2"
   )
 })

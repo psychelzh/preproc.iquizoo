@@ -4,10 +4,13 @@
 \alias{calc_cong_eff}
 \title{Congruence effect}
 \usage{
-calc_cong_eff(data, name_cong, name_acc, name_rt)
+calc_cong_eff(data, by, name_cong, name_acc, name_rt)
 }
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
+
+\item{by}{The column name(s) in \code{data} used to be grouped by. If set to
+\code{NULL}, all data will be treated as from one subject.}
 
 \item{name_cong}{The column name of the \code{data} input whose values are the
 congruence information, in which is a \code{character} vector with "incongruent

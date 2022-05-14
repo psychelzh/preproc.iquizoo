@@ -5,13 +5,16 @@
 #'
 #' @template common
 #' @template options
-#' @return A [tibble][tibble::tibble-package] contains following values:
+#' @return An object with the same class as `data` contains following values:
+#'
 #'   \item{nc}{Count of correct responses.}
+#'
 #'   \item{mean_ang_err}{Mean of the response angle errors.}
+#'
 #'   \item{mean_log_err}{Mean of the log-transformed (of base 2) response angle
 #'     errors.}
 #' @export
-jlo <- function(data, .input = NULL, .extra = NULL) {
+jlo <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_resp = "resp", name_angle = "angle", name_acc = "acc") |>
     update_settings(.input)
   .extra <- list(resp_anticlock = "left", resp_clockwise = "right") |>
@@ -37,10 +40,13 @@ jlo <- function(data, .input = NULL, .extra = NULL) {
         .data$resp_err_raw
       )
     ) |>
+    group_by(across(all_of(.by))) |>
     summarise(
       nc = sum(.data[[.input$name_acc]] == 1),
       mean_ang_err = mean(.data$resp_err),
       # make sure it is between 0 and 1
-      mean_log_err = mean(log2(.data$resp_err / 90 + 1))
-    )
+      mean_log_err = mean(log2(.data$resp_err / 90 + 1)),
+      .groups = "drop"
+    ) |>
+    vctrs::vec_restore(data)
 }

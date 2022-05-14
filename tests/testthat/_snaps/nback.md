@@ -3,20 +3,20 @@
     {
       "type": "list",
       "attributes": {
-        "class": {
+        "names": {
           "type": "character",
           "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
+          "value": ["pc", "mrt", "ies", "rcs", "lisas", "dprime"]
         },
         "row.names": {
           "type": "integer",
           "attributes": {},
           "value": [1]
         },
-        "names": {
+        "class": {
           "type": "character",
           "attributes": {},
-          "value": ["pc", "mrt", "ies", "rcs", "lisas", "dprime"]
+          "value": ["tbl_df", "tbl", "data.frame"]
         }
       },
       "value": [
@@ -28,27 +28,87 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [1.06404785]
+          "value": [0.50886421]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [2.66011963]
+          "value": [1.27216053]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.38538427]
+          "value": [0.54579516]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [2.52490057]
+          "value": [1.03113978]
         },
         {
           "type": "double",
           "attributes": {},
           "value": [-0.45976824]
+        }
+      ]
+    }
+
+# Works with grouping variable
+
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["id", "pc", "mrt", "ies", "rcs", "lisas", "dprime"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2]
+        },
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        }
+      },
+      "value": [
+        {
+          "type": "integer",
+          "attributes": {},
+          "value": [1, 2]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.4, 0.5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.50886421, 1.14328339]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1.27216053, 2.28656678]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.54579516, 0.51417618]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [1.03113978, 2.09890284]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.45976824, 0]
         }
       ]
     }

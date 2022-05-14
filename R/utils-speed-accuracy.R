@@ -16,68 +16,65 @@
 #'   & Chartier, S. (2010).
 #'
 #' @template common
+#' @param by The column name(s) in `data` used to be grouped by. If set to
+#'   `NULL`, all data will be treated as from one subject.
 #' @templateVar name_acc TRUE
 #' @templateVar name_rt TRUE
 #' @template names
 #' @param rt_rm_out A logical value. Whether remove response time outlier or
 #'   not. Default to `TRUE.`
 #' @param rt_unit The unit of response time in `data`.
-#' @param rt_rtn If mean or standard deviation of response times should be
-#'   returned.
-#' @param acc_rtn If count or percent of correct responses should be returned.
-#' @param sat_rtn If any of the speed-accuracy trade-off index should be
-#'   returned. `"IES"`, `"RCS"` and `"LISAS"` are supported.
 #' @return A [tibble][tibble::tibble-package] contains the required scores.
 #' @keywords internal
-calc_spd_acc <- function(data, name_acc, name_rt,
-                         rt_rm_out = TRUE, rt_unit = c("ms", "s"),
-                         rt_rtn = c("both", "mean", "sd", "none"),
-                         acc_rtn = c("both", "count", "percent", "none"),
-                         sat_rtn = c("all", "ies", "rcs", "lisas", "none")) {
+calc_spd_acc <- function(data, by = NULL, name_acc = "acc", name_rt = "rt",
+                         rt_rm_out = TRUE, rt_unit = c("ms", "s")) {
   rt_unit <- match.arg(rt_unit)
   # set reaction time unit to seconds for better value range
   if (rt_unit == "ms") data[[name_rt]] <- data[[name_rt]] / 1000
-  rt_rtn <- match.arg(rt_rtn)
-  acc_rtn <- match.arg(acc_rtn)
-  sat_rtn <- match.arg(sat_rtn)
-  nc <- sum(data[[name_acc]] == 1)
-  pc <- nc / nrow(data)
-  pcsd <- stats::sd(data[[name_acc]] == 1)
-  rt_all <- data[[name_rt]]
-  # rt of 0 or `NA` means no response or irrelavant response
-  keep_rows <- rt_all != 0 & !is.na(rt_all)
-  rt_all <- rt_all[keep_rows]
-  if (rt_rm_out) {
-    is_outlier <- check_outliers_rt(rt_all)
-    rt_correct <- .subset(
-      rt_all,
-      data[[name_acc]][keep_rows] == 1 & !is_outlier
+  data |>
+    # rt of 0 means no response and should be converted as `NA
+    mutate(na_if(.data[[name_rt]], 0)) |>
+    group_by(across(all_of(by))) |>
+    mutate(is_outlier = check_outliers_rt(.data[[name_rt]])) |>
+    summarise(
+      nc = sum(.data[[name_acc]] == 1),
+      pc = .data$nc / n(),
+      pcsd = stats::sd(.data[[name_acc]] == 1),
+      mrt = if (rt_rm_out) {
+        .data[[name_rt]] |>
+          .subset(!.data$is_outlier & .data[[name_acc]] == 1) |>
+          mean.default(na.rm = TRUE)
+      } else {
+        .data[[name_rt]] |>
+          .subset(.data[[name_acc]] == 1) |>
+          mean.default(na.rm = TRUE)
+      },
+      mrt_all = if (rt_rm_out) {
+        .data[[name_rt]] |>
+          .subset(!.data$is_outlier) |>
+          mean.default(na.rm = TRUE)
+      } else {
+        .data[[name_rt]] |>
+          mean.default(na.rm = TRUE)
+      },
+      rtsd  = if (rt_rm_out) {
+        .data[[name_rt]] |>
+          .subset(!.data$is_outlier & .data[[name_acc]] == 1) |>
+          stats::sd(na.rm = TRUE)
+      } else {
+        .data[[name_rt]] |>
+          .subset(.data[[name_acc]] == 1) |>
+          stats::sd(na.rm = TRUE)
+      },
+      ies = .data$mrt / .data$pc,
+      rcs = .data$pc / .data$mrt_all,
+      lisas = case_when(
+        .data$pc == 1 ~ .data$mrt,
+        .data$pc == 0 ~ 0,
+        TRUE ~ .data$mrt + (1 - .data$pc) / .data$pcsd * .data$rtsd
+      ),
+      .groups = "drop"
     )
-    rt_all <- .subset(rt_all, !is_outlier)
-  } else {
-    rt_correct <- rt_all |>
-      .subset(data[[name_acc]][keep_rows] == 1)
-  }
-  mrt <- mean(rt_correct)
-  rtsd <- stats::sd(rt_correct)
-  ies <- mrt / pc
-  rcs <- pc / mean(rt_all)
-  lisas <- if (pc == 1) {
-    mrt
-  } else if (pc == 0) {
-    0
-  } else {
-    mrt + (1 - pc) / pcsd * rtsd
-  }
-  tibble(
-    nc = if (acc_rtn %in% c("both", "count")) nc,
-    pc = if (acc_rtn %in% c("both", "percent")) pc,
-    mrt = if (rt_rtn %in% c("both", "mean")) mrt,
-    rtsd = if (rt_rtn %in% c("both", "sd")) rtsd,
-    ies = if (sat_rtn %in% c("all", "ies")) ies,
-    rcs = if (sat_rtn %in% c("all", "rcs")) rcs,
-    lisas = if (sat_rtn %in% c("all", "lisas")) lisas
-  )
 }
 
 #' Signal Detection Theory
@@ -87,21 +84,18 @@ calc_spd_acc <- function(data, name_acc, name_rt,
 #' recommended by Hautus (1995).
 #'
 #' @template common
+#' @param by The column name(s) in `data` used to be grouped by. If set to
+#'   `NULL`, all data will be treated as from one subject.
 #' @templateVar name_acc TRUE
 #' @template names
 #' @param name_type The column name of the `data` input whose values are the
 #'   stimuli types, in which is a `character` vector with value `"s"` (denoting
 #'   "*signal*") and `"n"` (denoting "*non-signal*") only. It will be coerced as
 #'   a `factor` vector with these two levels.
-#' @param keep_bias A logical value. Whether the bias index be returned. Default
-#'   is `TRUE`.
-#' @param keep_counts A logical value. Whether the counts of errors (commissions
-#'   and omissions) be returned. Default is `TRUE`.
 #' @return A [tibble][tibble::tibble-package] contains sensitivity index and
 #'   bias (and other counts measures)
 #' @keywords internal
-calc_sdt <- function(data, name_acc, name_type,
-                     keep_bias = TRUE, keep_counts = TRUE) {
+calc_sdt <- function(data, by = NULL, name_acc = "acc", name_type = "type") {
   data |>
     mutate(
       type_fac = factor(
@@ -109,7 +103,7 @@ calc_sdt <- function(data, name_acc, name_type,
         c("s", "n")
       )
     ) |>
-    group_by(.data$type_fac) |>
+    group_by(across(all_of(c(by, "type_fac")))) |>
     summarise(
       c = sum(.data[[name_acc]] == 1),
       e = n() - .data$c,
@@ -128,10 +122,10 @@ calc_sdt <- function(data, name_acc, name_type,
       names_from = .data$type_fac,
       values_from = c("c", "e", "zc", "ze")
     ) |>
-    transmute(
+    mutate(
       dprime = .data$zc_s - .data$ze_n,
-      c = if(keep_bias) -(.data$zc_s + .data$ze_n) / 2,
-      commissions = if (keep_counts) .data$e_n,
-      omissions = if (keep_counts) .data$e_s
+      c = -(.data$zc_s + .data$ze_n) / 2,
+      commissions = .data$e_n,
+      omissions = .data$e_s
     )
 }

@@ -4,7 +4,7 @@
 #'
 #' @template common
 #' @template options
-#' @return A [tibble][tibble::tibble-package] contains following values:
+#' @return An object with the same class as `data` contains following values:
 #'
 #'   \item{nc}{Count of correct responses.}
 #'
@@ -15,7 +15,7 @@
 #'   \item{mean_span_anu}{Mean span using all-or-nothing unit score.}
 #'
 #' @export
-span <- function(data, .input = NULL, .extra = NULL) {
+span <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
     name_slen = "slen",
     name_outcome = "outcome",
@@ -50,12 +50,12 @@ span <- function(data, .input = NULL, .extra = NULL) {
       acc = parse_char_resp(.data[[.input$name_acc]]),
       nc = purrr::map_dbl(.data$acc, ~ sum(.x == 1))
     ) |>
-    group_by(.data[[.input$name_slen]]) |>
+    group_by(across(all_of(c(.by, .input$name_slen)))) |>
     summarise(
       nc = sum(.data$nc),
       pcu = sum(.data$nc) / sum(.data[[.input$name_slen]]),
       anu = mean(.data[[.input$name_outcome]] == 1),
-      .groups = "drop"
+      .groups = "drop_last"
     ) |>
     summarise(
       nc = sum(.data$nc),
@@ -65,6 +65,8 @@ span <- function(data, .input = NULL, .extra = NULL) {
       mean_span_pcu = min(.data[[.input$name_slen]]) +
         sum(.data$pcu) - 1,
       mean_span_anu = min(.data[[.input$name_slen]]) +
-        sum(.data$anu) - 0.5
-    )
+        sum(.data$anu) - 0.5,
+      .groups = "drop"
+    ) |>
+    vctrs::vec_restore(data)
 }

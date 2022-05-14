@@ -4,10 +4,10 @@
 #'
 #' @template common
 #' @template options
-#' @return A [tibble][tibble::tibble-package] contains following values:
+#' @return An object with the same class as `data` contains following values:
 #'   \item{still_ratio}{The ratio of still duration in yellow light state.}
 #' @export
-driving <- function(data, .input = NULL, .extra = NULL) {
+driving <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
     name_still_dur = "stilldur",
     name_still_light = "stilllight",
@@ -32,9 +32,11 @@ driving <- function(data, .input = NULL, .extra = NULL) {
         )
       )
     ) |>
+    group_by(across(all_of(.by))) |>
     summarise(
       still_ratio = sum(.data$still_dur_yellow) /
         sum(.data[[.input$name_yellow_dur]]),
       .groups = "drop"
-    )
+    ) |>
+    vctrs::vec_restore(data)
 }

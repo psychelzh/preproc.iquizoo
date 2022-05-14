@@ -4,12 +4,13 @@
 #'
 #' @template common
 #' @template options
-#' @return A [tibble][tibble::tibble-package] contains following values:
-#'   \item{total_score}{Total score defined by the game itself.}
-#'   \item{mean_level}{Mean level reached.}
-#'   \item{level_score}{Sum of mean score (a ratio) for each level.}
+#' @return An object with the same class as `data` contains following values:
+#'
+#'   \item{prop_perfect}{Proportion of responses with minimal moves.}
+#'
+#'   \item{mrt_init}{Mean initial response time.}
 #' @export
-london <- function(data, .input = NULL, .extra = NULL) {
+london <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
     name_minmove = "minmove",
     name_timeinit = "timeinit",
@@ -17,21 +18,23 @@ london <- function(data, .input = NULL, .extra = NULL) {
     name_finished = "finished"
   ) |>
     update_settings(.input)
-  bind_cols(
-    summarise(
-      data,
-      prop_perfect = mean(
-        .data[[.input$name_stepsused]] == .data[[.input$name_minmove]]
-      )
-    ),
+  merge(
+    data |>
+      group_by(across(all_of(.by))) |>
+      summarise(
+        prop_perfect = mean(
+          .data[[.input$name_stepsused]] == .data[[.input$name_minmove]]
+        ),
+        .groups = "drop"
+      ),
     calc_spd_acc(
       data,
+      by = .by,
       name_acc = .input$name_finished,
-      name_rt = .input$name_timeinit,
-      acc_rtn = "none",
-      rt_rtn = "mean",
-      sat_rtn = "none"
-    ) |>
-      rename(mrt_init = .data$mrt)
-  )
+      name_rt = .input$name_timeinit
+    ),
+    by = .by
+  ) |>
+    select(all_of(c(.by, "prop_perfect", mrt_init = "mrt"))) |>
+    vctrs::vec_restore(data)
 }

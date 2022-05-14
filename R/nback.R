@@ -8,7 +8,7 @@
 #' @name nback
 #' @template common
 #' @template options
-#' @return A [tibble][tibble::tibble-package] contains following values (tripled
+#' @return An object with the same class as `data` contains following values (tripled
 #'   for dual n-back):
 #'
 #'   \item{pc}{Percentage of correct responses.}
@@ -26,7 +26,7 @@ NULL
 
 #' @rdname nback
 #' @export
-nback <- function(data, .input = NULL, .extra = NULL) {
+nback <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
     name_type = "type",
     name_acc = "acc",
@@ -37,17 +37,19 @@ nback <- function(data, .input = NULL, .extra = NULL) {
     update_settings(.extra)
   .calc_nback(
     data,
+    by = .by,
     name_type = .input$name_type,
     name_acc = .input$name_acc,
     name_rt = .input$name_rt,
     type_filler = .extra$type_filler,
     type_signal = .extra$type_signal
-  )
+  ) |>
+    vctrs::vec_restore(data)
 }
 
 #' @rdname nback
 #' @export
-dualnback <- function(data, .input = NULL, .extra = NULL) {
+dualnback <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
     name_type1 = "typevis",
     name_type2 = "typeaud",
@@ -78,22 +80,21 @@ dualnback <- function(data, .input = NULL, .extra = NULL) {
     .id = "set"
   ) |>
     mutate(dual = if_else(.data$set == "both", "both", .data$dual)) |>
-    group_by(.data$dual) |>
-    group_modify(
-      ~ .calc_nback(
-        .x,
-        type_filler = .extra$type_filler,
-        type_signal = .extra$type_signal
-      )
+    .calc_nback(
+      by = c("dual", .by),
+      type_filler = .extra$type_filler,
+      type_signal = .extra$type_signal
     ) |>
-    ungroup() |>
     pivot_wider(
+      id_cols = all_of(.by),
       names_from = .data$dual,
-      values_from = -.data$dual
-    )
+      values_from = -c(.by, .data$dual)
+    ) |>
+    vctrs::vec_restore(data)
 }
 
 .calc_nback <- function(data,
+                        by,
                         name_type = "type",
                         name_acc = "acc",
                         name_rt = "rt",
@@ -109,21 +110,30 @@ dualnback <- function(data, .input = NULL, .extra = NULL) {
         "s", "n"
       )
     )
-  bind_cols(
+  merge(
     calc_spd_acc(
       data_cor,
+      by = by,
       name_acc = name_acc,
-      name_rt = name_rt,
-      rt_rtn = "mean",
-      acc_rtn = "percent",
-      sat_rtn = "all"
+      name_rt = name_rt
     ),
     calc_sdt(
       data_cor,
+      by = by,
       name_acc = name_acc,
-      name_type = "type_cor",
-      keep_bias = FALSE,
-      keep_counts = FALSE
-    )
-  )
+      name_type = "type_cor"
+    ),
+    by = by
+  ) |>
+    select(
+      all_of(
+        c(
+          by,
+          "pc", "mrt",
+          "ies", "rcs", "lisas",
+          "dprime"
+        )
+      )
+    ) |>
+    vctrs::vec_restore(data)
 }
