@@ -8,7 +8,7 @@
 #' @template options
 #' @return An object with the same class as `data` contains following values:
 #'
-#'   \item{pc}{Percent of correct responses.}
+#'   \item{nc}{Count of correct responses.}
 #'
 #'   \item{mrt}{Mean reaction time of hits.}
 #'
@@ -56,7 +56,7 @@ cpt <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       all_of(
         c(
           .by,
-          "pc", "mrt", "rtsd",
+          "nc", "mrt", "rtsd",
           "dprime", "commissions", "omissions"
         )
       )
