@@ -6,7 +6,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["pc", "mrt", "rtsd", "dprime", "commissions", "omissions"]
+          "value": ["nc", "mrt", "rtsd", "dprime", "commissions", "omissions"]
         },
         "row.names": {
           "type": "integer",
@@ -21,9 +21,9 @@
       },
       "value": [
         {
-          "type": "double",
+          "type": "integer",
           "attributes": {},
-          "value": [1]
+          "value": [20]
         },
         {
           "type": "double",
@@ -61,7 +61,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["id", "pc", "mrt", "rtsd", "dprime", "commissions", "omissions"]
+          "value": ["id", "nc", "mrt", "rtsd", "dprime", "commissions", "omissions"]
         },
         "row.names": {
           "type": "integer",
@@ -81,9 +81,9 @@
           "value": [1, 2]
         },
         {
-          "type": "double",
+          "type": "integer",
           "attributes": {},
-          "value": [1, 0.9]
+          "value": [20, 18]
         },
         {
           "type": "double",
@@ -121,7 +121,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["pc", "mrt", "rtsd", "dprime", "commissions", "omissions"]
+          "value": ["nc", "mrt", "rtsd", "dprime", "commissions", "omissions"]
         },
         "row.names": {
           "type": "integer",
@@ -136,9 +136,9 @@
       },
       "value": [
         {
-          "type": "double",
+          "type": "integer",
           "attributes": {},
-          "value": [1]
+          "value": [20]
         },
         {
           "type": "double",

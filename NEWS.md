@@ -1,4 +1,8 @@
-# preproc.iquizoo (development version)
+# preproc.iquizoo 2.4.1
+
+## Bug Fixes
+
+* Reverted one index (`pc`) of `cpt()` to its original `nc`.
 
 # preproc.iquizoo 2.4.0
 
