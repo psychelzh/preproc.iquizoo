@@ -20,7 +20,7 @@ section.}
 \value{
 An object with the same class as \code{data} contains following values:
 
-\item{pc}{Percent of correct responses.}
+\item{nc}{Count of correct responses.}
 
 \item{mrt}{Mean reaction time of hits.}
 
