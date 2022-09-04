@@ -1,4 +1,6 @@
-# preproc.iquizoo (development version)
+# preproc.iquizoo 2.4.2
+
+* Fixed a bug in `span()` when correctness column has `NA` values not in all rows, in which case the function would not calculate partical credit scores for all cases.
 
 # preproc.iquizoo 2.4.1
 
