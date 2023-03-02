@@ -1,5 +1,18 @@
 # preproc.iquizoo (development version)
 
+## New Features
+
+* Added `condstairs()` to analyze data from self-adaptive filtering task.
+* Added support for extra checking for valid rows to include in `countcorrect()`.
+
+## Bug Fixes
+
+* Fixed the random seed in `fit_numerosity()`. Future work might be expanded to support setting this (rather easy but not so important now).
+
+## Upkeep
+
+* After {tidyselect} 1.2.0 and {dplyr} 1.1.0, many old usage of {tidyverse} functions will throw warnings. These warnings are now taken care of.
+
 # preproc.iquizoo 2.4.2
 
 * Fixed a bug in `span()` when correctness column has `NA` values not in all rows, in which case the function would not calculate partical credit scores for all cases.
