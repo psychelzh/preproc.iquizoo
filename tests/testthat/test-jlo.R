@@ -32,4 +32,3 @@ test_that("Works with grouping variable", {
     tolerance = 1e-5
   )
 })
-

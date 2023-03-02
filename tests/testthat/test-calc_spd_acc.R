@@ -29,4 +29,3 @@ test_that("No error when acc is perfect", {
     expect_silent() |>
     expect_snapshot_value(style = "json2", tolerance = 1e-5)
 })
-
