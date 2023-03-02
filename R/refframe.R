@@ -37,7 +37,7 @@ refframe <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     ) |>
     pivot_wider(
       id_cols = all_of(.by),
-      names_from = .data$type_cor,
+      names_from = "type_cor",
       values_from = starts_with("mean")
     ) |>
     vctrs::vec_restore(data)

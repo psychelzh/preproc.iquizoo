@@ -119,7 +119,7 @@ calc_sdt <- function(data, by = NULL, name_acc = "acc", name_type = "type") {
       )
     ) |>
     pivot_wider(
-      names_from = .data$type_fac,
+      names_from = "type_fac",
       values_from = c("c", "e", "zc", "ze")
     ) |>
     mutate(

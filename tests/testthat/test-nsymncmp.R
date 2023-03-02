@@ -16,7 +16,7 @@ data <- withr::with_seed(
     config
   ) |>
     group_by(id, bigsetcount, smallsetcount, pc) |>
-    summarise(
+    reframe(
       tibble(
         n = 10,
         acc = c(rep(1, round(n * pc)), rep(0, round(n * (1 - pc)))),

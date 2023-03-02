@@ -27,7 +27,7 @@ locmem <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       dist = parse_char_resp(.data[[.input$name_dist]]),
       .keep = "unused"
     ) |>
-    unnest(.data$dist) |>
+    unnest("dist") |>
     group_by(across(all_of(.by))) |>
     summarise(
       nc_loc = sum(.data$dist == 0),
@@ -53,7 +53,7 @@ locmem2 <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
         acc_order = parse_char_resp(.data[[.input$name_acc_order]]),
         .keep = "unused"
       ) |>
-      unnest(.data$acc_order) |>
+      unnest("acc_order") |>
       group_by(across(all_of(.by))) |>
       summarise(
         nc_order = sum(.data$acc_order == 1),

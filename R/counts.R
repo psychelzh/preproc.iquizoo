@@ -48,7 +48,7 @@ countcorrect <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
             .data[[.input$name_acc]]
           )
         ) |>
-        unnest(.data[[.input$name_acc]])
+        unnest(all_of(.input$name_acc))
     }
     data <- data |>
       group_by(across(all_of(.by))) |>

@@ -71,7 +71,7 @@ calc_cond_diff <- function(data, by, name_acc, name_rt,
       values_to = "score"
     ) |>
     pivot_wider(
-      names_from = .data[[name_cond]],
+      names_from = all_of(name_cond),
       values_from = "score"
     ) |>
     mutate(
@@ -86,8 +86,8 @@ calc_cond_diff <- function(data, by, name_acc, name_rt,
       )
     ) |>
     pivot_wider(
-      names_from = .data$index_name,
-      values_from = .data$diff,
+      names_from = "index_name",
+      values_from = "diff",
       names_prefix = name_diff_prefix
     ) |>
     merge(

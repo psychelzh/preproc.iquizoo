@@ -34,8 +34,8 @@ rapm <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     ) |>
     pivot_wider(
       id_cols = all_of(.by),
-      names_from = .data$block,
-      values_from = .data$nc,
+      names_from = "block",
+      values_from = "nc",
       names_prefix = "nc_"
     ) |>
     mutate(nc_total = .data$nc_prac + .data$nc_test) |>

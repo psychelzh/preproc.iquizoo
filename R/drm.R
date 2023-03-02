@@ -42,7 +42,7 @@ drm <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       .groups = "drop_last"
     ) |>
     pivot_wider(
-      names_from = .data[[.input$name_type]],
+      names_from = all_of(.input$name_type),
       values_from = "z_old"
     ) |>
     transmute(
