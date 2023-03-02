@@ -21,8 +21,8 @@ names and special values for certain variables. See more in the details
 section.}
 }
 \value{
-An object with the same class as \code{data} contains following values (tripled
-for dual n-back):
+An object with the same class as \code{data} contains following values
+(tripled for dual n-back):
 
 \item{pc}{Percentage of correct responses.}
 

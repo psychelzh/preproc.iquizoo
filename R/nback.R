@@ -8,8 +8,8 @@
 #' @name nback
 #' @template common
 #' @template options
-#' @return An object with the same class as `data` contains following values (tripled
-#'   for dual n-back):
+#' @return An object with the same class as `data` contains following values
+#'   (tripled for dual n-back):
 #'
 #'   \item{pc}{Percentage of correct responses.}
 #'
