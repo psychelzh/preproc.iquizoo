@@ -3,6 +3,7 @@
 export(bart)
 export(bps)
 export(complexswitch)
+export(condstairs)
 export(congeff)
 export(countcorrect)
 export(countcorrect2)
