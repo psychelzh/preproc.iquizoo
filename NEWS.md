@@ -3,6 +3,7 @@
 ## New Features
 
 * Added `condstairs()` to analyze data from self-adaptive filtering task.
+* Added `fname()` to analyze data from face-name associative task.
 * Added support for extra checking for valid rows to include in `countcorrect()`.
 
 ## Bug Fixes
