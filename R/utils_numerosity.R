@@ -14,6 +14,7 @@
 #' @export
 fit_numerosity <- function(data, name_bigset, name_smallset, name_acc,
                            n_fit = 5, seed = 1) {
+  set.seed(seed)
   b <- data[[name_bigset]]
   s <- data[[name_smallset]]
   acc <- data[[name_acc]]
