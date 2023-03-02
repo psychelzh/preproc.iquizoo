@@ -1,20 +1,3 @@
-#' Utility function for level (or something similar) data preparation
-.prepare_level <- function(outcome, init_level, max_level, min_level) {
-  out <- numeric(length(outcome))
-  for (i in seq_along(outcome)) {
-    if (i == 1) {
-      out[i] <- init_level
-    } else {
-      if (outcome[i - 1] == 1) {
-        out[i] <- min(max_level, out[i - 1] + 1)
-      } else {
-        out[i] <- max(min_level, out[i - 1] - 1)
-      }
-    }
-  }
-  out
-}
-
 data <- withr::with_seed(
   1,
   expand_grid(
@@ -29,11 +12,10 @@ data <- withr::with_seed(
         replace = TRUE,
         prob = c(0.2, 0.8)
       ),
-      slen = .prepare_level(
-        outcome,
-        init_level = 3,
-        max_level = 16,
-        min_level = 2
+      slen = prepare_level(
+        outcome, 1, 1,
+        level_init = 3,
+        level_limits = c(2, 16)
       )
     ) |>
     rowwise() |>
@@ -77,11 +59,10 @@ test_that("Works when no acc column found", {
         )
       ) |>
       mutate(
-        slen = .prepare_level(
-          outcome,
-          init_level = 3,
-          max_level = 16,
-          min_level = 2
+        slen = prepare_level(
+          outcome, 1, 1,
+          level_init = 3,
+          level_limits = c(2, 16)
         )
       )
   )
