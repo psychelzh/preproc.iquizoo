@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/psychelzh/preproc.iquizoo/workflows/R-CMD-check/badge.svg)](https://github.com/psychelzh/preproc.iquizoo/actions)
+[![R-CMD-check](https://github.com/psychelzh/preproc.iquizoo/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/psychelzh/preproc.iquizoo/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/psychelzh/preproc.iquizoo/branch/main/graph/badge.svg)](https://codecov.io/gh/psychelzh/preproc.iquizoo?branch=main)
 [![lint](https://github.com/psychelzh/preproc.iquizoo/workflows/lint/badge.svg)](https://github.com/psychelzh/preproc.iquizoo/actions)
@@ -43,7 +43,7 @@ there.
 To deal with the various formats of datasets, each function accepts two
 special input arguments:
 
--   `.input`: the input variable names used in the `data.frame` typed
-    data.
--   `.extra`: some special values for certain variable. For example, the
-    value used to indicate `"congruent"` type stimuli.
+- `.input`: the input variable names used in the `data.frame` typed
+  data.
+- `.extra`: some special values for certain variable. For example, the
+  value used to indicate `"congruent"` type stimuli.
