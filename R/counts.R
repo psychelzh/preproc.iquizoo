@@ -23,6 +23,22 @@ NULL
 countcorrect <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_nc = "ncorrect", name_acc = "acc") |>
     update_settings(.input)
+  .extra <- list(
+    name_check = NULL,
+    check_valid = NULL
+  ) |>
+    update_settings(.extra)
+  if (!is.null(.extra$name_check) && !is.null(.extra$check_valid)) {
+    if (!has_name(data, .extra$name_check)) {
+      warn(
+        "Cannot find the specified checking variable. Skip checking.",
+        "miss_chk_var"
+      )
+    } else {
+      data <- data |>
+        filter(.data[[.extra$name_check]] %in% .extra$check_valid)
+    }
+  }
   if (!has_name(data, .input$name_nc)) {
     if (is.character(data[[.input$name_acc]])) {
       # character input uses "-" to separate individual responses
