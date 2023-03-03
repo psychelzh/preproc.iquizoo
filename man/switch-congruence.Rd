@@ -29,14 +29,14 @@ A \link[tibble:tibble-package]{tibble} with the following variables:
 
 For the total task:
 
-\item{pc}{Percent of correct}.
+\item{pc}{Percent of correct.}
 
 \item{mrt}{Mean reaction time.}
 
 For congruence effect and switch cost, the following indices will be
 included (including diffs and value for each condition):
 
-\item{pc}{Percent of correct}.
+\item{pc}{Percent of correct.}
 
 \item{mrt}{Mean reaction time.}
 
