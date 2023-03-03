@@ -25,7 +25,8 @@ span <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .extra <- list(
     name_stim = "stim",
     name_resp = "resp",
-    name_dist = "resplocdist"
+    name_dist = "resplocdist",
+    outcome_rule = 1
   ) |>
     update_settings(.extra)
   # try to restore "name_acc" from data
@@ -44,6 +45,14 @@ span <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     } else {
       data[[.input$name_acc]] <- ""
     }
+  }
+  # try to restore "name_outcome" from data
+  if (!has_name(data, .input$name_outcome) ||
+      anyNA(data[[.input$name_outcome]])) {
+    # assume outcome = 1 if number of error is no more than "outcome_rule"
+    data[[.input$name_outcome]] <- data[[.input$name_acc]] |>
+      parse_char_resp() |>
+      purrr::map_dbl(~ sum(1 - .) <= .extra$outcome_rule)
   }
   data |>
     mutate(

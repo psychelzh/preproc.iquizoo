@@ -6,6 +6,7 @@
 * Added `fname()` to analyze data from face-name associative task.
 * Added `ant_orient()` and `ant_alert()` to analyze data from splitted version of attention network tests (ANT).
 * Added support for extra checking for valid rows to include in `countcorrect()`.
+* Added support for restoring `"outcome"` column from `"acc"` column in `span()`. This might need further congfiguration of `"outcome_rule"` (default to 1, means no more error count of 1) in argument `.extra`.
 
 ## Bug Fixes
 

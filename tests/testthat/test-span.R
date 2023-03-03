@@ -99,3 +99,25 @@ test_that("Works for distance input", {
     span(data_dist)
   )
 })
+
+test_that("Can restore outcome from correctness", {
+  withr::local_seed(1)
+  data <- tibble(
+    outcome = sample(0:1, 10, replace = TRUE, prob = c(0.4, 0.6))
+  ) |>
+    mutate(
+      slen = prepare_level(outcome, 1, 2, level_limits = c(2, Inf)),
+      correctness = purrr::map2_chr(
+        outcome, slen,
+        ~ if_else(
+          .x == 1,
+          stringr::str_c(rep(1, .y), collapse = "-"),
+          stringr::str_c(c(0, 0, rep(1, .y - 2)), collapse = "-")
+        )
+      ),
+      .keep = "unused"
+    )
+  span(data) |>
+    expect_silent() |>
+    expect_snapshot_value(style = "json2", tolerance = 1e-5)
+})
