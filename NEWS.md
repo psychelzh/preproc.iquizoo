@@ -4,6 +4,7 @@
 
 * Added `condstairs()` to analyze data from self-adaptive filtering task.
 * Added `fname()` to analyze data from face-name associative task.
+* Added `ant_orient()` and `ant_alert()` to analyze data from splitted version of attention network tests (ANT).
 * Added support for extra checking for valid rows to include in `countcorrect()`.
 
 ## Bug Fixes
