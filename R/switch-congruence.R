@@ -62,10 +62,14 @@ complexswitch <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   switch_cost <- data |>
     filter(.data[[.input$name_switch]] != .extra$task_filler) |>
     mutate(
-      switch = recode(
+      # https://github.com/tidyverse/dplyr/issues/6623
+      switch = case_match(
         .data[[.input$name_switch]],
-        "{.extra$task_repeat}" := "repeat",
-        "{.extra$task_switch}" := "switch"
+        !!!purrr::map2(
+          .extra[c("task_repeat", "task_switch")],
+          c("repeat", "switch"),
+          new_formula
+        )
       )
     ) |>
     calc_switch_cost(
@@ -76,10 +80,13 @@ complexswitch <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     )
   cong_eff <- data |>
     mutate(
-      stim_type = recode(
+      stim_type = case_match(
         .data[[.input$name_cong]],
-        "{.extra$stim_con}" := "con",
-        "{.extra$stim_inc}" := "inc"
+        !!!purrr::map2(
+          .extra[c("stim_con", "stim_inc")],
+          c("con", "inc"),
+          new_formula
+        )
       )
     ) |>
     calc_cong_eff(
@@ -117,10 +124,13 @@ congeff <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     select(all_of(c(.by, "pc", "mrt")))
   cong_eff <- data |>
     mutate(
-      stim_type = recode(
+      stim_type = case_match(
         .data[[.input$name_cong]],
-        "{.extra$stim_con}" := "con",
-        "{.extra$stim_inc}" := "inc"
+        !!!purrr::map2(
+          .extra[c("stim_con", "stim_inc")],
+          c("con", "inc"),
+          new_formula
+        )
       )
     ) |>
     calc_cong_eff(
@@ -158,10 +168,13 @@ switchcost <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   switch_cost <- data |>
     filter(.data[[.input$name_switch]] != .extra$task_filler) |>
     mutate(
-      switch = recode(
+      switch = case_match(
         .data[[.input$name_switch]],
-        "{.extra$task_repeat}" := "repeat",
-        "{.extra$task_switch}" := "switch"
+        !!!purrr::map2(
+          .extra[c("task_repeat", "task_switch")],
+          c("repeat", "switch"),
+          new_formula
+        )
       )
     ) |>
     calc_switch_cost(

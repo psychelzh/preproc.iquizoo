@@ -7,7 +7,11 @@ data <- withr::with_seed(
     rowwise() |>
     mutate(
       resp_base = list(sample(c(-1, 1), sample(1:100, 1), replace = TRUE)),
-      resp = recode(resp_base, `1` = "left", `-1` = "right") |>
+      resp = case_match(
+        resp_base,
+        1 ~ "left",
+        -1 ~ "right"
+      ) |>
         stringr::str_c(collapse = "-"),
       resp_angle = sum(resp_base) * 6,
       resp_err = abs(resp_angle - angle) %% 360,
