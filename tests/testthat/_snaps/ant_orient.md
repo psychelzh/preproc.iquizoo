@@ -6,7 +6,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["cong_eff_pc", "cong_eff_mrt", "cong_eff_ies", "cong_eff_rcs", "cong_eff_lisas", "orient_endo_pc", "orient_endo_mrt", "orient_endo_ies", "orient_endo_rcs", "orient_endo_lisas", "orient_exo_pc", "orient_exo_mrt", "orient_exo_ies", "orient_exo_rcs", "orient_exo_lisas"]
+          "value": ["cong_eff_pc", "cong_eff_mrt", "cong_eff_ies", "cong_eff_rcs", "cong_eff_lisas", "orient_pc", "orient_mrt", "orient_ies", "orient_rcs", "orient_lisas", "orient_endo_pc", "orient_endo_mrt", "orient_endo_ies", "orient_endo_rcs", "orient_endo_lisas", "orient_exo_pc", "orient_exo_mrt", "orient_exo_ies", "orient_exo_rcs", "orient_exo_lisas"]
         },
         "row.names": {
           "type": "integer",
@@ -44,6 +44,31 @@
           "type": "double",
           "attributes": {},
           "value": [0.19311774]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.05]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.07944721]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.00898532]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.01622249]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.13567216]
         },
         {
           "type": "double",
@@ -106,7 +131,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["id", "cong_eff_pc", "cong_eff_mrt", "cong_eff_ies", "cong_eff_rcs", "cong_eff_lisas", "orient_endo_pc", "orient_endo_mrt", "orient_endo_ies", "orient_endo_rcs", "orient_endo_lisas", "orient_exo_pc", "orient_exo_mrt", "orient_exo_ies", "orient_exo_rcs", "orient_exo_lisas"]
+          "value": ["id", "cong_eff_pc", "cong_eff_mrt", "cong_eff_ies", "cong_eff_rcs", "cong_eff_lisas", "orient_pc", "orient_mrt", "orient_ies", "orient_rcs", "orient_lisas", "orient_endo_pc", "orient_endo_mrt", "orient_endo_ies", "orient_endo_rcs", "orient_endo_lisas", "orient_exo_pc", "orient_exo_mrt", "orient_exo_ies", "orient_exo_rcs", "orient_exo_lisas"]
         },
         "row.names": {
           "type": "integer",
@@ -149,6 +174,31 @@
           "type": "double",
           "attributes": {},
           "value": [0.19311774, 0.19311774]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.05, -0.05]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.07944721, 0.07944721]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.00898532, -0.00898532]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.01622249, 0.01622249]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.13567216, -0.13567216]
         },
         {
           "type": "double",

@@ -8,10 +8,11 @@
 #'
 #' @return An object with the same class as `data` contains following values:
 #'
-#'   Executive function score (prefix `cong_eff`), endogenous orienting scores
-#'   (prefix `orient_endo`), exogenous orienting scores (prefix `orient_exo`),
-#'   audio alerting scores (prefix `alert_aud`) and visual alerting scores
-#'   (prefix `alert_vis`) for the following performances:
+#'   Executive function score (prefix `cong_eff`), total orienting scores
+#'   (prefix `orient`), endogenous orienting scores (prefix `orient_endo`),
+#'   exogenous orienting scores (prefix `orient_exo`), total alerting scores
+#'   (prefix `alert`), audio alerting scores (prefix `alert_aud`) and visual
+#'   alerting scores (prefix `alert_vis`) for the following performances:
 #'
 #'   \item{pc}{Percent of correct.}
 #'
@@ -45,6 +46,11 @@ ant_orient <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   scores_ef <- congeff(data, .by = .by, .input = .input, .extra = .extra) |>
     select(all_of(.by), starts_with("cong_eff"))
   scores_orient <- data |>
+    bind_rows(
+      data |>
+        filter(.data[[.input$name_cuetype]] != .extra$cue_neu) |>
+        mutate(across(all_of(.input$name_cuetype), ~ "valid"))
+    ) |>
     calc_spd_acc(
       by = c(.by, .input$name_cuetype),
       name_acc = .input$name_acc,
@@ -62,6 +68,7 @@ ant_orient <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       values_from = "score"
     ) |>
     mutate(
+      orient = .data[[.extra$cue_neu]] - .data$valid,
       orient_endo = .data[[.extra$cue_neu]] - .data[[.extra$cue_endo]],
       orient_exo = .data[[.extra$cue_neu]] - .data[[.extra$cue_exo]],
       .keep = "unused"
@@ -102,6 +109,11 @@ ant_alert <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   scores_ef <- congeff(data, .by = .by, .input = .input, .extra = .extra) |>
     select(all_of(.by), starts_with("cong_eff"))
   scores_alert <- data |>
+    bind_rows(
+      data |>
+        filter(.data[[.input$name_cuetype]] != .extra$cue_neu) |>
+        mutate(across(all_of(.input$name_cuetype), ~ "valid"))
+    ) |>
     calc_spd_acc(
       by = c(.by, .input$name_cuetype),
       name_acc = .input$name_acc,
@@ -119,6 +131,7 @@ ant_alert <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       values_from = "score"
     ) |>
     mutate(
+      alert = .data[[.extra$cue_neu]] - .data$valid,
       alert_aud = .data[[.extra$cue_neu]] - .data[[.extra$cue_aud]],
       alert_vis = .data[[.extra$cue_neu]] - .data[[.extra$cue_vis]],
       .keep = "unused"

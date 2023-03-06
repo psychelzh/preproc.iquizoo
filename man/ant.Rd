@@ -24,10 +24,11 @@ section.}
 \value{
 An object with the same class as \code{data} contains following values:
 
-Executive function score (prefix \code{cong_eff}), endogenous orienting scores
-(prefix \code{orient_endo}), exogenous orienting scores (prefix \code{orient_exo}),
-audio alerting scores (prefix \code{alert_aud}) and visual alerting scores
-(prefix \code{alert_vis}) for the following performances:
+Executive function score (prefix \code{cong_eff}), total orienting scores
+(prefix \code{orient}), endogenous orienting scores (prefix \code{orient_endo}),
+exogenous orienting scores (prefix \code{orient_exo}), total alerting scores
+(prefix \code{alert}), audio alerting scores (prefix \code{alert_aud}) and visual
+alerting scores (prefix \code{alert_vis}) for the following performances:
 
 \item{pc}{Percent of correct.}
 
