@@ -9,7 +9,11 @@
 #'
 #' @return An object with the same class as `data` contains following values:
 #'
-#'   \item{capacity}{The mean number of target in condition of no distractors.}
+#'   \item{capacity0}{The mean number of target in condition of no distractors.}
+#'
+#'   \item{capacity2}{The mean number of target in condition of 2 distractors.}
+#'
+#'   \item{capacity}{The mean number of target in both conditions.}
 #'
 #'   \item{efficiency}{The filtering efficiency, .i.e, difference between
 #'   condition of no distractors and two distractors.}
@@ -34,14 +38,16 @@ condstairs <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       .groups = "drop_last"
     ) |>
     summarise(
-      capacity = .subset(
+      capacity0 = .subset(
         .data$level,
         .data[[.input$name_cond]] == .extra$type_base
       ),
-      efficiency = .data$capacity - .subset(
+      capacity2 = .subset(
         .data$level,
         .data[[.input$name_cond]] == .extra$type_filt
       ),
+      capacity = (.data$capacity0 + .data$capacity2) / 2,
+      efficiency = .data$capacity0 - .data$capacity2,
       .groups = "drop"
     ) |>
     vctrs::vec_restore(data)

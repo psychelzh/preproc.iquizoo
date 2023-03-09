@@ -20,7 +20,11 @@ section.}
 \value{
 An object with the same class as \code{data} contains following values:
 
-\item{capacity}{The mean number of target in condition of no distractors.}
+\item{capacity0}{The mean number of target in condition of no distractors.}
+
+\item{capacity2}{The mean number of target in condition of 2 distractors.}
+
+\item{capacity}{The mean number of target in both conditions.}
 
 \item{efficiency}{The filtering efficiency, .i.e, difference between
 condition of no distractors and two distractors.}

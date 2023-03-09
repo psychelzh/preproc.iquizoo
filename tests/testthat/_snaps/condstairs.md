@@ -6,7 +6,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["capacity", "efficiency"]
+          "value": ["capacity0", "capacity2", "capacity", "efficiency"]
         },
         "row.names": {
           "type": "integer",
@@ -28,6 +28,16 @@
         {
           "type": "double",
           "attributes": {},
+          "value": [5.25]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [4.625]
+        },
+        {
+          "type": "double",
+          "attributes": {},
           "value": [-1.25]
         }
       ]
@@ -41,7 +51,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["id", "capacity", "efficiency"]
+          "value": ["id", "capacity0", "capacity2", "capacity", "efficiency"]
         },
         "row.names": {
           "type": "integer",
@@ -64,6 +74,16 @@
           "type": "double",
           "attributes": {},
           "value": [4, 4]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [5.25, 5.25]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [4.625, 4.625]
         },
         {
           "type": "double",
