@@ -49,7 +49,7 @@ ant_orient <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     bind_rows(
       data |>
         filter(.data[[.input$name_cuetype]] != .extra$cue_neu) |>
-        mutate(across(all_of(.input$name_cuetype), ~ "valid"))
+        mutate(across(all_of(.input$name_cuetype), ~"valid"))
     ) |>
     calc_spd_acc(
       by = c(.by, .input$name_cuetype),
@@ -112,7 +112,7 @@ ant_alert <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     bind_rows(
       data |>
         filter(.data[[.input$name_cuetype]] != .extra$cue_neu) |>
-        mutate(across(all_of(.input$name_cuetype), ~ "valid"))
+        mutate(across(all_of(.input$name_cuetype), ~"valid"))
     ) |>
     calc_spd_acc(
       by = c(.by, .input$name_cuetype),
