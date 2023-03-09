@@ -44,7 +44,7 @@ countcorrect <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       # character input uses "-" to separate individual responses
       data <- data |>
         mutate(
-          "{.input$name_acc}" := parse_char_resp( # nolint
+          "{.input$name_acc}" := parse_char_resp(
             .data[[.input$name_acc]]
           )
         ) |>
@@ -54,7 +54,7 @@ countcorrect <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       group_by(across(all_of(.by))) |>
       summarise(
         # `NA` might be produced in parsing characters and should be ignored
-        "{.input$name_nc}" := sum(.data[[.input$name_acc]] == 1, na.rm = TRUE), # nolint
+        "{.input$name_nc}" := sum(.data[[.input$name_acc]] == 1, na.rm = TRUE),
         .groups = "drop"
       )
   }
@@ -73,8 +73,8 @@ countcorrect2 <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     data <- data |>
       group_by(across(all_of(.by))) |>
       summarise(
-        "{.input$name_nc}" := sum(.data[[.input$name_acc]] == 1), # nolint
-        "{.input$name_ne}" := sum(.data[[.input$name_acc]] == 0), # nolint
+        "{.input$name_nc}" := sum(.data[[.input$name_acc]] == 1),
+        "{.input$name_ne}" := sum(.data[[.input$name_acc]] == 0),
         .groups = "drop"
       )
   }
