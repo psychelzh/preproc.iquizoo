@@ -45,7 +45,8 @@ countcorrect <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       data <- data |>
         mutate(
           "{.input$name_acc}" := parse_char_resp(
-            .data[[.input$name_acc]]
+            .data[[.input$name_acc]],
+            delim = "\\D"
           )
         ) |>
         unnest(all_of(.input$name_acc))
