@@ -43,15 +43,15 @@ capacity <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     ) |>
     mutate(
       k_cond = if_else(
-        fa == 1,
+        .data$fa == 1,
         NaN,
-        numtarget * (hit - fa) / (1 - fa)
+        .data[[.input$name_target]] * (.data$hit - .data$fa) / (1 - .data$fa)
       )
     ) |>
-    mutate(k = mean(k_cond), .by = all_of(.by)) |>
+    mutate(k = mean(.data$k_cond), .by = all_of(.by)) |>
     pivot_wider(
       id_cols = all_of(c(.by, "k")),
-      names_from = "numtarget",
+      names_from = all_of(.input$name_target),
       names_prefix = "k",
       names_sort = TRUE,
       values_from = "k_cond"
