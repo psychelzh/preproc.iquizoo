@@ -57,7 +57,7 @@ calc_spd_acc <- function(data, by = NULL, name_acc = "acc", name_rt = "rt",
         .data[[name_rt]] |>
           mean.default(na.rm = TRUE)
       },
-      rtsd  = if (rt_rm_out) {
+      rtsd = if (rt_rm_out) {
         .data[[name_rt]] |>
           .subset(!.data$is_outlier & .data[[name_acc]] == 1) |>
           stats::sd(na.rm = TRUE)
@@ -119,7 +119,7 @@ calc_sdt <- function(data, by = NULL, name_acc = "acc", name_type = "type") {
       )
     ) |>
     pivot_wider(
-      names_from = .data$type_fac,
+      names_from = "type_fac",
       values_from = c("c", "e", "zc", "ze")
     ) |>
     mutate(

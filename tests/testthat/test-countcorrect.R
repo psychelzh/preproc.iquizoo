@@ -62,3 +62,27 @@ test_that("Works with grouping variable", {
     style = "json2"
   )
 })
+
+test_that("Supports checking variable", {
+  withr::local_seed(1)
+  data <- tibble(
+    check = rep(c("invalid", "valid"), 5),
+    acc = sample(c(0, 1), 10, replace = TRUE)
+  )
+  countcorrect(
+    data,
+    .extra = list(name_check = "check", check_valid = "valid")
+  ) |>
+    expect_silent() |>
+    expect_snapshot_value(style = "json2")
+})
+
+test_that("Warning if checking variable not found", {
+  withr::local_seed(1)
+  data <- tibble(acc = sample(c(0, 1), 10, replace = TRUE))
+  countcorrect(
+    data,
+    .extra = list(name_check = "check", check_valid = "valid")
+  ) |>
+    expect_warning(class = "miss_chk_var")
+})

@@ -46,12 +46,14 @@ symncmp <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
           .data[[.input$name_small]]
       ) |>
       filter(.data[[.input$name_acc]] == 1) |>
-      group_by(across(all_of(.by))) |>
-      group_modify(
-        ~ fit_errproof(.) |>
-          tibble::as_tibble_col(column_name = "dist_eff")
-      ) |>
-      ungroup(),
+      nest(.by = all_of(.by)) |>
+      mutate(
+        dist_eff = purrr::map_dbl(
+          .data$data,
+          fit_errproof
+        ),
+        .keep = "unused"
+      ),
     by = .by
   ) |>
     vctrs::vec_restore(data)

@@ -24,10 +24,13 @@ jlo <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       resp_angle = stringr::str_split(.data[[.input$name_resp]], "-") |>
         purrr::map_dbl(
           ~ sum(
-            recode(
-              .x,
-              "{.extra$resp_anticlock}" := 1,
-              "{.extra$resp_clockwise}" := -1
+            case_match(
+              .,
+              !!!purrr::map2(
+                .extra[c("resp_anticlock", "resp_clockwise")],
+                c(1, -1),
+                new_formula
+              )
             ) * 6
           )
         ),

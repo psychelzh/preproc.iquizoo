@@ -15,7 +15,7 @@ test_that("Default behavior works", {
   )
 })
 
-  test_that("Works with grouping variable", {
+test_that("Works with grouping variable", {
   expect_snapshot_value(
     sumscore(data, .by = "id"),
     style = "json2"

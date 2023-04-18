@@ -183,3 +183,48 @@
       ]
     }
 
+# Can restore outcome from correctness
+
+    {
+      "type": "list",
+      "attributes": {
+        "names": {
+          "type": "character",
+          "attributes": {},
+          "value": ["nc", "max_span", "mean_span_pcu", "mean_span_anu"]
+        },
+        "row.names": {
+          "type": "integer",
+          "attributes": {},
+          "value": [1]
+        },
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["tbl_df", "tbl", "data.frame"]
+        }
+      },
+      "value": [
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [35]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [5]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [5.36666667]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [4.75]
+        }
+      ]
+    }
+

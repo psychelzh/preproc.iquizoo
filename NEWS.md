@@ -1,3 +1,22 @@
+# preproc.iquizoo 2.5.0
+
+## New Features
+
+* Added `condstairs()` to analyze data from self-adaptive filtering task.
+* Added `capacity()` to analyze data from visual working memory capacity task.
+* Added `fname()` to analyze data from face-name associative task.
+* Added `ant_orient()` and `ant_alert()` to analyze data from splitted version of attention network tests (ANT).
+* Added support for extra checking for valid rows to include in `countcorrect()`.
+* Added support for restoring `"outcome"` column from `"acc"` column in `span()`. This might need further congfiguration of `"outcome_rule"` (default to 1, means no more error count of 1) in argument `.extra`.
+
+## Bug Fixes
+
+* Fixed the random seed in `fit_numerosity()`. Future work might be expanded to support setting this (rather easy but not so important now).
+
+## Upkeep
+
+* After {tidyselect} 1.2.0 and {dplyr} 1.1.0, many old usage of {tidyverse} functions will throw warnings. These warnings are now taken care of.
+
 # preproc.iquizoo 2.4.2
 
 * Fixed a bug in `span()` when correctness column has `NA` values not in all rows, in which case the function would not calculate partical credit scores for all cases.

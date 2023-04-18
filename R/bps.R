@@ -41,7 +41,7 @@ bps <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
         .groups = "drop"
       ) |>
       pivot_wider(
-        names_from = .data[[.input$name_type]],
+        names_from = all_of(.input$name_type),
         names_prefix = "p_sim_",
         values_from = "p_sim"
       ) |>

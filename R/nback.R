@@ -8,8 +8,8 @@
 #' @name nback
 #' @template common
 #' @template options
-#' @return An object with the same class as `data` contains following values (tripled
-#'   for dual n-back):
+#' @return An object with the same class as `data` contains following values
+#'   (tripled for dual n-back):
 #'
 #'   \item{pc}{Percentage of correct responses.}
 #'
@@ -87,8 +87,8 @@ dualnback <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     ) |>
     pivot_wider(
       id_cols = all_of(.by),
-      names_from = .data$dual,
-      values_from = -c(.by, .data$dual)
+      names_from = "dual",
+      values_from = -all_of(c(.by, "dual"))
     ) |>
     vctrs::vec_restore(data)
 }

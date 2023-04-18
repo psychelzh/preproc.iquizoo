@@ -55,9 +55,9 @@ synwin <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     mutate(score_total = sum(.data$score)) |>
     ungroup() |>
     pivot_wider(
-      names_from = .data$task,
+      names_from = "task",
       names_prefix = "score_",
-      values_from = .data$score
+      values_from = "score"
     ) |>
     vctrs::vec_restore(data)
 }
