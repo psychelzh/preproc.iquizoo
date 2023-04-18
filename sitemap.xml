@@ -16,6 +16,9 @@
     <loc>https://psychelzh.github.io/preproc.iquizoo/news/index.html</loc>
   </url>
   <url>
+    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/ant.html</loc>
+  </url>
+  <url>
     <loc>https://psychelzh.github.io/preproc.iquizoo/reference/bart.html</loc>
   </url>
   <url>
@@ -37,7 +40,13 @@
     <loc>https://psychelzh.github.io/preproc.iquizoo/reference/calc_switch_cost.html</loc>
   </url>
   <url>
+    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/capacity.html</loc>
+  </url>
+  <url>
     <loc>https://psychelzh.github.io/preproc.iquizoo/reference/check_outliers_rt.html</loc>
+  </url>
+  <url>
+    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/condstairs.html</loc>
   </url>
   <url>
     <loc>https://psychelzh.github.io/preproc.iquizoo/reference/counts.html</loc>
@@ -53,6 +62,9 @@
   </url>
   <url>
     <loc>https://psychelzh.github.io/preproc.iquizoo/reference/fit_numerosity.html</loc>
+  </url>
+  <url>
+    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/fname.html</loc>
   </url>
   <url>
     <loc>https://psychelzh.github.io/preproc.iquizoo/reference/igt.html</loc>
