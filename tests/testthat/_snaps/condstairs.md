@@ -23,7 +23,7 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [4]
+          "value": [3.5]
         },
         {
           "type": "double",
@@ -33,12 +33,12 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [4.625]
+          "value": [4.375]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [-1.25]
+          "value": [-1.75]
         }
       ]
     }
@@ -73,7 +73,7 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [4, 4]
+          "value": [3.5, 3.5]
         },
         {
           "type": "double",
@@ -83,12 +83,12 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [4.625, 4.625]
+          "value": [4.375, 4.375]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [-1.25, -1.25]
+          "value": [-1.75, -1.75]
         }
       ]
     }

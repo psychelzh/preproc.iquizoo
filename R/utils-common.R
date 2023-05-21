@@ -77,5 +77,6 @@ calc_staircase_wetherill <- function(x) {
   } else {
     valleys <- NA_real_
   }
-  mean(c(peaks, valleys))
+  keep_length <- min(length(peaks), length(valleys))
+  mean(c(tail(peaks, keep_length), tail(valleys, keep_length)))
 }
