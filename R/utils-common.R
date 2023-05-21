@@ -62,20 +62,41 @@ check_outliers_rt <- function(x, threshold = 2.5) {
 #' @return The mean threshold.
 #' @keywords internal
 calc_staircase_wetherill <- function(x) {
+  find_reversals <- function(x, type = c("peaks", "valleys")) {
+    type <- match.arg(type)
+    if (type == "valleys") x <- -x
+    mat <- pracma::findpeaks(x)
+    if (!is.null(mat)) {
+      if (type == "valleys") {
+        -mat[, 1]
+      } else {
+        mat[, 1]
+      }
+    } else {
+      warn(paste("No", type, "found from input"), "input_not_suitable")
+      NULL
+    }
+  }
   # use run length encoding to remove repetitions in transformed method
   x <- rle(x)$values
-  # return `NA` if no peaks or valleys found
-  peaks_mat <- pracma::findpeaks(x)
-  if (!is.null(peaks_mat)) {
-    peaks <- peaks_mat[, 1]
-  } else {
-    peaks <- NA_real_
+  reversals <- list(peaks = NULL, valleys = NULL)
+  for (type_reversal in names(reversals)) {
+    cur_reversals <- find_reversals(x, type_reversal)
+    if (is.null(cur_reversals)) {
+      return(NA_real_)
+    }
+    reversals[[type_reversal]] <- cur_reversals
   }
-  valleys_mat <- pracma::findpeaks(-x)
-  if (!is.null(valleys_mat)) {
-    valleys <- -valleys_mat[, 1]
-  } else {
-    valleys <- NA_real_
-  }
-  mean(c(peaks, valleys))
+  with(
+    reversals, {
+      num_peaks <- length(peaks)
+      num_valleys <- length(valleys)
+      if (num_peaks > num_valleys) {
+        peaks <- peaks[-1]
+      } else if (num_peaks < num_valleys) {
+        valleys <- valleys[-1]
+      }
+      mean(c(peaks, valleys))
+    }
+  )
 }
