@@ -1,5 +1,9 @@
 # preproc.iquizoo (development version)
 
+## Breaking Changes
+
+* Ensure the number of reversals in `calc_staircase_wetherill()` to be even. Odd number of reversals will be automatically adjusted to even number by removing the first reversal from the condition with larger number of reversals ([#75](https://github.com/psychelzh/preproc.iquizoo/issues/75)).
+
 # preproc.iquizoo 2.5.0
 
 ## New Features
