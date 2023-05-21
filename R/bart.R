@@ -1,7 +1,7 @@
 #' Balloon Analogue Risk Task
 #'
-#' This task is deemed as a measure of impulsivity. Read more details on
-#' [this website](http://www.impulsivity.org/measurement/BART).
+#' This task is deemed as a measure of impulsivity. Read more details on [this
+#' website](https://conductscience.com/digital-health/balloon-analog-risk-task/).
 #'
 #' @template common
 #' @template options

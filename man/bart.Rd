@@ -24,6 +24,5 @@ An object with the same class as \code{data} contains following values:
 \item{num_explosion}{Number of exploded balloons.}
 }
 \description{
-This task is deemed as a measure of impulsivity. Read more details on
-\href{http://www.impulsivity.org/measurement/BART}{this website}.
+This task is deemed as a measure of impulsivity. Read more details on \href{https://conductscience.com/digital-health/balloon-analog-risk-task/}{this website}.
 }
