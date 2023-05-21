@@ -69,14 +69,22 @@ calc_staircase_wetherill <- function(x) {
   if (!is.null(peaks_mat)) {
     peaks <- peaks_mat[, 1]
   } else {
-    peaks <- NA_real_
+    warn("No peaks found from input", "input_not_suitable")
+    return(NA_real_)
   }
   valleys_mat <- pracma::findpeaks(-x)
   if (!is.null(valleys_mat)) {
     valleys <- -valleys_mat[, 1]
   } else {
-    valleys <- NA_real_
+    warn("No valleys found from input", "input_not_suitable")
+    return(NA_real_)
   }
-  keep_length <- min(length(peaks), length(valleys))
-  mean(c(tail(peaks, keep_length), tail(valleys, keep_length)))
+  num_peaks <- length(peaks)
+  num_valleys <- length(valleys)
+  if (num_peaks > num_valleys) {
+    peaks <- peaks[-1]
+  } else if (num_peaks < num_valleys) {
+    valleys <- valleys[-1]
+  }
+  mean(c(peaks, valleys))
 }
