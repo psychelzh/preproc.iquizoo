@@ -34,7 +34,7 @@ calc_spd_acc <- function(data, by = NULL, name_acc = "acc", name_rt = "rt",
   data |>
     # rt of 0 means no response and should be converted as `NA
     mutate(na_if(.data[[name_rt]], 0)) |>
-    group_by(across(all_of(by))) |>
+    group_by(pick(all_of(by))) |>
     mutate(is_outlier = check_outliers_rt(.data[[name_rt]])) |>
     summarise(
       nc = sum(.data[[name_acc]] == 1),
@@ -103,7 +103,7 @@ calc_sdt <- function(data, by = NULL, name_acc = "acc", name_type = "type") {
         c("s", "n")
       )
     ) |>
-    group_by(across(all_of(c(by, "type_fac")))) |>
+    group_by(pick(all_of(c(by, "type_fac")))) |>
     summarise(
       c = sum(.data[[name_acc]] == 1),
       e = n() - .data$c,

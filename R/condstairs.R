@@ -32,7 +32,7 @@ condstairs <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   ) |>
     update_settings(.extra)
   data |>
-    group_by(across(all_of(c(.by, .input$name_cond)))) |>
+    group_by(pick(all_of(c(.by, .input$name_cond)))) |>
     summarise(
       level = calc_staircase_wetherill(.data[[.input$name_level]]),
       .groups = "drop_last"

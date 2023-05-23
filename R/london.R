@@ -20,7 +20,7 @@ london <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     update_settings(.input)
   merge(
     data |>
-      group_by(across(all_of(.by))) |>
+      group_by(pick(all_of(.by))) |>
       summarise(
         prop_perfect = mean(
           .data[[.input$name_stepsused]] == .data[[.input$name_minmove]]

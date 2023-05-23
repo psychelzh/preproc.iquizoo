@@ -52,7 +52,7 @@ countcorrect <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
         unnest(all_of(.input$name_acc))
     }
     data <- data |>
-      group_by(across(all_of(.by))) |>
+      group_by(pick(all_of(.by))) |>
       summarise(
         # `NA` might be produced in parsing characters and should be ignored
         "{.input$name_nc}" := sum(.data[[.input$name_acc]] == 1, na.rm = TRUE),
@@ -60,7 +60,7 @@ countcorrect <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       )
   }
   data |>
-    group_by(across(all_of(.by))) |>
+    group_by(pick(all_of(.by))) |>
     summarise(nc = sum(.data[[.input$name_nc]]), .groups = "drop") |>
     vctrs::vec_restore(data)
 }
@@ -72,7 +72,7 @@ countcorrect2 <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     update_settings(.input)
   if (!all(has_name(data, .input[c("name_nc", "name_ne")]))) {
     data <- data |>
-      group_by(across(all_of(.by))) |>
+      group_by(pick(all_of(.by))) |>
       summarise(
         "{.input$name_nc}" := sum(.data[[.input$name_acc]] == 1),
         "{.input$name_ne}" := sum(.data[[.input$name_acc]] == 0),
@@ -80,7 +80,7 @@ countcorrect2 <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       )
   }
   data |>
-    group_by(across(all_of(.by))) |>
+    group_by(pick(all_of(.by))) |>
     summarise(
       nc_cor = sum(
         .data[[.input$name_nc]] - .data[[.input$name_ne]]
@@ -96,7 +96,7 @@ sumweighted <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_weight = "nstim", name_acc = "acc") |>
     update_settings(.input)
   data |>
-    group_by(across(all_of(.by))) |>
+    group_by(pick(all_of(.by))) |>
     summarise(
       nc_weighted = sum(
         .data[[.input$name_weight]] *
@@ -113,7 +113,7 @@ sumscore <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_score = "score") |>
     update_settings(.input)
   data |>
-    group_by(across(all_of(.by))) |>
+    group_by(pick(all_of(.by))) |>
     summarise(
       nc_score = sum(as.numeric(.data[[.input$name_score]])),
       .groups = "drop"

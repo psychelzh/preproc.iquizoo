@@ -59,7 +59,7 @@ span <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       acc = parse_char_resp(.data[[.input$name_acc]]),
       nc = purrr::map_dbl(.data$acc, ~ sum(.x == 1))
     ) |>
-    group_by(across(all_of(c(.by, .input$name_slen)))) |>
+    group_by(pick(all_of(c(.by, .input$name_slen)))) |>
     summarise(
       nc = sum(.data$nc),
       pcu = sum(.data$nc) / sum(.data[[.input$name_slen]]),

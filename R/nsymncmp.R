@@ -29,7 +29,7 @@ nsymncmp <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       name_rt = .input$name_rt
     ),
     data |>
-      group_by(across(all_of(.by))) |>
+      group_by(pick(all_of(.by))) |>
       group_modify(
         ~ calc_numerosity(
           .,

@@ -29,13 +29,13 @@ bps <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     filter(.data[[.input$name_phase]] == .extra$phase_test)
   merge(
     data_test_phase |>
-      group_by(across(all_of(.by))) |>
+      group_by(pick(all_of(.by))) |>
       summarise(
         pc = mean(.data[[.input$name_acc]] == 1),
         .groups = "drop"
       ),
     data_test_phase |>
-      group_by(across(all_of(c(.by, .input$name_type)))) |>
+      group_by(pick(all_of(c(.by, .input$name_type)))) |>
       summarise(
         p_sim = mean(.data[[.input$name_resp]] == .extra$resp_sim),
         .groups = "drop"

@@ -23,7 +23,7 @@ staircase <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   ) |>
     update_settings(.input)
   data |>
-    group_by(across(all_of(.by))) |>
+    group_by(pick(all_of(.by))) |>
     summarise(
       thresh_peak_valley = calc_staircase_wetherill(.data[[.input$name_level]]),
       thresh_last_block = mean(
