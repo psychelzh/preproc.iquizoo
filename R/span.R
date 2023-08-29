@@ -48,7 +48,7 @@ span <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   }
   # try to restore "name_outcome" from data
   if (!has_name(data, .input$name_outcome) ||
-      anyNA(data[[.input$name_outcome]])) {
+        anyNA(data[[.input$name_outcome]])) {
     # assume outcome = 1 if number of error is no more than "outcome_rule"
     data[[.input$name_outcome]] <- data[[.input$name_acc]] |>
       parse_char_resp() |>

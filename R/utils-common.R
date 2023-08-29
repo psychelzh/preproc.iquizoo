@@ -89,8 +89,8 @@ calc_staircase_wetherill <- function(x) {
   }
   with(
     reversals, {
-      num_peaks <- length(peaks)
-      num_valleys <- length(valleys)
+      num_peaks <- length(peaks) #nolint
+      num_valleys <- length(valleys) #nolint
       if (num_peaks > num_valleys) {
         peaks <- peaks[-1]
       } else if (num_peaks < num_valleys) {

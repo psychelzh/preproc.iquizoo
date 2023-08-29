@@ -16,7 +16,7 @@ nle <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   data |>
     mutate(
       err = abs(.data[[.input$name_number]] -
-        .data[[.input$name_resp]])
+                  .data[[.input$name_resp]])
     ) |>
     group_by(pick(all_of(.by))) |>
     summarise(
