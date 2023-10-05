@@ -66,37 +66,24 @@ calc_staircase_wetherill <- function(x) {
     type <- match.arg(type)
     if (type == "valleys") x <- -x
     mat <- pracma::findpeaks(x)
-    if (!is.null(mat)) {
-      if (type == "valleys") {
-        -mat[, 1]
-      } else {
-        mat[, 1]
-      }
-    } else {
+    if (is.null(mat)) {
       warn(paste("No", type, "found from input"), "input_not_suitable")
-      NULL
+      return()
+    }
+    if (type == "valleys") {
+      -mat[, 1]
+    } else {
+      mat[, 1]
     }
   }
   # use run length encoding to remove repetitions in transformed method
   x <- rle(x)$values
-  reversals <- list(peaks = NULL, valleys = NULL)
-  for (type_reversal in names(reversals)) {
-    cur_reversals <- find_reversals(x, type_reversal)
-    if (is.null(cur_reversals)) {
-      return(NA_real_)
-    }
-    reversals[[type_reversal]] <- cur_reversals
-  }
-  with(
-    reversals, {
-      num_peaks <- length(peaks) #nolint
-      num_valleys <- length(valleys) #nolint
-      if (num_peaks > num_valleys) {
-        peaks <- peaks[-1]
-      } else if (num_peaks < num_valleys) {
-        valleys <- valleys[-1]
-      }
-      mean(c(peaks, valleys))
-    }
-  )
+  reversals <- c("peaks", "valleys") |>
+    purrr::map(\(type) find_reversals(x, type))
+  reversals |>
+    purrr::map(
+      \(x) utils::tail(x, min(lengths(reversals)))
+    ) |>
+    purrr::list_c() |>
+    mean()
 }

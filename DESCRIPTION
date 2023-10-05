@@ -21,6 +21,7 @@ Imports:
     stringr,
     tibble,
     tidyr (>= 1.2.0),
+    utils,
     vctrs
 Suggests:
     covr,
