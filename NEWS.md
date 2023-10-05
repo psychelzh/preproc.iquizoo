@@ -1,4 +1,4 @@
-# preproc.iquizoo (development version)
+# preproc.iquizoo 2.5.2
 
 * Enhance code quality of internal functions.
 
