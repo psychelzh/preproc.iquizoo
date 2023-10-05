@@ -62,26 +62,26 @@ check_outliers_rt <- function(x, threshold = 2.5) {
 #' @return The mean threshold.
 #' @keywords internal
 calc_staircase_wetherill <- function(x) {
-  find_reversals <- function(x, type = c("peaks", "valleys")) {
-    type <- match.arg(type)
-    if (type == "valleys") x <- -x
-    mat <- pracma::findpeaks(x)
-    if (is.null(mat)) {
-      warn(paste("No", type, "found from input"), "input_not_suitable")
-      return()
-    }
-    if (type == "valleys") {
-      -mat[, 1]
-    } else {
+  find_reversals <- function(x) {
+    find_peaks_val <- function(x) {
+      mat <- pracma::findpeaks(x)
+      if (is.null(mat)) {
+        warn("Reversals not found from input", "no_reversals_found")
+        return(NA_real_)
+      }
       mat[, 1]
     }
+    list(
+      peaks = find_peaks_val(x),
+      valleys = -find_peaks_val(-x)
+    )
   }
-  # use run length encoding to remove repetitions in transformed method
+  # remove repetitions in transformed method
   x <- rle(x)$values
-  reversals <- c("peaks", "valleys") |>
-    purrr::map(\(type) find_reversals(x, type))
+  reversals <- find_reversals(x)
   reversals |>
     purrr::map(
+      # keep equal number of peaks and valleys
       \(x) utils::tail(x, min(lengths(reversals)))
     ) |>
     purrr::list_c() |>
