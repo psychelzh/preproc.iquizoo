@@ -16,9 +16,9 @@ nle <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   data |>
     mutate(
       err = abs(.data[[.input$name_number]] -
-        .data[[.input$name_resp]])
+                  .data[[.input$name_resp]])
     ) |>
-    group_by(across(all_of(.by))) |>
+    group_by(pick(all_of(.by))) |>
     summarise(
       mean_abs_err = mean(.data$err),
       mean_log_err = mean(log(.data$err + 1)),

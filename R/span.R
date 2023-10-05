@@ -48,7 +48,7 @@ span <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   }
   # try to restore "name_outcome" from data
   if (!has_name(data, .input$name_outcome) ||
-      anyNA(data[[.input$name_outcome]])) {
+        anyNA(data[[.input$name_outcome]])) {
     # assume outcome = 1 if number of error is no more than "outcome_rule"
     data[[.input$name_outcome]] <- data[[.input$name_acc]] |>
       parse_char_resp() |>
@@ -59,7 +59,7 @@ span <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       acc = parse_char_resp(.data[[.input$name_acc]]),
       nc = purrr::map_dbl(.data$acc, ~ sum(.x == 1))
     ) |>
-    group_by(across(all_of(c(.by, .input$name_slen)))) |>
+    group_by(pick(all_of(c(.by, .input$name_slen)))) |>
     summarise(
       nc = sum(.data$nc),
       pcu = sum(.data$nc) / sum(.data[[.input$name_slen]]),

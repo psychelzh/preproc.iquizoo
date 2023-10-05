@@ -43,7 +43,7 @@ jlo <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
         .data$resp_err_raw
       )
     ) |>
-    group_by(across(all_of(.by))) |>
+    group_by(pick(all_of(.by))) |>
     summarise(
       nc = sum(.data[[.input$name_acc]] == 1),
       mean_ang_err = mean(.data$resp_err),

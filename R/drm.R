@@ -33,7 +33,7 @@ drm <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     update_settings(.extra)
   data |>
     filter(.data[[.input$name_type]] != .extra$type_filler) |>
-    group_by(across(all_of(c(.by, .input$name_type)))) |>
+    group_by(pick(all_of(c(.by, .input$name_type)))) |>
     summarise(
       z_old = stats::qnorm(
         (sum(.data[[.input$name_resp]] == .extra$resp_old) + 0.5) /

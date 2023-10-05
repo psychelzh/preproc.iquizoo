@@ -1,3 +1,7 @@
+# preproc.iquizoo 2.5.2
+
+* Enhance code quality of internal functions.
+
 # preproc.iquizoo 2.5.1
 
 ## Breaking Changes
@@ -11,9 +15,9 @@
 * Added `condstairs()` to analyze data from self-adaptive filtering task.
 * Added `capacity()` to analyze data from visual working memory capacity task.
 * Added `fname()` to analyze data from face-name associative task.
-* Added `ant_orient()` and `ant_alert()` to analyze data from splitted version of attention network tests (ANT).
+* Added `ant_orient()` and `ant_alert()` to analyze data from split version of attention network tests (ANT).
 * Added support for extra checking for valid rows to include in `countcorrect()`.
-* Added support for restoring `"outcome"` column from `"acc"` column in `span()`. This might need further congfiguration of `"outcome_rule"` (default to 1, means no more error count of 1) in argument `.extra`.
+* Added support for restoring `"outcome"` column from `"acc"` column in `span()`. This might need further configuration of `"outcome_rule"` (default to 1, means no more error count of 1) in argument `.extra`.
 
 ## Bug Fixes
 
@@ -51,7 +55,7 @@
 * Exported `fit_numerosity()`.
 * Added basic support for indices combining speed and accuracy performances in `calc_spd_acc()`.
 * Supported new version of Racer test in `racer()`.
-* Added index of percent correct for learning phase for reinforcemnet test in `reinf()`.
+* Added index of percent correct for learning phase for reinforcement test in `reinf()`.
 
 ## Bug Fixes
 
@@ -231,7 +235,7 @@
 # preproc.iquizoo 0.2.7
 
 * Completely removed `conflict()`, which is defunct for many versions.
-* Used the 3rd version test framework of testthat package, especially takes advantage of the snapshot test (or goden test) to simplify all our tests.
+* Used the 3rd version test framework of testthat package, especially takes advantage of the snapshot test (or golden test) to simplify all our tests.
 * Unified the abnormal output by setting all of the `NA`s as `NA_real`.
 * Unified the response metrics checking. Now many games need to have a minimal valid response rate of 80% and a minimal accuracy rate, too. Use `?tarflow.iquizoo:::check_resp_metric` to see details. Note this function is not exported for now.
 

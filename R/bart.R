@@ -13,7 +13,7 @@ bart <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(name_feedback = "feedback", name_nhit = "nhit") |>
     update_settings(.input)
   data |>
-    group_by(across(all_of(.by))) |>
+    group_by(pick(all_of(.by))) |>
     summarise(
       mean_pumps = .data[[.input$name_nhit]] |>
         # keep not exploded trials only

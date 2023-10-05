@@ -32,7 +32,7 @@ driving <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
         )
       )
     ) |>
-    group_by(across(all_of(.by))) |>
+    group_by(pick(all_of(.by))) |>
     summarise(
       still_ratio = sum(.data$still_dur_yellow) /
         sum(.data[[.input$name_yellow_dur]]),

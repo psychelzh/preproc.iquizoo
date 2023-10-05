@@ -29,7 +29,7 @@ refframe <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
         .data[[.input$name_type]] == .extra$type_ego ~ "ego"
       )
     ) |>
-    group_by(across(all_of(c(.by, "type_cor")))) |>
+    group_by(pick(all_of(c(.by, "type_cor")))) |>
     summarise(
       mean_dist_err = mean(.data[[.input$name_dist]]),
       mean_log_err = mean(log(.data[[.input$name_dist]] + 1)),

@@ -28,7 +28,7 @@ locmem <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       .keep = "unused"
     ) |>
     unnest("dist") |>
-    group_by(across(all_of(.by))) |>
+    group_by(pick(all_of(.by))) |>
     summarise(
       nc_loc = sum(.data$dist == 0),
       mean_dist_err = mean(.data$dist),
@@ -54,7 +54,7 @@ locmem2 <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
         .keep = "unused"
       ) |>
       unnest("acc_order") |>
-      group_by(across(all_of(.by))) |>
+      group_by(pick(all_of(.by))) |>
       summarise(
         nc_order = sum(.data$acc_order == 1),
         .groups = "drop"

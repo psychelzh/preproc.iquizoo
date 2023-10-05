@@ -43,7 +43,7 @@ reinf <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
         .data$set
       )
     ) |>
-    group_by(across(all_of(c(.by, "set")))) |>
+    group_by(pick(all_of(c(.by, "set")))) |>
     summarise(
       pc = mean(.data[[.input$name_acc]]),
       .groups = "drop"

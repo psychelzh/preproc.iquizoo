@@ -23,7 +23,7 @@ racer <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     update_settings(.extra)
   merge(
     data |>
-      group_by(across(all_of(.by))) |>
+      group_by(pick(all_of(.by))) |>
       summarise(
         mean_score = sum(
           .data[[.input$name_trialdur]] * .data[[.input$name_score]]

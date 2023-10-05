@@ -18,7 +18,7 @@ igt <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .extra <- list(pools_advantage = c("a", "b")) |>
     update_settings(.extra)
   data |>
-    group_by(across(all_of(.by))) |>
+    group_by(pick(all_of(.by))) |>
     summarise(
       sum_outcome = sum(.data[[.input$name_outcome]]),
       perc_good = mean(

@@ -50,7 +50,7 @@ synwin <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
           ) * (.data[[.input$name_acc]] * 2 - 1)
       )
     ) |>
-    group_by(across(all_of(c(.by, "task")))) |>
+    group_by(pick(all_of(c(.by, "task")))) |>
     summarise(score = sum(.data$score), .groups = "drop_last") |>
     mutate(score_total = sum(.data$score)) |>
     ungroup() |>

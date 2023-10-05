@@ -42,7 +42,7 @@ stopsignal <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
           .data[[.input$name_rt]]
         )
       ) |>
-      group_by(across(all_of(.by))) |>
+      group_by(pick(all_of(.by))) |>
       summarise(
         pc_all = mean(.data[[.input$name_acc]] == 1),
         pc_go = mean(.subset(
@@ -62,7 +62,7 @@ stopsignal <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       ),
     data |>
       filter(.data[[.input$name_type]] != .extra$type_go) |>
-      group_by(across(all_of(c(.by, .input$name_type)))) |>
+      group_by(pick(all_of(c(.by, .input$name_type)))) |>
       summarise(
         ssd = calc_staircase_wetherill(.data[[.input$name_ssd]]),
         .groups = "drop_last"

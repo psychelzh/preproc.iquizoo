@@ -50,7 +50,7 @@ fname <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       )
   }
   data |>
-    group_by(across(all_of(.by))) |>
+    group_by(pick(all_of(.by))) |>
     summarise(
       iln = .data[[.input$name_acc]] |>
         .subset(.data[[.input$name_phase]] == .extra$phase_name) |>
