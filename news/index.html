@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">preproc.iquizoo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.5.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.5.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,6 +45,10 @@
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.5.2" id="preprociquizoo-252">preproc.iquizoo 2.5.2<a class="anchor" aria-label="anchor" href="#preprociquizoo-252"></a></h2>
+<ul><li>Enhance code quality of internal functions.</li>
+</ul></div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.5.1" id="preprociquizoo-251">preproc.iquizoo 2.5.1<a class="anchor" aria-label="anchor" href="#preprociquizoo-251"></a></h2>
 <div class="section level3">
 <h3 id="breaking-changes-2-5-1">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-2-5-1"></a></h3>
@@ -58,9 +62,9 @@
 <ul><li>Added <code><a href="../reference/condstairs.html">condstairs()</a></code> to analyze data from self-adaptive filtering task.</li>
 <li>Added <code><a href="../reference/capacity.html">capacity()</a></code> to analyze data from visual working memory capacity task.</li>
 <li>Added <code><a href="../reference/fname.html">fname()</a></code> to analyze data from face-name associative task.</li>
-<li>Added <code><a href="../reference/ant.html">ant_orient()</a></code> and <code><a href="../reference/ant.html">ant_alert()</a></code> to analyze data from splitted version of attention network tests (ANT).</li>
+<li>Added <code><a href="../reference/ant.html">ant_orient()</a></code> and <code><a href="../reference/ant.html">ant_alert()</a></code> to analyze data from split version of attention network tests (ANT).</li>
 <li>Added support for extra checking for valid rows to include in <code><a href="../reference/counts.html">countcorrect()</a></code>.</li>
-<li>Added support for restoring <code>"outcome"</code> column from <code>"acc"</code> column in <code><a href="../reference/span.html">span()</a></code>. This might need further congfiguration of <code>"outcome_rule"</code> (default to 1, means no more error count of 1) in argument <code>.extra</code>.</li>
+<li>Added support for restoring <code>"outcome"</code> column from <code>"acc"</code> column in <code><a href="../reference/span.html">span()</a></code>. This might need further configuration of <code>"outcome_rule"</code> (default to 1, means no more error count of 1) in argument <code>.extra</code>.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-2-5-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-5-0"></a></h3>
@@ -101,7 +105,7 @@
 <li>Exported <code><a href="../reference/fit_numerosity.html">fit_numerosity()</a></code>.</li>
 <li>Added basic support for indices combining speed and accuracy performances in <code><a href="../reference/calc_spd_acc.html">calc_spd_acc()</a></code>.</li>
 <li>Supported new version of Racer test in <code><a href="../reference/racer.html">racer()</a></code>.</li>
-<li>Added index of percent correct for learning phase for reinforcemnet test in <code><a href="../reference/reinf.html">reinf()</a></code>.</li>
+<li>Added index of percent correct for learning phase for reinforcement test in <code><a href="../reference/reinf.html">reinf()</a></code>.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-2-3-2">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-3-2"></a></h3>
@@ -303,7 +307,7 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.2.7" id="preprociquizoo-027">preproc.iquizoo 0.2.7<a class="anchor" aria-label="anchor" href="#preprociquizoo-027"></a></h2>
 <ul><li>Completely removed <code>conflict()</code>, which is defunct for many versions.</li>
-<li>Used the 3rd version test framework of testthat package, especially takes advantage of the snapshot test (or goden test) to simplify all our tests.</li>
+<li>Used the 3rd version test framework of testthat package, especially takes advantage of the snapshot test (or golden test) to simplify all our tests.</li>
 <li>Unified the abnormal output by setting all of the <code>NA</code>s as <code>NA_real</code>.</li>
 <li>Unified the response metrics checking. Now many games need to have a minimal valid response rate of 80% and a minimal accuracy rate, too. Use <code>?tarflow.iquizoo:::check_resp_metric</code> to see details. Note this function is not exported for now.</li>
 </ul></div>
