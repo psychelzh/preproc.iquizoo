@@ -1,14 +1,14 @@
 Type: Package
 Package: preproc.iquizoo
 Title: Utility Functions for Data Processing of Iquizoo Games
-Version: 2.5.1.9000
+Version: 2.5.2
 Authors@R:
     person("Liang", "Zhang", , "psychelzh@outlook.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-9041-1150"))
 Description: Several couples of games are developed by IQUIZOO.COM. Here
     are the functions used to do data processing for all of those games.
 License: MIT + file LICENSE
-URL: https://psychelzh.github.io/preproc.iquizoo,
+URL: https://psychelzh.github.io/preproc.iquizoo/,
     https://github.com/psychelzh/preproc.iquizoo
 BugReports: https://github.com/psychelzh/preproc.iquizoo/issues
 Depends:

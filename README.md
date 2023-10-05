@@ -35,7 +35,7 @@ devtools::install_github("psychelzh/preproc.iquizoo")
 
 This package is best used in company with
 [tarflow.iquizoo](https://github.com/psychelzh/tarflow.iquizoo) package.
-Read the [documentation](https://psychelzh.github.io/tarflow.iquizoo)
+Read the [documentation](https://psychelzh.github.io/tarflow.iquizoo/)
 there.
 
 ## Advanced

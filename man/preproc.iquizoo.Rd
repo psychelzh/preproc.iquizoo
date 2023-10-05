@@ -11,7 +11,7 @@ Several couples of games are developed by IQUIZOO.COM. Here are the functions us
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://psychelzh.github.io/preproc.iquizoo}
+  \item \url{https://psychelzh.github.io/preproc.iquizoo/}
   \item \url{https://github.com/psychelzh/preproc.iquizoo}
   \item Report bugs at \url{https://github.com/psychelzh/preproc.iquizoo/issues}
 }
