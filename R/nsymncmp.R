@@ -53,7 +53,6 @@ calc_numerosity <- function(data, name_bigset, name_smallset, name_acc) {
       "Cannot find fit after the max number of fitting.",
       "fit_not_converge"
     )
-    pars <- replace(pars, TRUE, NA_real_)
   }
   tibble::as_tibble_row(pars)
 }
