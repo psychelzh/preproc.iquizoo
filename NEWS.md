@@ -1,5 +1,9 @@
 # preproc.iquizoo (development version)
 
+## Bug Fixes
+
+* Fixed an edge case when `fit_numerosity()` will stuck in infinite loop.
+
 # preproc.iquizoo 2.5.2
 
 * Enhance code quality of internal functions.
