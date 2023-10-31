@@ -82,11 +82,20 @@ fit_numerosity <- function(data, name_bigset, name_smallset, name_acc,
   min_objective <- Inf
   best_fit <- NULL
   for (j in seq_len(n_fit)) {
-    repeat {
+    # try 10 times to find a good initial value
+    for (i in seq_len(10)) {
       init <- c(w = stats::runif(1))
-      if (ll_numerosity(init, b, s, acc) < 1e6) {
+      init_objective <- ll_numerosity(init, b, s, acc)
+      if (init_objective < 1e6) {
         break
       }
+    }
+    if (init_objective >= 1e6) {
+      warn(
+        "Cannot find a good initial value after 10 tries.",
+        "no_good_init"
+      )
+      return(list(par = c(w = NA_real_), convergence = 1))
     }
     fit <- stats::optim(
       init, ll_numerosity,

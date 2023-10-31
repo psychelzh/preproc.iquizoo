@@ -52,3 +52,18 @@ test_that("Warning if not converged", {
   nsymncmp(data) |>
     expect_warning(class = "fit_not_converge")
 })
+
+test_that("Warn if no initial values found", {
+  data <- data.frame(
+    b = rep(0, 10),
+    s = rep(0, 10),
+    acc = rep(1, 10)
+  )
+  fit_numerosity(
+    data,
+    name_bigset = "b",
+    name_smallset = "s",
+    name_acc = "acc"
+  ) |>
+    expect_warning(class = "no_good_init")
+})
