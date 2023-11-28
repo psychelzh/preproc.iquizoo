@@ -1,3 +1,13 @@
+# preproc.iquizoo 2.6.0
+
+## Breaking Changes
+
+* Added `wrangle_data()` and `preproc_data()` functions, which were previously in tarflow.iquizoo package.
+
+## Bug Fixes
+
+* Fixed an edge case when `fit_numerosity()` will stuck in infinite loop.
+
 # preproc.iquizoo 2.5.2
 
 * Enhance code quality of internal functions.
