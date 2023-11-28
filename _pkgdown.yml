@@ -1,3 +1,16 @@
 url: https://psychelzh.github.io/preproc.iquizoo
 template:
   bootstrap: 5
+reference:
+  - title: "High-level API for data pre-processing"
+    desc: Typically you would like to call these two functions to invoke processing.
+    contents:
+    - wrangle_data
+    - preproc_data
+  - title: "Low-level data pre-processing functions"
+    desc: >
+      These functions are typically used in the `preproc_data` function,
+      separately for each task paradigm.
+    contents:
+    - -wrangle_data
+    - -preproc_data
