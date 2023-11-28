@@ -27,6 +27,7 @@ Imports:
 Suggests:
     covr,
     mockery,
+    proxy,
     readr,
     roxygen2,
     testthat (>= 3.0.0),
