@@ -4,6 +4,10 @@
 
 * Added `wrangle_data()` and `preproc_data()` functions, which were previously in tarflow.iquizoo package.
 
+## New Features
+
+* Added support for three creativity related tasks.
+
 ## Bug Fixes
 
 * Fixed an edge case when `fit_numerosity()` will stuck in infinite loop.
