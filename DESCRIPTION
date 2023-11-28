@@ -15,6 +15,7 @@ Depends:
     R (>= 4.1.0)
 Imports:
     dplyr,
+    jsonlite,
     pracma,
     purrr,
     rlang (>= 0.1.2),
@@ -29,6 +30,7 @@ Suggests:
     readr,
     roxygen2,
     testthat (>= 3.0.0),
+    tidytable,
     withr
 Config/testthat/edition: 3
 Config/testthat/parallel: true
