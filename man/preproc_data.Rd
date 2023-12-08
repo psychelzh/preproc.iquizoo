@@ -8,7 +8,7 @@ preproc_data(
   data,
   fn,
   ...,
-  name_raw_parsed = "raw_parsed",
+  col_raw_parsed = "raw_parsed",
   pivot_results = TRUE,
   pivot_names_to = "index_name",
   pivot_values_to = "score"
@@ -22,7 +22,7 @@ more details.}
 
 \item{...}{Additional arguments passed to \code{fn}.}
 
-\item{name_raw_parsed}{The column name in which stores user's raw data in
+\item{col_raw_parsed}{The column name in which stores user's raw data in
 format of a list of \link{data.frame}s.}
 
 \item{pivot_results}{Whether to pivot the calculated indices. If \code{TRUE}, the
@@ -43,7 +43,7 @@ Calculate indices using data typically returned by \code{\link[=wrangle_data]{wr
 }
 \details{
 Observations with empty raw data (empty vector, e.g. \code{NULL}, in
-\code{name_raw_parsed} column) are removed before calculating indices. If no
+\code{col_raw_parsed} column) are removed before calculating indices. If no
 observations left after removing, a warning is signaled and \code{NULL} is
 returned.
 }
