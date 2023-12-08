@@ -14,9 +14,9 @@ test_that("Basic situation for `wrangle_data()`", {
 test_that("Can deal with invalid or empty json", {
   data_case_invalid <- data.frame(game_data = "[1")
   wrangle_data(data_case_invalid) |>
-    expect_warning("Failed to parse json string") |>
     purrr::pluck("raw_parsed", 1) |>
-    expect_null()
+    expect_null() |>
+    expect_warning("Failed to parse json string")
   data_case_empty <- data.frame(game_data = c("[]", "{}"))
   wrangle_data(data_case_empty) |>
     purrr::pluck("raw_parsed") |>
@@ -27,9 +27,18 @@ test_that("Change names and values to lowercase", {
   js_str <- r"([{"A": "A"}, {"A": "B"}])"
   data <- tibble::tibble(game_data = js_str)
   wrangle_data(data) |>
-    expect_silent() |>
     purrr::pluck("raw_parsed", 1) |>
-    expect_identical(data.frame(a = c("a", "b")))
+    expect_identical(data.frame(a = c("a", "b"))) |>
+    expect_silent()
+})
+
+test_that("Warn when names duplicate after converting", {
+  js_str <- r"([{"A": "A", "a": "B"}])"
+  data <- tibble::tibble(game_data = js_str)
+  wrangle_data(data) |>
+    purrr::pluck("raw_parsed", 1) |>
+    expect_identical(data.frame(A = "a", a = "b")) |>
+    expect_warning("Failed to convert column names to lowercase:")
 })
 
 test_that("Basic situation in `preproc_data()`", {
@@ -75,5 +84,5 @@ test_that("Can deal with mismatch column types in raw data", {
   )
   preproc_data(data, prep_fun) |>
     expect_snapshot_value(style = "json2") |>
-    expect_warning("Failed to bind raw data")
+    expect_warning("Failed to unnest raw data")
 })
