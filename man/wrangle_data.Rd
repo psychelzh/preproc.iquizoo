@@ -4,12 +4,12 @@
 \alias{wrangle_data}
 \title{Wrangle Raw Data}
 \usage{
-wrangle_data(data, name_raw_json = "game_data", name_raw_parsed = "raw_parsed")
+wrangle_data(data, col_raw_json = "game_data", name_raw_parsed = "raw_parsed")
 }
 \arguments{
 \item{data}{The raw data.}
 
-\item{name_raw_json}{The column name in which stores user's raw data in
+\item{col_raw_json}{The column name in which stores user's raw data in
 format of json string.}
 
 \item{name_raw_parsed}{The name used to store parsed data.}
