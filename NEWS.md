@@ -1,5 +1,9 @@
 # preproc.iquizoo (development version)
 
+## Bug Fixes
+
+* Fixed observation order issue introduced by `calc_indices()`.
+
 # preproc.iquizoo 2.6.0
 
 ## Breaking Changes
