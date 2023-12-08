@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">preproc.iquizoo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6.1</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,7 +55,7 @@
 <span>  <span class="va">data</span>,</span>
 <span>  <span class="va">fn</span>,</span>
 <span>  <span class="va">...</span>,</span>
-<span>  name_raw_parsed <span class="op">=</span> <span class="st">"raw_parsed"</span>,</span>
+<span>  col_raw_parsed <span class="op">=</span> <span class="st">"raw_parsed"</span>,</span>
 <span>  pivot_results <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  pivot_names_to <span class="op">=</span> <span class="st">"index_name"</span>,</span>
 <span>  pivot_values_to <span class="op">=</span> <span class="st">"score"</span></span>
@@ -77,7 +77,7 @@ more details.</p></dd>
 <dd><p>Additional arguments passed to <code>fn</code>.</p></dd>
 
 
-<dt>name_raw_parsed</dt>
+<dt>col_raw_parsed</dt>
 <dd><p>The column name in which stores user's raw data in
 format of a list of <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a>s.</p></dd>
 
@@ -105,7 +105,7 @@ for more details.</p></dd>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Observations with empty raw data (empty vector, e.g. <code>NULL</code>, in
-<code>name_raw_parsed</code> column) are removed before calculating indices. If no
+<code>col_raw_parsed</code> column) are removed before calculating indices. If no
 observations left after removing, a warning is signaled and <code>NULL</code> is
 returned.</p>
     </div>
