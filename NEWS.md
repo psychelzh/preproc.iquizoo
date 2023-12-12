@@ -1,3 +1,9 @@
+# preproc.iquizoo 2.6.2
+
+## Bug Fixes
+
+* Handle duplicated lower-case column names by skipping conversion.
+
 # preproc.iquizoo 2.6.1
 
 ## Bug Fixes

@@ -28,7 +28,14 @@ You can install the development version from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("psychelzh/preproc.iquizoo")
+devtools::install_github("psychelzh/preproc.iquizoo@develop")
+```
+
+Or you can install the stable version from
+[r-universe](https://psychelzh.r-universe.dev/) with:
+
+``` r
+install.packages("preproc.iquizoo", repos = c(getOption("repos"), "https://psychelzh.r-universe.dev"))
 ```
 
 ## Usage

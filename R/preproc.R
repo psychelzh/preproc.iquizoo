@@ -76,7 +76,7 @@ parse_raw_json <- function(jstr) {
     error = function(cnd) {
       warn(
         c(
-          "Failed to parse json string with the following error:",
+          "Failed to parse json string:",
           conditionMessage(cnd),
           i = "Will parse it as `NULL` instead."
         )
@@ -87,8 +87,21 @@ parse_raw_json <- function(jstr) {
   if (is_empty(parsed)) {
     return()
   }
-  parsed |>
-    rename_with(tolower) |>
+  # try converting column names and values to lowercase
+  tryCatch(
+    parsed |>
+      rename_with(tolower),
+    error = function(cnd) {
+      warn(
+        c(
+          "Failed to convert column names to lowercase:",
+          conditionMessage(cnd),
+          i = "Will use the original data instead."
+        )
+      )
+      parsed
+    }
+  ) |>
     mutate(across(where(is.character), tolower))
 }
 
@@ -102,14 +115,14 @@ calc_indices <- function(data, fn, ..., col_raw_parsed = "raw_parsed") {
     error = function(cnd) {
       warn(
         c(
-          "Failed to bind raw data with the following error:",
+          "Failed to unnest raw data:",
           conditionMessage(cnd),
           i = "Will try using tidytable package."
         )
       )
       check_installed(
         "tidytable",
-        "because tidyr package fails to bind raw data."
+        "because tidyr package fails to unnest raw data."
       )
       tidytable::unnest(data_for_indices, all_of(col_raw_parsed)) |>
         utils::type.convert(as.is = TRUE)
