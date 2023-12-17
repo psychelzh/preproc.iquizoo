@@ -81,7 +81,7 @@ test_that("Deal with `NULL` or invalid data in parsed data", {
       )
     ) |>
     tibble::as_tibble_col("raw_parsed") |>
-    mutate(id = 1:n(), game_id, .before = 1)
+    mutate(id = seq_len(n()), game_id, .before = 1)
   expect_length(unique(preproc_data(dat, srt)$id), 1)
   expect_length(unique(preproc_data(dat, srt, col_game_id = NULL)$id), 2)
 })
