@@ -9,6 +9,7 @@ preproc_data(
   fn,
   ...,
   col_raw_parsed = "raw_parsed",
+  col_game_id = "game_id",
   pivot_results = TRUE,
   pivot_names_to = "index_name",
   pivot_values_to = "score"
@@ -24,6 +25,10 @@ more details.}
 
 \item{col_raw_parsed}{The column name in which stores user's raw data in
 format of a list of \link{data.frame}s.}
+
+\item{col_game_id}{The column name in which stores game id. It must be one
+of the column names in \code{data}. Used in \code{\link[data.iquizoo:check_data_names]{data.iquizoo::check_data_names()}}
+to check if the data names are valid. If \code{NULL}, no check is performed.}
 
 \item{pivot_results}{Whether to pivot the calculated indices. If \code{TRUE}, the
 calculated indices are pivoted into long format, with each index name

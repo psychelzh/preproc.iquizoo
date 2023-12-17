@@ -35,6 +35,9 @@ wrangle_data <- function(data,
 #' @param ... Additional arguments passed to `fn`.
 #' @param col_raw_parsed The column name in which stores user's raw data in
 #'   format of a list of [data.frame]s.
+#' @param col_game_id The column name in which stores game id. It must be one
+#'   of the column names in `data`. Used in [data.iquizoo::check_data_names()]
+#'   to check if the data names are valid. If `NULL`, no check is performed.
 #' @param pivot_results Whether to pivot the calculated indices. If `TRUE`, the
 #'   calculated indices are pivoted into long format, with each index name
 #'   stored in the column of `pivot_names_to`, and each index value stored in
@@ -47,12 +50,30 @@ wrangle_data <- function(data,
 #' @export
 preproc_data <- function(data, fn, ...,
                          col_raw_parsed = "raw_parsed",
+                         col_game_id = "game_id",
                          pivot_results = TRUE,
                          pivot_names_to = "index_name",
                          pivot_values_to = "score") {
-  data <- filter(data, !purrr::map_lgl(.data[[col_raw_parsed]], is_empty))
+  data <- data |>
+    filter(!purrr::map_lgl(.data[[col_raw_parsed]], is_empty))
+  if (!missing(col_game_id) && !is.null(col_game_id)) {
+    stopifnot(
+      "The specified game id column does not exist" =
+        col_game_id %in% names(data)
+    )
+  }
+  if (!is.null(col_game_id) && col_game_id %in% names(data)) {
+    data <- data |>
+      filter(
+        purrr::map2_lgl(
+          .data[[col_game_id]],
+          .data[[col_raw_parsed]],
+          data.iquizoo::check_data_names
+        )
+      )
+  }
   if (nrow(data) == 0) {
-    warn("No non-empty data found.")
+    warn("No non-empty valid data found.")
     return()
   }
   fn <- as_function(fn)

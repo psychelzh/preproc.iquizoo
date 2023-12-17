@@ -55,11 +55,11 @@ test_that("Basic situation in `preproc_data()`", {
     expect_snapshot_value(style = "json2")
 })
 
-test_that("Deal with `NULL` in parsed data", {
+test_that("Deal with `NULL` or invalid data in parsed data", {
   tibble::tibble(raw_parsed = list(NULL)) |>
     preproc_data(prep_fun) |>
     expect_null() |>
-    expect_warning("No non-empty data found.")
+    expect_warning("No non-empty valid data found.")
   tibble::tibble(
     user_id = 1:3,
     raw_parsed = list(
@@ -70,6 +70,20 @@ test_that("Deal with `NULL` in parsed data", {
   ) |>
     preproc_data(prep_fun) |>
     expect_snapshot_value(style = "json2")
+
+  game_id <- bit64::as.integer64(268008982646874)
+  names_valid <- c("block", "trial", "rt", "device")
+  names_invalid <- names_valid[3]
+  dat <- list(names_valid, names_invalid) |>
+    purrr::map(
+      ~ tibble::as_tibble_row(
+        set_names(rep(0, length(.x)), .x)
+      )
+    ) |>
+    tibble::as_tibble_col("raw_parsed") |>
+    mutate(id = 1:n(), game_id, .before = 1)
+  expect_length(unique(preproc_data(dat, srt)$id), 1)
+  expect_length(unique(preproc_data(dat, srt, col_game_id = NULL)$id), 2)
 })
 
 test_that("Can deal with mismatch column types in raw data", {
