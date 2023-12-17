@@ -1,5 +1,7 @@
 # preproc.iquizoo (development version)
 
+* Added data names checking in `preproc_data()`. See `data.iquizoo::check_data_names()` for details.
+
 # preproc.iquizoo 2.6.2
 
 ## Bug Fixes
