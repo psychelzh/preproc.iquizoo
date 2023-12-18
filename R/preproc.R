@@ -14,14 +14,12 @@ wrangle_data <- function(data,
                          col_raw_json = "game_data",
                          col_game_id = "game_id",
                          name_raw_parsed = "raw_parsed") {
+  data[[name_raw_parsed]] <- purrr::map(
+    data[[col_raw_json]],
+    parse_raw_json
+  )
   data |>
-    mutate(
-      "{name_raw_parsed}" := purrr::map(
-        .data[[col_raw_json]],
-        parse_raw_json
-      ),
-      .keep = "unused"
-    ) |>
+    select(!all_of(col_raw_json)) |>
     filter(
       purrr::map2_lgl(
         .data[[col_game_id]],
