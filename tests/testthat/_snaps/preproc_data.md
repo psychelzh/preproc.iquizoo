@@ -73,7 +73,7 @@
       ]
     }
 
-# Deal with `NULL` or invalid data in parsed data
+# Deal with `NULL` in parsed data
 
     {
       "type": "list",
