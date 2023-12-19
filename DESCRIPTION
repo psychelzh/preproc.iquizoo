@@ -14,6 +14,7 @@ BugReports: https://github.com/psychelzh/preproc.iquizoo/issues
 Depends:
     R (>= 4.1.0)
 Imports:
+    data.iquizoo (>= 2023.12.18),
     dplyr,
     jsonlite,
     pracma,
@@ -25,6 +26,7 @@ Imports:
     utils,
     vctrs
 Suggests:
+    bit64,
     covr,
     mockery,
     readr,
@@ -32,6 +34,8 @@ Suggests:
     testthat (>= 3.0.0),
     tidytable,
     withr
+Remotes: 
+    psychelzh/data.iquizoo
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 Encoding: UTF-8

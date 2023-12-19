@@ -4,13 +4,21 @@
 \alias{wrangle_data}
 \title{Wrangle Raw Data}
 \usage{
-wrangle_data(data, col_raw_json = "game_data", name_raw_parsed = "raw_parsed")
+wrangle_data(
+  data,
+  col_raw_json = "game_data",
+  col_game_id = "game_id",
+  name_raw_parsed = "raw_parsed"
+)
 }
 \arguments{
 \item{data}{The raw data.}
 
-\item{col_raw_json}{The column name in which stores user's raw data in
-format of json string.}
+\item{col_raw_json}{The column name in which stores user's raw data in format
+of json string.}
+
+\item{col_game_id}{The column name in which stores game id. Used in
+\code{\link[data.iquizoo:check_data_names]{data.iquizoo::check_data_names()}} to check if the data names are valid.}
 
 \item{name_raw_parsed}{The name used to store parsed data.}
 }

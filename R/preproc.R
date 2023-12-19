@@ -3,19 +3,30 @@
 #' Parse raw json string data as [data.frame()] and store them in a list column.
 #'
 #' @param data The raw data.
-#' @param col_raw_json The column name in which stores user's raw data in
-#'   format of json string.
+#' @param col_raw_json The column name in which stores user's raw data in format
+#'   of json string.
+#' @param col_game_id The column name in which stores game id. Used in
+#'   [data.iquizoo::check_data_names()] to check if the data names are valid.
 #' @param name_raw_parsed The name used to store parsed data.
 #' @return A [data.frame] contains the parsed data.
 #' @export
 wrangle_data <- function(data,
                          col_raw_json = "game_data",
+                         col_game_id = "game_id",
                          name_raw_parsed = "raw_parsed") {
   data[[name_raw_parsed]] <- purrr::map(
     data[[col_raw_json]],
     parse_raw_json
   )
-  select(data, !all_of(col_raw_json))
+  data |>
+    select(!all_of(col_raw_json)) |>
+    filter(
+      purrr::map2_lgl(
+        .data[[col_game_id]],
+        .data[[name_raw_parsed]],
+        data.iquizoo::check_data_names
+      )
+    )
 }
 
 #' Feed Raw Data to Pre-processing
@@ -52,7 +63,7 @@ preproc_data <- function(data, fn, ...,
                          pivot_values_to = "score") {
   data <- filter(data, !purrr::map_lgl(.data[[col_raw_parsed]], is_empty))
   if (nrow(data) == 0) {
-    warn("No non-empty data found.")
+    warn("No non-empty valid data found.")
     return()
   }
   fn <- as_function(fn)
