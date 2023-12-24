@@ -6,7 +6,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["mrt_image", "mrt_mixed", "mrt_sound", "mrt_mixadv"]
+          "value": ["mrt_image", "mrt_sound", "mrt_mixed", "mrt_mixadv"]
         },
         "row.names": {
           "type": "integer",
@@ -28,12 +28,12 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.91838962]
+          "value": [0.6914493]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.6914493]
+          "value": [0.91838962]
         },
         {
           "type": "double",
@@ -51,7 +51,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["id", "mrt_image", "mrt_mixed", "mrt_sound", "mrt_mixadv"]
+          "value": ["id", "mrt_image", "mrt_sound", "mrt_mixed", "mrt_mixadv"]
         },
         "row.names": {
           "type": "integer",
@@ -78,12 +78,12 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.91838962, 0.88696221]
+          "value": [0.6914493, 0.82471921]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.6914493, 0.82471921]
+          "value": [0.91838962, 0.88696221]
         },
         {
           "type": "double",

@@ -4,23 +4,24 @@
 \alias{check_outliers_rt}
 \title{Outliers Detection for response time data}
 \usage{
-check_outliers_rt(x, threshold = 2.5)
+check_outliers_rt(x, method = c("z_score", "cutoff"), threshold = NULL)
 }
 \arguments{
 \item{x}{A vector of input reaction time data.}
 
+\item{method}{The method used to detect outliers. If set to \code{"cutoff"}, any
+value out of \code{threshold} range is considered as outlier. If set to
+\code{"z_score"}, any value with absolute z-score larger than \code{threshold} is
+considered as outlier.}
+
 \item{threshold}{The threshold for determining whether a value is outlier or
-not. Default is set at 2.5, which is best sample size dependent.}
+not. For \code{"cutoff"} method, the default is \code{c(0.2, Inf)}. For \code{"z_score"}
+method, the default is \code{2.5}.}
 }
 \value{
 A logical vector of the detected outliers.
 }
 \description{
-This method is also called "transform" method, because it does a
-transformation before applying z-score method.
-}
-\details{
-This is based on Cousineau, D., & Chartier, S. (2010), which is said to be
-suitable for reaction time data.
+Outliers Detection for response time data
 }
 \keyword{internal}

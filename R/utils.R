@@ -9,63 +9,47 @@
 #' and standard deviations of response times the number, and the second contains
 #' the number and percent of correct responses.
 #'
-#' @section Note:
-#'
-#'   Outlier removal is recommended and it is set as default in here. The
-#'   outlier detection method used here is the one recommended by Cousineau, D.,
-#'   & Chartier, S. (2010).
-#'
 #' @template common
+#' @param ... Other arguments passed to [check_outliers_rt()].
 #' @param by The column name(s) in `data` used to be grouped by. If set to
 #'   `NULL`, all data will be treated as from one subject.
 #' @templateVar name_acc TRUE
 #' @templateVar name_rt TRUE
 #' @template names
-#' @param rt_rm_out A logical value. Whether remove response time outlier or
-#'   not. Default to `TRUE.`
+#' @param rt_rm_out A logical value indicating if outliers should be removed
+#'   from reaction time. Default is `TRUE`.
 #' @param rt_unit The unit of response time in `data`.
 #' @return A [tibble][tibble::tibble-package] contains the required scores.
 #' @keywords internal
-calc_spd_acc <- function(data, by = NULL, name_acc = "acc", name_rt = "rt",
+calc_spd_acc <- function(data, ...,
+                         by = NULL, name_acc = "acc", name_rt = "rt",
                          rt_rm_out = TRUE, rt_unit = c("ms", "s")) {
   rt_unit <- match.arg(rt_unit)
   # set reaction time unit to seconds for better value range
   if (rt_unit == "ms") data[[name_rt]] <- data[[name_rt]] / 1000
+  if (rt_rm_out) {
+    data <- data |>
+      mutate(
+        "{name_rt}" := if_else(
+          check_outliers_rt(.data[[name_rt]], ...),
+          NA, .data[[name_rt]]
+        ),
+        .by = all_of(by)
+      )
+  }
   data |>
     # rt of 0 means no response and should be converted as `NA
     mutate(na_if(.data[[name_rt]], 0)) |>
-    group_by(pick(all_of(by))) |>
-    mutate(is_outlier = check_outliers_rt(.data[[name_rt]])) |>
     summarise(
       nc = sum(.data[[name_acc]] == 1),
       pc = .data$nc / n(),
       pcsd = stats::sd(.data[[name_acc]] == 1),
-      mrt = if (rt_rm_out) {
-        .data[[name_rt]] |>
-          .subset(!.data$is_outlier & .data[[name_acc]] == 1) |>
-          mean.default(na.rm = TRUE)
-      } else {
-        .data[[name_rt]] |>
-          .subset(.data[[name_acc]] == 1) |>
-          mean.default(na.rm = TRUE)
-      },
-      mrt_all = if (rt_rm_out) {
-        .data[[name_rt]] |>
-          .subset(!.data$is_outlier) |>
-          mean.default(na.rm = TRUE)
-      } else {
-        .data[[name_rt]] |>
-          mean.default(na.rm = TRUE)
-      },
-      rtsd = if (rt_rm_out) {
-        .data[[name_rt]] |>
-          .subset(!.data$is_outlier & .data[[name_acc]] == 1) |>
-          stats::sd(na.rm = TRUE)
-      } else {
-        .data[[name_rt]] |>
-          .subset(.data[[name_acc]] == 1) |>
-          stats::sd(na.rm = TRUE)
-      },
+      mrt = mean(.data[[name_rt]][.data[[name_acc]] == 1], na.rm = TRUE),
+      mrt_all = mean(.data[[name_rt]], na.rm = TRUE),
+      rtsd = stats::sd(
+        .data[[name_rt]][.data[[name_acc]] == 1],
+        na.rm = TRUE
+      ),
       ies = .data$mrt / .data$pc,
       rcs = .data$pc / .data$mrt_all,
       lisas = case_when(
@@ -73,7 +57,7 @@ calc_spd_acc <- function(data, by = NULL, name_acc = "acc", name_rt = "rt",
         .data$pc == 0 ~ 0,
         TRUE ~ .data$mrt + (1 - .data$pc) / .data$pcsd * .data$rtsd
       ),
-      .groups = "drop"
+      .by = all_of(by)
     )
 }
 
@@ -202,20 +186,27 @@ update_settings <- function(origin, updates) {
 
 #' Outliers Detection for response time data
 #'
-#' This method is also called "transform" method, because it does a
-#' transformation before applying z-score method.
-#'
-#' This is based on Cousineau, D., & Chartier, S. (2010), which is said to be
-#' suitable for reaction time data.
-#'
 #' @param x A vector of input reaction time data.
+#' @param method The method used to detect outliers. If set to `"cutoff"`, any
+#'   value out of `threshold` range is considered as outlier. If set to
+#'   `"z_score"`, any value with absolute z-score larger than `threshold` is
+#'   considered as outlier.
 #' @param threshold The threshold for determining whether a value is outlier or
-#'   not. Default is set at 2.5, which is best sample size dependent.
+#'   not. For `"cutoff"` method, the default is `c(0.2, Inf)`. For `"z_score"`
+#'   method, the default is `2.5`.
 #' @return A logical vector of the detected outliers.
 #' @keywords internal
-check_outliers_rt <- function(x, threshold = 2.5) {
-  z_scores <- scale(
-    scale(x, min(x, na.rm = TRUE), diff(range(x, na.rm = TRUE)))
-  )[, 1]
-  abs(z_scores) > threshold
+check_outliers_rt <- function(x, method = c("z_score", "cutoff"),
+                              threshold = NULL) {
+  method <- match.arg(method)
+  if (is.null(threshold)) {
+    threshold <- switch(method,
+      cutoff = c(0.2, Inf), # assuming rt is in seconds
+      z_score = 2.5
+    )
+  }
+  switch(method,
+    cutoff = x < threshold[[1]] | x > threshold[[2]],
+    z_score = abs(scale(x)[, 1]) > threshold
+  )
 }
