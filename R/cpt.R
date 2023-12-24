@@ -29,13 +29,11 @@ cpt <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     # some tests records stimuli not presented
     filter(.data[[.input$name_acc]] != -1) |>
     mutate(
-      # standardize stimuli type
-      type_cor = if_else(
-        .data[[.input$name_type]] == .extra$type_signal,
-        "s", "n"
-      ),
       # remove rt from non-signal trials
-      rt_cor = ifelse(.data$type_cor == "s", .data[[.input$name_rt]], NA)
+      rt_cor = if_else(
+        .data[[.input$name_type]] == .extra$type_signal,
+        .data[[.input$name_rt]], NA
+      )
     )
   merge(
     calc_spd_acc(
@@ -46,9 +44,10 @@ cpt <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     ),
     calc_sdt(
       data_cor,
+      .extra$type_signal,
       by = .by,
       name_acc = .input$name_acc,
-      name_type = "type_cor"
+      name_type = .input$name_type
     ),
     by = .by
   ) |>

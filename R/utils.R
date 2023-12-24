@@ -79,21 +79,26 @@ calc_spd_acc <- function(data, ...,
 #' @return A [tibble][tibble::tibble-package] contains sensitivity index and
 #'   bias (and other counts measures)
 #' @keywords internal
-calc_sdt <- function(data, by = NULL, name_acc = "acc", name_type = "type") {
+calc_sdt <- function(data, type_signal, ...,
+                     by = NULL, name_acc = "acc", name_type = "type") {
+  if (!type_signal %in% data[[name_type]]) {
+    stop("Signal type not found in data", call. = FALSE)
+  }
+  if (length(unique(data[[name_type]])) != 2) {
+    stop("Data should contain only two types of stimuli", call. = FALSE)
+  }
   data |>
     mutate(
       type_fac = factor(
-        .data[[name_type]],
-        c("s", "n")
+        .data[[name_type]] == type_signal,
+        labels = c("n", "s")
       )
     ) |>
-    group_by(pick(all_of(c(by, "type_fac")))) |>
     summarise(
       c = sum(.data[[name_acc]] == 1),
       e = n() - .data$c,
-      .groups = "drop"
+      .by = all_of(c(by, "type_fac"))
     ) |>
-    # TODO: call `complete()` to make sure "s" and "n" both exist
     mutate(
       across(
         all_of(c("c", "e")),

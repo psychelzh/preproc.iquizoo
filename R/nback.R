@@ -102,14 +102,7 @@ dualnback <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
                         type_signal = "same") {
   data_cor <- data |>
     # filler trials should be ignored
-    filter(!.data[[name_type]] == type_filler) |>
-    mutate(
-      # standardize stimuli type
-      type_cor = if_else(
-        .data[[name_type]] == type_signal,
-        "s", "n"
-      )
-    )
+    filter(!.data[[name_type]] == type_filler)
   merge(
     calc_spd_acc(
       data_cor,
@@ -119,9 +112,10 @@ dualnback <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     ),
     calc_sdt(
       data_cor,
+      type_signal,
       by = by,
       name_acc = name_acc,
-      name_type = "type_cor"
+      name_type = name_type
     ),
     by = by
   ) |>
