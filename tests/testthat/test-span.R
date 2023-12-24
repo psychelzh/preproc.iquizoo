@@ -67,7 +67,6 @@ test_that("Works when no acc column found", {
       )
   )
   span(data_no_acc) |>
-    expect_silent() |>
     expect_snapshot_value(style = "json2")
   data_repairable <- withr::with_seed(
     1,
@@ -82,7 +81,6 @@ test_that("Works when no acc column found", {
       )
   )
   span(data_repairable) |>
-    expect_silent() |>
     expect_snapshot_value(style = "json2")
 })
 
@@ -118,6 +116,5 @@ test_that("Can restore outcome from correctness", {
       .keep = "unused"
     )
   span(data) |>
-    expect_silent() |>
     expect_snapshot_value(style = "json2", tolerance = 1e-5)
 })

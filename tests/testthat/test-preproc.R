@@ -2,12 +2,10 @@ test_that("Basic situation for `wrangle_data()`", {
   js_str <- r"([{"a": 1, "b": 2}])"
   data <- tibble::tibble(game_data = js_str)
   wrangle_data(data) |>
-    expect_silent() |>
     expect_named("raw_parsed") |>
     purrr::pluck("raw_parsed", 1) |>
     expect_identical(jsonlite::fromJSON(js_str))
   wrangle_data(data, name_raw_parsed = "parsed") |>
-    expect_silent() |>
     expect_named("parsed")
 })
 

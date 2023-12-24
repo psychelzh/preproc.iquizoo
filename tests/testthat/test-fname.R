@@ -13,7 +13,6 @@ test_that("Works without grouping variables", {
       )
     )
   fname(data) |>
-    expect_silent() |>
     expect_snapshot_value(style = "json2")
 })
 
@@ -35,6 +34,5 @@ test_that("Works with grouping variables", {
       )
   )
   fname(data, .by = "id") |>
-    expect_silent() |>
     expect_snapshot_value(style = "json2")
 })

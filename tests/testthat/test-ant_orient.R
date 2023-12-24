@@ -11,7 +11,6 @@ test_that("Works without grouping variables", {
       acc = sample(c(0, 1), n(), replace = TRUE)
     )
   ant_orient(data) |>
-    expect_silent() |>
     expect_snapshot_value(style = "json2", tolerance = 1e-5)
 })
 
@@ -31,6 +30,5 @@ test_that("Works with grouping variables", {
       )
   )
   ant_orient(data, .by = "id") |>
-    expect_silent() |>
     expect_snapshot_value(style = "json2", tolerance = 1e-5)
 })

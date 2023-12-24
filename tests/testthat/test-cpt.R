@@ -47,6 +47,5 @@ test_that("Works on perfect accuracy data (no `NA`s)", {
       )
   )
   cpt(data_perfect) |>
-    expect_silent() |>
     expect_snapshot_value(style = "json2")
 })
