@@ -61,39 +61,22 @@ complexswitch <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     select(all_of(c(.by, "pc", "mrt")))
   switch_cost <- data |>
     filter(.data[[.input$name_switch]] != .extra$task_filler) |>
-    mutate(
-      # https://github.com/tidyverse/dplyr/issues/6623
-      switch = case_match(
-        .data[[.input$name_switch]],
-        !!!purrr::map2(
-          .extra[c("task_repeat", "task_switch")],
-          c("repeat", "switch"),
-          new_formula
-        )
-      )
-    ) |>
-    calc_switch_cost(
+    calc_cond_diff(
       by = .by,
-      name_switch = "switch",
+      name_cond = .input$name_switch,
+      values_cond = .extra[c("task_switch", "task_repeat")],
       name_acc = .input$name_acc,
-      name_rt = .input$name_rt
+      name_rt = .input$name_rt,
+      type_effect = "switch"
     )
   cong_eff <- data |>
-    mutate(
-      stim_type = case_match(
-        .data[[.input$name_cong]],
-        !!!purrr::map2(
-          .extra[c("stim_con", "stim_inc")],
-          c("con", "inc"),
-          new_formula
-        )
-      )
-    ) |>
-    calc_cong_eff(
+    calc_cond_diff(
       by = .by,
-      name_cong = "stim_type",
+      name_cond = .input$name_cong,
+      values_cond = .extra[c("stim_inc", "stim_con")],
       name_acc = .input$name_acc,
-      name_rt = .input$name_rt
+      name_rt = .input$name_rt,
+      type_effect = "congruency"
     )
   spd_acc |>
     merge(switch_cost, by = .by) |>
@@ -123,21 +106,13 @@ congeff <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   ) |>
     select(all_of(c(.by, "pc", "mrt")))
   cong_eff <- data |>
-    mutate(
-      stim_type = case_match(
-        .data[[.input$name_cong]],
-        !!!purrr::map2(
-          .extra[c("stim_con", "stim_inc")],
-          c("con", "inc"),
-          new_formula
-        )
-      )
-    ) |>
-    calc_cong_eff(
+    calc_cond_diff(
       by = .by,
-      name_cong = "stim_type",
+      name_cond = .input$name_cong,
+      values_cond = .extra[c("stim_inc", "stim_con")],
       name_acc = .input$name_acc,
-      name_rt = .input$name_rt
+      name_rt = .input$name_rt,
+      type_effect = "congruency"
     )
   merge(spd_acc, cong_eff, by = .by) |>
     vctrs::vec_restore(data)
@@ -167,83 +142,32 @@ switchcost <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     select(all_of(c(.by, "pc", "mrt")))
   switch_cost <- data |>
     filter(.data[[.input$name_switch]] != .extra$task_filler) |>
-    mutate(
-      switch = case_match(
-        .data[[.input$name_switch]],
-        !!!purrr::map2(
-          .extra[c("task_repeat", "task_switch")],
-          c("repeat", "switch"),
-          new_formula
-        )
-      )
-    ) |>
-    calc_switch_cost(
+    calc_cond_diff(
       by = .by,
-      name_switch = "switch",
+      name_cond = .input$name_switch,
+      values_cond = .extra[c("task_switch", "task_repeat")],
       name_acc = .input$name_acc,
-      name_rt = .input$name_rt
+      name_rt = .input$name_rt,
+      type_effect = "switch"
     )
   merge(spd_acc, switch_cost, by = .by) |>
     vctrs::vec_restore(data)
 }
 
-#' Switch cost
-#'
-#' Utility function to calculate general and specific switch cost.
-#'
-#' @template common
-#' @param by The column name(s) in `data` used to be grouped by. If set to
-#'   `NULL`, all data will be treated as from one subject.
-#' @templateVar name_acc TRUE
-#' @templateVar name_rt TRUE
-#' @template names
-#' @param name_switch The column name of the `data` input whose values are
-#'   the switch type, in which is a `character` vector with at least `"switch"`
-#'   and `"repeat"` values.
-#' @keywords internal
-calc_switch_cost <- function(data, by, name_switch, name_rt, name_acc) {
-  data[[name_switch]] <- factor(data[[name_switch]], c("switch", "repeat"))
-  calc_cond_diff(
-    data,
-    by,
-    name_cond = name_switch,
-    name_diff_prefix = "switch_cost_",
-    name_acc = name_acc,
-    name_rt = name_rt
+# helper functions
+calc_cond_diff <- function(data, by, name_cond, values_cond, ...,
+                           name_acc = "acc", name_rt = "rt",
+                           type_effect = c("switch", "congruency")) {
+  type_effect <- match.arg(type_effect)
+  labels_cond <- switch(type_effect,
+    `switch` = c("switch", "repeat"),
+    `congruency` = c("inc", "con")
   )
-}
-
-#' Congruence effect
-#'
-#' Utility function to calculate congruence effect sizes.
-#'
-#' @template common
-#' @param by The column name(s) in `data` used to be grouped by. If set to
-#'   `NULL`, all data will be treated as from one subject.
-#' @templateVar name_acc TRUE
-#' @templateVar name_rt TRUE
-#' @template names
-#' @param name_cong The column name of the `data` input whose values are the
-#'   congruence information, in which is a `character` vector with "incongruent
-#'   condition" (label: `"inc"`) and "congruent condition" (label: `"con"`). It
-#'   will be coerced as a `factor` vector with these two levels.
-#' @return A [tibble][tibble::tibble-package] contains congruence effect results
-#'   on accuracy and response time.
-#' @keywords internal
-calc_cong_eff <- function(data, by, name_cong, name_acc, name_rt) {
-  data[[name_cong]] <- factor(data[[name_cong]], c("inc", "con"))
-  calc_cond_diff(
-    data,
-    by,
-    name_cond = name_cong,
-    name_diff_prefix = "cong_eff_",
-    name_acc = name_acc,
-    name_rt = name_rt
+  data[[name_cond]] <- factor(
+    data[[name_cond]],
+    levels = values_cond,
+    labels = labels_cond
   )
-}
-
-calc_cond_diff <- function(data, by, name_acc, name_rt,
-                           name_cond, name_diff_prefix) {
   conds <- levels(data[[name_cond]])
   index_each_cond <- data |>
     calc_spd_acc(
@@ -277,7 +201,10 @@ calc_cond_diff <- function(data, by, name_acc, name_rt,
     pivot_wider(
       names_from = "index_name",
       values_from = "diff",
-      names_prefix = name_diff_prefix
+      names_prefix = switch(type_effect,
+        `switch` = "switch_cost_",
+        `congruency` = "cong_eff_"
+      )
     ) |>
     merge(
       index_each_cond |>
