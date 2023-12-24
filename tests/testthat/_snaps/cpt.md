@@ -23,27 +23,27 @@
         {
           "type": "integer",
           "attributes": {},
-          "value": [20]
+          "value": [19]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [1.34363152]
+          "value": [0.5998979]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [1.47114892]
+          "value": [0.4631781]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [3.36204386]
+          "value": [2.79159852]
         },
         {
           "type": "integer",
           "attributes": {},
-          "value": [0]
+          "value": [1]
         },
         {
           "type": "integer",
@@ -109,61 +109,6 @@
           "type": "integer",
           "attributes": {},
           "value": [0, 1]
-        }
-      ]
-    }
-
-# Works on perfect accuracy data (no `NA`s)
-
-    {
-      "type": "list",
-      "attributes": {
-        "names": {
-          "type": "character",
-          "attributes": {},
-          "value": ["nc", "mrt", "rtsd", "dprime", "commissions", "omissions"]
-        },
-        "row.names": {
-          "type": "integer",
-          "attributes": {},
-          "value": [1]
-        },
-        "class": {
-          "type": "character",
-          "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
-        }
-      },
-      "value": [
-        {
-          "type": "integer",
-          "attributes": {},
-          "value": [20]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [1.43868832]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [1.75303022]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [3.36204386]
-        },
-        {
-          "type": "integer",
-          "attributes": {},
-          "value": [0]
-        },
-        {
-          "type": "integer",
-          "attributes": {},
-          "value": [0]
         }
       ]
     }
