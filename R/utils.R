@@ -24,6 +24,7 @@
 calc_spd_acc <- function(data, ...,
                          by = NULL, name_acc = "acc", name_rt = "rt",
                          rt_rm_out = TRUE, rt_unit = c("ms", "s")) {
+  check_dots_used()
   rt_unit <- match.arg(rt_unit)
   # set reaction time unit to seconds for better value range
   if (rt_unit == "ms") data[[name_rt]] <- data[[name_rt]] / 1000
@@ -68,19 +69,22 @@ calc_spd_acc <- function(data, ...,
 #' recommended by Hautus (1995).
 #'
 #' @template common
+#' @param type_signal The type of signal stimuli. It should be one of the values
+#'   in the `name_type` column of `data`.
+#' @param ... For future extensions. Should be empty.
 #' @param by The column name(s) in `data` used to be grouped by. If set to
 #'   `NULL`, all data will be treated as from one subject.
 #' @templateVar name_acc TRUE
 #' @template names
 #' @param name_type The column name of the `data` input whose values are the
-#'   stimuli types, in which is a `character` vector with value `"s"` (denoting
-#'   "*signal*") and `"n"` (denoting "*non-signal*") only. It will be coerced as
-#'   a `factor` vector with these two levels.
+#'   stimuli types. Based on `type_signal`, the other types of stimuli will be
+#'   treated as non-signal stimuli.
 #' @return A [tibble][tibble::tibble-package] contains sensitivity index and
 #'   bias (and other counts measures)
 #' @keywords internal
 calc_sdt <- function(data, type_signal, ...,
                      by = NULL, name_acc = "acc", name_type = "type") {
+  check_dots_empty()
   if (!type_signal %in% data[[name_type]]) {
     abort("Signal type not found in data")
   }
