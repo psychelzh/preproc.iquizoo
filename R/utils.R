@@ -82,10 +82,18 @@ calc_spd_acc <- function(data, ...,
 calc_sdt <- function(data, type_signal, ...,
                      by = NULL, name_acc = "acc", name_type = "type") {
   if (!type_signal %in% data[[name_type]]) {
-    stop("Signal type not found in data", call. = FALSE)
+    abort("Signal type not found in data")
   }
-  if (length(unique(data[[name_type]])) != 2) {
-    stop("Data should contain only two types of stimuli", call. = FALSE)
+  if (length(unique(data[[name_type]])) < 2) {
+    abort("No non-signal stimuli found in data")
+  }
+  if (length(unique(data[[name_type]])) > 2) {
+    warn(
+      paste(
+        "Found more than one types of non-signal stimuli in data,",
+        "will treat all of them as non-signal"
+      )
+    )
   }
   data |>
     mutate(
