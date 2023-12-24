@@ -56,7 +56,9 @@ srt <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     calc_spd_acc(
       by = .by,
       name_acc = "acc_dummy",
-      name_rt = .input$name_rt
+      name_rt = .input$name_rt,
+      method = "cutoff",
+      threshold = c(0.15, Inf)
     ) |>
     select(all_of(c(.by, "mrt", "rtsd"))) |>
     vctrs::vec_restore(data)
