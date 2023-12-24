@@ -4,6 +4,11 @@
 
 * Added `"cutoff"` method in response time outlier detection, which is used in `srt()` now.
 
+## Miscellaneous
+
+* Let internal function `calc_sdt()` throw error when type column is not valid.
+* Enhanced code quality of internal functions.
+
 # preproc.iquizoo 2.6.2
 
 ## Bug Fixes
