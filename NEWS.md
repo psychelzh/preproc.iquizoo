@@ -1,5 +1,9 @@
 # preproc.iquizoo (development version)
 
+## Breaking Changes
+
+* Added `"cutoff"` method in response time outlier detection, which is used in `srt()` now.
+
 # preproc.iquizoo 2.6.2
 
 ## Bug Fixes
