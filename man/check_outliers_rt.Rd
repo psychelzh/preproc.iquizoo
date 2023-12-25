@@ -7,8 +7,7 @@
 check_outliers_rt(
   x,
   method = c("transform", "z_score", "cutoff"),
-  threshold = NULL,
-  na.rm = TRUE
+  threshold = NULL
 )
 }
 \arguments{
@@ -22,10 +21,8 @@ is considered as outlier. If set to \code{"cutoff"}, the any value out of
 \code{threshold} range is considered as outlier.}
 
 \item{threshold}{The threshold for determining whether a value is outlier or
-not. For \code{"cutoff"} method, the default is \code{c(0.2, Inf)}. For \code{"z_score"}
-method, the default is \code{2.5}.}
-
-\item{na.rm}{A logical value indicating if \code{NA} values should be removed.}
+not. For \code{"transform"} and \code{"z_score"} method, the default is \code{2.5}. For
+\code{"cutoff"} method, the default is \code{c(0.2, Inf)}.}
 }
 \value{
 A logical vector of the detected outliers.

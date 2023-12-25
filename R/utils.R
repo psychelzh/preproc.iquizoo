@@ -17,7 +17,7 @@
 #' @templateVar name_rt TRUE
 #' @template names
 #' @param rt_rm_out A logical value indicating if outliers should be removed
-#'   from reaction time. Default is `TRUE`.
+#'   from reaction time.
 #' @param rt_unit The unit of response time in `data`.
 #' @return A [tibble][tibble::tibble-package] contains the required scores.
 #' @keywords internal
@@ -211,15 +211,13 @@ update_settings <- function(origin, updates) {
 #'   is considered as outlier. If set to `"cutoff"`, the any value out of
 #'   `threshold` range is considered as outlier.
 #' @param threshold The threshold for determining whether a value is outlier or
-#'   not. For `"cutoff"` method, the default is `c(0.2, Inf)`. For `"z_score"`
-#'   method, the default is `2.5`.
-#' @param na.rm A logical value indicating if `NA` values should be removed.
+#'   not. For `"transform"` and `"z_score"` method, the default is `2.5`. For
+#'   `"cutoff"` method, the default is `c(0.2, Inf)`.
 #' @return A logical vector of the detected outliers.
 #' @keywords internal
 check_outliers_rt <- function(x,
                               method = c("transform", "z_score", "cutoff"),
-                              threshold = NULL,
-                              na.rm = TRUE) {
+                              threshold = NULL) {
   method <- match.arg(method)
   if (is.null(threshold)) {
     threshold <- switch(method,
@@ -230,7 +228,7 @@ check_outliers_rt <- function(x,
   }
   if (method == "transform") {
     x <- x |>
-      scale(min(x, na.rm = na.rm), diff(range(x, na.rm = na.rm))) |>
+      scale(min(x, na.rm = TRUE), diff(range(x, na.rm = TRUE))) |>
       sqrt()
   }
   switch(method,

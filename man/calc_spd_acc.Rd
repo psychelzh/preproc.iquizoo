@@ -27,7 +27,7 @@ calc_spd_acc(
 \item{name_rt}{The column name of the \code{data} input whose values are user's reaction time, in which is a \code{numeric} vector with \code{NA} values representing abnormal reaction times.}
 
 \item{rt_rm_out}{A logical value indicating if outliers should be removed
-from reaction time. Default is \code{TRUE}.}
+from reaction time.}
 
 \item{rt_unit}{The unit of response time in \code{data}.}
 }
