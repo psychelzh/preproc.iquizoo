@@ -4,19 +4,28 @@
 \alias{check_outliers_rt}
 \title{Outliers Detection for response time data}
 \usage{
-check_outliers_rt(x, method = c("z_score", "cutoff"), threshold = NULL)
+check_outliers_rt(
+  x,
+  method = c("transform", "z_score", "cutoff"),
+  threshold = NULL,
+  na.rm = TRUE
+)
 }
 \arguments{
 \item{x}{A vector of input reaction time data.}
 
-\item{method}{The method used to detect outliers. If set to \code{"cutoff"}, any
-value out of \code{threshold} range is considered as outlier. If set to
-\code{"z_score"}, any value with absolute z-score larger than \code{threshold} is
-considered as outlier.}
+\item{method}{The method used to detect outliers. If set to \code{"transform"}, a
+square root transformation is applied to the data before applying
+\code{"z_score"} method outlier detection, see Cousineau & Chartier (2010). If
+set to \code{"z_score"}, any value with absolute z-score larger than \code{threshold}
+is considered as outlier. If set to \code{"cutoff"}, the any value out of
+\code{threshold} range is considered as outlier.}
 
 \item{threshold}{The threshold for determining whether a value is outlier or
 not. For \code{"cutoff"} method, the default is \code{c(0.2, Inf)}. For \code{"z_score"}
 method, the default is \code{2.5}.}
+
+\item{na.rm}{A logical value indicating if \code{NA} values should be removed.}
 }
 \value{
 A logical vector of the detected outliers.

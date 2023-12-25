@@ -204,26 +204,38 @@ update_settings <- function(origin, updates) {
 #' Outliers Detection for response time data
 #'
 #' @param x A vector of input reaction time data.
-#' @param method The method used to detect outliers. If set to `"cutoff"`, any
-#'   value out of `threshold` range is considered as outlier. If set to
-#'   `"z_score"`, any value with absolute z-score larger than `threshold` is
-#'   considered as outlier.
+#' @param method The method used to detect outliers. If set to `"transform"`, a
+#'   square root transformation is applied to the data before applying
+#'   `"z_score"` method outlier detection, see Cousineau & Chartier (2010). If
+#'   set to `"z_score"`, any value with absolute z-score larger than `threshold`
+#'   is considered as outlier. If set to `"cutoff"`, the any value out of
+#'   `threshold` range is considered as outlier.
 #' @param threshold The threshold for determining whether a value is outlier or
 #'   not. For `"cutoff"` method, the default is `c(0.2, Inf)`. For `"z_score"`
 #'   method, the default is `2.5`.
+#' @param na.rm A logical value indicating if `NA` values should be removed.
 #' @return A logical vector of the detected outliers.
 #' @keywords internal
-check_outliers_rt <- function(x, method = c("z_score", "cutoff"),
-                              threshold = NULL) {
+check_outliers_rt <- function(x,
+                              method = c("transform", "z_score", "cutoff"),
+                              threshold = NULL,
+                              na.rm = TRUE) {
   method <- match.arg(method)
   if (is.null(threshold)) {
     threshold <- switch(method,
       cutoff = c(0.2, Inf), # assuming rt is in seconds
+      transform = ,
       z_score = 2.5
     )
   }
+  if (method == "transform") {
+    x <- x |>
+      scale(min(x, na.rm = na.rm), diff(range(x, na.rm = na.rm))) |>
+      sqrt()
+  }
   switch(method,
     cutoff = x < threshold[[1]] | x > threshold[[2]],
+    transform = ,
     z_score = abs(scale(x)[, 1]) > threshold
   )
 }

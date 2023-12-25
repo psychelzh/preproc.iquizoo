@@ -38,12 +38,12 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.36102098]
+          "value": [0.71811698]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.33098192]
+          "value": [0.47382086]
         },
         {
           "type": "double",
@@ -53,12 +53,12 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.90255244]
+          "value": [1.79529246]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.73551538]
+          "value": [1.05293524]
         },
         {
           "type": "double",
@@ -68,12 +68,12 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [1.13489593]
+          "value": [0.80690401]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [1.48265643]
+          "value": [1.22790842]
         },
         {
           "type": "double",
@@ -83,12 +83,12 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [1.24077917]
+          "value": [2.17314511]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [1.00290735]
+          "value": [1.38847709]
         },
         {
           "type": "double",
@@ -118,20 +118,20 @@
     {
       "type": "list",
       "attributes": {
-        "class": {
+        "names": {
           "type": "character",
           "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
+          "value": ["id", "pc_aud", "pc_both", "pc_vis", "mrt_aud", "mrt_both", "mrt_vis", "ies_aud", "ies_both", "ies_vis", "rcs_aud", "rcs_both", "rcs_vis", "lisas_aud", "lisas_both", "lisas_vis", "dprime_aud", "dprime_both", "dprime_vis"]
         },
         "row.names": {
           "type": "integer",
           "attributes": {},
           "value": [1, 2]
         },
-        "names": {
+        "class": {
           "type": "character",
           "attributes": {},
-          "value": ["id", "pc_aud", "pc_both", "pc_vis", "mrt_aud", "mrt_both", "mrt_vis", "ies_aud", "ies_both", "ies_vis", "rcs_aud", "rcs_both", "rcs_vis", "lisas_aud", "lisas_both", "lisas_vis", "dprime_aud", "dprime_both", "dprime_vis"]
+          "value": ["tbl_df", "tbl", "data.frame"]
         }
       },
       "value": [
@@ -158,12 +158,12 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.36102098, 0.36379006]
+          "value": [0.71811698, 0.36379006]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.33098192, 0.29318688]
+          "value": [0.47382086, 0.29318688]
         },
         {
           "type": "double",
@@ -173,12 +173,12 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.90255244, 0.55967701]
+          "value": [1.79529246, 0.55967701]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.73551538, 0.469099]
+          "value": [1.05293524, 0.469099]
         },
         {
           "type": "double",
@@ -188,12 +188,12 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [1.13489593, 2.01679709]
+          "value": [0.80690401, 1.54331832]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [1.48265643, 1.95815393]
+          "value": [1.22790842, 1.68935217]
         },
         {
           "type": "double",
@@ -203,12 +203,12 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [1.24077917, 0.76613461]
+          "value": [2.17314511, 0.76613461]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [1.00290735, 0.66695011]
+          "value": [1.38847709, 0.66695011]
         },
         {
           "type": "double",

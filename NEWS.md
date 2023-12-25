@@ -3,6 +3,7 @@
 ## Breaking Changes
 
 * Added `"cutoff"` method in response time outlier detection, which is used in `srt()` now.
+* Added `"transform"` method in response time outlier detection, which was stated to be used but the code was not right. Now it is used as default if not specified.
 
 ## Miscellaneous
 

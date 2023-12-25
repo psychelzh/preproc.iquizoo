@@ -53,47 +53,22 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.07944721]
+          "value": [0.31773551]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [-0.00898532]
+          "value": [0.46759127]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.01622249]
+          "value": [0.02544161]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [-0.13567216]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [-0.05]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [-0.13126847]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [-0.47724239]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [-0.0519927]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [-0.33260955]
+          "value": [0.55148109]
         },
         {
           "type": "double",
@@ -103,22 +78,47 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.26675004]
+          "value": [-0.27717569]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.40724319]
+          "value": [-0.85443363]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.1063757]
+          "value": [-0.07075895]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.10564974]
+          "value": [-0.81648343]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.05]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.50503834]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.88381978]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.16694827]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.79280299]
         }
       ]
     }
@@ -183,47 +183,22 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.07944721, 0.07944721]
+          "value": [0.31773551, 0.31773551]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [-0.00898532, -0.00898532]
+          "value": [0.46759127, 0.46759127]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.01622249, 0.01622249]
+          "value": [0.02544161, 0.02544161]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [-0.13567216, -0.13567216]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [-0.05, -0.05]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [-0.13126847, -0.13126847]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [-0.47724239, -0.47724239]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [-0.0519927, -0.0519927]
-        },
-        {
-          "type": "double",
-          "attributes": {},
-          "value": [-0.33260955, -0.33260955]
+          "value": [0.55148109, 0.55148109]
         },
         {
           "type": "double",
@@ -233,22 +208,47 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.26675004, 0.26675004]
+          "value": [-0.27717569, -0.27717569]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.40724319, 0.40724319]
+          "value": [-0.85443363, -0.85443363]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.1063757, 0.1063757]
+          "value": [-0.07075895, -0.07075895]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.10564974, 0.10564974]
+          "value": [-0.81648343, -0.81648343]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.05, -0.05]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.50503834, 0.50503834]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.88381978, 0.88381978]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.16694827, 0.16694827]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [0.79280299, 0.79280299]
         }
       ]
     }

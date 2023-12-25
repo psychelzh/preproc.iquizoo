@@ -88,22 +88,22 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.50886421, 1.14328339]
+          "value": [0.50886421, 1.51223633]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [1.27216053, 2.28656678]
+          "value": [1.27216053, 3.02447265]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.54579516, 0.51417618]
+          "value": [0.54579516, 0.42901939]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [1.03113978, 2.09890284]
+          "value": [1.03113978, 2.96307762]
         },
         {
           "type": "double",

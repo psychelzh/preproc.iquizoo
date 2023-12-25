@@ -23,7 +23,7 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.91381962]
+          "value": [1.08932535]
         },
         {
           "type": "double",
@@ -33,12 +33,12 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.91838962]
+          "value": [1.03335959]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [-0.11575517]
+          "value": [-0.14297227]
         }
       ]
     }
@@ -73,7 +73,7 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.91381962, 1.16790939]
+          "value": [1.08932535, 1.35115456]
         },
         {
           "type": "double",
@@ -83,12 +83,12 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.91838962, 0.88696221]
+          "value": [1.03335959, 0.88696221]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [-0.11575517, 0.10935209]
+          "value": [-0.14297227, 0.20097467]
         }
       ]
     }
