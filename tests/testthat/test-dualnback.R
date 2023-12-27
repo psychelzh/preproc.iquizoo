@@ -9,9 +9,7 @@ data <- withr::with_seed(
     )
   ) |>
     uncount(n) |>
-    group_by(id, dual) |>
-    mutate(trial = row_number()) |>
-    ungroup() |>
+    mutate(trial = row_number(), .by = c(id, dual)) |>
     mutate(
       acc = sample(c(0, 1), n(), replace = TRUE),
       rt = if_else(

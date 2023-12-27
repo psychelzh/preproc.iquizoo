@@ -5,7 +5,6 @@ data <- withr::with_seed(
     block = 1:3,
     trial = 1:20
   ) |>
-    group_by(id) |>
     mutate(
       acc = sample(c(0, 1), n(), replace = TRUE, prob = c(0.2, 0.8)),
       level = prepare_level(
@@ -13,9 +12,9 @@ data <- withr::with_seed(
         level_init = 150,
         level_step = -5,
         level_limits = c(5, Inf)
-      )
-    ) |>
-    ungroup()
+      ),
+      .by = id
+    )
 )
 
 test_that("Default behavior works", {

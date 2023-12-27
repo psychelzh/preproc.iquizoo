@@ -4,7 +4,6 @@ data <- withr::with_seed(
     id = 1:2,
     trial = 1:14
   ) |>
-    group_by(id) |>
     mutate(
       outcome = sample(
         c(0, 1),
@@ -16,7 +15,8 @@ data <- withr::with_seed(
         outcome, 1, 1,
         level_init = 3,
         level_limits = c(2, 16)
-      )
+      ),
+      .by = id
     ) |>
     rowwise() |>
     mutate(

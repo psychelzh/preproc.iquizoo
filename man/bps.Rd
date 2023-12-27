@@ -19,10 +19,15 @@ section.}
 }
 \value{
 An object with the same class as \code{data} contains following values:
+
 \item{pc}{Percent of correct responses.}
-\item{p_sim_foil}{Percent of similar responses for "foil" stimuli.}
-\item{p_sim_lure}{Percent of similar responses for "lure" stimuli.}
+
 \item{p_sim_target}{Percent of similar responses for "target" stimuli.}
+
+\item{p_sim_lure}{Percent of similar responses for "lure" stimuli.}
+
+\item{p_sim_foil}{Percent of similar responses for "foil" stimuli.}
+
 \item{bps_score}{BPS score.}
 }
 \description{

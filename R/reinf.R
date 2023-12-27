@@ -6,13 +6,13 @@
 #' @template options
 #' @return An object with the same class as `data` contains following values:
 #'
-#'   \item{pc_approach}{The percent of correct for approach trials.}
-#'
-#'   \item{pc_avoid}{The percent of correct for avoid trials.}
-#'
 #'   \item{pc_learn}{The total percent of correct in the learn phase.}
 #'
 #'   \item{pc_test}{The total percent of correct in the test phase.}
+#'
+#'   \item{pc_approach}{The percent of correct for approach trials.}
+#'
+#'   \item{pc_avoid}{The percent of correct for avoid trials.}
 #' @export
 reinf <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
@@ -43,10 +43,9 @@ reinf <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
         .data$set
       )
     ) |>
-    group_by(pick(all_of(c(.by, "set")))) |>
     summarise(
       pc = mean(.data[[.input$name_acc]]),
-      .groups = "drop"
+      .by = all_of(c(.by, "set"))
     ) |>
     pivot_wider(
       id_cols = all_of(.by),

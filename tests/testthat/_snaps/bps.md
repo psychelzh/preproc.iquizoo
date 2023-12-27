@@ -6,7 +6,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["pc", "p_sim_foil", "p_sim_lure", "p_sim_target", "bps_score"]
+          "value": ["pc", "p_sim_target", "p_sim_lure", "p_sim_foil", "bps_score"]
         },
         "row.names": {
           "type": "integer",
@@ -28,7 +28,7 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.35]
+          "value": [0.25]
         },
         {
           "type": "double",
@@ -38,7 +38,7 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.25]
+          "value": [0.35]
         },
         {
           "type": "double",
@@ -56,7 +56,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["id", "pc", "p_sim_foil", "p_sim_lure", "p_sim_target", "bps_score"]
+          "value": ["id", "pc", "p_sim_target", "p_sim_lure", "p_sim_foil", "bps_score"]
         },
         "row.names": {
           "type": "integer",
@@ -83,7 +83,7 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.35, 0.3]
+          "value": [0.25, 0.25]
         },
         {
           "type": "double",
@@ -93,7 +93,7 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.25, 0.25]
+          "value": [0.35, 0.3]
         },
         {
           "type": "double",

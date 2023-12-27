@@ -32,11 +32,10 @@ driving <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
         )
       )
     ) |>
-    group_by(pick(all_of(.by))) |>
     summarise(
       still_ratio = sum(.data$still_dur_yellow) /
         sum(.data[[.input$name_yellow_dur]]),
-      .groups = "drop"
+      .by = all_of(.by)
     ) |>
     vctrs::vec_restore(data)
 }

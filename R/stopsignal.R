@@ -42,7 +42,6 @@ stopsignal <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
           .data[[.input$name_rt]]
         )
       ) |>
-      group_by(pick(all_of(.by))) |>
       summarise(
         pc_all = mean(.data[[.input$name_acc]] == 1),
         pc_go = mean(.subset(
@@ -58,7 +57,7 @@ stopsignal <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
           1 - .data$pc_stop,
           names = FALSE
         ),
-        .groups = "drop"
+        .by = all_of(.by)
       ),
     data |>
       filter(.data[[.input$name_type]] != .extra$type_go) |>

@@ -28,12 +28,11 @@ locmem <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       .keep = "unused"
     ) |>
     unnest("dist") |>
-    group_by(pick(all_of(.by))) |>
     summarise(
       nc_loc = sum(.data$dist == 0),
       mean_dist_err = mean(.data$dist),
       mean_log_err = mean(log(.data$dist + 1)),
-      .groups = "drop"
+      .by = all_of(.by)
     ) |>
     vctrs::vec_restore(data)
 }
@@ -54,10 +53,9 @@ locmem2 <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
         .keep = "unused"
       ) |>
       unnest("acc_order") |>
-      group_by(pick(all_of(.by))) |>
       summarise(
         nc_order = sum(.data$acc_order == 1),
-        .groups = "drop"
+        .by = all_of(.by)
       ),
     by = .by
   ) |>
