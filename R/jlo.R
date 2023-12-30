@@ -47,15 +47,13 @@ jlo <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
 
 # helper function
 calc_angle_err <- function(resp, angle, resp_anti, resp_clock) {
+  calc_resp_angle <- function(resp) {
+    # each rotation is set as 6 degree
+    (sum(resp == resp_anti) - sum(resp == resp_clock)) * 6
+  }
   resp_angle <- purrr::map_dbl(
     stringr::str_split(resp, "-"),
-    ~ sum(
-      case_match(
-        .x,
-        resp_anti ~ 1,
-        resp_clock ~ -1
-      ) * 6 # each rotation is 6 degree
-    )
+    calc_resp_angle
   )
   # ignore vector head and tail
   err_raw <- abs(resp_angle - angle) %% 180
