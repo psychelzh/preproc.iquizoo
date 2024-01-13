@@ -12,7 +12,7 @@ basic to most tests."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/
     
     <a class="navbar-brand me-2" href="../index.html">preproc.iquizoo</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,6 +56,7 @@ basic to most tests.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calc_spd_acc</span><span class="op">(</span></span>
 <span>  <span class="va">data</span>,</span>
+<span>  <span class="va">...</span>,</span>
 <span>  by <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  name_acc <span class="op">=</span> <span class="st">"acc"</span>,</span>
 <span>  name_rt <span class="op">=</span> <span class="st">"rt"</span>,</span>
@@ -68,6 +69,10 @@ basic to most tests.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>data</dt>
 <dd><p>Raw data of class <code>data.frame</code>.</p></dd>
+
+
+<dt>...</dt>
+<dd><p>Other arguments passed to <code><a href="check_outliers_rt.html">check_outliers_rt()</a></code>.</p></dd>
 
 
 <dt>by</dt>
@@ -84,8 +89,8 @@ basic to most tests.</p>
 
 
 <dt>rt_rm_out</dt>
-<dd><p>A logical value. Whether remove response time outlier or
-not. Default to <code>TRUE.</code></p></dd>
+<dd><p>A logical value indicating if outliers should be removed
+from reaction time.</p></dd>
 
 
 <dt>rt_unit</dt>
@@ -105,15 +110,6 @@ actually the only ones that any test collects. Based on these two metrics,
 two basic groups of scores can be obtained. The first group contains the mean
 and standard deviations of response times the number, and the second contains
 the number and percent of correct responses.</p>
-    </div>
-    <div class="section level2">
-    <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
-    
-
-
-<p>Outlier removal is recommended and it is set as default in here. The
-outlier detection method used here is the one recommended by Cousineau, D.,
-&amp; Chartier, S. (2010).</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
