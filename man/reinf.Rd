@@ -20,13 +20,13 @@ section.}
 \value{
 An object with the same class as \code{data} contains following values:
 
-\item{pc_approach}{The percent of correct for approach trials.}
-
-\item{pc_avoid}{The percent of correct for avoid trials.}
-
 \item{pc_learn}{The total percent of correct in the learn phase.}
 
 \item{pc_test}{The total percent of correct in the test phase.}
+
+\item{pc_approach}{The percent of correct for approach trials.}
+
+\item{pc_avoid}{The percent of correct for avoid trials.}
 }
 \description{
 A classical reinforcement learning test.

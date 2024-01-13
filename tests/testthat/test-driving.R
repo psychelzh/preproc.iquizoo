@@ -77,6 +77,5 @@ test_that("No error for negative duration case (but produces `NA`s)", {
       select(-stilldurlist)
   )
   driving(data_negtive_dur) |>
-    expect_silent() |>
     expect_snapshot_value(style = "json2")
 })

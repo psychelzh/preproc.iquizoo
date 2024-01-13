@@ -3,32 +3,32 @@
     {
       "type": "list",
       "attributes": {
-        "class": {
+        "names": {
           "type": "character",
           "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
+          "value": ["mrt", "rtsd"]
         },
         "row.names": {
           "type": "integer",
           "attributes": {},
           "value": [1]
         },
-        "names": {
+        "class": {
           "type": "character",
           "attributes": {},
-          "value": ["mrt", "rtsd"]
+          "value": ["tbl_df", "tbl", "data.frame"]
         }
       },
       "value": [
         {
           "type": "double",
           "attributes": {},
-          "value": [0.84262221]
+          "value": [1.14195345]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.83119415]
+          "value": [0.8293849]
         }
       ]
     }
@@ -63,12 +63,12 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.84262221, 0.99292785]
+          "value": [1.14195345, 1.33602849]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.83119415, 0.46972995]
+          "value": [0.8293849, 1.17188329]
         }
       ]
     }

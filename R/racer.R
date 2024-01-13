@@ -22,26 +22,20 @@ racer <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .extra <- list(type_signal = "target") |>
     update_settings(.extra)
   merge(
-    data |>
-      group_by(pick(all_of(.by))) |>
-      summarise(
-        mean_score = sum(
-          .data[[.input$name_trialdur]] * .data[[.input$name_score]]
-        ) / sum(.data[[.input$name_trialdur]]),
-        .groups = "drop"
-      ),
-    data |>
-      mutate(
-        type_cor = if_else(
-          .data[[.input$name_type]] == .extra$type_signal,
-          "s", "n"
-        )
-      ) |>
-      calc_sdt(
-        by = .by,
-        name_acc = .input$name_acc,
-        name_type = "type_cor"
-      ),
+    summarise(
+      data,
+      mean_score = sum(
+        .data[[.input$name_trialdur]] * .data[[.input$name_score]]
+      ) / sum(.data[[.input$name_trialdur]]),
+      .by = all_of(.by)
+    ),
+    calc_sdt(
+      data,
+      .extra$type_signal,
+      by = .by,
+      name_acc = .input$name_acc,
+      name_type = .input$name_type
+    ),
     by = .by
   ) |>
     select(all_of(c(.by, "mean_score", "dprime"))) |>

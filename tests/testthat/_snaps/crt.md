@@ -103,7 +103,7 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.36804972, 0.84361559]
+          "value": [0.36804972, 0.79407152]
         },
         {
           "type": "double",

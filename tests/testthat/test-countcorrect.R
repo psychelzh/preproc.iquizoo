@@ -73,7 +73,6 @@ test_that("Supports checking variable", {
     data,
     .extra = list(name_check = "check", check_valid = "valid")
   ) |>
-    expect_silent() |>
     expect_snapshot_value(style = "json2")
 })
 

@@ -3,11 +3,6 @@
     {
       "type": "list",
       "attributes": {
-        "class": {
-          "type": "character",
-          "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
-        },
         "row.names": {
           "type": "integer",
           "attributes": {},
@@ -17,6 +12,11 @@
           "type": "character",
           "attributes": {},
           "value": ["nc", "pc", "pcsd", "mrt", "mrt_all", "rtsd", "ies", "rcs", "lisas"]
+        },
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["data.frame"]
         }
       },
       "value": [
@@ -73,11 +73,6 @@
     {
       "type": "list",
       "attributes": {
-        "class": {
-          "type": "character",
-          "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
-        },
         "row.names": {
           "type": "integer",
           "attributes": {},
@@ -87,6 +82,11 @@
           "type": "character",
           "attributes": {},
           "value": ["nc", "pc", "pcsd", "mrt", "mrt_all", "rtsd", "ies", "rcs", "lisas"]
+        },
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["data.frame"]
         }
       },
       "value": [
@@ -143,11 +143,6 @@
     {
       "type": "list",
       "attributes": {
-        "class": {
-          "type": "character",
-          "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
-        },
         "row.names": {
           "type": "integer",
           "attributes": {},
@@ -157,6 +152,11 @@
           "type": "character",
           "attributes": {},
           "value": ["nc", "pc", "pcsd", "mrt", "mrt_all", "rtsd", "ies", "rcs", "lisas"]
+        },
+        "class": {
+          "type": "character",
+          "attributes": {},
+          "value": ["data.frame"]
         }
       },
       "value": [

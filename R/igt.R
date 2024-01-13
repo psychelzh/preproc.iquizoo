@@ -18,13 +18,12 @@ igt <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .extra <- list(pools_advantage = c("a", "b")) |>
     update_settings(.extra)
   data |>
-    group_by(pick(all_of(.by))) |>
     summarise(
       sum_outcome = sum(.data[[.input$name_outcome]]),
       perc_good = mean(
         .data[[.input$name_pool]] %in% .extra$pools_advantage
       ),
-      .groups = "drop"
+      .by = all_of(.by)
     ) |>
     vctrs::vec_restore(data)
 }

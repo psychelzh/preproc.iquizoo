@@ -6,10 +6,15 @@
 #' @template common
 #' @template options
 #' @return An object with the same class as `data` contains following values:
+#'
 #'   \item{pc}{Percent of correct responses.}
-#'   \item{p_sim_foil}{Percent of similar responses for "foil" stimuli.}
-#'   \item{p_sim_lure}{Percent of similar responses for "lure" stimuli.}
+#'
 #'   \item{p_sim_target}{Percent of similar responses for "target" stimuli.}
+#'
+#'   \item{p_sim_lure}{Percent of similar responses for "lure" stimuli.}
+#'
+#'   \item{p_sim_foil}{Percent of similar responses for "foil" stimuli.}
+#'
 #'   \item{bps_score}{BPS score.}
 #' @export
 bps <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
@@ -29,16 +34,14 @@ bps <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     filter(.data[[.input$name_phase]] == .extra$phase_test)
   merge(
     data_test_phase |>
-      group_by(pick(all_of(.by))) |>
       summarise(
         pc = mean(.data[[.input$name_acc]] == 1),
-        .groups = "drop"
+        .by = all_of(.by)
       ),
     data_test_phase |>
-      group_by(pick(all_of(c(.by, .input$name_type)))) |>
       summarise(
         p_sim = mean(.data[[.input$name_resp]] == .extra$resp_sim),
-        .groups = "drop"
+        .by = all_of(c(.by, .input$name_type))
       ) |>
       pivot_wider(
         names_from = all_of(.input$name_type),

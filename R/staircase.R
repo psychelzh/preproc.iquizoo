@@ -23,7 +23,6 @@ staircase <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   ) |>
     update_settings(.input)
   data |>
-    group_by(pick(all_of(.by))) |>
     summarise(
       thresh_peak_valley = calc_staircase_wetherill(.data[[.input$name_level]]),
       thresh_last_block = mean(
@@ -34,7 +33,7 @@ staircase <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
           )
         )$values
       ),
-      .groups = "drop"
+      .by = all_of(.by)
     ) |>
     vctrs::vec_restore(data)
 }

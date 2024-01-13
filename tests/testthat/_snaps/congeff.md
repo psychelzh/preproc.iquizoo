@@ -28,7 +28,7 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [1.18822212]
+          "value": [1.46857524]
         },
         {
           "type": "double",
@@ -143,7 +143,7 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [1.18822212, 1.13717124]
+          "value": [1.46857524, 1.13717124]
         },
         {
           "type": "double",
@@ -228,20 +228,20 @@
     {
       "type": "list",
       "attributes": {
-        "class": {
+        "names": {
           "type": "character",
           "attributes": {},
-          "value": ["tbl_df", "tbl", "data.frame"]
+          "value": ["pc", "mrt", "cong_eff_pc", "cong_eff_mrt", "cong_eff_ies", "cong_eff_rcs", "cong_eff_lisas", "pc_inc", "pc_con", "mrt_inc", "mrt_con", "ies_inc", "ies_con", "rcs_inc", "rcs_con", "lisas_inc", "lisas_con"]
         },
         "row.names": {
           "type": "integer",
           "attributes": {},
           "value": [1]
         },
-        "names": {
+        "class": {
           "type": "character",
           "attributes": {},
-          "value": ["pc", "mrt", "cong_eff_pc", "cong_eff_mrt", "cong_eff_ies", "cong_eff_rcs", "cong_eff_lisas", "pc_inc", "pc_con", "mrt_inc", "mrt_con", "ies_inc", "ies_con", "rcs_inc", "rcs_con", "lisas_inc", "lisas_con"]
+          "value": ["tbl_df", "tbl", "data.frame"]
         }
       },
       "value": [
@@ -253,7 +253,7 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.88387183]
+          "value": [0.93044958]
         },
         {
           "type": "double",
@@ -293,7 +293,7 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.88387183]
+          "value": [0.93044958]
         },
         {
           "type": "double",
@@ -303,7 +303,7 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [1.73308202]
+          "value": [1.82441094]
         },
         {
           "type": "double",
@@ -313,7 +313,7 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.54224562]
+          "value": [0.52907009]
         },
         {
           "type": "double",
@@ -323,7 +323,7 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [1.63753333]
+          "value": [1.74401418]
         },
         {
           "type": "double",

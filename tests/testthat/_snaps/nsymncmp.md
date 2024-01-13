@@ -28,7 +28,7 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.97298127]
+          "value": [1.02446319]
         },
         {
           "type": "double",
@@ -73,12 +73,12 @@
         {
           "type": "double",
           "attributes": {},
-          "value": [0.97298127, 0.83058348]
+          "value": [1.02446319, 0.90468902]
         },
         {
           "type": "double",
           "attributes": {},
-          "value": [0.16505082, 0.16505778]
+          "value": [0.16505778, 0.16505778]
         }
       ]
     }

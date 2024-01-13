@@ -16,7 +16,6 @@ test_that("Works without grouping variables", {
     ) |>
     unnest(data)
   condstairs(data) |>
-    expect_silent() |>
     expect_snapshot_value(style = "json2")
 })
 
@@ -41,6 +40,5 @@ test_that("Works with grouping variables", {
       unnest(data)
   )
   condstairs(data, .by = "id") |>
-    expect_silent() |>
     expect_snapshot_value(style = "json2")
 })

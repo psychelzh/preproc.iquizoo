@@ -6,6 +6,7 @@
 \usage{
 calc_spd_acc(
   data,
+  ...,
   by = NULL,
   name_acc = "acc",
   name_rt = "rt",
@@ -16,6 +17,8 @@ calc_spd_acc(
 \arguments{
 \item{data}{Raw data of class \code{data.frame}.}
 
+\item{...}{Other arguments passed to \code{\link[=check_outliers_rt]{check_outliers_rt()}}.}
+
 \item{by}{The column name(s) in \code{data} used to be grouped by. If set to
 \code{NULL}, all data will be treated as from one subject.}
 
@@ -23,8 +26,8 @@ calc_spd_acc(
 
 \item{name_rt}{The column name of the \code{data} input whose values are user's reaction time, in which is a \code{numeric} vector with \code{NA} values representing abnormal reaction times.}
 
-\item{rt_rm_out}{A logical value. Whether remove response time outlier or
-not. Default to \code{TRUE.}}
+\item{rt_rm_out}{A logical value indicating if outliers should be removed
+from reaction time.}
 
 \item{rt_unit}{The unit of response time in \code{data}.}
 }
@@ -42,12 +45,4 @@ two basic groups of scores can be obtained. The first group contains the mean
 and standard deviations of response times the number, and the second contains
 the number and percent of correct responses.
 }
-\section{Note}{
-
-
-Outlier removal is recommended and it is set as default in here. The
-outlier detection method used here is the one recommended by Cousineau, D.,
-& Chartier, S. (2010).
-}
-
 \keyword{internal}

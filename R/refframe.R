@@ -29,11 +29,10 @@ refframe <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
         .data[[.input$name_type]] == .extra$type_ego ~ "ego"
       )
     ) |>
-    group_by(pick(all_of(c(.by, "type_cor")))) |>
     summarise(
       mean_dist_err = mean(.data[[.input$name_dist]]),
       mean_log_err = mean(log(.data[[.input$name_dist]] + 1)),
-      .groups = "drop"
+      .by = all_of(c(.by, "type_cor"))
     ) |>
     pivot_wider(
       id_cols = all_of(.by),

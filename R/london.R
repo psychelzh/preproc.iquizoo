@@ -20,12 +20,11 @@ london <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
     update_settings(.input)
   merge(
     data |>
-      group_by(pick(all_of(.by))) |>
       summarise(
         prop_perfect = mean(
           .data[[.input$name_stepsused]] == .data[[.input$name_minmove]]
         ),
-        .groups = "drop"
+        .by = all_of(.by)
       ),
     calc_spd_acc(
       data,

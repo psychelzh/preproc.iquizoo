@@ -18,11 +18,10 @@ nle <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       err = abs(.data[[.input$name_number]] -
                   .data[[.input$name_resp]])
     ) |>
-    group_by(pick(all_of(.by))) |>
     summarise(
       mean_abs_err = mean(.data$err),
       mean_log_err = mean(log(.data$err + 1)),
-      .groups = "drop"
+      .by = all_of(.by)
     ) |>
     vctrs::vec_restore(data)
 }

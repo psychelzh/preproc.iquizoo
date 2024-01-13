@@ -3,7 +3,7 @@ data <- withr::with_seed(
   expand_grid(
     id = 1:2,
     tibble(
-      type = c("Allocentric", "Egocentric"),
+      type = c("allocentric", "egocentric"),
       n = 15
     )
   ) |>

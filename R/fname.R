@@ -50,7 +50,6 @@ fname <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       )
   }
   data |>
-    group_by(pick(all_of(.by))) |>
     summarise(
       iln = .data[[.input$name_acc]] |>
         .subset(.data[[.input$name_phase]] == .extra$phase_name) |>
@@ -63,7 +62,7 @@ fname <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       .data[[.input$name_acc]] |>
         .subset(.data[[.input$name_phase]] == .extra$phase_cmbn) |>
         parse_combined(),
-      .groups = "drop"
+      .by = all_of(.by)
     ) |>
     mutate(
       fnn = .data$iln + .data$crn,
