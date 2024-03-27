@@ -11,11 +11,12 @@
 wrangle_data <- function(data,
                          col_raw_json = "game_data",
                          name_raw_parsed = "raw_parsed") {
-  data[[name_raw_parsed]] <- purrr::map(
+  data[[name_raw_parsed]] <- lapply(
     data[[col_raw_json]],
     parse_raw_json
   )
-  select(data, !all_of(col_raw_json))
+  data[[col_raw_json]] <- NULL
+  data
 }
 
 #' Feed Raw Data to Pre-processing
