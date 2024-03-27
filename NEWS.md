@@ -1,5 +1,9 @@
 # preproc.iquizoo (development version)
 
+## Breaking Changes
+
+* Now case conversion is moved from `wrangle_data()` to `preproc_data()` ([#85](https://github.com/psychelzh/preproc.iquizoo/issues/85)).
+
 # preproc.iquizoo 2.6.3
 
 ## Breaking Changes
