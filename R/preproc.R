@@ -71,7 +71,7 @@ preproc_data <- function(data, fn, ...,
 
 # helper functions
 parse_raw_json <- function(jstr) {
-  parsed <- tryCatch(
+  tryCatch(
     jsonlite::fromJSON(jstr),
     error = function(cnd) {
       warn(
@@ -84,25 +84,6 @@ parse_raw_json <- function(jstr) {
       return()
     }
   )
-  if (is_empty(parsed)) {
-    return()
-  }
-  # try converting column names and values to lowercase
-  tryCatch(
-    parsed |>
-      rename_with(tolower),
-    error = function(cnd) {
-      warn(
-        c(
-          "Failed to convert column names to lowercase:",
-          conditionMessage(cnd),
-          i = "Will use the original data instead."
-        )
-      )
-      parsed
-    }
-  ) |>
-    mutate(across(where(is.character), tolower))
 }
 
 calc_indices <- function(data, fn, ..., col_raw_parsed = "raw_parsed") {
@@ -128,6 +109,8 @@ calc_indices <- function(data, fn, ..., col_raw_parsed = "raw_parsed") {
         utils::type.convert(as.is = TRUE)
     }
   ) |>
+    rename_with(tolower) |>
+    mutate(across(where(is.character), tolower)) |>
     fn(.by = col_id, ...)
   data |>
     left_join(indices, by = col_id) |>
