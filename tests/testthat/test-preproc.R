@@ -64,5 +64,5 @@ test_that("Can deal with mismatch column types in raw data", {
   )
   preproc_data(data, prep_fun) |>
     expect_snapshot_value(style = "json2") |>
-    expect_warning("Failed to unnest raw data")
+    expect_warning("Failed to rowwise bind raw data")
 })

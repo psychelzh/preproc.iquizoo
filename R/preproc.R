@@ -90,31 +90,30 @@ parse_raw_json <- function(jstr) {
 calc_indices <- function(data, fn, ..., col_raw_parsed = "raw_parsed") {
   # used as a temporary id for each element
   col_id <- ".id"
-  data[[col_id]] <- seq_len(nrow(data))
-  data[[col_raw_parsed]] <- lapply(data[[col_raw_parsed]], convert_lower_case)
-  data_for_indices <- data[c(col_id, col_raw_parsed)]
+  raw_data <- lapply(data[[col_raw_parsed]], convert_lower_case)
   indices <- tryCatch(
-    unnest(data_for_indices, all_of(col_raw_parsed)),
+    purrr::list_rbind(raw_data, names_to = col_id),
     error = function(cnd) {
       warn(
         c(
-          "Failed to unnest raw data:",
+          "Failed to rowwise bind raw data:",
           conditionMessage(cnd),
-          i = "Will try using tidytable package."
+          i = "Will try using data.table package."
         )
       )
       check_installed(
-        "tidytable",
-        "because tidyr package fails to unnest raw data."
+        "data.table",
+        "because purrr package fails to rowwise bind raw data."
       )
-      tidytable::unnest(data_for_indices, all_of(col_raw_parsed)) |>
+      data.table::rbindlist(raw_data, idcol = col_id) |>
         utils::type.convert(as.is = TRUE)
     }
   ) |>
     fn(.by = col_id, ...)
-  data |>
-    left_join(indices, by = col_id) |>
-    select(!all_of(c(col_id, col_raw_parsed)))
+  data[[col_id]] <- seq_len(nrow(data))
+  out <- merge(data, indices, by = col_id, all.x = TRUE)
+  out[, !names(out) %in% c(col_id, col_raw_parsed), drop = FALSE] |>
+    vctrs::vec_restore(data)
 }
 
 convert_lower_case <- function(data) {

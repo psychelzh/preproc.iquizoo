@@ -26,11 +26,11 @@ Imports:
     vctrs
 Suggests:
     covr,
+    data.table,
     mockery,
     readr,
     roxygen2,
     testthat (>= 3.0.0),
-    tidytable,
     withr
 Config/testthat/edition: 3
 Config/testthat/parallel: true
