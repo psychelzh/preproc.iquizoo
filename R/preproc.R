@@ -91,7 +91,8 @@ calc_indices <- function(data, fn, ..., col_raw_parsed = "raw_parsed") {
   # used as a temporary id for each element
   col_id <- ".id"
   data[[col_id]] <- seq_len(nrow(data))
-  data_for_indices <- select(data, all_of(c(col_id, col_raw_parsed)))
+  data[[col_raw_parsed]] <- lapply(data[[col_raw_parsed]], convert_lower_case)
+  data_for_indices <- data[c(col_id, col_raw_parsed)]
   indices <- tryCatch(
     unnest(data_for_indices, all_of(col_raw_parsed)),
     error = function(cnd) {
@@ -110,10 +111,14 @@ calc_indices <- function(data, fn, ..., col_raw_parsed = "raw_parsed") {
         utils::type.convert(as.is = TRUE)
     }
   ) |>
-    rename_with(tolower) |>
-    mutate(across(where(is.character), tolower)) |>
     fn(.by = col_id, ...)
   data |>
     left_join(indices, by = col_id) |>
     select(!all_of(c(col_id, col_raw_parsed)))
+}
+
+convert_lower_case <- function(data) {
+  data |>
+    rename_with(tolower) |>
+    mutate(across(where(is.character), tolower))
 }
