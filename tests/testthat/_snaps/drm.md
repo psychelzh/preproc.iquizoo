@@ -6,7 +6,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["tm_dprime", "tm_bias", "fm_dprime", "fm_bias"]
+          "value": ["tm_dprime", "tm_bias", "fm_dprime", "fm_bias", "memory_score"]
         },
         "row.names": {
           "type": "integer",
@@ -39,6 +39,11 @@
           "type": "double",
           "attributes": {},
           "value": [-0.13046372]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.58688094]
         }
       ]
     }
@@ -51,7 +56,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["id", "tm_dprime", "tm_bias", "fm_dprime", "fm_bias"]
+          "value": ["id", "tm_dprime", "tm_bias", "fm_dprime", "fm_bias", "memory_score"]
         },
         "row.names": {
           "type": "integer",
@@ -89,6 +94,11 @@
           "type": "double",
           "attributes": {},
           "value": [-0.13046372, 6.9388939e-17]
+        },
+        {
+          "type": "double",
+          "attributes": {},
+          "value": [-0.58688094, -0.08148208]
         }
       ]
     }
