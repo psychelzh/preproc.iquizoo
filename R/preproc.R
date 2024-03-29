@@ -15,8 +15,7 @@ wrangle_data <- function(data,
     data[[col_raw_json]],
     parse_raw_json
   )
-  data[[col_raw_json]] <- NULL
-  data
+  data[, names(data) != col_raw_json, drop = FALSE]
 }
 
 #' Feed Raw Data to Pre-processing
