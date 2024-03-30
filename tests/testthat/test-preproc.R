@@ -53,7 +53,7 @@ test_that("Deal with `NULL` in parsed data", {
 })
 
 test_that("Can deal with mismatch column types in raw data", {
-  skip_if_not_installed("tidytable")
+  skip_if_not_installed("data.table")
   data <- tibble::tibble(
     user_id = 1:3,
     raw_parsed = list(
