@@ -1,3 +1,13 @@
+# preproc.iquizoo 2.7.0
+
+## Breaking Changes
+
+* Now case conversion is moved from `wrangle_data()` to `preproc_data()` ([#85](https://github.com/psychelzh/preproc.iquizoo/issues/85)).
+
+## Enhancements
+
+* Added `memory_score` to `drm()` which integrates both true memory and false memory.
+
 # preproc.iquizoo 2.6.3
 
 ## Breaking Changes

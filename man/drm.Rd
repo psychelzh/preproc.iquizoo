@@ -26,7 +26,9 @@ An object with the same class as \code{data} contains following values:
 
 \item{fm_dprime}{Sensitivity (d') of false memory.}
 
-\item{fm_bias}{ias of false memory.}
+\item{fm_bias}{Bias of false memory.}
+
+\item{memory_score}{Memory score (\code{tm_dprime} - \code{fm_dprime}).}
 }
 \description{
 This is a classical false memory test. Here calculates the effect size of

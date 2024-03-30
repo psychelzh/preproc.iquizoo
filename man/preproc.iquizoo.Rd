@@ -2,8 +2,8 @@
 % Please edit documentation in R/zzz.R
 \docType{package}
 \name{preproc.iquizoo}
-\alias{preproc.iquizoo}
 \alias{preproc.iquizoo-package}
+\alias{preproc.iquizoo}
 \title{Utility functions for data processing for IQUIZOO games.}
 \description{
 Several couples of games are developed by IQUIZOO.COM. Here are the functions used to do data processing for all of those games.

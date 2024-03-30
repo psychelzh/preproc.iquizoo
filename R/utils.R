@@ -198,7 +198,7 @@ update_settings <- function(origin, updates) {
   if (is.null(updates)) {
     return(origin)
   }
-  purrr::imap(origin, ~ updates[[.y]] %||% .x)
+  utils::modifyList(origin, updates)
 }
 
 #' Outliers Detection for response time data

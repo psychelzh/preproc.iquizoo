@@ -13,7 +13,9 @@
 #'
 #'   \item{fm_dprime}{Sensitivity (d') of false memory.}
 #'
-#'   \item{fm_bias}{ias of false memory.}
+#'   \item{fm_bias}{Bias of false memory.}
+#'
+#'   \item{memory_score}{Memory score (`tm_dprime` - `fm_dprime`).}
 #' @export
 drm <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
   .input <- list(
@@ -49,7 +51,8 @@ drm <- function(data, .by = NULL, .input = NULL, .extra = NULL) {
       tm_dprime = .data[[.extra$type_old]] - .data[[.extra$type_foil]],
       tm_bias = -(.data[[.extra$type_old]] + .data[[.extra$type_foil]]) / 2,
       fm_dprime = .data[[.extra$type_lure]] - .data[[.extra$type_foil]],
-      fm_bias = -(.data[[.extra$type_lure]] + .data[[.extra$type_foil]]) / 2
+      fm_bias = -(.data[[.extra$type_lure]] + .data[[.extra$type_foil]]) / 2,
+      memory_score = .data$tm_dprime - .data$fm_dprime
     ) |>
     ungroup() |>
     vctrs::vec_restore(data)

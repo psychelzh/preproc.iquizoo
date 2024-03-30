@@ -11,11 +11,11 @@
 wrangle_data <- function(data,
                          col_raw_json = "game_data",
                          name_raw_parsed = "raw_parsed") {
-  data[[name_raw_parsed]] <- purrr::map(
+  data[[name_raw_parsed]] <- lapply(
     data[[col_raw_json]],
     parse_raw_json
   )
-  select(data, !all_of(col_raw_json))
+  data[, names(data) != col_raw_json, drop = FALSE]
 }
 
 #' Feed Raw Data to Pre-processing
@@ -71,7 +71,7 @@ preproc_data <- function(data, fn, ...,
 
 # helper functions
 parse_raw_json <- function(jstr) {
-  parsed <- tryCatch(
+  tryCatch(
     jsonlite::fromJSON(jstr),
     error = function(cnd) {
       warn(
@@ -84,52 +84,39 @@ parse_raw_json <- function(jstr) {
       return()
     }
   )
-  if (is_empty(parsed)) {
-    return()
-  }
-  # try converting column names and values to lowercase
-  tryCatch(
-    parsed |>
-      rename_with(tolower),
-    error = function(cnd) {
-      warn(
-        c(
-          "Failed to convert column names to lowercase:",
-          conditionMessage(cnd),
-          i = "Will use the original data instead."
-        )
-      )
-      parsed
-    }
-  ) |>
-    mutate(across(where(is.character), tolower))
 }
 
 calc_indices <- function(data, fn, ..., col_raw_parsed = "raw_parsed") {
   # used as a temporary id for each element
   col_id <- ".id"
-  data[[col_id]] <- seq_len(nrow(data))
-  data_for_indices <- select(data, all_of(c(col_id, col_raw_parsed)))
+  raw_data <- lapply(data[[col_raw_parsed]], convert_lower_case)
   indices <- tryCatch(
-    unnest(data_for_indices, all_of(col_raw_parsed)),
+    purrr::list_rbind(raw_data, names_to = col_id),
     error = function(cnd) {
       warn(
         c(
-          "Failed to unnest raw data:",
+          "Failed to rowwise bind raw data:",
           conditionMessage(cnd),
-          i = "Will try using tidytable package."
+          i = "Will try using data.table package."
         )
       )
       check_installed(
-        "tidytable",
-        "because tidyr package fails to unnest raw data."
+        "data.table",
+        "because purrr package fails to rowwise bind raw data."
       )
-      tidytable::unnest(data_for_indices, all_of(col_raw_parsed)) |>
+      data.table::rbindlist(raw_data, idcol = col_id) |>
         utils::type.convert(as.is = TRUE)
     }
   ) |>
     fn(.by = col_id, ...)
+  data[[col_id]] <- seq_len(nrow(data))
+  out <- merge(data, indices, by = col_id, all.x = TRUE)
+  out[, !names(out) %in% c(col_id, col_raw_parsed), drop = FALSE] |>
+    vctrs::vec_restore(data)
+}
+
+convert_lower_case <- function(data) {
   data |>
-    left_join(indices, by = col_id) |>
-    select(!all_of(c(col_id, col_raw_parsed)))
+    rename_with(tolower) |>
+    mutate(across(where(is.character), tolower))
 }
