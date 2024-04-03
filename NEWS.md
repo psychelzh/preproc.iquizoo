@@ -1,4 +1,4 @@
-# preproc.iquizoo (development version)
+# preproc.iquizoo 2.8.0
 
 ## Breaking Changes
 
