@@ -1,6 +1,7 @@
-#' Feed Raw Data to Pre-processing
+#' Calculate Performance Indices
 #'
-#' Calculate indices using data typically returned by [wrangle_data()].
+#' Accepts a data frame containing raw data and calculates performance indices
+#' using a user-defined function.
 #'
 #' @details
 #'
