@@ -1,26 +1,7 @@
-#' Wrangle Raw Data
+#' Calculate Performance Indices
 #'
-#' Parse raw json string data as [data.frame()] and store them in a list column.
-#'
-#' @param data The raw data.
-#' @param col_raw_json The column name in which stores user's raw data in
-#'   format of json string.
-#' @param name_raw_parsed The name used to store parsed data.
-#' @return A [data.frame] contains the parsed data.
-#' @export
-wrangle_data <- function(data,
-                         col_raw_json = "game_data",
-                         name_raw_parsed = "raw_parsed") {
-  data[[name_raw_parsed]] <- lapply(
-    data[[col_raw_json]],
-    parse_raw_json
-  )
-  data[, names(data) != col_raw_json, drop = FALSE]
-}
-
-#' Feed Raw Data to Pre-processing
-#'
-#' Calculate indices using data typically returned by [wrangle_data()].
+#' Accepts a data frame containing raw data and calculates performance indices
+#' using a user-defined function.
 #'
 #' @details
 #'
@@ -67,23 +48,6 @@ preproc_data <- function(data, fn, ...,
       vctrs::vec_restore(data)
   }
   results
-}
-
-# helper functions
-parse_raw_json <- function(jstr) {
-  tryCatch(
-    jsonlite::fromJSON(jstr),
-    error = function(cnd) {
-      warn(
-        c(
-          "Failed to parse json string:",
-          conditionMessage(cnd),
-          i = "Will parse it as `NULL` instead."
-        )
-      )
-      return()
-    }
-  )
 }
 
 calc_indices <- function(data, fn, ..., col_raw_parsed = "raw_parsed") {

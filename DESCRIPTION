@@ -1,7 +1,7 @@
 Type: Package
 Package: preproc.iquizoo
 Title: Utility Functions for Data Processing of Iquizoo Games
-Version: 2.7.0
+Version: 2.8.0
 Authors@R:
     person("Liang", "Zhang", , "psychelzh@outlook.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-9041-1150"))
@@ -15,7 +15,6 @@ Depends:
     R (>= 4.1.0)
 Imports:
     dplyr,
-    jsonlite,
     pracma,
     purrr,
     rlang (>= 0.1.2),

@@ -1,26 +1,3 @@
-test_that("Basic situation for `wrangle_data()`", {
-  js_str <- r"([{"a": 1, "b": 2}])"
-  data <- tibble::tibble(game_data = js_str)
-  wrangle_data(data) |>
-    expect_named("raw_parsed") |>
-    purrr::pluck("raw_parsed", 1) |>
-    expect_identical(jsonlite::fromJSON(js_str))
-  wrangle_data(data, name_raw_parsed = "parsed") |>
-    expect_named("parsed")
-})
-
-test_that("Can deal with invalid or empty json", {
-  data_case_invalid <- data.frame(game_data = "[1")
-  wrangle_data(data_case_invalid) |>
-    purrr::pluck("raw_parsed", 1) |>
-    expect_null() |>
-    expect_warning("Failed to parse json string")
-  data_case_empty <- data.frame(game_data = c("[]", "{}"))
-  wrangle_data(data_case_empty) |>
-    purrr::pluck("raw_parsed") |>
-    purrr::walk(expect_length, 0)
-})
-
 test_that("Basic situation in `preproc_data()`", {
   data <- tibble::tibble(
     user_id = 1:2,
@@ -53,7 +30,7 @@ test_that("Deal with `NULL` in parsed data", {
 })
 
 test_that("Can deal with mismatch column types in raw data", {
-  skip_if_not_installed("tidytable")
+  skip_if_not_installed("data.table")
   data <- tibble::tibble(
     user_id = 1:3,
     raw_parsed = list(

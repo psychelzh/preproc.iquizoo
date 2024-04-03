@@ -2,7 +2,7 @@
 % Please edit documentation in R/preproc.R
 \name{preproc_data}
 \alias{preproc_data}
-\title{Feed Raw Data to Pre-processing}
+\title{Calculate Performance Indices}
 \usage{
 preproc_data(
   data,
@@ -39,7 +39,8 @@ for more details.}
 A \link{data.frame} contains the calculated indices.
 }
 \description{
-Calculate indices using data typically returned by \code{\link[=wrangle_data]{wrangle_data()}}.
+Accepts a data frame containing raw data and calculates performance indices
+using a user-defined function.
 }
 \details{
 Observations with empty raw data (empty vector, e.g. \code{NULL}, in

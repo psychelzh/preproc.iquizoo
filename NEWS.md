@@ -1,3 +1,9 @@
+# preproc.iquizoo 2.8.0
+
+## Breaking Changes
+
+* Removed `wrangle_data()` and now there is `tarflow.iquizoo::parse_data()` to replace it ([#86](https://github.com/psychelzh/preproc.iquizoo/issues/86)).
+
 # preproc.iquizoo 2.7.0
 
 ## Breaking Changes
