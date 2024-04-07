@@ -1,3 +1,9 @@
+# preproc.iquizoo 2.8.1
+
+## Bug Fixes
+
+* Fixed an issue of binding data.frames by position, which is now corrected by matching columns by name.
+
 # preproc.iquizoo 2.8.0
 
 ## Breaking Changes

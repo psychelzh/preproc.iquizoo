@@ -39,7 +39,20 @@ test_that("Can deal with mismatch column types in raw data", {
       data.frame(nhit = "3", feedback = 1)
     )
   )
+  expect_snapshot_value(
+    result <- preproc_data(data, prep_fun),
+    style = "json2"
+  ) |>
+    expect_warning("Failed to rowwise bind raw data")
+  data <- tibble::tibble(
+    user_id = 1:3,
+    raw_parsed = list(
+      data.frame(nhit = 1, feedback = 0),
+      data.frame(feedback = 1, nhit = 2),
+      data.frame(nhit = "3", feedback = 1)
+    )
+  )
   preproc_data(data, prep_fun) |>
-    expect_snapshot_value(style = "json2") |>
+    expect_identical(result) |>
     expect_warning("Failed to rowwise bind raw data")
 })
