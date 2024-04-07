@@ -68,7 +68,7 @@ calc_indices <- function(data, fn, ..., col_raw_parsed = "raw_parsed") {
         "data.table",
         "because purrr package fails to rowwise bind raw data."
       )
-      data.table::rbindlist(raw_data, idcol = col_id) |>
+      data.table::rbindlist(raw_data, use.names = TRUE, idcol = col_id) |>
         utils::type.convert(as.is = TRUE)
     }
   ) |>
