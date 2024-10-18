@@ -1,135 +1,48 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/404.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/index.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/ant.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/bart.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/bps.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/calc_sdt.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/calc_spd_acc.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/calc_staircase_wetherill.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/capacity.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/check_outliers_rt.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/condstairs.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/counts.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/cpt.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/driving.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/drm.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/fit_numerosity.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/fname.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/igt.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/jlo.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/locmem.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/london.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/multisense.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/nback.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/nle.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/nsymncmp.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/parse_char_resp.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/preproc.iquizoo.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/preproc_data.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/racer.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/rapm.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/refframe.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/reinf.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/rt.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/span.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/staircase.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/stopsignal.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/switch-congruence.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/symncmp.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/synwin.html</loc>
-  </url>
-  <url>
-    <loc>https://psychelzh.github.io/preproc.iquizoo/reference/update_settings.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/404.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/LICENSE-text.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/LICENSE.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/authors.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/index.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/news/index.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/ant.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/bart.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/bps.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/calc_sdt.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/calc_spd_acc.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/calc_staircase_wetherill.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/capacity.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/check_outliers_rt.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/condstairs.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/counts.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/cpt.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/driving.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/drm.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/fit_numerosity.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/fname.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/igt.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/index.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/jlo.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/locmem.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/london.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/multisense.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/nback.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/nle.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/nsymncmp.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/parse_char_resp.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/preproc.iquizoo.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/preproc_data.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/racer.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/rapm.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/refframe.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/reinf.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/rt.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/span.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/staircase.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/stopsignal.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/switch-congruence.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/symncmp.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/synwin.html</loc></url>
+<url><loc>https://psychelzh.github.io/preproc.iquizoo/reference/update_settings.html</loc></url>
 </urlset>
+
