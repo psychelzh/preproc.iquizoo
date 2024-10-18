@@ -32,7 +32,7 @@ treated as non-signal stimuli.}
 }
 \value{
 A \link[tibble:tibble-package]{tibble} contains sensitivity index and
-bias (and other counts measures)
+bias (and other temporary measures).
 }
 \description{
 Calculate sensitivity index and bias based on signal detection theory. The
