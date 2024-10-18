@@ -125,7 +125,12 @@ calc_sdt <- function(data, type_signal, ...,
       names_from = "type_fac",
       values_from = c("c", "e", "c_p", "e_p", "c_z", "e_z")
     ) |>
-    rename(hit = c_p_s, fa = e_p_n, miss = e_p_s, cr = c_p_n) |>
+    rename(
+      hit = .data$c_p_s,
+      fa = .data$e_p_n,
+      miss = .data$e_p_s,
+      cr = .data$c_p_n
+    ) |>
     mutate(
       dprime = .data$c_z_s - .data$e_z_n,
       c = -(.data$c_z_s + .data$e_z_n) / 2,
