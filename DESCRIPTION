@@ -26,7 +26,6 @@ Imports:
 Suggests:
     covr,
     data.table,
-    mockery,
     readr,
     roxygen2,
     testthat (>= 3.0.0),

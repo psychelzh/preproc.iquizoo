@@ -43,11 +43,8 @@ test_that("Works with grouping variable", {
 })
 
 test_that("Warning if not converged", {
-  mockery::stub(
-    nsymncmp,
-    "fit_numerosity",
-    function(...) list(par = c(w = 1), convergence = -1),
-    depth = 2
+  local_mocked_bindings(
+    fit_numerosity = function(...) list(par = c(w = 1), convergence = -1)
   )
   nsymncmp(data) |>
     expect_warning(class = "fit_not_converge")
