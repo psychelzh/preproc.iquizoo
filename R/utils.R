@@ -80,7 +80,7 @@ calc_spd_acc <- function(data, ...,
 #'   stimuli types. Based on `type_signal`, the other types of stimuli will be
 #'   treated as non-signal stimuli.
 #' @return A [tibble][tibble::tibble-package] contains sensitivity index and
-#'   bias (and other counts measures)
+#'   bias (and other temporary measures).
 #' @keywords internal
 calc_sdt <- function(data, type_signal, ...,
                      by = NULL, name_acc = "acc", name_type = "type") {
@@ -114,18 +114,26 @@ calc_sdt <- function(data, type_signal, ...,
     mutate(
       across(
         all_of(c("c", "e")),
-        # log-linear rule of correction extreme proportion
-        ~ stats::qnorm((.x + 0.5) / (.data$c + .data$e + 1)),
-        .names = "z{.col}"
+        list(
+          p = ~ .x / (.data$c + .data$e),
+          # log-linear rule of correction extreme proportion
+          z = ~ stats::qnorm((.x + 0.5) / (.data$c + .data$e + 1))
+        )
       )
     ) |>
     pivot_wider(
       names_from = "type_fac",
-      values_from = c("c", "e", "zc", "ze")
+      values_from = c("c", "e", "c_p", "e_p", "c_z", "e_z")
+    ) |>
+    rename(
+      hit = .data$c_p_s,
+      fa = .data$e_p_n,
+      miss = .data$e_p_s,
+      cr = .data$c_p_n
     ) |>
     mutate(
-      dprime = .data$zc_s - .data$ze_n,
-      c = -(.data$zc_s + .data$ze_n) / 2,
+      dprime = .data$c_z_s - .data$e_z_n,
+      c = -(.data$c_z_s + .data$e_z_n) / 2,
       commissions = .data$e_n,
       omissions = .data$e_s
     )
